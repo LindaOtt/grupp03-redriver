@@ -59,14 +59,19 @@ $ git push origin [name_of_your_branch]
 
 When you’re finished implementing your branch, create a pull request in repository on Github.
 
+![Pull request gif](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/3-pull-request.gif)
 
-You can add the keyword Fixes and number of the issue to automatically close the issue after merge.
+You can add the keyword `Fixes` and number of the issue to automatically close the issue after merge.
+
+![Pull request](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/4-pull-request.png)
 
 After the branch has been reviewed and everything seems ok, you can merge your created branch with the master branch.
 
+![Merge](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/5-merge-branches.gif)
+
 #### 5. Delete branch
 
-If you whant to delete the branch after merge, make shure to do it both on your local machine and on Github.
+If you want to delete the branch after merge, make shure to do it both on your local machine and on Github.
 
 Local machine:
 ```
