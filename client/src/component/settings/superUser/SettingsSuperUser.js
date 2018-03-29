@@ -12,4 +12,4 @@ class SettingsSuperUser extends Component {
     }
 }
 
-export default SettingsAdmin;
+export default SettingsSuperUser;
