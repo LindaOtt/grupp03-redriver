@@ -71,7 +71,7 @@ After the branch has been reviewed and everything seems ok, you can merge your c
 
 #### 5. Delete branch
 
-If you want to delete the branch after merge, make shure to do it both on your local machine and on Github.
+If you want to delete the branch after merge, make sure to do it both on your local machine and on Github.
 
 Local machine:
 ```
