@@ -1,7 +1,9 @@
-#Frågor till RedRiver
+#FrÃ¥gor till RedRiver
 
-1. I er kravspecifikation under "Samtyckesfunktion" står det att samtycket kan återkallas av anhöriga. Tänker ni att det ska finnas en anhörig till användaren som också har tillgång till användarens konto? Vi pratade nu vid mötet om att målgruppen ska vara alla från tolv år och uppåt, inte bara äldre patienter. Ska anhörigkravet kvarstå? I så fall, har ni möjlighet att beskriva mer detaljerat hur ni har tänkt att det ska fungera?
+1. I er kravspecifikation under "Samtyckesfunktion" stÃ¥r det att samtycket kan Ã¥terkallas av anhÃ¶riga. TÃ¤nker ni att det ska finnas en anhÃ¶rig till anvÃ¤ndaren som ocksÃ¥ har tillgÃ¥ng till anvÃ¤ndarens konto? Vi pratade nu vid mÃ¶tet om att mÃ¥lgruppen ska vara alla frÃ¥n tolv Ã¥r och uppÃ¥t, inte bara Ã¤ldre patienter. Ska anhÃ¶rigkravet kvarstÃ¥? I sÃ¥ fall, har ni mÃ¶jlighet att beskriva mer detaljerat hur ni har tÃ¤nkt att det ska fungera?
 
-2. Har ni några önskemål gällande grafisk profil? Typsnitt, färger och logotype?
+2.Det stÃ¥r Ã¤ven i kravspecifikationen att "en superuser ska kunna begrÃ¤nsa Ã¤ven Admin sÃ¥ att denne endast ser de fÃ¶rsta 6 sifforna i t.ex. personnummer". Kan ni fÃ¶rtydliga vilken information och funktioner en admin har tillgÃ¥ng till nÃ¤r en superuser slÃ¥r pÃ¥ denna begrÃ¤nsning? 
 
-3. Har ni beslutat om ett namn för applikationen?
+3. Har ni nÃ¥gra Ã¶nskemÃ¥l gÃ¤llande grafisk profil? Typsnitt, fÃ¤rger och logotype?
+
+4. Har ni beslutat om ett namn fÃ¶r applikationen?
