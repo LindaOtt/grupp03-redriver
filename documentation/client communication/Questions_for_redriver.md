@@ -23,7 +23,7 @@ Blir onödiga om inloggningen sker via mobilt BankID. Med mobilt BankID använde
 
 10. Ska användarna kunna connecta själva med sina vänner för att chatta? Eller behöver de vänta på att en admin ska koppla ihop dem?
 
-11. När en användare drar tillbaka sitt samtycke genom att använda appens UI och sedan bekräftar detta genom att klicka på länken i mailet som följer, ska den användaren då direkt tas bort från systemet eller ska användaren exempelvis få 24 timmar på sig att lämna samtycke igen? Anledning: Det kan exempelvis finnas fall där man felaktigt dragit tillbaka sitt samtycke och därmed förlorar sitt konto och all sin data av misstag, särskilt om man har lite eller ingen erfarenhet av detta sedan tidigare.
+11. När en användare drar tillbaka sitt samtycke genom att använda appens UI och sedan bekräftar detta genom att klicka på länken i mailet som följer, ska den användaren då direkt tas bort från systemet eller ska användaren exempelvis få 24 timmar på sig att lämna samtycke igen? Anledning: Det kan exempelvis finnas fall där man felaktigt dragit tillbaka sitt samtycke och därmed förlorar sitt konto och all sin data av misstag, särskilt om man har lite eller ingen erfarenhet av IT/chattapplikationer sedan tidigare.
 
 12. Kraven: Kommunikation ska inte sparas längre än lagen kräven, därför ska loggen kunna rensas med jämna mellanrum. Administratör av appen ska kunna ställa in med vilka intervall data ska rensas. Ska admin ha olika alternativ för intervallerna som exempelvis en vecka, varannan vecka, en månad eller ska kommunikation tas bort automatiskt när den nått en viss ålder? Eller är kravet mest att admin ska kunna ange intervall utifall att lagstiftningen förändras från en tidsram till en annan?
 
