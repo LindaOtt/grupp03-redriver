@@ -1,0 +1,11 @@
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\bin\Debug\netcoreapp2.0\RedRiverChatServer.deps.json
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\bin\Debug\netcoreapp2.0\RedRiverChatServer.runtimeconfig.json
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\bin\Debug\netcoreapp2.0\RedRiverChatServer.runtimeconfig.dev.json
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\bin\Debug\netcoreapp2.0\RedRiverChatServer.dll
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Debug\netcoreapp2.0\RedRiverChatServer.csprojResolveAssemblyReference.cache
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Debug\netcoreapp2.0\RedRiverChatServer.csproj.CoreCompileInputs.cache
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Debug\netcoreapp2.0\RedRiverChatServer.AssemblyInfoInputs.cache
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Debug\netcoreapp2.0\RedRiverChatServer.AssemblyInfo.cs
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\bin\Debug\netcoreapp2.0\RedRiverChatServer.pdb
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Debug\netcoreapp2.0\RedRiverChatServer.dll
+C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Debug\netcoreapp2.0\RedRiverChatServer.pdb
