@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import UserList from './components/UserList';
 import VideoChat from './components/VideoChat';
 import NameForm from './components/NameForm';
 
@@ -33,8 +32,7 @@ class App extends Component {
     return (
       <div className="App">
           {this.state.name ? (
-              <div>
-                  <UserList/>
+              <div className="App">
                   <VideoChat/>
               </div>
           ) : (

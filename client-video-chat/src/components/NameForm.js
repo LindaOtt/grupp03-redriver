@@ -26,6 +26,7 @@ class NameForm extends Component {
     render() {
         return (
             <div className="NameForm">
+                <p>Enter name:</p>
                 <input value={this.state.name} type="text" onChange={this.handleChange}/>
                 <button onClick={this.handleSubmit}>Submit</button>
             </div>
