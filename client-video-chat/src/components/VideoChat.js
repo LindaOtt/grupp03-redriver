@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { HubConnection } from '@aspnet/signalr';
 
 import '../App.css';
 
-import socket from './Socket';
-import PeerConnection from './PeerConnection';
+const deployUrl = '';
+const localUrl = 'http://localhost:5000/videochat';
 
 class VideoChat extends Component {
     constructor(props) {
@@ -19,24 +20,53 @@ class VideoChat extends Component {
             peerSrc: null,
         };
 
-        this.pc = {};
-        this.config = null;
         this.handleUsers = this.handleUsers.bind(this);
+        /*this.pc = {};
+        this.config = null;
         this.startCallHandler = this.startCall.bind(this);
         this.endCallHandler = this.endCall.bind(this);
-        this.rejectCallHandler = this.rejectCall.bind(this);
+        this.rejectCallHandler = this.rejectCall.bind(this);*/
     }
 
     handleUsers() {
 
-        let arr = ['jimmy', 'andrew', 'sophia', 'linda'];
+        let queryString = '?username=' + this.props.name + '&webrtcurl=' + this.state.localSrc;
 
-        arr.forEach((i) => {
-            this.state.users.push(<li><button type="button">Call {i}</button></li>);
+        let connection = new HubConnection(localUrl + queryString);
+
+        connection.on('Open', (data) => {
+            console.log(data);
+
+            let tempArr = [];
+
+            for (let i = 0; i < data.length; i++) {
+                tempArr.push(<li><button type="button" key={i.WebRtcId} >Call {i.usrname}</button></li>);
+            }
+            this.setState({
+                users: tempArr,
+            })
+
         });
+
+        connection.on('Close', (data) => {
+            console.log(data);
+
+            let tempArr = [];
+
+            for (let i = 0; i < data.length; i++) {
+                tempArr.push(<li><button type="button" key={i.WebRtcId} >Call {i.usrname}</button></li>);
+            }
+            this.setState({
+                users: tempArr,
+            })
+
+        });
+        connection.start();
+
+
     }
 
-    startCall(isCaller, friendID, config) {
+    /*startCall(isCaller, friendID, config) {
         this.config = config;
         this.pc = new PeerConnection(friendID)
             .on('localStream', (src) => {
@@ -77,13 +107,9 @@ class VideoChat extends Component {
             })
             .on('end', this.endCall.bind(this, false))
             .emit('init');
-    }
+    }*/
 
     componentWillMount() {
-        this.handleUsers();
-    }
-
-    componentWillUpdate() {
         this.handleUsers();
     }
 

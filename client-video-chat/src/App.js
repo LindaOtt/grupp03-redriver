@@ -33,7 +33,7 @@ class App extends Component {
       <div className="App">
           {this.state.name ? (
               <div className="App">
-                  <VideoChat/>
+                  <VideoChat name={this.state.name}/>
               </div>
           ) : (
               <NameForm handleNameSubmit={this.handleNameSubmit}/>
