@@ -28,11 +28,14 @@ class PeerConnection extends Emitter {
      * @param {Object} config - configuration for the call {audio: boolean, video: boolean}
      */
     start(isCaller, config) {
+
+        console.log(this.friendID);
+
         this.mediaDevice
             .on('stream', (stream) => {
                 this.pc.addStream(stream);
                 this.emit('localStream', stream);
-                if (isCaller) this.connection.invoke('request', { to: this.friendID });
+                if (isCaller) this.connection.invoke('Request', this.friendID);
                 else this.createOffer();
             })
             .start(config);
@@ -44,7 +47,7 @@ class PeerConnection extends Emitter {
      * @param {Boolean} isStarter
      */
     stop(isStarter) {
-        if (isStarter) this.connection.invoke('end', { to: this.friendID });
+        if (isStarter) this.connection.invoke('End', this.friendID);
         this.mediaDevice.stop();
         this.pc.close();
         this.pc = null;
@@ -68,7 +71,7 @@ class PeerConnection extends Emitter {
 
     getDescription(desc) {
         this.pc.setLocalDescription(desc);
-        this.connection.invoke('call', { to: this.friendID, sdp: desc });
+        this.connection.invoke('Call', { to: this.friendID, sdp: desc });
         return this;
     }
 

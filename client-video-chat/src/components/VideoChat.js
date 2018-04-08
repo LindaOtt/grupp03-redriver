@@ -6,6 +6,7 @@ import VoiceIcon from 'react-icons/lib/md/local-phone';
 
 import PeerConnection from './PeerConnection';
 import CallWindow from './CallWindow';
+import CallModal from './CallModal';
 
 import '../App.css';
 
@@ -28,6 +29,7 @@ class VideoChat extends Component {
             callModal: '',
             localSrc: null,
             peerSrc: null,
+            callFrom: '',
         };
 
         this.handleUsers = this.handleUsers.bind(this);
@@ -58,14 +60,17 @@ class VideoChat extends Component {
         });
 
         userConnection.on('request', (data) => {
-            this.setState({ callModal: 'active', callFrom: data.from })
+
+            console.log(data);
+
+            this.setState({ callModal: 'active', callFrom: data })
         });
 
         userConnection.on('call', (data) => {
-            if (data.sdp) {
-                this.pc.setRemoteDescription(data.sdp);
-                if (data.sdp.type === 'offer') this.pc.createAnswer();
-            } else this.pc.addIceCandidate(data.candidate);
+            if (data.data.sdp) {
+                this.pc.setRemoteDescription(data.data.sdp);
+                if (data.data.sdp.type === 'offer') this.pc.createAnswer();
+            } else this.pc.addIceCandidate(data.data.candidate);
         });
 
         userConnection.on('end', this.endCall.bind(this, false))
@@ -81,8 +86,8 @@ class VideoChat extends Component {
             tempArr.push(<li className="UserList-li">
                             <p>{data[i].username}</p>
                             <div className="CallButtons">
-                                <button className="Button"><VideoIcon size={15}/></button>
-                                <button className="Button" ><VoiceIcon size={15}/></button>
+                                <button className="Button" onClick={this.callWithVideo(true, data[i].connectionID)}><VideoIcon size={15}/></button>
+                                <button className="Button" onClick={this.callWithVideo(true, data[i].connectionID)}><VoiceIcon size={15}/></button>
                             </div>
                         </li>);
         }
@@ -91,8 +96,18 @@ class VideoChat extends Component {
         })
     }
 
+    callWithVideo(video, friendID) {
+        const config = {audio: true};
+        config.video = video;
+        return () => this.startCall(true, friendID, config);
+    }
+
     startCall(isCaller, friendID, config) {
         this.config = config;
+
+        console.log(friendID);
+        console.log(config);
+
         this.pc = new PeerConnection(friendID, userConnection)
             .on('localStream', (src) => {
                 const newState = { callWindow: 'active', localSrc: src };
@@ -104,11 +119,14 @@ class VideoChat extends Component {
     }
 
     rejectCall() {
-        userConnection.invoke('end', { to: this.state.callFrom });
+        userConnection.invoke('End', this.state.callFrom);
         this.setState({ callModal: '' });
     }
 
     endCall(isStarter) {
+
+        console.log(isStarter);
+
         if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter);
         this.pc = {};
         this.config = null;
@@ -119,7 +137,7 @@ class VideoChat extends Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.handleUsers();
     }
 
@@ -143,6 +161,12 @@ class VideoChat extends Component {
                                 endCall={this.endCall}
                             />
                         </div>
+                        <CallModal
+                            status={this.state.callModal}
+                            startCall={this.startCall}
+                            rejectCall={this.rejectCall}
+                            callFrom={this.state.callFrom}
+                        />
                     </div>
                 ) : (
                     <h3>No users connected</h3>
