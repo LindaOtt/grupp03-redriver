@@ -25,8 +25,8 @@ class VideoChat extends Component {
         this.state = {
             clientId: '',
             users: [],
-            callWindow: '',
-            callModal: '',
+            callWindow: false,
+            callModal: false,
             localSrc: null,
             peerSrc: null,
             callFrom: '',
@@ -63,7 +63,17 @@ class VideoChat extends Component {
 
             console.log(data);
 
-            this.setState({ callModal: 'active', callFrom: data })
+            let caller = '';
+
+            for (let i = 0; i < this.state.users.length; i++) {
+                if (this.state.users[i].connectionId === data) {
+                    caller = this.state.users[i].username;
+                }
+            }
+
+            console.log(caller);
+
+            this.setState({ callModal: 'active', callFrom: caller })
         });
 
         userConnection.on('call', (data) => {
@@ -83,13 +93,16 @@ class VideoChat extends Component {
 
         for (let i = 0; i < data.length; i++) {
 
-            tempArr.push(<li className="UserList-li">
-                            <p>{data[i].username}</p>
-                            <div className="CallButtons">
-                                <button className="Button" onClick={this.callWithVideo(true, data[i].connectionID)}><VideoIcon size={15}/></button>
-                                <button className="Button" onClick={this.callWithVideo(true, data[i].connectionID)}><VoiceIcon size={15}/></button>
-                            </div>
-                        </li>);
+            if (data[i].username !== this.props.name) {
+
+                tempArr.push(<li className="UserList-li">
+                    <p>{data[i].username}</p>
+                    <div className="CallButtons">
+                        <button className="Button" onClick={this.callWithVideo(true, data[i].connectionID)}><VideoIcon size={15}/></button>
+                        <button className="Button" onClick={this.callWithVideo(true, data[i].connectionID)}><VoiceIcon size={15}/></button>
+                    </div>
+                </li>);
+            }
         }
         this.setState({
             users: tempArr,
@@ -110,8 +123,8 @@ class VideoChat extends Component {
 
         this.pc = new PeerConnection(friendID, userConnection)
             .on('localStream', (src) => {
-                const newState = { callWindow: 'active', localSrc: src };
-                if (!isCaller) newState.callModal = '';
+                const newState = { callWindow: true, localSrc: src };
+                if (!isCaller) newState.callModal = false;
                 this.setState(newState);
             })
             .on('peerStream', src => this.setState({ peerSrc: src }))
@@ -120,7 +133,7 @@ class VideoChat extends Component {
 
     rejectCall() {
         userConnection.invoke('End', this.state.callFrom);
-        this.setState({ callModal: '' });
+        this.setState({ callModal: false });
     }
 
     endCall(isStarter) {
@@ -131,7 +144,7 @@ class VideoChat extends Component {
         this.pc = {};
         this.config = null;
         this.setState({
-            callWindow: '',
+            callWindow: false,
             localSrc: null,
             peerSrc: null
         });
@@ -144,33 +157,44 @@ class VideoChat extends Component {
     render() {
 
         return (
+
+
             <div className="VideoChat-Main">
-                {this.state.users.length > 0 ? (
-                    <div className="VideoChat-Main">
-                        <div className="UserList">
-                            <h3>Connected users</h3>
-                            <ul className="UserList-Ul">{this.state.users}</ul>
-                        </div>
-                        <div className="VideoChat">
-                            <CallWindow
-                                status={this.state.callWindow}
-                                localSrc={this.state.localSrc}
-                                peerSrc={this.state.peerSrc}
-                                config={this.config}
-                                mediaDevice={this.pc.mediaDevice}
-                                endCall={this.endCall}
-                            />
-                        </div>
-                        <CallModal
-                            status={this.state.callModal}
-                            startCall={this.startCall}
-                            rejectCall={this.rejectCall}
-                            callFrom={this.state.callFrom}
-                        />
-                    </div>
+                {this.state.callModal ? (
+                    <CallModal
+                        status={this.state.callModal}
+                        startCall={this.startCall}
+                        rejectCall={this.rejectCall}
+                        callFrom={this.state.callFrom}
+                    />
                 ) : (
-                    <h3>No users connected</h3>
-                    )}
+                    <div className="VideoChat-Main">
+                        {this.state.users.length > 0 ? (
+                            <div className="VideoChat-Main">
+                                <div className="UserList">
+                                    <h3>Connected users</h3>
+                                    <ul className="UserList-Ul">{this.state.users}</ul>
+                                </div>
+                                <div className="VideoChat">
+                                    {this.state.callWindow ? (
+                                        <CallWindow
+                                            status={this.state.callWindow}
+                                            localSrc={this.state.localSrc}
+                                            peerSrc={this.state.peerSrc}
+                                            config={this.config}
+                                            mediaDevice={this.pc.mediaDevice}
+                                            endCall={this.endCall}
+                                        />
+                                    ) : (
+                                        <p>Make a call...</p>
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            <h3>No users connected</h3>
+                        )}
+                    </div>
+                )}
             </div>
         );
     }

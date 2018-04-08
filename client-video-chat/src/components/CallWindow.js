@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 //import classnames from 'classnames';
 import _ from 'lodash';
 
+import VideoIcon from 'react-icons/lib/md/videocam';
+import VoiceIcon from 'react-icons/lib/md/keyboard-voice';
+import EndCall from 'react-icons/lib/md/call-end';
+
+import '../App.css';
+
 class CallWindow extends Component {
     constructor(props) {
         super(props);
@@ -56,31 +62,60 @@ class CallWindow extends Component {
     }
 
     renderControlButtons() {
-        /*const getClass = (icon, type) => classnames(`btn-action fa ${icon}`, {
-            disable: !this.state[type]
-        });
 
-        return this.btns.map(btn => (
-            <button
-                key={`btn${btn.type}`}
-                className={getClass(btn.icon, btn.type)}
-                onClick={() => this.toggleMediaDevice(btn.type)}
-            />
-        ));*/
+        let tempArr = [];
+
+        if (this.state.Audio === true) {
+
+            tempArr.push(<button
+                className="VideoControl-Button-Active"
+                onClick={() => this.toggleMediaDevice('Audio')}
+            >
+                <VoiceIcon size={15}/>
+            </button>)
+        } else {
+            tempArr.push(<button
+                className="VideoControl-Button"
+                onClick={() => this.toggleMediaDevice('Audio')}
+            >
+                <VoiceIcon size={15}/>
+            </button>)
+        }
+
+        if (this.state.Video === true) {
+
+            tempArr.push(<button
+                className="VideoControl-Button-Active"
+                onClick={() => this.toggleMediaDevice('Video')}
+            >
+                <VideoIcon size={15}/>
+            </button>)
+        } else {
+            tempArr.push(<button
+                className="VideoControl-Button"
+                onClick={() => this.toggleMediaDevice('Video')}
+            >
+                <VideoIcon size={15}/>
+            </button>)
+        }
+        return tempArr;
     }
+
     render() {
         const { status } = this.props;
         return (
-            <div >
-                <video id="peerVideo" ref={el => this.peerVideo = el} autoPlay />
-                <video id="localVideo" ref={el => this.localVideo = el} autoPlay muted />
-                <div className="video-control">
+            <div className="VideoContainer">
+                <div className="VideoControl">
                     {this.renderControlButtons()}
                     <button
-                        className="btn-action hangup fa fa-phone"
+                        className="VideoControl-Button"
                         onClick={() => this.props.endCall(true)}
-                    />
+                    >
+                        <EndCall size={15}/>
+                    </button>
                 </div>
+                <video id="localVideo" ref={el => this.localVideo = el} autoPlay muted />
+                <video id="peerVideo" ref={el => this.peerVideo = el} autoPlay />
             </div>
         );
     }

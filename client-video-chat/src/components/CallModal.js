@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import '../App.css';
+
 class CallModal extends Component {
     acceptWithVideo(video) {
         const config = { audio: true, video };
@@ -8,7 +10,7 @@ class CallModal extends Component {
 
     render() {
         return (
-            <div >
+            <div className="CallModal">
                 <p>
                     <span className="caller">{this.props.callFrom}</span> is calling ...
                 </p>
