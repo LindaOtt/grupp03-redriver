@@ -1,0 +1,637 @@
+{
+	"info": {
+		"_postman_id": "9c4bb8e5-4af3-44a5-9b13-057429411d8a",
+		"name": "RedRiverServer Tests",
+		"description": "# RedRiver Server API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth tests - no auth",
+			"description": "",
+			"item": [
+				{
+					"name": "Unprotected route request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60f6ca4b-c1f9-4d56-a162-3bc4261b726a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryunprotectedroute",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryunprotectedroute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Protected route request w/o auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e402cb3-6054-4fd2-a1a2-99dd50b63660",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedroute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Protected route request w/o auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e402cb3-6054-4fd2-a1a2-99dd50b63660",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedrouteadmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Superuser protected route request w/o auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e402cb3-6054-4fd2-a1a2-99dd50b63660",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroutesuperuser",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedroutesuperuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Superuser or admin protected route request w/o auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e402cb3-6054-4fd2-a1a2-99dd50b63660",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroutesuperuseroradmin",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedroutesuperuseroradmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account Creation missing username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90067712-2e0c-4bbf-8ee7-14693d2fca8a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"testUserb@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Creation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get JWT Bad User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32a8a931-4577-4044-a400-6cd6060f31c5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"username\": \"fakeuser\",\n\t\"email\": \"fakeuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99d12541-f78c-436e-8141-9bfb8437bade",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"jsonData = pm.response.json();",
+							"pm.environment.set(\"token\",jsonData.token );",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protected route with auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86bfe7b7-7f92-4e84-93ba-3e4a96e208a7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"routetest",
+						"tryprotectedroute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make user admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86bfe7b7-7f92-4e84-93ba-3e4a96e208a7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"testuser@hotmail.com\",\n  \"rolename\" : \"admin\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/addusertorole",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"addusertorole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99d12541-f78c-436e-8141-9bfb8437bade",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"jsonData = pm.response.json();",
+							"pm.environment.set(\"token\",jsonData.token );",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin protected route with auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86bfe7b7-7f92-4e84-93ba-3e4a96e208a7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"routetest",
+						"tryprotectedrouteadmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/deleteuser",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"deleteuser"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
