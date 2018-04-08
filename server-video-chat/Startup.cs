@@ -56,6 +56,7 @@ namespace server_video_chat
             {
                 routes.MapHub<VideoChat>("/videochat");
             });
+
             app.UseMvc();
         }
     }

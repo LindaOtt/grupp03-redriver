@@ -8,10 +8,8 @@ namespace server_video_chat.Controllers
 {
     class UserConn
     {
-        public string Usrname { set; get; }
+        public string Username { set; get; }
         public string ConnectionID { set; get; }
-
-        public string WebRtcId { set; get; }
     }
 
     public class VideoChat:Hub
@@ -19,15 +17,6 @@ namespace server_video_chat.Controllers
         static List<UserConn> ulist = new List<UserConn>();
         public override Task OnConnectedAsync()
         {
-            var us = new UserConn();
-            var httpContext = Context.Connection.GetHttpContext();
-            us.Usrname = httpContext.Request.Query["username"];
-            us.WebRtcId = httpContext.Request.Query["webrtcurl"];
-            us.ConnectionID = Context.ConnectionId;
-            ulist.Add(us);
-
-            Console.WriteLine(us.Usrname.ToString());
-            Console.WriteLine(ulist.ToString());
 
             return Clients.All.SendAsync("Open", ulist);
         }
@@ -43,9 +32,28 @@ namespace server_video_chat.Controllers
             return Clients.All.SendAsync("Close", ulist);
         }
 
-        public Task Send(string message)
+        public Task UserInfo(string username)
         {
-            return Clients.All.SendAsync("Send", message);
+            var us = new UserConn();
+            
+            us.Username = username;
+            us.ConnectionID = Context.ConnectionId;
+            ulist.Add(us);
+
+            Console.WriteLine(us.Username.ToString());
+            return Clients.All.SendAsync("Open", ulist);
+        }
+
+        public Task UserInfo(string username)
+        {
+            var us = new UserConn();
+            
+            us.Username = username;
+            us.ConnectionID = Context.ConnectionId;
+            ulist.Add(us);
+
+            Console.WriteLine(us.Username.ToString());
+            return Clients.All.SendAsync("Open", ulist);
         }
 
     }

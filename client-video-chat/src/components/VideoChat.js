@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { HubConnection } from '@aspnet/signalr';
+import VideoIcon from 'react-icons/lib/md/videocam';
+import VoiceIcon from 'react-icons/lib/md/local-phone';
+
+import PeerConnection from './PeerConnection';
+import CallWindow from './CallWindow';
 
 import '../App.css';
 
 const deployUrl = '';
 const localUrl = 'http://localhost:5000/videochat';
+const deployUrlWebRtc = '';
+const localUrlWebRtc = 'http://localhost:5000/webrtc';
+
+let userConnection = new HubConnection(localUrl);
+let rtcConnection = new HubConnection(localUrlWebRtc);
 
 class VideoChat extends Component {
     constructor(props) {
@@ -21,54 +31,69 @@ class VideoChat extends Component {
         };
 
         this.handleUsers = this.handleUsers.bind(this);
-        /*this.pc = {};
+        this.pc = {};
         this.config = null;
-        this.startCallHandler = this.startCall.bind(this);
-        this.endCallHandler = this.endCall.bind(this);
-        this.rejectCallHandler = this.rejectCall.bind(this);*/
+        this.startCall = this.startCall.bind(this);
+        this.endCall = this.endCall.bind(this);
+        this.rejectCall = this.rejectCall.bind(this);
     }
 
     handleUsers() {
 
-        let queryString = '?username=' + this.props.name + '&webrtcurl=' + this.state.localSrc;
+        userConnection.start()
+            .then(() => {
+                userConnection.invoke('UserInfo', this.props.name);
+            });
 
-        let connection = new HubConnection(localUrl + queryString);
+        userConnection.on('Open', (data) => {
 
-        connection.on('Open', (data) => {
-            console.log(data);
-
-            let tempArr = [];
-
-            for (let i = 0; i < data.length; i++) {
-                tempArr.push(<li><button type="button" key={i.WebRtcId} >Call {i.usrname}</button></li>);
-            }
-            this.setState({
-                users: tempArr,
-            })
+            this.createUserList(data);
 
         });
 
-        connection.on('Close', (data) => {
-            console.log(data);
+        userConnection.on('Close', (data) => {
 
-            let tempArr = [];
-
-            for (let i = 0; i < data.length; i++) {
-                tempArr.push(<li><button type="button" key={i.WebRtcId} >Call {i.usrname}</button></li>);
-            }
-            this.setState({
-                users: tempArr,
-            })
+            this.createUserList(data);
 
         });
-        connection.start();
 
+        userConnection.on('request', (data) => {
+            this.setState({ callModal: 'active', callFrom: data.from })
+        });
 
+        userConnection.on('call', (data) => {
+            if (data.sdp) {
+                this.pc.setRemoteDescription(data.sdp);
+                if (data.sdp.type === 'offer') this.pc.createAnswer();
+            } else this.pc.addIceCandidate(data.candidate);
+        });
+
+        userConnection.on('end', this.endCall.bind(this, false))
     }
 
-    /*startCall(isCaller, friendID, config) {
+    createUserList(data) {
+
+        console.log(data);
+        let tempArr = [];
+
+        for (let i = 0; i < data.length; i++) {
+
+            tempArr.push(<li className="UserList-li">
+                            <p>{data[i].username}</p>
+                            <div className="CallButtons">
+                                <button className="Button"><VideoIcon size={15}/></button>
+                                <button className="Button" ><VoiceIcon size={15}/></button>
+                            </div>
+                        </li>);
+        }
+        this.setState({
+            users: tempArr,
+        })
+    }
+
+    startCall(isCaller, friendID, config) {
         this.config = config;
-        this.pc = new PeerConnection(friendID)
+        this.pc = new PeerConnection(friendID, userConnection)
             .on('localStream', (src) => {
                 const newState = { callWindow: 'active', localSrc: src };
                 if (!isCaller) newState.callModal = '';
@@ -79,7 +104,7 @@ class VideoChat extends Component {
     }
 
     rejectCall() {
-        socket.emit('end', { to: this.state.callFrom });
+        userConnection.invoke('end', { to: this.state.callFrom });
         this.setState({ callModal: '' });
     }
 
@@ -94,21 +119,6 @@ class VideoChat extends Component {
         });
     }
 
-
-    componentDidMount() {
-        socket
-            .on('init', data => this.setState({ clientId: data.id }))
-            .on('request', data => this.setState({ callModal: 'active', callFrom: data.from }))
-            .on('call', (data) => {
-                if (data.sdp) {
-                    this.pc.setRemoteDescription(data.sdp);
-                    if (data.sdp.type === 'offer') this.pc.createAnswer();
-                } else this.pc.addIceCandidate(data.candidate);
-            })
-            .on('end', this.endCall.bind(this, false))
-            .emit('init');
-    }*/
-
     componentWillMount() {
         this.handleUsers();
     }
@@ -116,11 +126,23 @@ class VideoChat extends Component {
     render() {
 
         return (
-            <div className="UserList">
+            <div className="VideoChat-Main">
                 {this.state.users.length > 0 ? (
-                    <div className="UserList">
-                        <h3>Connected users</h3>
-                        <ul className="UserList-Ul">{this.state.users}</ul>
+                    <div className="VideoChat-Main">
+                        <div className="UserList">
+                            <h3>Connected users</h3>
+                            <ul className="UserList-Ul">{this.state.users}</ul>
+                        </div>
+                        <div className="VideoChat">
+                            <CallWindow
+                                status={this.state.callWindow}
+                                localSrc={this.state.localSrc}
+                                peerSrc={this.state.peerSrc}
+                                config={this.config}
+                                mediaDevice={this.pc.mediaDevice}
+                                endCall={this.endCall}
+                            />
+                        </div>
                     </div>
                 ) : (
                     <h3>No users connected</h3>
