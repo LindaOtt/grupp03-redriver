@@ -54,7 +54,8 @@
   background-color: rgba(135, 138, 140, 0.81);
   margin-left: 35%;
   border-radius: 3px;
-  opacity: 0.8;
+  opacity: 0.4;
+  z-index: 1;
 }
 
 .VideoControl:hover {
@@ -116,5 +117,27 @@
 }
 
 .CallModal {
+  width: 250px;
+  height: 100px;
+  background-color: rgba(135, 138, 140, 0.81);
   margin: auto;
+  border-radius: 3px;
+}
+
+.CallModal-Button {
+
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #d01126;
+  margin: 5px;
+}
+
+.CallModal-Button-Active {
+
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #0c68d0;
+  margin: 5px;
 }

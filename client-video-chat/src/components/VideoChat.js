@@ -10,13 +10,10 @@ import CallModal from './CallModal';
 
 import '../App.css';
 
-const deployUrl = '';
+const deployUrl = 'https://redrivervideocallserver.azurewebsites.net/videochat';
 const localUrl = 'http://localhost:5000/videochat';
-const deployUrlWebRtc = '';
-const localUrlWebRtc = 'http://localhost:5000/webrtc';
 
-let userConnection = new HubConnection(localUrl);
-let rtcConnection = new HubConnection(localUrlWebRtc);
+let userConnection = new HubConnection(deployUrl);
 
 class VideoChat extends Component {
     constructor(props) {
@@ -25,6 +22,7 @@ class VideoChat extends Component {
         this.state = {
             clientId: '',
             users: [],
+            userInfo: [],
             callWindow: false,
             callModal: false,
             localSrc: null,
@@ -65,9 +63,10 @@ class VideoChat extends Component {
 
             let caller = '';
 
-            for (let i = 0; i < this.state.users.length; i++) {
-                if (this.state.users[i].connectionId === data) {
-                    caller = this.state.users[i].username;
+            for (let i = 0; i < this.state.userInfo.length; i++) {
+                console.log(this.state.userInfo[i]);
+                if (this.state.userInfo[i].connectionId === data) {
+                    caller = this.state.userInfo[i].username;
                 }
             }
 
@@ -90,10 +89,18 @@ class VideoChat extends Component {
 
         console.log(data);
         let tempArr = [];
+        let tempArrInfo = [];
 
         for (let i = 0; i < data.length; i++) {
 
             if (data[i].username !== this.props.name) {
+
+                let tempObj = {
+                    username: data[i].username,
+                    connectionId: data[i].connectionID,
+                };
+
+                tempArrInfo.push(tempObj);
 
                 tempArr.push(<li className="UserList-li">
                     <p>{data[i].username}</p>
@@ -106,6 +113,7 @@ class VideoChat extends Component {
         }
         this.setState({
             users: tempArr,
+            userInfo: tempArrInfo,
         })
     }
 

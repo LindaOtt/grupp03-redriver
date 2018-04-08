@@ -45,13 +45,13 @@ namespace server_video_chat
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors("AllowCors");
-            
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<VideoChat>("/videochat");

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace server_video_chat.Controllers
+namespace redrivervideochatserver.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
@@ -13,7 +13,7 @@ namespace server_video_chat.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "test", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

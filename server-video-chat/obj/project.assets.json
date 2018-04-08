@@ -12853,17 +12853,17 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jimmybengtsson/WebstormProjects/1dv611/grupp03-redriver/server-video-chat/server-video-chat.csproj",
-      "projectName": "server-video-chat",
-      "projectPath": "/Users/jimmybengtsson/WebstormProjects/1dv611/grupp03-redriver/server-video-chat/server-video-chat.csproj",
+      "projectUniqueName": "/Users/jimmybengtsson/WebstormProjects/1dv611/redrivervideochatserver/redrivervideochatserver/redrivervideochatserver/redrivervideochatserver.csproj",
+      "projectName": "redrivervideochatserver",
+      "projectPath": "/Users/jimmybengtsson/WebstormProjects/1dv611/redrivervideochatserver/redrivervideochatserver/redrivervideochatserver/redrivervideochatserver.csproj",
       "packagesPath": "/Users/jimmybengtsson/.nuget/packages/",
-      "outputPath": "/Users/jimmybengtsson/WebstormProjects/1dv611/grupp03-redriver/server-video-chat/obj/",
+      "outputPath": "/Users/jimmybengtsson/WebstormProjects/1dv611/redrivervideochatserver/redrivervideochatserver/redrivervideochatserver/obj",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/jimmybengtsson/.nuget/NuGet/NuGet.Config"
+        "/Users/jimmybengtsson/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -12885,18 +12885,19 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Microsoft.NETCore.App": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "2.0",
+            "autoReferenced": true
+          },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "[2.0.6, )"
+            "version": "2.0.6"
           },
           "Microsoft.AspNetCore.SignalR": {
             "target": "Package",
-            "version": "[1.0.0-preview1-final, )"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
+            "version": "1.0.0-preview1-final"
           }
         },
         "imports": [

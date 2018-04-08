@@ -100,7 +100,6 @@ class CallWindow extends Component {
         }
         return tempArr;
     }
-
     render() {
         const { status } = this.props;
         return (

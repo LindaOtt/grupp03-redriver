@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace server_video_chat.Controllers
         public object data { set; get; }
     }
 
-    public class VideoChat:Hub
+    public class VideoChat : Hub
     {
         static List<UserConn> ulist = new List<UserConn>();
         public override Task OnConnectedAsync()
@@ -41,7 +41,7 @@ namespace server_video_chat.Controllers
         public Task UserInfo(string username)
         {
             var us = new UserConn();
-            
+
             us.Username = username;
             us.ConnectionID = Context.ConnectionId;
             ulist.Add(us);

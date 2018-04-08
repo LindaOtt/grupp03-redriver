@@ -70,6 +70,8 @@ class PeerConnection extends Emitter {
     }
 
     getDescription(desc) {
+
+        console.log(this.friendID);
         this.pc.setLocalDescription(desc);
         this.connection.invoke('Call', { to: this.friendID, sdp: desc });
         return this;
