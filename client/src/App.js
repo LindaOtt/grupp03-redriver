@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import grey from 'material-ui/colors/grey';
 import './App.css';
 
 import ChatList from './component/chat/ChatList';
@@ -13,9 +20,23 @@ class App extends Component {
     return (
         <Router>
           <div className="App">
-            <header className="App-header">
-              <h1 className="App-title">Red River</h1>
-            </header>
+              <AppBar
+                  position="static"
+                  style={styles.root}
+              >
+                  <Toolbar>
+                      <Typography
+                          variant="title"
+                          color="inherit"
+                          style={styles.flex}
+                      >
+
+                      </Typography>
+                      <IconButton color="inherit" aria-label="Menu">
+                          <MenuIcon />
+                      </IconButton>
+                  </Toolbar>
+              </AppBar>
               <div className="Body">
                   <Route path="/" exact={true} component={() => <ChatList state={this.state}/>}/>
                   <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
@@ -30,3 +51,15 @@ class App extends Component {
 }
 
 export default App;
+
+const primaryColor = grey[400];
+
+const styles = {
+    root: {
+        flexGrow: 1,
+        backgroundColor: primaryColor,
+    },
+    flex: {
+        flex: 1,
+    },
+};
