@@ -109,7 +109,7 @@ class App extends Component {
             <MuiThemeProvider theme={theme}>
                   <div className="App">
                       <AppBar
-                          position="static"
+                          position="sticky"
                           style={appStyles.root}
                       >
                           <Toolbar>
