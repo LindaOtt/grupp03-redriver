@@ -5,7 +5,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
 import './Authentication.css';
-import {appStyles, registerStyles} from "../../styles/MUIStyles";
+import {registerStyles} from "../../styles/Styles";
 
 class Register extends Component {
     constructor(props){

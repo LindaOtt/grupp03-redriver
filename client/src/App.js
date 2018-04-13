@@ -8,13 +8,14 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import './App.css';
-import {appStyles, theme} from './styles/MUIStyles';
+import {appStyles, theme} from './styles/Styles';
 
 import ChatList from './component/chat/ChatList';
 import FriendsList from './component/friends/FriendsList';
 import Settings from './component/settings/Settings';
 import Login from './component/authentication/Login';
 import Register from './component/authentication/Register';
+import NewPassword from './component/authentication/NewPassword';
 
 class App extends Component {
   render() {
@@ -45,6 +46,7 @@ class App extends Component {
                           <Route path="/settings" component={() => <Settings state={this.state}/>}/>
                           <Route path="/login" component={() => <Login state={this.state}/>}/>
                           <Route path="/register" component={() => <Register state={this.state}/>}/>
+                          <Route path="/password" component={() => <NewPassword state={this.state}/>}/>
                       </div>
                   </div>
             </MuiThemeProvider>
