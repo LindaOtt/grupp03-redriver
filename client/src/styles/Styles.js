@@ -29,7 +29,10 @@ export const appStyles = {
     },
     menuButton: {
         color: grey[100],
-    }
+    },
+    menu: {
+        width: 250,
+    },
 };
 
 export const registerStyles =  {
@@ -102,17 +105,16 @@ export const loginStyles =  {
         width: 300,
         display: 'flex',
         flexDirection: 'row',
+        marginTop: 20,
     },
     loginLinkDivLeft: {
         width: 150,
         height: 100,
-        marginTop: 10,
         textAlign: 'left',
     },
     loginLinkDivRight: {
         width: 150,
         height: 100,
-        marginTop: 10,
         textAlign: 'right',
     },
 };
