@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
 import {loginStyles} from "../../styles/AuthStyles";
+import '../../styles/Styles.css'
 
 class Login extends Component {
 
@@ -25,7 +26,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div style={loginStyles.login}>
+            <div className="Login">
                 <Typography
                     variant="headline"
                     color="default"
@@ -52,7 +53,7 @@ class Login extends Component {
                         onChange={this.handleChange('password')}
                         margin="normal"
                     />
-                    <div style={loginStyles.loginButton}>
+                    <div className="LoginButton">
                         <Button variant="raised" style={loginStyles.button}>
                             Logga in
                         </Button>

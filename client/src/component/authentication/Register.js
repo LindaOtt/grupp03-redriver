@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
 import {registerStyles} from "../../styles/AuthStyles";
+import '../../styles/Styles.css'
 
 class Register extends Component {
     constructor(props){
@@ -35,7 +36,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div style={registerStyles.register}>
+            <div className="Register">
                 <Typography
                     variant="headline"
                     color="default"
@@ -156,7 +157,7 @@ class Register extends Component {
                         label="Välj profilbild"
                         styles={registerStyles.imageUpload}
                     />
-                    <div style={registerStyles.registerButton}>
+                    <div className="RegisterButton">
                         <Button variant="raised" style={registerStyles.button}>
                             Registrera
                         </Button>

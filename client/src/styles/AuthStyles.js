@@ -46,7 +46,21 @@ export const registerStyles =  {
         height: 240,
         marginRight: 30,
         marginLeft: 30,
-    }
+    },
+    '@media (max-width: 600px)': {
+        loginButton: {
+            width: 300,
+        },
+        textField: {
+            width: 300,
+        },
+        menu: {
+            width: 300,
+        },
+        button: {
+            width: 300,
+        },
+    },
 };
 
 export const loginStyles =  {

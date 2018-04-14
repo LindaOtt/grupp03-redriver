@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import {ChatListStyles} from "../../styles/ChatStyles";
+import '../../styles/Styles.css'
 
 class ChatList extends Component {
     render() {
         return (
-                <div style={ChatListStyles.chatList}>
-                    <p>Chat list</p>
-                </div>
+            <div className="ChatList">
+                <p>Chat list</p>
+            </div>
 
         );
     }

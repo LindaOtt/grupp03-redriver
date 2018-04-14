@@ -16,7 +16,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import LoginIcon from '@material-ui/icons/Person';
 import RegisterIcon from '@material-ui/icons/PersonAdd';
 
-import './App.css';
+import './styles/Styles.css';
 import {theme} from './styles/Styles';
 import AppStyles from './styles/AppStyles';
 
@@ -108,7 +108,7 @@ class App extends Component {
     return (
         <Router>
             <MuiThemeProvider theme={theme}>
-                  <div style={AppStyles.app}>
+                <div className="App">
                       <AppBar
                           position="sticky"
                           style={AppStyles.root}
@@ -126,7 +126,7 @@ class App extends Component {
                               </IconButton>
                           </Toolbar>
                       </AppBar>
-                      <div style={AppStyles.body}>
+                      <div className="Body">
                           <Route path="/" exact={true} component={() => <ChatList state={this.state}/>}/>
                           <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
                           <Route path="/settings" component={() => <Settings state={this.state}/>}/>

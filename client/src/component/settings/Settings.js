@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import {settingsStyles} from "../../styles/SettingsStyles";
+import '../../styles/Styles.css'
 
 import User from './user/SettingsUser';
 import SuperUser from './superUser/SettingsSuperUser';
@@ -33,7 +34,7 @@ class Settings extends Component {
     }
     render() {
         return (
-                <div style={settingsStyles.settings}>
+                <div className="Settings">
                     {this.state.user ? (
                         <div>
                             {this.toggleUser}
