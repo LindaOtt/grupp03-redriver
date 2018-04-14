@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import Snackbar from 'material-ui/Snackbar';
 
 import ChatIcon from '@material-ui/icons/ChatBubble';
 import PersonIcon from '@material-ui/icons/People';
@@ -34,8 +35,29 @@ class App extends Component {
 
         this.state = {
             menu: false,
+            snackBar: false,
+            snackBarMessage: '',
         };
+        this.openSnackBar = this.openSnackBar.bind(this);
     }
+
+    openSnackBar = (message) => {
+        this.setState({
+            snackBar: true,
+            snackBarMessage: message,
+        });
+
+        setTimeout(() => {
+            this.closeSnackBar();
+        }, 3000);
+    };
+
+    closeSnackBar = () => {
+        this.setState({
+            snackBar: false,
+            snackBarMessage: '',
+        });
+    };
 
     renderMenu =  () => {
         return (
@@ -130,10 +152,18 @@ class App extends Component {
                           <Route path="/" exact={true} component={() => <ChatList state={this.state}/>}/>
                           <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
                           <Route path="/settings" component={() => <Settings state={this.state}/>}/>
-                          <Route path="/login" component={() => <Login state={this.state}/>}/>
-                          <Route path="/register" component={() => <Register state={this.state}/>}/>
+                          <Route path="/login" component={() => <Login state={this.state} openSnackBar={this.openSnackBar}/>}/>
+                          <Route path="/register" component={() => <Register state={this.state} openSnackBar={this.openSnackBar}/>}/>
                           <Route path="/password" component={() => <NewPassword state={this.state}/>}/>
                       </div>
+                    <Snackbar
+                        open={this.state.snackBar}
+                        onClose={this.closeSnackBar}
+                        SnackbarContentProps={{
+                            'aria-describedby': 'message-id',
+                        }}
+                        message={<span id="message-id">{this.state.snackBarMessage}</span>}
+                    />
                       <Drawer anchor="right" open={this.state.menu} onClose={this.toggleMenu(false)}>
                           <div
                               tabIndex={0}

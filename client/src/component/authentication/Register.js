@@ -26,6 +26,8 @@ class Register extends Component {
             nameRelative: '',
             image: [],
         };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = name => event => {
@@ -33,6 +35,10 @@ class Register extends Component {
             [name]: event.target.value,
         });
     };
+
+    handleSubmit() {
+        this.props.openSnackBar('Välkommen ' + this.state.firstName + '!');
+    }
 
     render() {
         return (
@@ -158,7 +164,7 @@ class Register extends Component {
                         styles={registerStyles.imageUpload}
                     />
                     <div className="RegisterButton">
-                        <Button variant="raised" style={registerStyles.button}>
+                        <Button variant="raised" style={registerStyles.button} onClick={this.handleSubmit}>
                             Registrera
                         </Button>
                     </div>

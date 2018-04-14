@@ -16,6 +16,8 @@ class Login extends Component {
             userName: '',
             password: '',
         };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = name => event => {
@@ -23,6 +25,10 @@ class Login extends Component {
             [name]: event.target.value,
         });
     };
+
+    handleSubmit() {
+        this.props.openSnackBar('Logga in');
+    }
 
     render() {
         return (
@@ -54,7 +60,7 @@ class Login extends Component {
                         margin="normal"
                     />
                     <div className="LoginButton">
-                        <Button variant="raised" style={loginStyles.button}>
+                        <Button variant="raised" style={loginStyles.button} onClick={this.handleSubmit}>
                             Logga in
                         </Button>
                         <div style={loginStyles.loginLinkContainer}>
