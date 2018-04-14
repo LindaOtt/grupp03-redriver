@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import './Settings.css';
+
+import {settingsStyles} from "../../styles/SettingsStyles";
+import '../../styles/Styles.css'
 
 import User from './user/SettingsUser';
 import SuperUser from './superUser/SettingsSuperUser';
@@ -33,7 +34,6 @@ class Settings extends Component {
     }
     render() {
         return (
-            <Router>
                 <div className="Settings">
                     {this.state.user ? (
                         <div>
@@ -43,7 +43,6 @@ class Settings extends Component {
                         <p>Loading</p>
                     )}
                 </div>
-            </Router>
 
         );
     }

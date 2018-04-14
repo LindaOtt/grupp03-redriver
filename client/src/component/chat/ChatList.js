@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import './Chat.css';
+
+import {ChatListStyles} from "../../styles/ChatStyles";
+import '../../styles/Styles.css'
 
 class ChatList extends Component {
     render() {
         return (
-                <div className="ChatList">
-                    <p>Chat list</p>
-                </div>
+            <div className="ChatList">
+                <p>Chat list</p>
+            </div>
 
         );
     }

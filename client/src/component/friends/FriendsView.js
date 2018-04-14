@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import './Friends.css';
+
+import {friendsViewStyles} from "../../styles/FriendsStyles";
+import '../../styles/Styles.css'
 
 class FriendsView extends Component {
     render() {

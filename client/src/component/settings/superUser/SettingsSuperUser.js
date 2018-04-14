@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import '../Settings.css';
+
+import {settingsSuperUserStyles} from "../../../styles/SettingsStyles";
+import '../../../styles/Styles.css'
 
 class SettingsSuperUser extends Component {
     render() {

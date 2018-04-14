@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import '../Settings.css';
+
+import {settingsUserStyles} from "../../../styles/SettingsStyles";
+import '../../../styles/Styles.css'
 
 class SettingsUser extends Component {
     render() {

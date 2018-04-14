@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import './Chat.css';
+
+import {ChatViewStyles} from "../../styles/ChatStyles";
+import '../../styles/Styles.css'
 
 class ChatView extends Component {
     render() {
