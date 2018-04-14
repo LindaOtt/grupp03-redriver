@@ -14,7 +14,7 @@ To start a development server:
 npm start
 ```
 
-To create a a build version:
+To create a build version:
 
 ```
 npm run build
