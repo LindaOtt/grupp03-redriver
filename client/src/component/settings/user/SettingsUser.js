@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import '../Settings.css';
+
+import {settingsUserStyles} from "../../../styles/SettingsStyles";
 
 class SettingsUser extends Component {
     render() {
         return (
-            <div className="SettingsUser">
+            <div style={settingsUserStyles.user}>
                 <p>User settings</p>
             </div>
         );

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './Authentication.css';
+
+import {newPasswordStyles} from "../../styles/AuthStyles";
 
 class NewPassword extends Component {
     render() {
         return (
-            <div className="NewPassword">
+            <div style={newPasswordStyles.newPassword}>
                 <p>Glömt lösenord</p>
             </div>
 

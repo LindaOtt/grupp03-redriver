@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import '../Settings.css';
+
+import {settingsAdminStyles} from "../../../styles/SettingsStyles";
 
 class SettingsAdmin extends Component {
     render() {
         return (
-                <div className="SettingsAdmin">
+                <div style={settingsAdminStyles.admin}>
                     <p>Admin settings</p>
                 </div>
         );

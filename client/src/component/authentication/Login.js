@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import './Authentication.css';
-import {loginStyles} from "../../styles/Styles";
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+
+import {loginStyles} from "../../styles/AuthStyles";
 
 class Login extends Component {
 
@@ -25,7 +25,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="Login">
+            <div style={loginStyles.login}>
                 <Typography
                     variant="headline"
                     color="default"
@@ -52,7 +52,7 @@ class Login extends Component {
                         onChange={this.handleChange('password')}
                         margin="normal"
                     />
-                    <div className="LoginButton">
+                    <div style={loginStyles.loginButton}>
                         <Button variant="raised" style={loginStyles.button}>
                             Logga in
                         </Button>

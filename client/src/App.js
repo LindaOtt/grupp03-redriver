@@ -17,7 +17,8 @@ import LoginIcon from '@material-ui/icons/Person';
 import RegisterIcon from '@material-ui/icons/PersonAdd';
 
 import './App.css';
-import {appStyles, theme} from './styles/Styles';
+import {theme} from './styles/Styles';
+import AppStyles from './styles/AppStyles';
 
 import ChatList from './component/chat/ChatList';
 import FriendsList from './component/friends/FriendsList';
@@ -38,7 +39,7 @@ class App extends Component {
 
     renderMenu =  () => {
         return (
-            <div style={appStyles.menu}>
+            <div style={AppStyles.menu}>
                 <List>
                     <ListItem
                         button
@@ -107,25 +108,25 @@ class App extends Component {
     return (
         <Router>
             <MuiThemeProvider theme={theme}>
-                  <div className="App">
+                  <div style={AppStyles.app}>
                       <AppBar
                           position="sticky"
-                          style={appStyles.root}
+                          style={AppStyles.root}
                       >
                           <Toolbar>
                               <Typography
                                   variant="title"
                                   color="inherit"
-                                  style={appStyles.flex}
+                                  style={AppStyles.flex}
                               >
 
                               </Typography>
-                              <IconButton color="inherit" aria-label="Menu" style={appStyles.menuButton}>
+                              <IconButton color="inherit" aria-label="Menu" style={AppStyles.menuButton}>
                                   <MenuIcon onClick={this.toggleMenu(true)}/>
                               </IconButton>
                           </Toolbar>
                       </AppBar>
-                      <div className="Body">
+                      <div style={AppStyles.body}>
                           <Route path="/" exact={true} component={() => <ChatList state={this.state}/>}/>
                           <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
                           <Route path="/settings" component={() => <Settings state={this.state}/>}/>

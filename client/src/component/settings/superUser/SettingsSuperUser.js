@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import '../Settings.css';
+
+import {settingsSuperUserStyles} from "../../../styles/SettingsStyles";
 
 class SettingsSuperUser extends Component {
     render() {
         return (
-            <div className="SettingsSuperUser">
+            <div style={settingsSuperUserStyles.superUser}>
                 <p>Superuser settings</p>
             </div>
         );

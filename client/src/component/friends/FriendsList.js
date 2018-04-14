@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './Friends.css';
+
+import {friendsListStyles} from "../../styles/FriendsStyles";
 
 class FriendsList extends Component {
     render() {
         return (
-            <div className="FriendsList">
+            <div style={friendsListStyles.friendsList}>
                 <p>Friends list</p>
             </div>
 

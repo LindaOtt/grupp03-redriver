@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './Friends.css';
+
+import {friendsViewStyles} from "../../styles/FriendsStyles";
 
 class FriendsView extends Component {
     render() {
         return (
-            <div className="FriendsView">
+            <div style={friendsViewStyles.friendsView}>
                 <p>Friends View</p>
             </div>
 

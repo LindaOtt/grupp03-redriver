@@ -4,8 +4,7 @@ import ImagesUploader from 'react-images-uploader';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
-import './Authentication.css';
-import {registerStyles} from "../../styles/Styles";
+import {registerStyles} from "../../styles/AuthStyles";
 
 class Register extends Component {
     constructor(props){
@@ -36,7 +35,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="Register">
+            <div style={registerStyles.register}>
                 <Typography
                     variant="headline"
                     color="default"
@@ -157,7 +156,7 @@ class Register extends Component {
                         label="Välj profilbild"
                         styles={registerStyles.imageUpload}
                     />
-                    <div className="RegisterButton">
+                    <div style={registerStyles.registerButton}>
                         <Button variant="raised" style={registerStyles.button}>
                             Registrera
                         </Button>
