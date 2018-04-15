@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "81be8ac1-4bf1-44c7-b2dd-27c488c94764",
 		"name": "RedRiverServer Documentation",
-		"description": "# RedRiver Server API",
+		"description": "# RedRiver Server API\n\nThis is documentation concerning the api endpoints for the ASP.NET Core 2 api implementation of the RedRiver Application.\n\nThe ASP.NET backend is stateless and as such there are no \"logged in\" or \"logged out\" users as such. Authentication/authorisation is carried out by JWT tokens which have a limited life span.\n\n## Registration and Login flow.\n\nA user must first register through the **api/account/register** api endpoint. No \"login\" i.e. token generation is performed at this point. If the user registers correctly (i.e. a 200 code is received) the user can then apply for a token from the **api/account/login** endpoint. If a token is created, this can then be included as a bearer token in all subsequent api request for authorisation/authenication.\n\n\n",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -302,8 +302,142 @@
 			]
 		},
 		{
+			"name": "User Routes",
+			"description": "All routes under /user exist to implement user functionality e.g. user gets info on her/himself, user adds friend, user deletes friend, update user information etc.       \nAll routes here require a bearer jwt auth token in header - this is used as authorization but also authentication (i.e. this is user \"testuser1\", so no further user authentication is required in the body.   \nThese routes are only called by regular users (or admins/superuser requiring information about themselves). Admins will use other routes to get info on users etc.     \n",
+			"item": [
+				{
+					"name": "Get User Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/getuserinfo",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"getuserinfo"
+							]
+						},
+						"description": "Allows user to fetch info about themselves. Returns JSON formatted user model from server.  \n** TODO ** Remove sensitive info?"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Friend",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99d12541-f78c-436e-8141-9bfb8437bade",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"jsonData = pm.response.json();",
+									"pm.environment.set(\"token\",jsonData.token );",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\"\n}"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/addfriend",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"addfriend"
+							]
+						},
+						"description": "Allows user to add friend. Friend's username is required."
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7cd580a0-5cc1-4ad4-aaa8-44f9d2ed3709",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "629318c2-9113-44aa-ae7d-b0d8d651c20f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "Test Routes",
-			"description": "These routes exist solely to test the functionality of access levels. \nAll routes return 200 upon success, 401 upon lack of authorization, and various other failure codes.",
+			"description": "These routes exist solely to test the functionality of access levels. \nAll routes return 200 upon success, 403 upon lack of authorization, and various other failure codes.",
 			"item": [
 				{
 					"name": "Unprotected example route",
@@ -339,7 +473,7 @@
 								"tryunprotectedroute"
 							]
 						},
-						"description": "Route shold be available to all access levels, even non-users. Should return 200."
+						"description": "Route shold be available to all access levels, even non-users."
 					},
 					"response": []
 				},
@@ -378,7 +512,7 @@
 								"tryprotectedroute"
 							]
 						},
-						"description": "Route requires a *user* authorized by a JWT token transmitted in the bearer head attribute.  \nSuccess: 200  \nFailure by non-auth: 401"
+						"description": "Route requires a *user* authorized by a JWT token transmitted in the bearer head attribute.  "
 					},
 					"response": []
 				},
@@ -417,7 +551,7 @@
 								"tryprotectedrouteadmin"
 							]
 						},
-						"description": "Route requires an *admin* authorized by a JWT token transmitted in the bearer head attribute.  \nSuccess: 200  \nFailure by non-auth: 401"
+						"description": "Route requires an *admin* authorized by a JWT token transmitted in the bearer head attribute.  "
 					},
 					"response": []
 				},
@@ -456,7 +590,7 @@
 								"tryprotectedroutesuperuser"
 							]
 						},
-						"description": "Route requires an *superuser* authorized by a JWT token transmitted in the bearer head attribute.  \nSuccess: 200  \nFailure by non-auth: 401"
+						"description": "Route requires an *superuser* authorized by a JWT token transmitted in the bearer head attribute.  "
 					},
 					"response": []
 				},
@@ -495,7 +629,7 @@
 								"tryprotectedroutesuperuseroradmin"
 							]
 						},
-						"description": "Route requires an *admin OR superuser* authorized by a JWT token transmitted in the bearer head attribute.  \nSuccess: 200  \nFailure by non-auth: 401"
+						"description": "Route requires an *admin OR superuser* authorized by a JWT token transmitted in the bearer head attribute.  "
 					},
 					"response": []
 				}
@@ -522,6 +656,28 @@
 					}
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "75f30120-44eb-489a-b780-5499734b9d29",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4b1b1d53-bb70-41eb-9b90-f0116dec644f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

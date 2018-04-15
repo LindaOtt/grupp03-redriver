@@ -246,7 +246,7 @@
 			"response": []
 		},
 		{
-			"name": "Account Creation",
+			"name": "Account Creation testuser1",
 			"event": [
 				{
 					"listen": "test",
@@ -272,6 +272,182 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Creation testuser2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser2\",\n\t\"email\": \"testuser2@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Creation testuser3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser3\",\n\t\"email\": \"testuser3@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Creation testuser4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser4\",\n\t\"email\": \"testuser4@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Creation testuser5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser5\",\n\t\"email\": \"testuser5@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
 				},
 				"url": {
 					"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
@@ -628,6 +804,276 @@
 						"api",
 						"account",
 						"deleteuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  User Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/user/getuserinfo",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"user",
+						"getuserinfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddFriend user 1-2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/user/addfriend",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"user",
+						"addfriend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddFriend user 1-3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser3\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/user/addfriend",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"user",
+						"addfriend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFriends",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/user/getfriends",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"user",
+						"getfriends"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Friend testuser2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}:{{port}}/api/user/deletefriend",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"user",
+						"deletefriend"
 					]
 				}
 			},
