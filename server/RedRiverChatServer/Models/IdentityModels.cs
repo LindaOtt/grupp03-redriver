@@ -34,7 +34,7 @@ namespace RedRiverChatServer.Models
        
         [ForeignKey("ApplicationUserId")]
         public string ApplicationUserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+       // public virtual ApplicationUser ApplicationUser { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
     }
 
