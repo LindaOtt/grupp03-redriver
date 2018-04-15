@@ -19,10 +19,10 @@ namespace RedRiverChatServer.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            builder.Entity<ApplicationUser>()
+         /*   builder.Entity<ApplicationUser>()
                 .HasMany(a => a.Friendships)
                 .WithOne(e => e.ApplicationUser)
-                .HasForeignKey(bc => bc.ApplicationUserId);
+                .HasForeignKey(bc => bc.ApplicationUserId);*/
 
             /*     builder.Entity<ApplicationUserFriend>()
             .HasKey(t => new { t.ApplicationUserId, t.FriendId });*/
