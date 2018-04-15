@@ -19,11 +19,13 @@ using RedRiverChatServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Primitives;
 
 namespace RedRiverChatServer
 {
     public class Startup
     {
+        StringValues token;
         IServiceProvider serviceProvider;
         public Startup(IConfiguration configuration, IServiceProvider serviceProvider)
         {
@@ -78,9 +80,28 @@ namespace RedRiverChatServer
                ValidAudience = Configuration["Jwt:Issuer"],
                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
            };
+           options.Events = new JwtBearerEvents
+           {
+               OnMessageReceived = context =>
+               {
+                   if (context.Request.Path.Value.StartsWith("/chat") &&
+                       context.Request.Query.TryGetValue("token", out StringValues token)
+                   )
+                   {
+                       context.Token = token;
+                   }
+
+                   return Task.CompletedTask;
+               },
+               OnAuthenticationFailed = context =>
+               {
+                   var te = context.Exception;
+                   return Task.CompletedTask;
+               }
+           };
        });
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy", builderq => { builderq.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "http://localhost:3000", "https://redriverclient.azurewebsites.net" }); }));
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builderq => { builderq.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "http://localhost:3000", "https://redriverclient.azurewebsites.net","https://redclient.azurewebsites.net" }); }));
             services.AddSignalR();
             services.AddMvc();
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -99,15 +120,14 @@ namespace RedRiverChatServer
 
            app.UseCors("CorsPolicy");
 
-           
+            app.UseAuthentication();
 
             app.UseSignalR(routes =>
             {
                 routes.MapHub<Chat>("chat");
             });
-
-            app.UseAuthentication();
-
+        
+          
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller}/{action}/{id?}");

@@ -9,3 +9,14 @@ C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Release\ne
 C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.AssemblyInfo.cs
 C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.dll
 C:\Users\galnd\source\repos\RedRiverChatServer\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.pdb
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\bin\Release\netcoreapp2.0\RedRiverChatServer.deps.json
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\bin\Release\netcoreapp2.0\RedRiverChatServer.runtimeconfig.json
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\bin\Release\netcoreapp2.0\RedRiverChatServer.runtimeconfig.dev.json
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\bin\Release\netcoreapp2.0\RedRiverChatServer.dll
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\bin\Release\netcoreapp2.0\RedRiverChatServer.pdb
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.csprojResolveAssemblyReference.cache
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.csproj.CoreCompileInputs.cache
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.AssemblyInfoInputs.cache
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.AssemblyInfo.cs
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.dll
+C:\Users\galnd\Desktop\grupp03-redriver\server\RedRiverChatServer\obj\Release\netcoreapp2.0\RedRiverChatServer.pdb
