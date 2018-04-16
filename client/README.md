@@ -14,7 +14,7 @@ To start a development server:
 npm start
 ```
 
-To create a build version:
+At last commit before merge to master, run this command to create a build version that will be deployed to Azure.
 
 ```
 npm run build
