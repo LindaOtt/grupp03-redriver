@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// Import styles. settingsStyles for all imported components with a style attributes and CSS-file for classNames and id.
+// Import styles. settingsStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsStyles} from "../../styles/SettingsStyles";
 import '../../styles/Styles.css'
 
