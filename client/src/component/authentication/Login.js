@@ -7,6 +7,12 @@ import Button from 'material-ui/Button';
 import {loginStyles} from "../../styles/AuthStyles";
 import '../../styles/Styles.css'
 
+/**
+ *  Login-component.
+ *
+ *  @author Jimmy
+ */
+
 class Login extends Component {
 
     constructor(props){
@@ -20,11 +26,23 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    /**
+     *  Handle form-input. Input are added to this.state.
+     *
+     *  @author Jimmy
+     */
+
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
     };
+
+    /**
+     *  Handle submit-button. A login-request is sent to server with form-input included.
+     *
+     *  @author Jimmy
+     */
 
     handleSubmit() {
         this.props.openSnackBar('Logga in');

@@ -28,6 +28,12 @@ import Login from './component/authentication/Login';
 import Register from './component/authentication/Register';
 import NewPassword from './component/authentication/NewPassword';
 
+/**
+ *  Starting point of the application
+ *
+ *  @author Jimmy
+ */
+
 class App extends Component {
 
     constructor(props){
@@ -41,6 +47,12 @@ class App extends Component {
         this.openSnackBar = this.openSnackBar.bind(this);
     }
 
+    /**
+     *  Open bottom-bar and display message. Closes after 3 seconds.
+     *
+     *  @author Jimmy
+     */
+
     openSnackBar = (message) => {
         this.setState({
             snackBar: true,
@@ -52,12 +64,24 @@ class App extends Component {
         }, 3000);
     };
 
+    /**
+     *  Close bottom-bar and delete message.
+     *
+     *  @author Jimmy
+     */
+
     closeSnackBar = () => {
         this.setState({
             snackBar: false,
             snackBarMessage: '',
         });
     };
+
+    /**
+     *  Render all links in drawer-menu.
+     *
+     *  @author Jimmy
+     */
 
     renderMenu =  () => {
         return (
@@ -119,6 +143,12 @@ class App extends Component {
         );
 
     };
+
+    /**
+     *  Open drawer-menu.
+     *
+     *  @author Jimmy
+     */
 
     toggleMenu = (open) => () => {
         this.setState({
