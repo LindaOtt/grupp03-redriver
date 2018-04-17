@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RedRiverChatServer.Controllers
 {
+    /// <summary>
+    /// Selection of routes used for api auth tests
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class RouteTestController : Controller
     {
