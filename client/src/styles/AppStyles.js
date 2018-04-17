@@ -1,5 +1,12 @@
+// Import theme from Styles.js to be able to change colors etc. throughout the application.
 import {theme} from "./Styles";
 import grey from "material-ui/colors/grey";
+
+/**
+ *  Styles for imported components in App.js
+ *
+ *  @author Jimmy
+ */
 
 const AppStyles = {
     root: {

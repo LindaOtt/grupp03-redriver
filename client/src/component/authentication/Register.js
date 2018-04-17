@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+
+// Import NPM-modules
 import TextField from 'material-ui/TextField';
 import ImagesUploader from 'react-images-uploader';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
+// Import styles. newPasswordStyles for all imported components with a style attributes and CSS-file for classNames and id.
 import {registerStyles} from "../../styles/AuthStyles";
 import '../../styles/Styles.css'
 

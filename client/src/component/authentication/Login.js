@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+
+// Import NPM-modules
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
+// Import styles. loginStyles for all imported components with a style attributes and CSS-file for classNames and id.
 import {loginStyles} from "../../styles/AuthStyles";
 import '../../styles/Styles.css'
 
