@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+
+// Import NPM-modules
 import { MuiThemeProvider } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -11,16 +13,19 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Snackbar from 'material-ui/Snackbar';
 
+// Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble';
 import PersonIcon from '@material-ui/icons/People';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LoginIcon from '@material-ui/icons/Person';
 import RegisterIcon from '@material-ui/icons/PersonAdd';
 
+// Import styles. settingsStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import './styles/Styles.css';
 import {theme} from './styles/Styles';
 import AppStyles from './styles/AppStyles';
 
+// Import pages to use with React Router for navigation.
 import ChatList from './component/chat/ChatList';
 import FriendsList from './component/friends/FriendsList';
 import Settings from './component/settings/Settings';
