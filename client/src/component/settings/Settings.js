@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// Import NPM-modules
+import { CircularProgress } from 'material-ui/Progress';
+
 // Import styles. settingsStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsStyles} from "../../styles/SettingsStyles";
 import '../../styles/Styles.css'
@@ -55,7 +58,7 @@ class Settings extends Component {
                             {this.toggleUser}
                         </div>
                     ) : (
-                        <p>Loading</p>
+                        <CircularProgress/>
                     )}
                 </div>
 

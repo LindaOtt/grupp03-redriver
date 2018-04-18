@@ -32,6 +32,7 @@ import Settings from './component/settings/Settings';
 import Login from './component/authentication/Login';
 import Register from './component/authentication/Register';
 import NewPassword from './component/authentication/NewPassword';
+import UserAccount from './component/account/UserAccount';
 
 /**
  *  Starting point of the application
@@ -96,6 +97,16 @@ class App extends Component {
                         button
                         component={Link}
                         to="/"
+                    >
+                        <ListItemIcon>
+                            <LoginIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Start" />
+                    </ListItem>
+                    <ListItem
+                        button
+                        component={Link}
+                        to="/chats"
                     >
                         <ListItemIcon>
                             <ChatIcon />
@@ -184,7 +195,8 @@ class App extends Component {
                           </Toolbar>
                       </AppBar>
                       <div className="Body">
-                          <Route path="/" exact={true} component={() => <ChatList state={this.state}/>}/>
+                          <Route path="/" exact={true} component={() => <UserAccount state={this.state}/>}/>
+                          <Route path="/chats" component={() => <ChatList state={this.state}/>}/>
                           <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
                           <Route path="/settings" component={() => <Settings state={this.state}/>}/>
                           <Route path="/login" component={() => <Login state={this.state} openSnackBar={this.openSnackBar}/>}/>
