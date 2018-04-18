@@ -20,7 +20,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import LoginIcon from '@material-ui/icons/Person';
 import RegisterIcon from '@material-ui/icons/PersonAdd';
 
-// Import styles. settingsStyles for all imported components with a style attribute and CSS-file for classNames and id.
+// Import styles. appStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import './styles/Styles.css';
 import {theme} from './styles/Styles';
 import AppStyles from './styles/AppStyles';

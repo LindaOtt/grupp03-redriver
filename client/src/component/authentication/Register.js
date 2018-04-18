@@ -5,10 +5,14 @@ import TextField from 'material-ui/TextField';
 import ImagesUploader from 'react-images-uploader';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import axios from 'axios';
 
 // Import styles. newPasswordStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {registerStyles} from "../../styles/AuthStyles";
-import '../../styles/Styles.css'
+import '../../styles/Styles.css';
+
+// Import server url
+import {AzureServerUrl} from "../../utils/Config";
 
 /**
  *  Register-component.
@@ -22,18 +26,18 @@ class Register extends Component {
         super(props);
 
         this.state = {
-            userName: '',
+            /*userName: '',
             firstName: '',
-            lastName: '',
+            surname: '',
             email: '',
             password: '',
             passwordConfirm: '',
-            address: '',
+            streetAddress: '',
             zipCode: '',
             city: '',
-            personalIdentityNumber: '',
+            socialSecurity: '',
             telephoneNumber: '',
-            nameRelative: '',
+            relativeUsername: '',*/
             image: [],
         };
 
@@ -59,7 +63,66 @@ class Register extends Component {
      */
 
     handleSubmit() {
-        this.props.openSnackBar('Välkommen ' + this.state.firstName + '!');
+
+        console.log(this.state);
+
+        // Use this when all info is implemented on server.
+        /*for (const key of Object.keys(this.state)) {
+            console.log(key, this.state[key]);
+
+            if (this.state[key] === '') {
+                return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
+            }
+        }*/
+
+        if (this.state.password !== this.state.passwordConfirm) {
+            return this.props.openSnackBar('Lösenorden matchar inte!');
+        }
+
+        this.sendRequest()
+            .then((response) => {
+
+                console.log(response);
+
+            }).catch((err) => {
+                console.log(err);
+                return this.props.openSnackBar('Något gick fel. Försök igen!');
+        });
+
+    }
+
+    sendRequest() {
+
+        // Use this object when all info is implemented on server.
+        /*let tempObj = {
+            username: this.state.userName,
+            firstName: this.state.firstName,
+            surname: this.state.surname,
+            email: this.state.email,
+            password: this.state.password,
+            streetAddress: this.state.streetAddress,
+            Postcode: this.state.zipCode,
+            city: this.state.city,
+            socialSecurity: this.state.socialSecurity,
+            telephoneNumber: this.state.telephoneNumber,
+            relativeUsername: this.state.relativeUsername,
+        };*/
+
+        let tempObj = {
+            username: this.state.userName,
+            email: this.state.email,
+            password: this.state.password,
+        };
+
+        console.log(JSON.stringify(tempObj));
+
+        return axios({
+            method: 'post',
+            url: AzureServerUrl + '/api/account/register',
+            data: JSON.stringify(tempObj),
+            headers: {'Content-Type': 'application/json'},
+        });
+
     }
 
     render() {
@@ -75,11 +138,11 @@ class Register extends Component {
                 </Typography>
                 <form style={registerStyles.container} noValidate autoComplete="off">
                     <TextField
-                        id="name"
+                        id="userName"
                         label="Användarnamn"
                         style={registerStyles.textField}
-                        value={this.state.name}
-                        onChange={this.handleChange('name')}
+                        value={this.state.userName}
+                        onChange={this.handleChange('userName')}
                         margin="normal"
                     />
                     <TextField
@@ -106,7 +169,7 @@ class Register extends Component {
                         style={registerStyles.textField}
                         type="password"
                         autoComplete="current-password"
-                        onChange={this.handleChange('passwordRepeat')}
+                        onChange={this.handleChange('passwordConfirm')}
                         margin="normal"
                     />
                     <TextField
@@ -118,19 +181,19 @@ class Register extends Component {
                         margin="normal"
                     />
                     <TextField
-                        id="lastName"
+                        id="surname"
                         label="Efternamn"
                         style={registerStyles.textField}
-                        value={this.state.lastName}
-                        onChange={this.handleChange('lastName')}
+                        value={this.state.surname}
+                        onChange={this.handleChange('surname')}
                         margin="normal"
                     />
                     <TextField
-                        id="address"
+                        id="streetAddress"
                         label="Adress"
                         style={registerStyles.textField}
-                        value={this.state.address}
-                        onChange={this.handleChange('address')}
+                        value={this.state.streetAddress}
+                        onChange={this.handleChange('streetAddress')}
                         margin="normal"
                     />
                     <TextField
@@ -140,6 +203,7 @@ class Register extends Component {
                         value={this.state.zipCode}
                         onChange={this.handleChange('zipCode')}
                         margin="normal"
+                        type="number"
                     />
                     <TextField
                         id="city"
@@ -150,12 +214,13 @@ class Register extends Component {
                         margin="normal"
                     />
                     <TextField
-                        id="personaIdentityNumber"
+                        id="socialSecurity"
                         label="Personnummer"
                         style={registerStyles.textField}
-                        value={this.state.personalIdentityNumber}
-                        onChange={this.handleChange('personalIdentityNumber')}
+                        value={this.state.socialSecurity}
+                        onChange={this.handleChange('socialSecurity')}
                         margin="normal"
+                        type="number"
                     />
                     <TextField
                         id="telephoneNumber"
@@ -164,13 +229,14 @@ class Register extends Component {
                         value={this.state.telephoneNumber}
                         onChange={this.handleChange('telephoneNumber')}
                         margin="normal"
+                        type="tel"
                     />
                     <TextField
-                        id="nameRelative"
+                        id="relativeUsername"
                         label="Anhörigs namn"
                         style={registerStyles.textField}
-                        value={this.state.nameRelative}
-                        onChange={this.handleChange('nameRelative')}
+                        value={this.state.relativeUsername}
+                        onChange={this.handleChange('relativeUsername')}
                         margin="normal"
                     />
                     <ImagesUploader
