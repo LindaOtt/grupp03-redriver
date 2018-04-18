@@ -9,6 +9,8 @@ import Button from 'material-ui/Button';
 // Import styles. loginStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {loginStyles} from "../../styles/AuthStyles";
 import '../../styles/Styles.css'
+import axios from "axios/index";
+import {AzureServerUrl} from "../../utils/Config";
 
 /**
  *  Login-component.
@@ -48,7 +50,41 @@ class Login extends Component {
      */
 
     handleSubmit() {
-        this.props.openSnackBar('Logga in');
+
+        console.log(this.state);
+
+        if (this.state.userName === '' || this.state.password === '') {
+
+            return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
+        }
+
+
+        this.sendRequest()
+            .then((response) => {
+
+                console.log(response);
+
+            }).catch((err) => {
+            console.log(err);
+            return this.props.openSnackBar('Något gick fel. Försök igen!');
+        });
+    }
+
+    sendRequest() {
+
+        let tempObj = {
+            username: this.state.userName,
+            password: this.state.password,
+        };
+
+        console.log(JSON.stringify(tempObj));
+
+        return axios({
+            method: 'post',
+            url: AzureServerUrl + '/api/account/login',
+            data: JSON.stringify(tempObj),
+            headers: {'Content-Type': 'application/json'},
+        });
     }
 
     render() {
@@ -64,11 +100,11 @@ class Login extends Component {
                 </Typography>
                 <form style={loginStyles.container} noValidate autoComplete="off">
                     <TextField
-                        id="name"
+                        id="userName"
                         label="Användarnamn"
                         style={loginStyles.textField}
-                        value={this.state.name}
-                        onChange={this.handleChange('name')}
+                        value={this.state.userName}
+                        onChange={this.handleChange('userName')}
                         margin="normal"
                     />
                     <TextField
