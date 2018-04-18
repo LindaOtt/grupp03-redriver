@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // Import NPM-modules
 import TextField from 'material-ui/TextField';
@@ -39,6 +40,7 @@ class Register extends Component {
             telephoneNumber: '',
             relativeUsername: '',*/
             image: [],
+            navigate: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -83,6 +85,8 @@ class Register extends Component {
             .then((response) => {
 
                 console.log(response);
+                this.setState({navigate: true,});
+                return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!');
 
             }).catch((err) => {
                 console.log(err);
@@ -126,6 +130,14 @@ class Register extends Component {
     }
 
     render() {
+
+        const { navigate } = this.state;
+
+        // here is the important part
+        if (navigate) {
+            return <Redirect to="/login" push={true} />
+        }
+
         return (
             <div className="Register">
                 <Typography

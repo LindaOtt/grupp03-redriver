@@ -26,6 +26,7 @@ class Login extends Component {
         this.state = {
             userName: '',
             password: '',
+            email: '',
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,7 +54,7 @@ class Login extends Component {
 
         console.log(this.state);
 
-        if (this.state.userName === '' || this.state.password === '') {
+        if (this.state.userName === '' || this.state.password === '' || this.state.email === '') {
 
             return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
         }
@@ -75,6 +76,7 @@ class Login extends Component {
         let tempObj = {
             username: this.state.userName,
             password: this.state.password,
+            email: this.state.email,
         };
 
         console.log(JSON.stringify(tempObj));
@@ -105,6 +107,14 @@ class Login extends Component {
                         style={loginStyles.textField}
                         value={this.state.userName}
                         onChange={this.handleChange('userName')}
+                        margin="normal"
+                    />
+                    <TextField
+                        id="email"
+                        label="Email"
+                        style={loginStyles.textField}
+                        value={this.state.email}
+                        onChange={this.handleChange('email')}
                         margin="normal"
                     />
                     <TextField
