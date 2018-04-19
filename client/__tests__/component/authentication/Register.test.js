@@ -1,8 +1,8 @@
 import React from 'react';
-import TestRegister from '../../../src/component/authentication/TestRegister';
+import Register from '../../../src/component/authentication/Register';
 import renderer from 'react-test-renderer';
 
-test('TestRegister renders without crashing', () => {
-  const tree = renderer.create(<TestRegister />);
+test('Register renders without crashing', () => {
+  const tree = renderer.create(<Register />);
   expect(tree.toJSON()).toMatchSnapshot();
 });
