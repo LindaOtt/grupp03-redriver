@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
 // Import NPM-modules
 import Typography from 'material-ui/Typography';
@@ -26,7 +26,7 @@ class Login extends Component {
         this.state = {
             userName: '',
             password: '',
-            email: '',
+            email: 'test1@example.com',
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,6 +64,8 @@ class Login extends Component {
             .then((response) => {
 
                 console.log(response);
+                localStorage.setItem('token', JSON.stringify(response.data.token));
+                return this.props.openSnackBar('Välkommen ' + this.state.userName + '!');
 
             }).catch((err) => {
             console.log(err);
@@ -90,6 +92,11 @@ class Login extends Component {
     }
 
     render() {
+
+        if (this.props.state.isSignedIn === true) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="Login">
                 <Typography

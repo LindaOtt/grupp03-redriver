@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // Import NPM-modules
 import { CircularProgress } from 'material-ui/Progress';
@@ -51,6 +52,11 @@ class Settings extends Component {
 
     }
     render() {
+
+        if (this.props.state.isSignedIn === false) {
+            return <Redirect to="/login" />
+        }
+
         return (
                 <div className="Settings">
                     {this.state.user ? (

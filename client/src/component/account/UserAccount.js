@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 // Import NPM-modules
 import Typography from 'material-ui/Typography';
@@ -27,6 +27,11 @@ class UserAccount extends Component {
     }
 
     render() {
+
+        if (this.props.state.isSignedIn === false) {
+            return <Redirect to="/login" />
+        }
+
         return (
             <div className="UserAccount">
                 <Typography

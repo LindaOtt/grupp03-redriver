@@ -133,7 +133,6 @@ class Register extends Component {
 
         const { navigate } = this.state;
 
-        // here is the important part
         if (navigate) {
             return <Redirect to="/login" push={true} />
         }

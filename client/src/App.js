@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
 // Import NPM-modules
 import { MuiThemeProvider } from 'material-ui/styles';
@@ -19,6 +19,7 @@ import PersonIcon from '@material-ui/icons/People';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LoginIcon from '@material-ui/icons/Person';
 import RegisterIcon from '@material-ui/icons/PersonAdd';
+import LogoutIcon from '@material-ui/icons/Cancel';
 
 // Import styles. appStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import './styles/Styles.css';
@@ -49,8 +50,24 @@ class App extends Component {
             menu: false,
             snackBar: false,
             snackBarMessage: '',
+            isSignedIn: false,
+            token: '',
         };
         this.openSnackBar = this.openSnackBar.bind(this);
+        this.userLogout = this.userLogout.bind(this);
+    }
+
+    /**
+     *  Logout. Delete token in local storage and change state.isSignedIn to false.
+     *
+     *  @author Jimmy
+     */
+
+    userLogout() {
+        this.setState({
+            isSignedIn: false,
+        });
+        localStorage.removeItem('token');
     }
 
     /**
@@ -155,6 +172,17 @@ class App extends Component {
                     </ListItem>
                 </List>
                 <Divider />
+                <ListItem
+                    button
+                    component={Link}
+                    to="/"
+                    onClick={this.userLogout}
+                >
+                    <ListItemIcon>
+                        <LogoutIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Logga ut" />
+                </ListItem>
             </div>
         );
 
@@ -172,7 +200,52 @@ class App extends Component {
         });
     };
 
+    /**
+     *  Check if valid token in local storage before component mounts.
+     *
+     *  @author Jimmy
+     */
+
+    componentWillMount() {
+
+        if(localStorage.getItem('token')) {
+
+            let token = JSON.parse(localStorage.getItem('token'));
+
+            this.setState({
+                token: token,
+                isSignedIn: true,
+            });
+        }
+
+    }
+
+    /**
+     *  Check if valid token in local storage before component updates.
+     *
+     *  @author Jimmy
+     */
+
+    componentWillUpdate() {
+
+        if(localStorage.getItem('token')) {
+
+            let token = JSON.parse(localStorage.getItem('token'));
+
+            if (token !== this.state.token) {
+
+                this.setState({
+                    token: token,
+                    isSignedIn: true,
+                });
+            }
+        }
+
+    }
+
+
     render() {
+
     return (
         <Router>
             <MuiThemeProvider theme={theme}>
@@ -187,11 +260,14 @@ class App extends Component {
                                   color="inherit"
                                   style={AppStyles.flex}
                               >
-
                               </Typography>
-                              <IconButton color="inherit" aria-label="Menu" style={AppStyles.menuButton}>
-                                  <MenuIcon onClick={this.toggleMenu(true)}/>
-                              </IconButton>
+                              {this.state.isSignedIn ? (
+                                  <IconButton color="inherit" aria-label="Menu" style={AppStyles.menuButton}>
+                                      <MenuIcon onClick={this.toggleMenu(true)}/>
+                                  </IconButton>
+                              ) : (
+                                  <p> </p>
+                              )}
                           </Toolbar>
                       </AppBar>
                       <div className="Body">
