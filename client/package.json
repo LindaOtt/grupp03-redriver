@@ -26,8 +26,17 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.3",
     "react-test-renderer": "^16.3.2",
     "regenerator-runtime": "^0.11.1"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.css$": "identity-obj-proxy"
+    },
+    "transform": {
+      "\\.js$": "babel-jest"
+    }
   }
 }
