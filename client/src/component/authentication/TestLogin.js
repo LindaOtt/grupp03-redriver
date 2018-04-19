@@ -4,10 +4,7 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
-import {loginStyles} from "../../styles/AuthStyles";
-import '../../styles/Styles.css';
-
-class Login extends Component {
+class TestLogin extends Component {
 
     constructor(props){
         super(props);
@@ -37,15 +34,13 @@ class Login extends Component {
                     variant="headline"
                     color="default"
                     align="left"
-                    style={loginStyles.title}
                 >
                     Logga in
                 </Typography>
-                <form style={loginStyles.container} noValidate autoComplete="off">
+                <form>
                     <TextField
                         id="name"
                         label="Användarnamn"
-                        style={loginStyles.textField}
                         value={this.state.name}
                         onChange={this.handleChange('name')}
                         margin="normal"
@@ -53,24 +48,27 @@ class Login extends Component {
                     <TextField
                         id="password"
                         label="Lösenord"
-                        style={loginStyles.textField}
                         type="password"
                         autoComplete="current-password"
                         onChange={this.handleChange('password')}
                         margin="normal"
                     />
                     <div className="LoginButton">
-                        <Button variant="raised" style={loginStyles.button} onClick={this.handleSubmit}>
+                        <Button variant="raised" onClick={this.handleSubmit}>
                             Logga in
                         </Button>
-                        <div style={loginStyles.loginLinkContainer}>
-                            <div style={loginStyles.loginLinkDivLeft}>
-                                <Link style={loginStyles.loginLink} to="/register">Registrera ny användare</Link>
+
+                        <Router>
+                        <div>
+                            <div>
+                                <Link to="/register">Registrera ny användare</Link>
                             </div>
-                            <div style={loginStyles.loginLinkDivRight}>
-                                <Link style={loginStyles.loginLink} to="/password">Glömt lösenord?</Link>
+                            <div>
+                                <Link to="/password">Glömt lösenord?</Link>
                             </div>
                         </div>
+                        </Router>
+
                     </div>
                 </form>
             </div>
@@ -79,4 +77,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default TestLogin;
