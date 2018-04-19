@@ -1,0 +1,1012 @@
+{
+	"info": {
+		"_postman_id": "b857e293-0f7b-41d4-a285-08d26be046b9",
+		"name": "RedRiverServer Requirements Tests",
+		"description": "# RedRiver Server API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "F1 Register User",
+			"description": "Tests to check in a user can register. User will not be logged in automatically.",
+			"item": [
+				{
+					"name": "F1 T1 Account Creation testuser1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F1 T2 Account Creation missing username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90067712-2e0c-4bbf-8ee7-14693d2fca8a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"testUserb@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F1 T3 Account Creation testuser2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\",\n\t\"email\": \"testuser2@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6c82c2ce-0257-433a-a8fb-5549e52b683d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1ad585b-85d1-4179-b625-c9b281f2203c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "F2 User login",
+			"description": "Tests to login user. First an attempt is made to access a protected route, and an attempt to acquire a JWT token for a bad user is made. Then a 'good' user JWT request is made, followed by another attempt to access the route. This is a 'login'.",
+			"item": [
+				{
+					"name": "F2 T1 Protected route request w/o auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e402cb3-6054-4fd2-a1a2-99dd50b63660",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedroute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F2 T2 Get JWT Bad User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "32a8a931-4577-4044-a400-6cd6060f31c5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\t\"username\": \"fakeuser\",\n\t\"email\": \"fakeuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F2 T3 Get JWT Existing User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99d12541-f78c-436e-8141-9bfb8437bade",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"jsonData = pm.response.json();",
+									"pm.environment.set(\"token\",jsonData.token );",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F2 T4 Protected route with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86bfe7b7-7f92-4e84-93ba-3e4a96e208a7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedroute"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e3a4bb4b-45e7-48cf-8329-9aa562648c18",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8f1424a-baef-457e-9768-b8fefb21833d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "F3 User- own data access",
+			"description": "Attempts for a user to access thier own data. One api call returns general data, the other returns a friends list.",
+			"item": [
+				{
+					"name": "F3 T1 Get  User Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9ec1390-de7d-43e4-9592-01dfacb3ae17",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Reply contains username\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.username).to.eql(\"testuser\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/getuserinfo",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"getuserinfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F3 T2 GetFriends",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57fbf068-a11c-4cc4-b62d-3989e49678d9",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/getfriends",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"getfriends"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bcbd3910-8f60-453d-ba06-9f60b40e212d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a86780c-373e-415c-a264-ce23c0f1bb31",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "F4 - Add Friends",
+			"description": "Another user is created with which to become friends. A friendship is then created, and an api call made to reutrn the friends list.",
+			"item": [
+				{
+					"name": "F4 T1 AddFriend user 1-2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/addfriend",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"addfriend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F4 T2 GetFriends",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82acec24-aa58-4491-bb0c-9fc0802a8125",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Reply contains friend username testuser2\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].friendUsername).to.eql(\"testuser2\");",
+									"});",
+									"",
+									"pm.variables.get(\"variable_key\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/getfriends",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"getfriends"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "F28 - User levels",
+			"description": "The system should have three user levels – superuser, admin and user.",
+			"item": [
+				{
+					"name": "F28 T1 Admin protected route w/o admin auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e3c4bad1-825e-422a-a853-6ca89e4828d3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"var jsonObject = xml2Json(responseBody);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedrouteadmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F28 T2 Make user admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86bfe7b7-7f92-4e84-93ba-3e4a96e208a7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"testuser@hotmail.com\",\n  \"rolename\" : \"admin\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/addusertorole",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"addusertorole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F28 T3 Get JWT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99d12541-f78c-436e-8141-9bfb8437bade",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"jsonData = pm.response.json();",
+									"pm.environment.set(\"token\",jsonData.token );",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F28 T4 Admin protected route with auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86bfe7b7-7f92-4e84-93ba-3e4a96e208a7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"routetest",
+								"tryprotectedrouteadmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete Friend testuser2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/user/deletefriend",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"deletefriend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\",\n\t\"email\": \"testuser2@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/deleteuser",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"deleteuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user self",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\"\n}\n"
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}:{{port}}/api/account/deleteuser",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"deleteuser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

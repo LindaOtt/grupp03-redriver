@@ -10,6 +10,7 @@ namespace RedRiverChatServer
     {
 
     }
+    //ToDo Email sender must be configured.
     public class EmailSender : IEmailSender
     {
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)

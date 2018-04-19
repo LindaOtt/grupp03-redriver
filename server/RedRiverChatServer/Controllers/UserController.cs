@@ -14,19 +14,34 @@ using RedRiverChatServer.Models;
 
 namespace RedRiverChatServer.Controllers
 {
+    /// <summary>
+    /// Routes to be primarily called by user to get info on themselves, add/delete friends
+    /// 
+    /// </summary>
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
+        //UserManager class used when finding users, checking passwords etc. 
         private UserManager<ApplicationUser> _userManager;
+        //DBContext used to access database.
         private ApplicationDbContext context;
 
+        /// <summary>
+        ///  ASP.NET injects the UserManager and ApplicationDBContext if they are passed as parameters
+        ///  in the constructor function
+        /// </summary>
         public UserController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             this.context = context;
         }
 
+        /// <summary>
+        /// Gets info on user from database and maps it to the RegisterModel class.
+        /// This obscures unwanted info from being passed on (e.g. password hash)
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Authorize]
         public ActionResult GetUserInfo()
         {
@@ -52,6 +67,11 @@ namespace RedRiverChatServer.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns list of friends by querying Friendships database table.
+        /// TODO Map this output - only friend username is needed.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Authorize]
         public ActionResult GetFriends()
         {
@@ -70,6 +90,12 @@ namespace RedRiverChatServer.Controllers
             }
         }
 
+        /// <summary>
+        /// Adds two friendship entries to Friendship database table - one
+        /// friendship in each direction.
+        /// </summary>
+        /// <param name="friendModel"></param>
+        /// <returns></returns>
         [HttpPost, Authorize]
         public async Task<ActionResult> AddFriend([FromBody] FriendModel friendModel)
         {
@@ -99,6 +125,11 @@ namespace RedRiverChatServer.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a Friendship and its reciprocal friendship from Friendship table.
+        /// </summary>
+        /// <param name="friendModel"></param>
+        /// <returns></returns>
         [HttpPost, Authorize]
         public async Task<ActionResult> DeleteFriend([FromBody] FriendModel friendModel)
         {
@@ -125,6 +156,10 @@ namespace RedRiverChatServer.Controllers
             }
         }
 
+        /// <summary>
+        /// Convenience method to get name of user from the JWT token.
+        /// </summary>
+        /// <returns></returns>
         private string GetNameFromClaim()
         {
             IEnumerable<Claim> claims = HttpContext.User.Claims;

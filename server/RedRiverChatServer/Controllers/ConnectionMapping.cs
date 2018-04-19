@@ -3,6 +3,10 @@ using System.Linq;
 
 namespace RedRiverChatServer
 {
+    /// <summary>
+    /// Class to add/remove/count connections
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ConnectionMapping<T>
     {
         private readonly Dictionary<T, HashSet<string>> _connections =

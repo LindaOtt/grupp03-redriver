@@ -5,11 +5,12 @@ import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import axios from "axios/index";
 
 // Import styles. loginStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {loginStyles} from "../../styles/AuthStyles";
 import '../../styles/Styles.css'
-import axios from "axios/index";
+
 import {AzureServerUrl} from "../../utils/Config";
 
 /**
@@ -137,6 +138,7 @@ class Login extends Component {
                         <Button variant="raised" style={loginStyles.button} onClick={this.handleSubmit}>
                             Logga in
                         </Button>
+                        <Router>
                         <div style={loginStyles.loginLinkContainer}>
                             <div style={loginStyles.loginLinkDivLeft}>
                                 <Link style={loginStyles.loginLink} to="/register">Registrera ny användare</Link>
@@ -145,6 +147,7 @@ class Login extends Component {
                                 <Link style={loginStyles.loginLink} to="/password">Glömt lösenord?</Link>
                             </div>
                         </div>
+                        </Router>
                     </div>
                 </form>
             </div>

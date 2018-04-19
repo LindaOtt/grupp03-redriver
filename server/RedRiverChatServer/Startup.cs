@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace RedRiverChatServer
 {
@@ -38,13 +40,13 @@ namespace RedRiverChatServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //Setup the database, so its context can be injected.
             services.AddDbContext<ApplicationDbContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-         /*   services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();*/
-
+            //Set password options here
             IdentityBuilder builder = services.AddIdentityCore<ApplicationUser>(opt =>
             {
                 opt.Password.RequireDigit = true;
@@ -84,6 +86,7 @@ namespace RedRiverChatServer
            {
                OnMessageReceived = context =>
                {
+                   //The SignalR route must get the token from the url - not perfect, but the best way so far.
                    if (context.Request.Path.Value.StartsWith("/chat") &&
                        context.Request.Query.TryGetValue("token", out StringValues token)
                    )
@@ -118,26 +121,35 @@ namespace RedRiverChatServer
                 app.UseDeveloperExceptionPage();
             }
 
-           app.UseCors("CorsPolicy");
+            //Cors must be defined to allow browser interaction with the server
+            app.UseCors("CorsPolicy");
 
+            //We want to limit access to some route, plus be able to find out who the user is
             app.UseAuthentication();
 
+            //SignalR calls are routed here when the url is "chat"
             app.UseSignalR(routes =>
             {
                 routes.MapHub<Chat>("chat");
             });
         
-          
+            //All routes apart from SignalR follow this convention
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller}/{action}/{id?}");
             });
 
+            //Make sure the database and admin,superuser roles exist - if they don't then they are created.
             dbContext.Database.EnsureCreated();
             CreateRole(serviceProvider,"admin");
             CreateRole(serviceProvider,"superuser");
         }
 
+        /// <summary>
+        /// CreateRole checks to see if a ApplicationUser role already exists - if it doesn't then it is created.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="roleName"></param>
         private void CreateRole(IServiceProvider serviceProvider,string roleName)
         {
 

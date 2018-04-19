@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace RedRiverChatServer.Models
 {
+    /* These are a collection of models that are used for "translating" information to and from the database
+     * but also from/to JSON in the controllers.
+     * ApplicationUser is the main model used to construct and interact with the database user system.
+     */
+     
     public class ApplicationUser : IdentityUser
     {
         public ApplicationUser()
@@ -34,7 +39,6 @@ namespace RedRiverChatServer.Models
        
         [ForeignKey("ApplicationUserId")]
         public string ApplicationUserId { get; set; }
-       // public virtual ApplicationUser ApplicationUser { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
     }
 
@@ -64,7 +68,7 @@ namespace RedRiverChatServer.Models
 
     public class LoginModel
     {
-        public string Username { get; set; }
+       public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public bool RememberMe { get; set; }
@@ -83,7 +87,7 @@ namespace RedRiverChatServer.Models
 
     public class FriendModel
     {
-        public string Username { get; set; }
+      public string Username { get; set; }
     }
 
 }

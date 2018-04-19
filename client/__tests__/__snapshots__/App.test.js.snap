@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders without crashing 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="MuiPaper-root-9 MuiPaper-elevation4-15 MuiAppBar-root-1 MuiAppBar-positionSticky-4 MuiAppBar-colorPrimary-7"
+    style={
+      Object {
+        "flexGrow": 1,
+      }
+    }
+  >
+    <div
+      className="MuiToolbar-root-36 MuiToolbar-gutters-37"
+    >
+      <h2
+        className="MuiTypography-root-38 MuiTypography-title-44 MuiTypography-colorInherit-57"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      />
+      <button
+        aria-label="Menu"
+        className="MuiButtonBase-root-68 MuiIconButton-root-62 MuiIconButton-colorInherit-63"
+        disabled={false}
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        style={
+          Object {
+            "color": "#f5f5f5",
+          }
+        }
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiIconButton-label-67"
+        >
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-71"
+            color={undefined}
+            focusable="false"
+            onClick={[Function]}
+            viewBox="0 0 24 24"
+          >
+            <g>
+              <path
+                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+              />
+            </g>
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root-77"
+        />
+      </button>
+    </div>
+  </header>
+  <div
+    className="Body"
+  />
+</div>
+`;

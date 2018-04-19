@@ -15,12 +15,18 @@ using Microsoft.IdentityModel.Tokens;
 using RedRiverChatServer.Models;
 
 namespace RedRiverChatServer.Controllers
-{
+{   
+    /// <summary>
+    /// These are the routes used to create,read, update and delete accounts. 
+    /// </summary>
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
+        //Needed to get info from appsettings.json
         private IConfiguration _config;
+        //Usermanager to deal with user creation etc
         private UserManager<ApplicationUser> _userManager;
+        //SignInManager to deal with password checking.
         private SignInManager<ApplicationUser> _signInManager;
 
         public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
@@ -38,6 +44,8 @@ namespace RedRiverChatServer.Controllers
                 UserName = model.Username,
                 Email = model.Email
             };
+
+            //CreateAsync does the heavy lifting of adding user to database.
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -47,6 +55,12 @@ namespace RedRiverChatServer.Controllers
             else { return BadRequest(new { result.Errors }); }
         }
 
+        /// <summary>
+        /// 'Login' is really a matter of creating and distributing a JWT token.
+        /// Should user login by username instead?
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> LogIn([FromBody]LoginModel login)
         {
@@ -54,12 +68,14 @@ namespace RedRiverChatServer.Controllers
 
             var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Email == login.Email);
 
+            //Does the user not exist? Return unauthorized in that case.
             if (user == null) { return response; }
 
+            //Check to see if the password was correct
             var result = await _signInManager.CheckPasswordSignInAsync(user,
                    login.Password, lockoutOnFailure: false);
 
-         
+            //Deal with the various outcomes with relevant response.
             if (result.Succeeded)
             {
                 var tokenString = BuildToken(user);
@@ -81,7 +97,7 @@ namespace RedRiverChatServer.Controllers
             return response;
         }
 
-
+        //Logout, but this is actually not needed since a user cannot be 'logged in'. Remove??
         [HttpPost, Authorize]
         public async Task<IActionResult> LogOut()
         {
@@ -89,6 +105,8 @@ namespace RedRiverChatServer.Controllers
             return Ok(new { response = "User logged out." });
         }
 
+        //ToDo Change this - user should be deleted by username instead of email?
+        //Only superusers and admins are allowed to access this route.
         [HttpPost, Authorize(Roles = "superuser,admin")]
         public async Task<IActionResult> DeleteUser([FromBody]DeleteModel model)
         {
@@ -106,6 +124,7 @@ namespace RedRiverChatServer.Controllers
            
         }
 
+        //Changes the role of a user. This should be authorized, but cannot be until we decide who the first admins and superusers should be...
         [HttpPost]
         public async Task<IActionResult> AddUserToRole([FromBody]RoleModel roleModel)
         {
@@ -124,6 +143,11 @@ namespace RedRiverChatServer.Controllers
 
         }
 
+        /// <summary>
+        /// Build the JWT token for logging in. Among other things the allocated time for the token can be changed here.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private async Task<string> BuildToken(ApplicationUser user)
         {
             //Supposing user can only have one role
@@ -131,9 +155,11 @@ namespace RedRiverChatServer.Controllers
 
             string userRole = string.Empty;
 
+            //Roles only exist for admin and superuser. A user without a role is simply a normal user.
             if (roleList.Count == 0) { userRole = "user"; }
             else { userRole = roleList[0]; }
 
+            //These claims represent the information that are baked into the JWT. 
             var claims = new[]{
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),

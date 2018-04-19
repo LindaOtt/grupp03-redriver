@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatList renders without crashing 1`] = `
+<div
+  className="ChatList"
+>
+  <p>
+    Chat list
+  </p>
+</div>
+`;
