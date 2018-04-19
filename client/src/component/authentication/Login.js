@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+
+// Import NPM-modules
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import axios from "axios/index";
 
+// Import styles. loginStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {loginStyles} from "../../styles/AuthStyles";
-import '../../styles/Styles.css';
+import '../../styles/Styles.css'
+
+import {AzureServerUrl} from "../../utils/Config";
+
+/**
+ *  Login-component.
+ *
+ *  @author Jimmy
+ */
 
 class Login extends Component {
 
@@ -15,10 +27,17 @@ class Login extends Component {
         this.state = {
             userName: '',
             password: '',
+            email: 'test1@example.com',
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    /**
+     *  Handle form-input. Input are added to this.state.
+     *
+     *  @author Jimmy
+     */
 
     handleChange = name => event => {
         this.setState({
@@ -26,11 +45,59 @@ class Login extends Component {
         });
     };
 
+    /**
+     *  Handle submit-button. A login-request is sent to server with form-input included.
+     *
+     *  @author Jimmy
+     */
+
     handleSubmit() {
-        this.props.openSnackBar('Logga in');
+
+        console.log(this.state);
+
+        if (this.state.userName === '' || this.state.password === '' || this.state.email === '') {
+
+            return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
+        }
+
+
+        this.sendRequest()
+            .then((response) => {
+
+                console.log(response);
+                localStorage.setItem('token', JSON.stringify(response.data.token));
+                return this.props.openSnackBar('Välkommen ' + this.state.userName + '!');
+
+            }).catch((err) => {
+            console.log(err);
+            return this.props.openSnackBar('Något gick fel. Försök igen!');
+        });
+    }
+
+    sendRequest() {
+
+        let tempObj = {
+            username: this.state.userName,
+            password: this.state.password,
+            email: this.state.email,
+        };
+
+        console.log(JSON.stringify(tempObj));
+
+        return axios({
+            method: 'post',
+            url: AzureServerUrl + '/api/account/login',
+            data: JSON.stringify(tempObj),
+            headers: {'Content-Type': 'application/json'},
+        });
     }
 
     render() {
+
+        if (this.props.state.isSignedIn === true) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="Login">
                 <Typography
@@ -43,11 +110,19 @@ class Login extends Component {
                 </Typography>
                 <form style={loginStyles.container} noValidate autoComplete="off">
                     <TextField
-                        id="name"
+                        id="userName"
                         label="Användarnamn"
                         style={loginStyles.textField}
-                        value={this.state.name}
-                        onChange={this.handleChange('name')}
+                        value={this.state.userName}
+                        onChange={this.handleChange('userName')}
+                        margin="normal"
+                    />
+                    <TextField
+                        id="email"
+                        label="Email"
+                        style={loginStyles.textField}
+                        value={this.state.email}
+                        onChange={this.handleChange('email')}
                         margin="normal"
                     />
                     <TextField

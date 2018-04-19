@@ -66,3 +66,23 @@
 .SettingsSuperUser {
 
 }
+
+.UserAccount {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.UserAccountButtonDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.AccountSecondTitle {
+    text-align: left;
+    max-width: 300px;
+    margin-left: 20px;
+}
