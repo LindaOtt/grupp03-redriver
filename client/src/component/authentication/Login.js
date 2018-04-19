@@ -67,13 +67,7 @@ class Login extends Component {
         this.sendRequest()
             .then((response) => {
 
-                let userObj = {  // Remove when fetch users info from server is implemented
-                    username: this.state.userName,
-                    email: this.state.email,
-                };
-
                 console.log(response);
-                localStorage.setItem('userInfo', JSON.stringify(userObj)); // Remove when fetch users info from server is implemented
                 localStorage.setItem('token', JSON.stringify(response.data.token));
                 return this.props.openSnackBar('Välkommen ' + this.state.userName + '!');
 

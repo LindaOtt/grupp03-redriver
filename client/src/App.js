@@ -12,6 +12,7 @@ import Drawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Snackbar from 'material-ui/Snackbar';
+import { CircularProgress } from 'material-ui/Progress';
 import axios from "axios/index";
 
 // Import icons for the drawer-menu.
@@ -36,6 +37,8 @@ import Register from './component/authentication/Register';
 import NewPassword from './component/authentication/NewPassword';
 import UserAccount from './component/account/UserAccount';
 
+import { AzureServerUrl} from "./utils/Config";
+
 /**
  *  Starting point of the application
  *
@@ -52,8 +55,8 @@ class App extends Component {
             snackBar: false,
             snackBarMessage: '',
             isSignedIn: false,
-            token: '',
             userRole: 'User',
+            loaded: false,
         };
         this.openSnackBar = this.openSnackBar.bind(this);
         this.userLogout = this.userLogout.bind(this);
@@ -71,6 +74,15 @@ class App extends Component {
         });
         localStorage.removeItem('token');
         localStorage.removeItem('userInfo');
+    }
+
+    verifyJWT(token) {
+
+        return axios({
+            method: 'get',
+            url: AzureServerUrl + '/api/user/getuserinfo',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
+        });
     }
 
     /**
@@ -194,12 +206,27 @@ class App extends Component {
         if(localStorage.getItem('token')) {
 
             let token = JSON.parse(localStorage.getItem('token'));
-            let userInfo = JSON.parse(localStorage.getItem('userInfo')); // Remove when fetch users info from server is implemented
 
+            this.verifyJWT(token)
+                .then((response) => {
+                    console.log(response);
+                    this.setState({
+                        token: token,
+                        isSignedIn: true,
+                        userInfo: response.data,
+                        loaded: true,
+                    });
+                }).catch((error) => {
+                this.setState({
+                    isSignedIn: false,
+                    loaded: true,
+                });
+            });
+
+        } else {
             this.setState({
-                token: token,
-                isSignedIn: true,
-                userInfo: userInfo,
+                isSignedIn: false,
+                loaded: true,
             });
         }
 
@@ -216,15 +243,27 @@ class App extends Component {
         if(localStorage.getItem('token')) {
 
             let token = JSON.parse(localStorage.getItem('token'));
-            let userInfo = JSON.parse(localStorage.getItem('userInfo')); // Remove when fetch users info from server is implemented
 
-            if (token !== this.state.token) {
+            if (this.state.token) {
 
-                this.setState({
-                    token: token,
-                    isSignedIn: true,
-                    userInfo: userInfo,
-                });
+                if (token !== this.state.token) {
+
+                    this.verifyJWT(token)
+                        .then((response) => {
+                            console.log(response);
+                            this.setState({
+                                token: token,
+                                isSignedIn: true,
+                                userInfo: response.data,
+                                loaded: true,
+                            });
+                        }).catch((error) => {
+                        this.setState({
+                            isSignedIn: false,
+                            loaded: true,
+                        });
+                    });
+                }
             }
         }
 
@@ -236,55 +275,63 @@ class App extends Component {
     return (
         <Router>
             <MuiThemeProvider theme={theme}>
-                <div className="App">
-                      <AppBar
-                          position="sticky"
-                          style={AppStyles.root}
-                      >
-                          <Toolbar>
-                              <Typography
-                                  variant="title"
-                                  color="inherit"
-                                  style={AppStyles.flex}
-                              >
-                              </Typography>
-                              {this.state.isSignedIn ? (
-                                  <IconButton color="inherit" aria-label="Menu" style={AppStyles.menuButton}>
-                                      <MenuIcon onClick={this.toggleMenu(true)}/>
-                                  </IconButton>
-                              ) : (
-                                  <p> </p>
-                              )}
-                          </Toolbar>
-                      </AppBar>
-                      <div className="Body">
-                          <Route path="/" exact={true} component={() => <UserAccount state={this.state}/>}/>
-                          <Route path="/chats" component={() => <ChatList state={this.state}/>}/>
-                          <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
-                          <Route path="/settings" component={() => <Settings state={this.state}/>}/>
-                          <Route path="/login" component={() => <Login state={this.state} openSnackBar={this.openSnackBar}/>}/>
-                          <Route path="/register" component={() => <Register state={this.state} openSnackBar={this.openSnackBar}/>}/>
-                          <Route path="/password" component={() => <NewPassword state={this.state}/>}/>
-                      </div>
-                    <Snackbar
-                        open={this.state.snackBar}
-                        onClose={this.closeSnackBar}
-                        SnackbarContentProps={{
-                            'aria-describedby': 'message-id',
-                        }}
-                        message={<span id="message-id">{this.state.snackBarMessage}</span>}
-                    />
-                      <Drawer anchor="right" open={this.state.menu} onClose={this.toggleMenu(false)}>
-                          <div
-                              tabIndex={0}
-                              role="button"
-                              onClick={this.toggleMenu(false)}
-                              onKeyDown={this.toggleMenu(false)}
-                          >
-                              {this.renderMenu()}
-                          </div>
-                      </Drawer>
-                  </div>
+                {this.state.loaded ? (
+                    <div>
+                        <div className="App">
+                            <AppBar
+                                position="sticky"
+                                style={AppStyles.root}
+                            >
+                                <Toolbar>
+                                    <Typography
+                                        variant="title"
+                                        color="inherit"
+                                        style={AppStyles.flex}
+                                    >
+                                    </Typography>
+                                    {this.state.isSignedIn ? (
+                                        <IconButton color="inherit" aria-label="Menu" style={AppStyles.menuButton}>
+                                            <MenuIcon onClick={this.toggleMenu(true)}/>
+                                        </IconButton>
+                                    ) : (
+                                        <p> </p>
+                                    )}
+                                </Toolbar>
+                            </AppBar>
+                            <div className="Body">
+                                <Route path="/" exact={true} component={() => <UserAccount state={this.state}/>}/>
+                                <Route path="/chats" component={() => <ChatList state={this.state}/>}/>
+                                <Route path="/friends" component={() => <FriendsList state={this.state}/>}/>
+                                <Route path="/settings" component={() => <Settings state={this.state}/>}/>
+                                <Route path="/login" component={() => <Login state={this.state} openSnackBar={this.openSnackBar}/>}/>
+                                <Route path="/register" component={() => <Register state={this.state} openSnackBar={this.openSnackBar}/>}/>
+                                <Route path="/password" component={() => <NewPassword state={this.state}/>}/>
+                            </div>
+                            <Snackbar
+                                open={this.state.snackBar}
+                                onClose={this.closeSnackBar}
+                                SnackbarContentProps={{
+                                    'aria-describedby': 'message-id',
+                                }}
+                                message={<span id="message-id">{this.state.snackBarMessage}</span>}
+                            />
+                            <Drawer anchor="right" open={this.state.menu} onClose={this.toggleMenu(false)}>
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    onClick={this.toggleMenu(false)}
+                                    onKeyDown={this.toggleMenu(false)}
+                                >
+                                    {this.renderMenu()}
+                                </div>
+                            </Drawer>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="AppLoadingDiv">
+                        <CircularProgress style={AppStyles.loading}/>
+                    </div>
+                )}
             </MuiThemeProvider>
         </Router>
     );

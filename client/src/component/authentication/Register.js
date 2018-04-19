@@ -27,7 +27,7 @@ class Register extends Component {
         super(props);
 
         this.state = {
-            /*userName: '',
+            userName: '',
             firstName: '',
             surname: '',
             email: '',
@@ -38,7 +38,7 @@ class Register extends Component {
             city: '',
             socialSecurity: '',
             telephoneNumber: '',
-            relativeUsername: '',*/
+            relativeUsername: '',
             image: [],
             navigate: false
         };
@@ -68,14 +68,13 @@ class Register extends Component {
 
         console.log(this.state);
 
-        // Use this when all info is implemented on server.
-        /*for (const key of Object.keys(this.state)) {
+        for (const key of Object.keys(this.state)) {
             console.log(key, this.state[key]);
 
             if (this.state[key] === '') {
                 return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
             }
-        }*/
+        }
 
         if (this.state.password !== this.state.passwordConfirm) {
             return this.props.openSnackBar('Lösenorden matchar inte!');
@@ -103,25 +102,18 @@ class Register extends Component {
 
     sendRequest() {
 
-        // Use this object when all info is implemented on server.
-        /*let tempObj = {
+        let tempObj = {
             username: this.state.userName,
             firstName: this.state.firstName,
             surname: this.state.surname,
             email: this.state.email,
             password: this.state.password,
             streetAddress: this.state.streetAddress,
-            Postcode: this.state.zipCode,
+            postcode: this.state.zipCode,
             city: this.state.city,
             socialSecurity: this.state.socialSecurity,
             telephoneNumber: this.state.telephoneNumber,
             relativeUsername: this.state.relativeUsername,
-        };*/
-
-        let tempObj = {
-            username: this.state.userName,
-            email: this.state.email,
-            password: this.state.password,
         };
 
         console.log(JSON.stringify(tempObj));
@@ -237,7 +229,6 @@ class Register extends Component {
                         value={this.state.socialSecurity}
                         onChange={this.handleChange('socialSecurity')}
                         margin="normal"
-                        type="number"
                     />
                     <TextField
                         id="telephoneNumber"
