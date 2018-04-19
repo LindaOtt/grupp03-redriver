@@ -30,7 +30,9 @@ const AppStyles = {
     body: {
 
     },
-
+    loading: {
+        margin: 'auto',
+    }
 };
 
 export default AppStyles;

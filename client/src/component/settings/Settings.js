@@ -25,7 +25,7 @@ class Settings extends Component {
         super(props);
 
         this.state = {
-            user: this.props.user,
+            userRole: this.props.state.userRole,
         };
 
         this.toggleUser = this.toggleUser.bind(this);
@@ -39,15 +39,15 @@ class Settings extends Component {
 
     toggleUser() {
 
-        switch(this.state.user) {
+        switch(this.state.userRole) {
             case 'SuperUser':
-                return <SuperUser/>;
+                return <SuperUser state={this.props.state}/>;
 
             case 'Admin':
-                return <Admin/>;
+                return <Admin state={this.props.state}/>;
 
-            default:
-                return <User/>;
+            case 'User':
+                return <User state={this.props.state}/>;
         }
 
     }
@@ -59,9 +59,9 @@ class Settings extends Component {
 
         return (
                 <div className="Settings">
-                    {this.state.user ? (
+                    {this.state.userRole ? (
                         <div>
-                            {this.toggleUser}
+                            {this.toggleUser()}
                         </div>
                     ) : (
                         <CircularProgress/>

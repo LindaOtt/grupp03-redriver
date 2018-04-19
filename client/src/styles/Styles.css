@@ -6,6 +6,13 @@
     flex-flow: 1;
 }
 
+.AppLoadingDiv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
 .Register {
     margin: auto;
     max-width: 600px;
@@ -60,7 +67,11 @@
 }
 
 .SettingsUser {
-
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 800px;
+    padding: 20px;
 }
 
 .SettingsSuperUser {
@@ -72,7 +83,7 @@
     flex-direction: column;
     margin: auto;
     max-width: 800px;
-    padding: 20px;
+    padding-top: 20px;
 }
 
 .UserAccountButtonDiv {

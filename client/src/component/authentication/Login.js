@@ -13,6 +13,9 @@ import '../../styles/Styles.css'
 
 import {AzureServerUrl} from "../../utils/Config";
 
+import Register from './Register';
+import NewPassword from './NewPassword';
+
 /**
  *  Login-component.
  *
@@ -73,6 +76,12 @@ class Login extends Component {
             return this.props.openSnackBar('Något gick fel. Försök igen!');
         });
     }
+
+    /**
+     *  Send login request to server
+     *
+     *  @author Jimmy
+     */
 
     sendRequest() {
 
@@ -138,7 +147,6 @@ class Login extends Component {
                         <Button variant="raised" style={loginStyles.button} onClick={this.handleSubmit}>
                             Logga in
                         </Button>
-                        <Router>
                         <div style={loginStyles.loginLinkContainer}>
                             <div style={loginStyles.loginLinkDivLeft}>
                                 <Link style={loginStyles.loginLink} to="/register">Registrera ny användare</Link>
@@ -147,7 +155,6 @@ class Login extends Component {
                                 <Link style={loginStyles.loginLink} to="/password">Glömt lösenord?</Link>
                             </div>
                         </div>
-                        </Router>
                     </div>
                 </form>
             </div>
