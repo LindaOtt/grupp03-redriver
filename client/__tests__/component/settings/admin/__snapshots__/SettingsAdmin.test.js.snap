@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingsAdmin renders without crashing 1`] = `
+<div
+  className="SettingsAdmin"
+>
+  <p>
+    Admin settings
+  </p>
+</div>
+`;
