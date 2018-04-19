@@ -23,6 +23,15 @@ export const settingsUserStyles =  {
     user: {
 
     },
+
+    title: {
+        marginLeft: 30,
+    },
+
+    titleUserDetails: {
+        marginLeft: 30,
+        fontSize: '90%'
+    },
 };
 
 export const settingsSuperUserStyles =  {

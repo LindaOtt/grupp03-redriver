@@ -12,6 +12,7 @@ import Drawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Snackbar from 'material-ui/Snackbar';
+import axios from "axios/index";
 
 // Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble';
@@ -52,6 +53,7 @@ class App extends Component {
             snackBarMessage: '',
             isSignedIn: false,
             token: '',
+            userRole: 'User',
         };
         this.openSnackBar = this.openSnackBar.bind(this);
         this.userLogout = this.userLogout.bind(this);
@@ -68,6 +70,7 @@ class App extends Component {
             isSignedIn: false,
         });
         localStorage.removeItem('token');
+        localStorage.removeItem('userInfo');
     }
 
     /**
@@ -150,26 +153,6 @@ class App extends Component {
                         </ListItemIcon>
                         <ListItemText primary="Inställningar" />
                     </ListItem>
-                    <ListItem
-                        button
-                        component={Link}
-                        to="/login"
-                    >
-                        <ListItemIcon>
-                            <LoginIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Logga in" />
-                    </ListItem>
-                    <ListItem
-                        button
-                        component={Link}
-                        to="/register"
-                    >
-                        <ListItemIcon>
-                            <RegisterIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Registrera" />
-                    </ListItem>
                 </List>
                 <Divider />
                 <ListItem
@@ -211,10 +194,12 @@ class App extends Component {
         if(localStorage.getItem('token')) {
 
             let token = JSON.parse(localStorage.getItem('token'));
+            let userInfo = JSON.parse(localStorage.getItem('userInfo')); // Remove when fetch users info from server is implemented
 
             this.setState({
                 token: token,
                 isSignedIn: true,
+                userInfo: userInfo,
             });
         }
 
@@ -231,12 +216,14 @@ class App extends Component {
         if(localStorage.getItem('token')) {
 
             let token = JSON.parse(localStorage.getItem('token'));
+            let userInfo = JSON.parse(localStorage.getItem('userInfo')); // Remove when fetch users info from server is implemented
 
             if (token !== this.state.token) {
 
                 this.setState({
                     token: token,
                     isSignedIn: true,
+                    userInfo: userInfo,
                 });
             }
         }

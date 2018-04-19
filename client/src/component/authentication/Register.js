@@ -95,6 +95,12 @@ class Register extends Component {
 
     }
 
+    /**
+     *  Send register request to server.
+     *
+     *  @author Jimmy
+     */
+
     sendRequest() {
 
         // Use this object when all info is implemented on server.

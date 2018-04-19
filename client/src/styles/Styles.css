@@ -60,7 +60,11 @@
 }
 
 .SettingsUser {
-
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 800px;
+    padding: 20px;
 }
 
 .SettingsSuperUser {

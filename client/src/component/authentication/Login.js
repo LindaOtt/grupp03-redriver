@@ -13,6 +13,9 @@ import '../../styles/Styles.css'
 
 import {AzureServerUrl} from "../../utils/Config";
 
+import Register from './Register';
+import NewPassword from './NewPassword';
+
 /**
  *  Login-component.
  *
@@ -64,7 +67,13 @@ class Login extends Component {
         this.sendRequest()
             .then((response) => {
 
+                let userObj = {  // Remove when fetch users info from server is implemented
+                    username: this.state.userName,
+                    email: this.state.email,
+                };
+
                 console.log(response);
+                localStorage.setItem('userInfo', JSON.stringify(userObj)); // Remove when fetch users info from server is implemented
                 localStorage.setItem('token', JSON.stringify(response.data.token));
                 return this.props.openSnackBar('Välkommen ' + this.state.userName + '!');
 
@@ -73,6 +82,12 @@ class Login extends Component {
             return this.props.openSnackBar('Något gick fel. Försök igen!');
         });
     }
+
+    /**
+     *  Send login request to server
+     *
+     *  @author Jimmy
+     */
 
     sendRequest() {
 
@@ -138,7 +153,6 @@ class Login extends Component {
                         <Button variant="raised" style={loginStyles.button} onClick={this.handleSubmit}>
                             Logga in
                         </Button>
-                        <Router>
                         <div style={loginStyles.loginLinkContainer}>
                             <div style={loginStyles.loginLinkDivLeft}>
                                 <Link style={loginStyles.loginLink} to="/register">Registrera ny användare</Link>
@@ -147,7 +161,6 @@ class Login extends Component {
                                 <Link style={loginStyles.loginLink} to="/password">Glömt lösenord?</Link>
                             </div>
                         </div>
-                        </Router>
                     </div>
                 </form>
             </div>

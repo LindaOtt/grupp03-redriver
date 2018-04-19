@@ -40,7 +40,7 @@ class UserAccount extends Component {
                     align="left"
                     style={userAccountStyles.title}
                 >
-                    Hej, {this.state.name}!
+                    Hej, {this.props.state.userInfo.username}!
                 </Typography>
                 <p className="AccountSecondTitle">Kom igång genom att skicka ett meddelande nedan.</p>
                 <div className="UserAccountButtonDiv">
