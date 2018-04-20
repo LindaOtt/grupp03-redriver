@@ -26,7 +26,7 @@ namespace RedRiverChatServer.Models
         public string Postcode { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
-        public string RelativeUsername { get; set; }
+        public string RelativeUserId { get; set; }
         public string TelephoneNumber { get; set; }
         public virtual ICollection<Friendship> Friendships { get; set; }
     }
@@ -50,20 +50,9 @@ namespace RedRiverChatServer.Models
 
     }
 
-    public class RegisterModel
+    public class RegisterModel:ApplicationUser
     {
-        public string Username { get; set; }
-        public string Email { get; set; }
         public string Password { get; set; }
-        public string SocialSecurity { get; set; }
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Postcode { get; set; }
-        public string FirstName { get; set; }
-        public string Surname { get; set; }
-        public string RelativeUsername { get; set; }
-        public string TelephoneNumber { get; set; }
     }
 
     public class LoginModel
@@ -76,18 +65,34 @@ namespace RedRiverChatServer.Models
 
     public class RoleModel
     {
-        public string Email { get; set; }
+        public string UserName { get; set; }
         public string RoleName { get; set; }
     }
 
     public class DeleteModel
     {
-        public string Email { get; set; }
+        public string UserName { get; set; }
     }
 
     public class FriendModel
     {
       public string Username { get; set; }
+    }
+
+    public class UserInfoModel
+    {
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string SocialSecurity { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Postcode { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string RelativeUserId { get; set; }
+        public string TelephoneNumber { get; set; }
+
     }
 
 }
