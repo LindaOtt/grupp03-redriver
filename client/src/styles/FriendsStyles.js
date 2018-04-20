@@ -18,3 +18,9 @@ export const friendsViewStyles =  {
 
     },
 };
+
+export const friendRequestStyles =  {
+    friendRequests: {
+
+    },
+};

@@ -15,9 +15,9 @@ const secondaryColor = grey[600];
 export const theme = createMuiTheme({
     palette: {
         primary: {
-            light: grey[200],
+            light: grey[300],
             main: grey[400],
-            dark: grey[600],
+            dark: grey[700],
         },
         secondary: {
             light: green[300],

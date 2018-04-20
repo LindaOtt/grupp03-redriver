@@ -85,7 +85,7 @@ class SettingsUser extends Component {
                     </ExpansionPanel>
                     <List>
                         <ListItem>
-                            <ListItemText primary="Notifikationer" />
+                            <Typography >Notifikationer</Typography>
                             <ListItemSecondaryAction>
                                 <Switch
                                     checked={this.state.notificationToggle}
@@ -96,8 +96,9 @@ class SettingsUser extends Component {
                             </ListItemSecondaryAction>
                         </ListItem>
                         <Divider />
+                        <Divider />
                         <ListItem>
-                            <ListItemText primary="ToDo" />
+                            <Typography >Fylls på med mer inställningar...</Typography>
                             <ListItemSecondaryAction>
                                 <Switch
                                     value="todo"
