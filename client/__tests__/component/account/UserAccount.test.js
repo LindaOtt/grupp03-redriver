@@ -1,12 +1,12 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
-import Login from '../../../src/component/authentication/Login';
+import UserAccount from '../../../src/component/account/UserAccount';
 import renderer from 'react-test-renderer';
 
-test('Login renders without crashing', () => {
+test('UserAccount renders without crashing', () => {
   const tree = renderer.create(
     <MemoryRouter>
-      <Login state = {{ isSignedIn: false }}/>
+      <UserAccount state = {{ isSignedIn: true, userInfo : { username: 'username' }}}/>
     </MemoryRouter>
   );
   expect(tree.toJSON()).toMatchSnapshot();

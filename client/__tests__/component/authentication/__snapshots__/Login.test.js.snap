@@ -42,7 +42,7 @@ exports[`Login renders without crashing 1`] = `
       <label
         className="MuiFormLabel-root-34 MuiInputLabel-root-29 MuiInputLabel-formControl-30 MuiInputLabel-animated-33"
         data-shrink={false}
-        htmlFor="name"
+        htmlFor="userName"
       >
         Användarnamn
       </label>
@@ -57,7 +57,7 @@ exports[`Login renders without crashing 1`] = `
           className="MuiInput-input-48"
           defaultValue={undefined}
           disabled={false}
-          id="name"
+          id="userName"
           name={undefined}
           onBlur={[Function]}
           onChange={[Function]}
@@ -69,7 +69,55 @@ exports[`Login renders without crashing 1`] = `
           required={undefined}
           rows={undefined}
           type="text"
-          value={undefined}
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      aria-describedby={undefined}
+      className="MuiFormControl-root-25 MuiFormControl-marginNormal-26"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginLeft": 30,
+          "marginRight": 30,
+          "width": 300,
+        }
+      }
+    >
+      <label
+        className="MuiFormLabel-root-34 MuiInputLabel-root-29 MuiInputLabel-formControl-30 MuiInputLabel-animated-33 MuiInputLabel-shrink-32"
+        data-shrink={true}
+        htmlFor="email"
+      >
+        Email
+      </label>
+      <div
+        className="MuiInput-root-40 MuiInput-formControl-41 MuiInput-underline-44"
+      >
+        <input
+          aria-invalid={false}
+          aria-required={false}
+          autoComplete={undefined}
+          autoFocus={undefined}
+          className="MuiInput-input-48"
+          defaultValue={undefined}
+          disabled={false}
+          id="email"
+          name={undefined}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={undefined}
+          onKeyUp={undefined}
+          placeholder={undefined}
+          readOnly={undefined}
+          required={undefined}
+          rows={undefined}
+          type="text"
+          value="test1@example.com"
         />
       </div>
     </div>
