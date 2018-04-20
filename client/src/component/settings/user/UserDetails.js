@@ -9,7 +9,6 @@ import axios from 'axios';
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsUserStyles} from "../../../styles/SettingsStyles";
 import '../../../styles/Styles.css'
-import {registerStyles} from "../../../styles/AuthStyles";
 
 /**
  *  UserInfo-component.
@@ -33,10 +32,68 @@ class SettingsUser extends Component {
             socialSecurity: this.props.state.userInfo.socialSecurity,
             telephoneNumber: this.props.state.userInfo.telephoneNumber,
             relativeUsername: this.props.state.userInfo.relativeUsername,
-            editDetails: false,
+            formDisabled: true,
         };
 
     }
+
+    /**
+     *  Handle form-input. Input are added to this.state.
+     *
+     *  @author Jimmy
+     */
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    handleEditButton(action) {
+        this.setState({
+            formDisabled: action,
+        });
+        console.log(this.state);
+    }
+
+    /**
+     *  Handle submit-button. Register-request is sent to server with form-input included.
+     *
+     *  @author Jimmy
+     */
+
+    handleSubmit() {
+
+        if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
+            return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
+        }
+
+        if (this.state.password !== this.state.passwordConfirm) {
+            return this.props.openSnackBar('Lösenorden matchar inte!');
+        }
+
+        // ToDo.. Add this when function to change users details is implemented on server.
+        /*this.sendRequest()
+            .then((response) => {
+
+                console.log(response);
+                this.setState({navigate: true,});
+                return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!');
+
+            }).catch((err) => {
+            console.log(err);
+            return this.props.openSnackBar('Något gick fel. Försök igen!');
+        });*/
+
+        this.handleEditButton(true);
+
+    }
+
+    /**
+     *  Render form. Form is disabled when user isn't editing details.
+     *
+     *  @author Jimmy
+     */
 
     renderForm() {
 
@@ -49,6 +106,7 @@ class SettingsUser extends Component {
                     value={this.state.userName}
                     onChange={this.handleChange('userName')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="email"
@@ -58,6 +116,7 @@ class SettingsUser extends Component {
                     onChange={this.handleChange('email')}
                     margin="normal"
                     type="email"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="firstName"
@@ -66,6 +125,7 @@ class SettingsUser extends Component {
                     value={this.state.firstName}
                     onChange={this.handleChange('firstName')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="surname"
@@ -74,6 +134,7 @@ class SettingsUser extends Component {
                     value={this.state.surname}
                     onChange={this.handleChange('surname')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="streetAddress"
@@ -82,6 +143,7 @@ class SettingsUser extends Component {
                     value={this.state.streetAddress}
                     onChange={this.handleChange('streetAddress')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="zipCode"
@@ -91,6 +153,7 @@ class SettingsUser extends Component {
                     onChange={this.handleChange('zipCode')}
                     margin="normal"
                     type="number"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="city"
@@ -99,6 +162,7 @@ class SettingsUser extends Component {
                     value={this.state.city}
                     onChange={this.handleChange('city')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="socialSecurity"
@@ -107,6 +171,7 @@ class SettingsUser extends Component {
                     value={this.state.socialSecurity}
                     onChange={this.handleChange('socialSecurity')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="telephoneNumber"
@@ -116,6 +181,7 @@ class SettingsUser extends Component {
                     onChange={this.handleChange('telephoneNumber')}
                     margin="normal"
                     type="tel"
+                    disabled={this.state.formDisabled}
                 />
                 <TextField
                     id="relativeUsername"
@@ -124,12 +190,8 @@ class SettingsUser extends Component {
                     value={this.state.relativeUsername}
                     onChange={this.handleChange('relativeUsername')}
                     margin="normal"
+                    disabled={this.state.formDisabled}
                 />
-                <div className="RegisterButton">
-                    <Button variant="raised" style={settingsUserStyles.button} onClick={this.handleSubmit}>
-                        Registrera
-                    </Button>
-                </div>
             </form>
         );
     }
@@ -137,7 +199,26 @@ class SettingsUser extends Component {
     render() {
         return (
             <div className="UserDetails">
-
+                {this.state.formDisabled ? (
+                    <div>
+                        {this.renderForm()}
+                        <Button variant="raised" style={settingsUserStyles.button} onClick={() => this.handleEditButton(false)}>
+                            Ändra uppgifter
+                        </Button>
+                    </div>
+                ) : (
+                    <div>
+                        {this.renderForm()}
+                        <div>
+                            <Button variant="raised" style={settingsUserStyles.button} onClick={() => this.handleEditButton(true)}>
+                                Ångra
+                            </Button>
+                            <Button variant="raised" style={settingsUserStyles.button} onClick={() => this.handleSubmit()}>
+                                Ok
+                            </Button>
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }

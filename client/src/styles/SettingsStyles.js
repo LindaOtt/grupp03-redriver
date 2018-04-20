@@ -38,19 +38,16 @@ export const settingsUserStyles =  {
 
     },
     button: {
-        width: 240,
-        height: 60,
-        marginTop: 90,
-    },
-    register: {
-        margin: 'auto',
-        maxWidth: 600,
-        paddingTop: 20,
+
+        margin: 20,
     },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+    },
+    textField: {
+        margin: 10,
     },
 };
 
