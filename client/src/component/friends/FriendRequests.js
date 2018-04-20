@@ -12,7 +12,7 @@ import axios from 'axios';
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {friendRequestStyles} from "../../styles/FriendsStyles";
 import '../../styles/Styles.css'
-import {registerStyles} from "../../styles/AuthStyles";
+
 import {AzureServerUrl} from "../../utils/Config";
 
 /**
