@@ -49,6 +49,13 @@ export const settingsUserStyles =  {
     textField: {
         margin: 10,
     },
+    listItem: {
+        border: {
+            color: 'black',
+            width: 1,
+            style: 'solid',
+        }
+    },
 };
 
 export const settingsSuperUserStyles =  {
