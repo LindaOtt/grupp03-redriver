@@ -50,7 +50,7 @@ class SettingsUser extends Component {
                 >
                     Inställningar
                 </Typography>
-                <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+                <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')} style={settingsUserStyles.expansionPanel}>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography >Användaruppgifter</Typography>
                     </ExpansionPanelSummary>

@@ -25,12 +25,32 @@ export const settingsUserStyles =  {
     },
 
     title: {
-        marginLeft: 30,
+        margin: 20,
+
     },
 
     titleUserDetails: {
         marginLeft: 30,
         fontSize: '90%'
+    },
+    expansionPanel: {
+        margin: 0,
+
+    },
+    button: {
+        width: 240,
+        height: 60,
+        marginTop: 90,
+    },
+    register: {
+        margin: 'auto',
+        maxWidth: 600,
+        paddingTop: 20,
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
     },
 };
 
