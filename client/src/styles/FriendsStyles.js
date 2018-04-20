@@ -10,6 +10,19 @@ import {theme} from "./Styles";
 export const friendsListStyles =  {
     friendsList: {
     },
+
+    paper: {
+        width: 280,
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 6,
+        margin: 10,
+    },
+    friendsName: {
+        width: '70%',
+        textAlign: 'left',
+        marginTop: 6,
+    },
 };
 
 export const friendsViewStyles =  {
