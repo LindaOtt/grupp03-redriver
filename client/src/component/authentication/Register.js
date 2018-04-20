@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 
 // Import NPM-modules
 import TextField from 'material-ui/TextField';
-import ImagesUploader from 'react-images-uploader';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import axios from 'axios';
@@ -66,14 +65,8 @@ class Register extends Component {
 
     handleSubmit() {
 
-        console.log(this.state);
-
-        for (const key of Object.keys(this.state)) {
-            console.log(key, this.state[key]);
-
-            if (this.state[key] === '') {
-                return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
-            }
+        if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
+            return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
         }
 
         if (this.state.password !== this.state.passwordConfirm) {
@@ -246,18 +239,6 @@ class Register extends Component {
                         value={this.state.relativeUsername}
                         onChange={this.handleChange('relativeUsername')}
                         margin="normal"
-                    />
-                    <ImagesUploader
-                        url="http://example.com"
-                        optimisticPreviews
-                        multiple={false}
-                        onLoadEnd={(err) => {
-                            if (err) {
-                                console.error(err);
-                            }
-                        }}
-                        label="Välj profilbild"
-                        styles={registerStyles.imageUpload}
                     />
                     <div className="RegisterButton">
                         <Button variant="raised" style={registerStyles.button} onClick={this.handleSubmit}>

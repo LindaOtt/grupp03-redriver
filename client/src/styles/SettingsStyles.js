@@ -25,12 +25,36 @@ export const settingsUserStyles =  {
     },
 
     title: {
-        marginLeft: 30,
+        margin: 20,
+
     },
 
     titleUserDetails: {
         marginLeft: 30,
         fontSize: '90%'
+    },
+    expansionPanel: {
+        margin: 0,
+
+    },
+    button: {
+
+        margin: 20,
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly',
+    },
+    textField: {
+        margin: 10,
+    },
+    listItem: {
+        border: {
+            color: 'black',
+            width: 1,
+            style: 'solid',
+        }
     },
 };
 

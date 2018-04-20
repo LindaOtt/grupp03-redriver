@@ -71,7 +71,12 @@
     flex-direction: column;
     margin: auto;
     max-width: 800px;
-    padding: 20px;
+}
+
+.SettingsUser-Inner {
+    border-left: 1px solid #cbced0;
+    border-right: 1px solid #cbced0;
+    border-bottom: 1px solid #cbced0;
 }
 
 .SettingsSuperUser {
