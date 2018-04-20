@@ -2,6 +2,7 @@
 import { createMuiTheme } from 'material-ui/styles';
 import grey from "material-ui/colors/grey";
 import green from "material-ui/colors/green";
+import red from "material-ui/colors/red";
 
 const primaryColor = grey[400];
 const secondaryColor = grey[600];
@@ -23,6 +24,11 @@ export const theme = createMuiTheme({
             light: green[300],
             main: green[500],
             dark: green[700],
+        },
+        error: {
+            light: red[200],
+            main: red[400],
+            dark: red[600],
         },
     },
 });

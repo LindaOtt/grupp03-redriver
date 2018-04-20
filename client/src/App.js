@@ -267,7 +267,6 @@ class App extends Component {
                 }
             }
         }
-
     }
 
 
@@ -307,7 +306,7 @@ class App extends Component {
                                 <Route path="/login" component={() => <Login state={this.state} openSnackBar={this.openSnackBar}/>}/>
                                 <Route path="/register" component={() => <Register state={this.state} openSnackBar={this.openSnackBar}/>}/>
                                 <Route path="/password" component={() => <NewPassword state={this.state}/>}/>
-                                <Route path="/friendrequests" component={() => <FriendRequests state={this.state}/>}/>
+                                <Route path="/friendrequests" component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar}/>}/>
                             </div>
                             <Snackbar
                                 open={this.state.snackBar}

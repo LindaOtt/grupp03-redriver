@@ -9,7 +9,6 @@ import {theme} from "./Styles";
 
 export const friendsListStyles =  {
     friendsList: {
-
     },
 };
 
@@ -21,6 +20,16 @@ export const friendsViewStyles =  {
 
 export const friendRequestStyles =  {
     friendRequests: {
+    },
+    title: {
+        margin: 20,
 
+    },
+    textField: {
+        margin: 10,
+    },
+    button: {
+
+        margin: 30,
     },
 };
