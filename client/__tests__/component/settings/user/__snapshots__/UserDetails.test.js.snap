@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserDetails renders without crashing 1`] = `
+<div
+  className="UserDetails"
+>
+  <h1
+    className="MuiTypography-root-1 MuiTypography-headline-6 MuiTypography-alignLeft-13"
+    style={
+      Object {
+        "fontSize": "90%",
+        "marginLeft": 30,
+      }
+    }
+  >
+    Användaruppgifter
+  </h1>
+</div>
+`;

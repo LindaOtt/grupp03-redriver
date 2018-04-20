@@ -47,7 +47,7 @@ namespace RedRiverChatServer.Controllers
         {
             var config = new MapperConfiguration(cfg => {
 
-                cfg.CreateMap<ApplicationUser, RegisterModel>();
+                cfg.CreateMap<ApplicationUser, UserInfoModel>();
 
             });
 
@@ -58,7 +58,7 @@ namespace RedRiverChatServer.Controllers
             {
                 IMapper iMapper = config.CreateMapper();
 
-                var strippedUser = iMapper.Map<ApplicationUser, RegisterModel>(user);
+                var strippedUser = iMapper.Map<ApplicationUser, UserInfoModel>(user);
                 return Ok(strippedUser) ;
             }
             else
@@ -82,7 +82,12 @@ namespace RedRiverChatServer.Controllers
             if (user != null)
             {
                 var result = context.Friendship.Where(c => c.ApplicationUserId == user.Id);
-                return Ok(result);
+                List<string> resultList = new List<string>();
+                foreach (var r in result)
+                {
+                    resultList.Add(r.FriendUsername);
+                }
+                return Ok(new { friendList = resultList });
             }
             else
             {
@@ -148,6 +153,12 @@ namespace RedRiverChatServer.Controllers
                 friend.Friendships.Remove(reciprocalFriendshipToRemove);
                 await _userManager.UpdateAsync(user);
                 await _userManager.UpdateAsync(friend);
+
+                context.Friendship.Remove(friendshipToRemove);
+                context.Friendship.Remove(reciprocalFriendshipToRemove);
+
+                context.SaveChanges();
+               
                 return Ok(new { result = "Friendship successfully removed" });
             }
             else

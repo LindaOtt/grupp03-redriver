@@ -11,51 +11,7 @@
 			"description": "Tests to check in a user can register. User will not be logged in automatically.",
 			"item": [
 				{
-					"name": "F1 T1 Account Creation testuser1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"api",
-								"account",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "F1 T2 Account Creation missing username",
+					"name": "F1 T1 Account Creation missing firstName",
 					"event": [
 						{
 							"listen": "test",
@@ -83,8 +39,8 @@
 							"raw": "{\n\t\"email\": \"testUserb@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -99,7 +55,7 @@
 					"response": []
 				},
 				{
-					"name": "F1 T3 Account Creation testuser2",
+					"name": "F1 T2 Account Creation testuser1",
 					"event": [
 						{
 							"listen": "test",
@@ -124,11 +80,143 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"testuser2\",\n\t\"email\": \"testuser2@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\",\n\t\"socialSecurity\":\"992323-3425\",\n\t\"streetAddress\": \"Storgatan 15\",\n\t\"postcode\": \"45444\",\n\t\"city\": \"Stockholm\",\n\t\"country\": \"Sweden\",\n\t\"firstName\": \"Karl\",\n\t\"surname\": \"Johansson\",\n\t\"telephoneNumber\": \"0763422888\"\n}\n\n\n "
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/register",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F1 T3 Account Creation missing username Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90067712-2e0c-4bbf-8ee7-14693d2fca8a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"testUserb@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F1 T4 Account Creation testuser2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser2\",\n\t\"email\": \"testuser2@hotmail.com\",\n\t\"password\": \"123!@thHHh\",\n\t\"socialSecurity\":\"992523-3225\",\n\t\"streetAddress\": \"Storgatan 17\",\n\t\"postcode\": \"45444\",\n\t\"city\": \"Karlstad\",\n\t\"country\": \"Sweden\",\n\t\"firstName\": \"Frank\",\n\t\"surname\": \"Smith\",\n\t\"phoneNumber\": \"0763372888\"\n}\n"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F1 T4 Account Creation testuser3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser3\",\n\t\"email\": \"testuser3@hotmail.com\",\n\t\"password\": \"123!@thHHh\",\n\t\"socialSecurity\":\"992523-3215\",\n\t\"streetAddress\": \"Storgatan 13\",\n\t\"postcode\": \"45434\",\n\t\"city\": \"Karlstad\",\n\t\"country\": \"Sweden\",\n\t\"firstName\": \"John\",\n\t\"surname\": \"Smith\",\n\t\"phoneNumber\": \"0763372888\"\n}\n"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/register",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -193,8 +281,8 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -237,8 +325,8 @@
 							"raw": "{\n\t\t\"username\": \"fakeuser\",\n\t\"email\": \"fakeuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -253,7 +341,7 @@
 					"response": []
 				},
 				{
-					"name": "F2 T3 Get JWT Existing User",
+					"name": "F2 T3 Get JWT Existing User With Username",
 					"event": [
 						{
 							"listen": "test",
@@ -284,11 +372,11 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+							"raw": "{\n\t\"username\": \"testuser\",\n\t\"password\": \"123!@thHHh\"\n}"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -303,7 +391,57 @@
 					"response": []
 				},
 				{
-					"name": "F2 T4 Protected route with auth",
+					"name": "F2 T4 Get JWT Existing User With Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99d12541-f78c-436e-8141-9bfb8437bade",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"jsonData = pm.response.json();",
+									"pm.environment.set(\"token\",jsonData.token );",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F2 T5 Protected route with auth",
 					"event": [
 						{
 							"listen": "test",
@@ -333,8 +471,8 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/routetest/tryprotectedroute",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -420,8 +558,8 @@
 							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/user/getuserinfo",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/getuserinfo",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -476,8 +614,8 @@
 							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/user/getfriends",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/getfriends",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -558,8 +696,62 @@
 							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/user/addfriend",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/addfriend",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"addfriend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F4 T1 AddFriend user 1-3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser3\"\n}\n"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/addfriend",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -579,7 +771,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "82acec24-aa58-4491-bb0c-9fc0802a8125",
+								"id": "e4329c39-555e-4111-9499-126fb8046fb1",
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
@@ -588,7 +780,12 @@
 									"",
 									"pm.test(\"Reply contains friend username testuser2\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].friendUsername).to.eql(\"testuser2\");",
+									"    pm.expect(jsonData.friendList).to.contain(\"testuser2\");",
+									"});",
+									"",
+									"pm.test(\"Reply contains friend username testuser3\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.friendList).to.contain(\"testuser3\");",
 									"});",
 									"",
 									"pm.variables.get(\"variable_key\");"
@@ -619,8 +816,8 @@
 							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/user/getfriends",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/getfriends",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -673,8 +870,8 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -727,8 +924,8 @@
 							"raw": "{\n  \"email\": \"testuser@hotmail.com\",\n  \"rolename\" : \"admin\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/addusertorole",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/addusertorole",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -777,8 +974,8 @@
 							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/login",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/login",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -823,8 +1020,8 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/routetest/tryprotectedrouteadmin",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -883,8 +1080,62 @@
 							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/user/deletefriend",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/deletefriend",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"user",
+								"deletefriend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Friend testuser3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser3\"\n}\n"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/user/deletefriend",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -934,11 +1185,65 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"testuser2\",\n\t\"email\": \"testuser2@hotmail.com\",\n\t\"password\": \"123!@thHHh\"\n}\n"
+							"raw": "{\n\t\"username\": \"testuser2\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/deleteuser",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/deleteuser",
+							"protocol": "{{httphttps}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"account",
+								"deleteuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "beedfb53-a959-4338-a962-495b5aa53d1d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testuser3\"\n}\n"
+						},
+						"url": {
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/deleteuser",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -988,11 +1293,11 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"testuser\",\n\t\"email\": \"testuser@hotmail.com\"\n}\n"
+							"raw": "{\n\t\"username\": \"testuser\"\n}\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}:{{port}}/api/account/deleteuser",
-							"protocol": "http",
+							"raw": "{{httphttps}}://{{baseUrl}}:{{port}}/api/account/deleteuser",
+							"protocol": "{{httphttps}}",
 							"host": [
 								"{{baseUrl}}"
 							],

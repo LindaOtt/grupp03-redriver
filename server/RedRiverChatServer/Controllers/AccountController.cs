@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -39,12 +40,26 @@ namespace RedRiverChatServer.Controllers
         [HttpPost]
         public async Task<object> Register([FromBody] RegisterModel model)
         {
-            var user = new ApplicationUser
+            //Check to see if model is missing required fields
+            if( model.UserName==null ||
+                model.Email==null ||
+                model.Password == null ||
+                model.FirstName == null ||
+                model.Surname == null
+                )
             {
-                UserName = model.Username,
-                Email = model.Email
-            };
+                return BadRequest(new { response = "Required field missing. Username, email, password, firstname and surname must be present." });
+            }
+            var config = new MapperConfiguration(cfg => {
 
+                cfg.CreateMap<RegisterModel, ApplicationUser>();
+
+            });
+
+            IMapper iMapper = config.CreateMapper();
+
+            var user = iMapper.Map<RegisterModel, ApplicationUser>(model);
+            
             //CreateAsync does the heavy lifting of adding user to database.
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -57,7 +72,7 @@ namespace RedRiverChatServer.Controllers
 
         /// <summary>
         /// 'Login' is really a matter of creating and distributing a JWT token.
-        /// Should user login by username instead?
+        /// User can log in by either email or username.
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
@@ -66,8 +81,23 @@ namespace RedRiverChatServer.Controllers
         {
             IActionResult response = Unauthorized();
 
-            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Email == login.Email);
+            ApplicationUser user;
 
+            if (login.Username != null)
+            {
+                user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == login.Username);
+
+            }
+            else if (login.Email != null)
+            {
+                user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Email == login.Email);
+
+            }
+            else
+            {
+                return BadRequest(new { response = "Required field missing. Username and/or email , password must be present." });
+            }
+            
             //Does the user not exist? Return unauthorized in that case.
             if (user == null) { return response; }
 
@@ -97,20 +127,13 @@ namespace RedRiverChatServer.Controllers
             return response;
         }
 
-        //Logout, but this is actually not needed since a user cannot be 'logged in'. Remove??
-        [HttpPost, Authorize]
-        public async Task<IActionResult> LogOut()
-        {
-            await _signInManager.SignOutAsync();
-            return Ok(new { response = "User logged out." });
-        }
 
         //ToDo Change this - user should be deleted by username instead of email?
         //Only superusers and admins are allowed to access this route.
         [HttpPost, Authorize(Roles = "superuser,admin")]
         public async Task<IActionResult> DeleteUser([FromBody]DeleteModel model)
         {
-            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Email == model.Email);
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == model.UserName);
 
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)
@@ -128,7 +151,7 @@ namespace RedRiverChatServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUserToRole([FromBody]RoleModel roleModel)
         {
-            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Email == roleModel.Email);
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == roleModel.UserName);
 
             var result = await _userManager.AddToRoleAsync(user, roleModel.RoleName);
 
