@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserAccount renders without crashing 1`] = `
+<div
+  className="UserAccount"
+>
+  <h1
+    className="MuiTypography-root-1 MuiTypography-headline-6 MuiTypography-colorTextSecondary-23 MuiTypography-alignLeft-13"
+    style={
+      Object {
+        "marginLeft": 20,
+      }
+    }
+  >
+    Hej, 
+    username
+    !
+  </h1>
+  <p
+    className="AccountSecondTitle"
+  >
+    Kom igång genom att skicka ett meddelande nedan.
+  </p>
+  <div
+    className="UserAccountButtonDiv"
+  >
+    <a
+      className="MuiButtonBase-root-40 MuiButton-root-25 MuiButton-raised-30"
+      href="/chats"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      style={
+        Object {
+          "height": 140,
+          "margin": 20,
+          "width": 160,
+        }
+      }
+      tabIndex="0"
+    >
+      <span
+        className="MuiButton-label-26"
+      >
+        Mina chattrum
+      </span>
+      <span
+        className="MuiTouchRipple-root-43"
+      />
+    </a>
+    <a
+      className="MuiButtonBase-root-40 MuiButton-root-25 MuiButton-raised-30"
+      href="/friends"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      style={
+        Object {
+          "height": 140,
+          "margin": 20,
+          "width": 160,
+        }
+      }
+      tabIndex="0"
+    >
+      <span
+        className="MuiButton-label-26"
+      >
+        Mina vänner
+      </span>
+      <span
+        className="MuiTouchRipple-root-43"
+      />
+    </a>
+    <button
+      className="MuiButtonBase-root-40 MuiButton-root-25 MuiButton-raised-30"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "height": 140,
+          "margin": 20,
+          "width": 160,
+        }
+      }
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-26"
+      >
+        Starta videosamtal
+      </span>
+      <span
+        className="MuiTouchRipple-root-43"
+      />
+    </button>
+    <button
+      className="MuiButtonBase-root-40 MuiButton-root-25 MuiButton-raised-30"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "height": 140,
+          "margin": 20,
+          "width": 160,
+        }
+      }
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-26"
+      >
+        Starta livesändning
+      </span>
+      <span
+        className="MuiTouchRipple-root-43"
+      />
+    </button>
+  </div>
+</div>
+`;

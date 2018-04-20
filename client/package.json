@@ -33,6 +33,7 @@
     "regenerator-runtime": "^0.11.1"
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "./src/LocalStorageMock",
     "moduleNameMapper": {
       "\\.css$": "identity-obj-proxy"
     },
