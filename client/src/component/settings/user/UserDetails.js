@@ -11,7 +11,7 @@ import {settingsUserStyles} from "../../../styles/SettingsStyles";
 import '../../../styles/Styles.css'
 
 /**
- *  UserInfo-component.
+ *  UserDetails-component.
  *
  *  @author Jimmy
  */
@@ -38,7 +38,7 @@ class SettingsUser extends Component {
     }
 
     /**
-     *  Handle form-input. Input are added to this.state.
+     *  Handle form-input. Inputs are added to this.state.
      *
      *  @author Jimmy
      */
@@ -49,6 +49,12 @@ class SettingsUser extends Component {
         });
     };
 
+    /**
+     *  Open forms for edit or disable them
+     *
+     *  @author Jimmy
+     */
+
     handleEditButton(action) {
         this.setState({
             formDisabled: action,
@@ -57,7 +63,7 @@ class SettingsUser extends Component {
     }
 
     /**
-     *  Handle submit-button. Register-request is sent to server with form-input included.
+     *  Handle submit-button for change details.
      *
      *  @author Jimmy
      */

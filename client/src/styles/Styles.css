@@ -58,6 +58,23 @@
 
 }
 
+.FriendRequests {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 800px;
+}
+
+.FriendRequests-Header {
+    text-align: left;
+    margin: 16px;
+}
+
+.FriendRequests-Inner {
+
+    margin-bottom: 20px;
+}
+
 .Settings {
 
 }

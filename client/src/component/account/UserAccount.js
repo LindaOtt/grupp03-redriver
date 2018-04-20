@@ -10,7 +10,7 @@ import {userAccountStyles} from "../../styles/AccountStyles";
 import '../../styles/Styles.css'
 
 /**
- *  ChatList-component. Starting page of chat.
+ *  User account. Starting page with links to chat, friends etc.
  *
  *  @author Jimmy
  */

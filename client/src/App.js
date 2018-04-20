@@ -36,6 +36,7 @@ import Login from './component/authentication/Login';
 import Register from './component/authentication/Register';
 import NewPassword from './component/authentication/NewPassword';
 import UserAccount from './component/account/UserAccount';
+import FriendRequests from './component/friends/FriendRequests'
 
 import { AzureServerUrl} from "./utils/Config";
 
@@ -266,7 +267,6 @@ class App extends Component {
                 }
             }
         }
-
     }
 
 
@@ -306,6 +306,7 @@ class App extends Component {
                                 <Route path="/login" component={() => <Login state={this.state} openSnackBar={this.openSnackBar}/>}/>
                                 <Route path="/register" component={() => <Register state={this.state} openSnackBar={this.openSnackBar}/>}/>
                                 <Route path="/password" component={() => <NewPassword state={this.state}/>}/>
+                                <Route path="/friendrequests" component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar}/>}/>
                             </div>
                             <Snackbar
                                 open={this.state.snackBar}

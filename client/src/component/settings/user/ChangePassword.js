@@ -12,7 +12,7 @@ import '../../../styles/Styles.css'
 import {registerStyles} from "../../../styles/AuthStyles";
 
 /**
- *  UserInfo-component.
+ *  Change Password-component.
  *
  *  @author Jimmy
  */
@@ -30,7 +30,7 @@ class ChangePassword extends Component {
     }
 
     /**
-     *  Handle form-input. Input are added to this.state.
+     *  Handle form-input. Inputs are added to this.state.
      *
      *  @author Jimmy
      */
@@ -43,7 +43,7 @@ class ChangePassword extends Component {
 
 
     /**
-     *  Handle submit-button. Register-request is sent to server with form-input included.
+     *  Handle submit-button for change password
      *
      *  @author Jimmy
      */
@@ -58,7 +58,7 @@ class ChangePassword extends Component {
             return this.props.openSnackBar('Lösenorden matchar inte!');
         }
 
-        // ToDo.. Add this when function to change users details is implemented on server.
+        // ToDo.. Add this when function to change users password is implemented on server.
         /*this.sendRequest()
             .then((response) => {
 
