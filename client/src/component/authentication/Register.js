@@ -65,9 +65,9 @@ class Register extends Component {
 
     handleSubmit() {
 
-        /*if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
+        if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
             return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
-        }*/
+        }
 
         if (this.state.password !== this.state.passwordConfirm) {
             return this.props.openSnackBar('Lösenorden matchar inte!');
@@ -152,6 +152,7 @@ class Register extends Component {
                         id="email"
                         label="Email"
                         required={true}
+                        placeholder="user@example.com"
                         style={registerStyles.textField}
                         value={this.state.email}
                         onChange={this.handleChange('email')}
@@ -162,6 +163,7 @@ class Register extends Component {
                         id="password"
                         label="Lösenord"
                         required={true}
+                        helperText="Måste vara minst 8 tecken, innehålla en versal och en siffra."
                         style={registerStyles.textField}
                         type="password"
                         autoComplete="current-password"
@@ -207,6 +209,7 @@ class Register extends Component {
                     <TextField
                         id="zipCode"
                         label="Postnummer"
+                        placeholder="12345"
                         style={registerStyles.textField}
                         value={this.state.zipCode}
                         onChange={this.handleChange('zipCode')}
@@ -224,6 +227,7 @@ class Register extends Component {
                     <TextField
                         id="socialSecurity"
                         label="Personnummer"
+                        placeholder="101010-1010"
                         style={registerStyles.textField}
                         value={this.state.socialSecurity}
                         onChange={this.handleChange('socialSecurity')}
@@ -232,20 +236,13 @@ class Register extends Component {
                     <TextField
                         id="telephoneNumber"
                         label="Telefonnummer"
+                        placeholder="0700123456"
                         style={registerStyles.textField}
                         value={this.state.telephoneNumber}
                         onChange={this.handleChange('telephoneNumber')}
                         margin="normal"
                         type="tel"
                     />
-                    /*<TextField
-                        id="relativeUsername"
-                        label="Anhörigs namn"
-                        style={registerStyles.textField}
-                        value={this.state.relativeUsername}
-                        onChange={this.handleChange('relativeUsername')}
-                        margin="normal"
-                    />*/
                     <div className="RegisterButton">
                         <Button variant="raised" style={registerStyles.button} onClick={this.handleSubmit}>
                             Registrera
