@@ -65,9 +65,9 @@ class Register extends Component {
 
     handleSubmit() {
 
-        if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
+        /*if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
             return this.props.openSnackBar('Formuläret ej korrekt ifyllt!');
-        }
+        }*/
 
         if (this.state.password !== this.state.passwordConfirm) {
             return this.props.openSnackBar('Lösenorden matchar inte!');
