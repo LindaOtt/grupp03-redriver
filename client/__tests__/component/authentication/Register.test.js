@@ -208,19 +208,53 @@ test('Register handleSubmit should return "Lösenorden matchar inte!" when passw
   );
 
   component.setState({
+    userName: 'Banan',
     password: 'Password123',
-    passwordConfirm: 'password'
+    email: 'banan@example.com',
+    passwordConfirm: 'password1',
+    surname: 'Banan',
+    firstname: 'Jan'
   });
+
+  component.instance().handleSubmit();
 
   const passwordState = component.state('password');
   const passwordConfirmState = component.state('passwordConfirm');
 
-  component.instance().handleSubmit();
-
   expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
   expect(passwordState).toEqual('Password123');
-  expect(passwordConfirmState).toEqual('password');
+  expect(passwordConfirmState).toEqual('password1');
   expect(passwordState).not.toEqual(passwordConfirmState);
+});
+
+
+// TODO: This test doesn't work yet.
+test('Register handleSubmit should call sendRequest', () => {
+  jest.mock(Register, () => {
+    return jest.fn().mockImplementation(() => {
+      return {sendRequest: () => {}};
+    });
+  });
+
+  const component = shallow(
+    <Register />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'Password123',
+    surname: 'Banan',
+    firstname: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  const passwordState = component.state('password');
+  const passwordConfirmState = component.state('passwordConfirm');
+
+  expect(sendRequest).toHaveBeenCalledTimes(1);
 });
 
 
