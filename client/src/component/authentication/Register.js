@@ -142,7 +142,7 @@ class Register extends Component {
                     <TextField
                         id="userName"
                         label="Användarnamn"
-                        required=true
+                        required={true}
                         style={registerStyles.textField}
                         value={this.state.userName}
                         onChange={this.handleChange('userName')}
@@ -151,7 +151,7 @@ class Register extends Component {
                     <TextField
                         id="email"
                         label="Email"
-                        required=true
+                        required={true}
                         style={registerStyles.textField}
                         value={this.state.email}
                         onChange={this.handleChange('email')}
@@ -161,7 +161,7 @@ class Register extends Component {
                     <TextField
                         id="password"
                         label="Lösenord"
-                        required=true
+                        required={true}
                         style={registerStyles.textField}
                         type="password"
                         autoComplete="current-password"
@@ -171,7 +171,7 @@ class Register extends Component {
                     <TextField
                         id="passwordRepeat"
                         label="Bekräfta lösenord"
-                        required=true
+                        required={true}
                         style={registerStyles.textField}
                         type="password"
                         autoComplete="current-password"
@@ -181,7 +181,7 @@ class Register extends Component {
                     <TextField
                         id="firstName"
                         label="Förnamn"
-                        required=true
+                        required={true}
                         style={registerStyles.textField}
                         value={this.state.firstName}
                         onChange={this.handleChange('firstName')}
@@ -190,7 +190,7 @@ class Register extends Component {
                     <TextField
                         id="surname"
                         label="Efternamn"
-                        required=true
+                        required={true}
                         style={registerStyles.textField}
                         value={this.state.surname}
                         onChange={this.handleChange('surname')}
