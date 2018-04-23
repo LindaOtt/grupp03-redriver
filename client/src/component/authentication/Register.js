@@ -106,7 +106,7 @@ class Register extends Component {
             city: this.state.city,
             socialSecurity: this.state.socialSecurity,
             telephoneNumber: this.state.telephoneNumber,
-            relativeUsername: this.state.relativeUsername,
+            /*relativeUsername: this.state.relativeUsername,*/
         };
 
         console.log(JSON.stringify(tempObj));
@@ -142,6 +142,7 @@ class Register extends Component {
                     <TextField
                         id="userName"
                         label="Användarnamn"
+                        required=true
                         style={registerStyles.textField}
                         value={this.state.userName}
                         onChange={this.handleChange('userName')}
@@ -150,6 +151,7 @@ class Register extends Component {
                     <TextField
                         id="email"
                         label="Email"
+                        required=true
                         style={registerStyles.textField}
                         value={this.state.email}
                         onChange={this.handleChange('email')}
@@ -159,6 +161,7 @@ class Register extends Component {
                     <TextField
                         id="password"
                         label="Lösenord"
+                        required=true
                         style={registerStyles.textField}
                         type="password"
                         autoComplete="current-password"
@@ -168,6 +171,7 @@ class Register extends Component {
                     <TextField
                         id="passwordRepeat"
                         label="Bekräfta lösenord"
+                        required=true
                         style={registerStyles.textField}
                         type="password"
                         autoComplete="current-password"
@@ -177,6 +181,7 @@ class Register extends Component {
                     <TextField
                         id="firstName"
                         label="Förnamn"
+                        required=true
                         style={registerStyles.textField}
                         value={this.state.firstName}
                         onChange={this.handleChange('firstName')}
@@ -185,6 +190,7 @@ class Register extends Component {
                     <TextField
                         id="surname"
                         label="Efternamn"
+                        required=true
                         style={registerStyles.textField}
                         value={this.state.surname}
                         onChange={this.handleChange('surname')}
@@ -232,14 +238,14 @@ class Register extends Component {
                         margin="normal"
                         type="tel"
                     />
-                    <TextField
+                    /*<TextField
                         id="relativeUsername"
                         label="Anhörigs namn"
                         style={registerStyles.textField}
                         value={this.state.relativeUsername}
                         onChange={this.handleChange('relativeUsername')}
                         margin="normal"
-                    />
+                    />*/
                     <div className="RegisterButton">
                         <Button variant="raised" style={registerStyles.button} onClick={this.handleSubmit}>
                             Registrera
