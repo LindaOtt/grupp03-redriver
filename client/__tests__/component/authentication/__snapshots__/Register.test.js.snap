@@ -43,10 +43,10 @@ ShallowWrapper {
         >
           <TextField
             id="userName"
-            label="Användarnamn *"
+            label="Användarnamn"
             margin="normal"
             onChange={[Function]}
-            required={false}
+            required={true}
             select={false}
             style={
               Object {
@@ -60,10 +60,11 @@ ShallowWrapper {
           />
           <TextField
             id="email"
-            label="Email *"
+            label="Email"
             margin="normal"
             onChange={[Function]}
-            required={false}
+            placeholder="user@example.com"
+            required={true}
             select={false}
             style={
               Object {
@@ -78,11 +79,12 @@ ShallowWrapper {
           />
           <TextField
             autoComplete="current-password"
+            helperText="Måste vara minst 8 tecken, innehålla en versal och en siffra."
             id="password"
-            label="Lösenord *"
+            label="Lösenord"
             margin="normal"
             onChange={[Function]}
-            required={false}
+            required={true}
             select={false}
             style={
               Object {
@@ -97,10 +99,10 @@ ShallowWrapper {
           <TextField
             autoComplete="current-password"
             id="passwordRepeat"
-            label="Bekräfta lösenord *"
+            label="Bekräfta lösenord"
             margin="normal"
             onChange={[Function]}
-            required={false}
+            required={true}
             select={false}
             style={
               Object {
@@ -114,10 +116,10 @@ ShallowWrapper {
           />
           <TextField
             id="firstName"
-            label="Förnamn *"
+            label="Förnamn"
             margin="normal"
             onChange={[Function]}
-            required={false}
+            required={true}
             select={false}
             style={
               Object {
@@ -131,10 +133,10 @@ ShallowWrapper {
           />
           <TextField
             id="surname"
-            label="Efternamn *"
+            label="Efternamn"
             margin="normal"
             onChange={[Function]}
-            required={false}
+            required={true}
             select={false}
             style={
               Object {
@@ -168,6 +170,7 @@ ShallowWrapper {
             label="Postnummer"
             margin="normal"
             onChange={[Function]}
+            placeholder="12345"
             required={false}
             select={false}
             style={
@@ -203,6 +206,7 @@ ShallowWrapper {
             label="Personnummer"
             margin="normal"
             onChange={[Function]}
+            placeholder="101010-1010"
             required={false}
             select={false}
             style={
@@ -220,6 +224,7 @@ ShallowWrapper {
             label="Telefonnummer"
             margin="normal"
             onChange={[Function]}
+            placeholder="0700123456"
             required={false}
             select={false}
             style={
@@ -233,25 +238,6 @@ ShallowWrapper {
             type="tel"
             value=""
           />
-          /*
-          <TextField
-            id="relativeUsername"
-            label="Anhörigs namn"
-            margin="normal"
-            onChange={[Function]}
-            required={false}
-            select={false}
-            style={
-              Object {
-                "marginBottom": 20,
-                "marginLeft": 30,
-                "marginRight": 30,
-                "width": 240,
-              }
-            }
-            value=""
-          />
-          */
           <div
             className="RegisterButton"
           >
@@ -301,10 +287,10 @@ ShallowWrapper {
           "children": Array [
             <TextField
               id="userName"
-              label="Användarnamn *"
+              label="Användarnamn"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -318,10 +304,11 @@ ShallowWrapper {
             />,
             <TextField
               id="email"
-              label="Email *"
+              label="Email"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              placeholder="user@example.com"
+              required={true}
               select={false}
               style={
                 Object {
@@ -336,11 +323,12 @@ ShallowWrapper {
             />,
             <TextField
               autoComplete="current-password"
+              helperText="Måste vara minst 8 tecken, innehålla en versal och en siffra."
               id="password"
-              label="Lösenord *"
+              label="Lösenord"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -355,10 +343,10 @@ ShallowWrapper {
             <TextField
               autoComplete="current-password"
               id="passwordRepeat"
-              label="Bekräfta lösenord *"
+              label="Bekräfta lösenord"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -372,10 +360,10 @@ ShallowWrapper {
             />,
             <TextField
               id="firstName"
-              label="Förnamn *"
+              label="Förnamn"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -389,10 +377,10 @@ ShallowWrapper {
             />,
             <TextField
               id="surname"
-              label="Efternamn *"
+              label="Efternamn"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -426,6 +414,7 @@ ShallowWrapper {
               label="Postnummer"
               margin="normal"
               onChange={[Function]}
+              placeholder="12345"
               required={false}
               select={false}
               style={
@@ -461,6 +450,7 @@ ShallowWrapper {
               label="Personnummer"
               margin="normal"
               onChange={[Function]}
+              placeholder="101010-1010"
               required={false}
               select={false}
               style={
@@ -478,6 +468,7 @@ ShallowWrapper {
               label="Telefonnummer"
               margin="normal"
               onChange={[Function]}
+              placeholder="0700123456"
               required={false}
               select={false}
               style={
@@ -491,25 +482,6 @@ ShallowWrapper {
               type="tel"
               value=""
             />,
-            "/*",
-            <TextField
-              id="relativeUsername"
-              label="Anhörigs namn"
-              margin="normal"
-              onChange={[Function]}
-              required={false}
-              select={false}
-              style={
-                Object {
-                  "marginBottom": 20,
-                  "marginLeft": 30,
-                  "marginRight": 30,
-                  "width": 240,
-                }
-              }
-              value=""
-            />,
-            "*/",
             <div
               className="RegisterButton"
             >
@@ -543,10 +515,10 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "id": "userName",
-              "label": "Användarnamn *",
+              "label": "Användarnamn",
               "margin": "normal",
               "onChange": [Function],
-              "required": false,
+              "required": true,
               "select": false,
               "style": Object {
                 "marginBottom": 20,
@@ -566,10 +538,11 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "id": "email",
-              "label": "Email *",
+              "label": "Email",
               "margin": "normal",
               "onChange": [Function],
-              "required": false,
+              "placeholder": "user@example.com",
+              "required": true,
               "select": false,
               "style": Object {
                 "marginBottom": 20,
@@ -590,11 +563,12 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "autoComplete": "current-password",
+              "helperText": "Måste vara minst 8 tecken, innehålla en versal och en siffra.",
               "id": "password",
-              "label": "Lösenord *",
+              "label": "Lösenord",
               "margin": "normal",
               "onChange": [Function],
-              "required": false,
+              "required": true,
               "select": false,
               "style": Object {
                 "marginBottom": 20,
@@ -615,10 +589,10 @@ ShallowWrapper {
             "props": Object {
               "autoComplete": "current-password",
               "id": "passwordRepeat",
-              "label": "Bekräfta lösenord *",
+              "label": "Bekräfta lösenord",
               "margin": "normal",
               "onChange": [Function],
-              "required": false,
+              "required": true,
               "select": false,
               "style": Object {
                 "marginBottom": 20,
@@ -638,10 +612,10 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "id": "firstName",
-              "label": "Förnamn *",
+              "label": "Förnamn",
               "margin": "normal",
               "onChange": [Function],
-              "required": false,
+              "required": true,
               "select": false,
               "style": Object {
                 "marginBottom": 20,
@@ -661,10 +635,10 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "id": "surname",
-              "label": "Efternamn *",
+              "label": "Efternamn",
               "margin": "normal",
               "onChange": [Function],
-              "required": false,
+              "required": true,
               "select": false,
               "style": Object {
                 "marginBottom": 20,
@@ -710,6 +684,7 @@ ShallowWrapper {
               "label": "Postnummer",
               "margin": "normal",
               "onChange": [Function],
+              "placeholder": "12345",
               "required": false,
               "select": false,
               "style": Object {
@@ -757,6 +732,7 @@ ShallowWrapper {
               "label": "Personnummer",
               "margin": "normal",
               "onChange": [Function],
+              "placeholder": "101010-1010",
               "required": false,
               "select": false,
               "style": Object {
@@ -780,6 +756,7 @@ ShallowWrapper {
               "label": "Telefonnummer",
               "margin": "normal",
               "onChange": [Function],
+              "placeholder": "0700123456",
               "required": false,
               "select": false,
               "style": Object {
@@ -795,31 +772,6 @@ ShallowWrapper {
             "rendered": null,
             "type": [Function],
           },
-          "/*",
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "id": "relativeUsername",
-              "label": "Anhörigs namn",
-              "margin": "normal",
-              "onChange": [Function],
-              "required": false,
-              "select": false,
-              "style": Object {
-                "marginBottom": 20,
-                "marginLeft": 30,
-                "marginRight": 30,
-                "width": 240,
-              },
-              "value": "",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "*/",
           Object {
             "instance": null,
             "key": undefined,
@@ -899,10 +851,10 @@ ShallowWrapper {
           >
             <TextField
               id="userName"
-              label="Användarnamn *"
+              label="Användarnamn"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -916,10 +868,11 @@ ShallowWrapper {
             />
             <TextField
               id="email"
-              label="Email *"
+              label="Email"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              placeholder="user@example.com"
+              required={true}
               select={false}
               style={
                 Object {
@@ -934,11 +887,12 @@ ShallowWrapper {
             />
             <TextField
               autoComplete="current-password"
+              helperText="Måste vara minst 8 tecken, innehålla en versal och en siffra."
               id="password"
-              label="Lösenord *"
+              label="Lösenord"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -953,10 +907,10 @@ ShallowWrapper {
             <TextField
               autoComplete="current-password"
               id="passwordRepeat"
-              label="Bekräfta lösenord *"
+              label="Bekräfta lösenord"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -970,10 +924,10 @@ ShallowWrapper {
             />
             <TextField
               id="firstName"
-              label="Förnamn *"
+              label="Förnamn"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -987,10 +941,10 @@ ShallowWrapper {
             />
             <TextField
               id="surname"
-              label="Efternamn *"
+              label="Efternamn"
               margin="normal"
               onChange={[Function]}
-              required={false}
+              required={true}
               select={false}
               style={
                 Object {
@@ -1024,6 +978,7 @@ ShallowWrapper {
               label="Postnummer"
               margin="normal"
               onChange={[Function]}
+              placeholder="12345"
               required={false}
               select={false}
               style={
@@ -1059,6 +1014,7 @@ ShallowWrapper {
               label="Personnummer"
               margin="normal"
               onChange={[Function]}
+              placeholder="101010-1010"
               required={false}
               select={false}
               style={
@@ -1076,6 +1032,7 @@ ShallowWrapper {
               label="Telefonnummer"
               margin="normal"
               onChange={[Function]}
+              placeholder="0700123456"
               required={false}
               select={false}
               style={
@@ -1089,25 +1046,6 @@ ShallowWrapper {
               type="tel"
               value=""
             />
-            /*
-            <TextField
-              id="relativeUsername"
-              label="Anhörigs namn"
-              margin="normal"
-              onChange={[Function]}
-              required={false}
-              select={false}
-              style={
-                Object {
-                  "marginBottom": 20,
-                  "marginLeft": 30,
-                  "marginRight": 30,
-                  "width": 240,
-                }
-              }
-              value=""
-            />
-            */
             <div
               className="RegisterButton"
             >
@@ -1157,10 +1095,10 @@ ShallowWrapper {
             "children": Array [
               <TextField
                 id="userName"
-                label="Användarnamn *"
+                label="Användarnamn"
                 margin="normal"
                 onChange={[Function]}
-                required={false}
+                required={true}
                 select={false}
                 style={
                   Object {
@@ -1174,10 +1112,11 @@ ShallowWrapper {
               />,
               <TextField
                 id="email"
-                label="Email *"
+                label="Email"
                 margin="normal"
                 onChange={[Function]}
-                required={false}
+                placeholder="user@example.com"
+                required={true}
                 select={false}
                 style={
                   Object {
@@ -1192,11 +1131,12 @@ ShallowWrapper {
               />,
               <TextField
                 autoComplete="current-password"
+                helperText="Måste vara minst 8 tecken, innehålla en versal och en siffra."
                 id="password"
-                label="Lösenord *"
+                label="Lösenord"
                 margin="normal"
                 onChange={[Function]}
-                required={false}
+                required={true}
                 select={false}
                 style={
                   Object {
@@ -1211,10 +1151,10 @@ ShallowWrapper {
               <TextField
                 autoComplete="current-password"
                 id="passwordRepeat"
-                label="Bekräfta lösenord *"
+                label="Bekräfta lösenord"
                 margin="normal"
                 onChange={[Function]}
-                required={false}
+                required={true}
                 select={false}
                 style={
                   Object {
@@ -1228,10 +1168,10 @@ ShallowWrapper {
               />,
               <TextField
                 id="firstName"
-                label="Förnamn *"
+                label="Förnamn"
                 margin="normal"
                 onChange={[Function]}
-                required={false}
+                required={true}
                 select={false}
                 style={
                   Object {
@@ -1245,10 +1185,10 @@ ShallowWrapper {
               />,
               <TextField
                 id="surname"
-                label="Efternamn *"
+                label="Efternamn"
                 margin="normal"
                 onChange={[Function]}
-                required={false}
+                required={true}
                 select={false}
                 style={
                   Object {
@@ -1282,6 +1222,7 @@ ShallowWrapper {
                 label="Postnummer"
                 margin="normal"
                 onChange={[Function]}
+                placeholder="12345"
                 required={false}
                 select={false}
                 style={
@@ -1317,6 +1258,7 @@ ShallowWrapper {
                 label="Personnummer"
                 margin="normal"
                 onChange={[Function]}
+                placeholder="101010-1010"
                 required={false}
                 select={false}
                 style={
@@ -1334,6 +1276,7 @@ ShallowWrapper {
                 label="Telefonnummer"
                 margin="normal"
                 onChange={[Function]}
+                placeholder="0700123456"
                 required={false}
                 select={false}
                 style={
@@ -1347,25 +1290,6 @@ ShallowWrapper {
                 type="tel"
                 value=""
               />,
-              "/*",
-              <TextField
-                id="relativeUsername"
-                label="Anhörigs namn"
-                margin="normal"
-                onChange={[Function]}
-                required={false}
-                select={false}
-                style={
-                  Object {
-                    "marginBottom": 20,
-                    "marginLeft": 30,
-                    "marginRight": 30,
-                    "width": 240,
-                  }
-                }
-                value=""
-              />,
-              "*/",
               <div
                 className="RegisterButton"
               >
@@ -1399,10 +1323,10 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "id": "userName",
-                "label": "Användarnamn *",
+                "label": "Användarnamn",
                 "margin": "normal",
                 "onChange": [Function],
-                "required": false,
+                "required": true,
                 "select": false,
                 "style": Object {
                   "marginBottom": 20,
@@ -1422,10 +1346,11 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "id": "email",
-                "label": "Email *",
+                "label": "Email",
                 "margin": "normal",
                 "onChange": [Function],
-                "required": false,
+                "placeholder": "user@example.com",
+                "required": true,
                 "select": false,
                 "style": Object {
                   "marginBottom": 20,
@@ -1446,11 +1371,12 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "autoComplete": "current-password",
+                "helperText": "Måste vara minst 8 tecken, innehålla en versal och en siffra.",
                 "id": "password",
-                "label": "Lösenord *",
+                "label": "Lösenord",
                 "margin": "normal",
                 "onChange": [Function],
-                "required": false,
+                "required": true,
                 "select": false,
                 "style": Object {
                   "marginBottom": 20,
@@ -1471,10 +1397,10 @@ ShallowWrapper {
               "props": Object {
                 "autoComplete": "current-password",
                 "id": "passwordRepeat",
-                "label": "Bekräfta lösenord *",
+                "label": "Bekräfta lösenord",
                 "margin": "normal",
                 "onChange": [Function],
-                "required": false,
+                "required": true,
                 "select": false,
                 "style": Object {
                   "marginBottom": 20,
@@ -1494,10 +1420,10 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "id": "firstName",
-                "label": "Förnamn *",
+                "label": "Förnamn",
                 "margin": "normal",
                 "onChange": [Function],
-                "required": false,
+                "required": true,
                 "select": false,
                 "style": Object {
                   "marginBottom": 20,
@@ -1517,10 +1443,10 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "id": "surname",
-                "label": "Efternamn *",
+                "label": "Efternamn",
                 "margin": "normal",
                 "onChange": [Function],
-                "required": false,
+                "required": true,
                 "select": false,
                 "style": Object {
                   "marginBottom": 20,
@@ -1566,6 +1492,7 @@ ShallowWrapper {
                 "label": "Postnummer",
                 "margin": "normal",
                 "onChange": [Function],
+                "placeholder": "12345",
                 "required": false,
                 "select": false,
                 "style": Object {
@@ -1613,6 +1540,7 @@ ShallowWrapper {
                 "label": "Personnummer",
                 "margin": "normal",
                 "onChange": [Function],
+                "placeholder": "101010-1010",
                 "required": false,
                 "select": false,
                 "style": Object {
@@ -1636,6 +1564,7 @@ ShallowWrapper {
                 "label": "Telefonnummer",
                 "margin": "normal",
                 "onChange": [Function],
+                "placeholder": "0700123456",
                 "required": false,
                 "select": false,
                 "style": Object {
@@ -1651,31 +1580,6 @@ ShallowWrapper {
               "rendered": null,
               "type": [Function],
             },
-            "/*",
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "id": "relativeUsername",
-                "label": "Anhörigs namn",
-                "margin": "normal",
-                "onChange": [Function],
-                "required": false,
-                "select": false,
-                "style": Object {
-                  "marginBottom": 20,
-                  "marginLeft": 30,
-                  "marginRight": 30,
-                  "width": 240,
-                },
-                "value": "",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            "*/",
             Object {
               "instance": null,
               "key": undefined,

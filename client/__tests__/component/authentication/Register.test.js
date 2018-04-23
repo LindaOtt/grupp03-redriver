@@ -55,8 +55,12 @@ test('Register handleChange should set password to Password123', () => {
 
 
 test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when username is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
   const component = shallow(
-    <Register />
+    <Register {...baseProps} />
   );
 
   component.setState({
@@ -70,17 +74,17 @@ test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when 
 
   component.instance().handleSubmit();
 
-  const userState = component.state('userName');
-  const passwordState = component.state('password');
-
-  expect(userState).toEqual('');
-  expect(passwordState).toEqual('Password123');
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
 });
 
 
 test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when password is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
   const component = shallow(
-    <Register />
+    <Register {...baseProps} />
   );
 
   component.setState({
@@ -94,11 +98,129 @@ test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when 
 
   component.instance().handleSubmit();
 
-  const userState = component.state('userName');
-  const passwordState = component.state('password');
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
 
-  expect(userState).toEqual('Banan');
-  expect(passwordState).toEqual('');
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when email is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: '',
+    passwordConfirm: 'Password123',
+    surname: 'Banan',
+    firstname: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when passwordConfirm is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: '',
+    surname: 'Banan',
+    firstname: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when surname is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'Password123',
+    surname: '',
+    firstname: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when firstname is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'Password123',
+    surname: 'Banan',
+    firstname: ''
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Lösenorden matchar inte!" when password and passwordConfirm is not matching', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    password: 'Password123',
+    passwordConfirm: 'password'
+  });
+
+  const passwordState = component.state('password');
+  const passwordConfirmState = component.state('passwordConfirm');
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+  expect(passwordState).toEqual('Password123');
+  expect(passwordConfirmState).toEqual('password');
+  expect(passwordState).not.toEqual(passwordConfirmState);
 });
 
 
