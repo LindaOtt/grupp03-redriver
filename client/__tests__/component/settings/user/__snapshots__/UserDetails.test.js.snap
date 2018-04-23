@@ -4,16 +4,500 @@ exports[`UserDetails renders without crashing 1`] = `
 <div
   className="UserDetails"
 >
-  <h1
-    className="MuiTypography-root-1 MuiTypography-headline-6 MuiTypography-alignLeft-13"
-    style={
-      Object {
-        "fontSize": "90%",
-        "marginLeft": 30,
+  <div>
+    <form
+      autoComplete="off"
+      noValidate={true}
+      style={
+        Object {
+          "display": "flex",
+          "flexWrap": "wrap",
+          "justifyContent": "space-evenly",
+        }
       }
-    }
-  >
-    Användaruppgifter
-  </h1>
+    >
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9 MuiInputLabel-shrink-8"
+          data-shrink={true}
+          htmlFor="userName"
+        >
+          Användarnamn
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="userName"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value="username"
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26 MuiInput-inputType-28"
+            defaultValue={undefined}
+            disabled={true}
+            id="email"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="email"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="firstName"
+        >
+          Förnamn
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="firstName"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="surname"
+        >
+          Efternamn
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="surname"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="streetAddress"
+        >
+          Adress
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="streetAddress"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="zipCode"
+        >
+          Postnummer
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26 MuiInput-inputType-28"
+            defaultValue={undefined}
+            disabled={true}
+            id="zipCode"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="number"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="city"
+        >
+          Postort
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="city"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="socialSecurity"
+        >
+          Personnummer
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="socialSecurity"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="telephoneNumber"
+        >
+          Telefonnummer
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26 MuiInput-inputType-28"
+            defaultValue={undefined}
+            disabled={true}
+            id="telephoneNumber"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="tel"
+            value={undefined}
+          />
+        </div>
+      </div>
+      <div
+        aria-describedby={undefined}
+        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "margin": 10,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+          data-shrink={false}
+          htmlFor="relativeUsername"
+        >
+          Anhörigs namn
+        </label>
+        <div
+          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
+        >
+          <input
+            aria-invalid={false}
+            aria-required={false}
+            autoComplete={undefined}
+            autoFocus={undefined}
+            className="MuiInput-input-24 MuiInput-inputDisabled-26"
+            defaultValue={undefined}
+            disabled={true}
+            id="relativeUsername"
+            name={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={undefined}
+            onKeyUp={undefined}
+            placeholder={undefined}
+            readOnly={undefined}
+            required={undefined}
+            rows={undefined}
+            type="text"
+            value={undefined}
+          />
+        </div>
+      </div>
+    </form>
+    <button
+      className="MuiButtonBase-root-45 MuiButton-root-30 MuiButton-raised-35"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "margin": 20,
+        }
+      }
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-31"
+      >
+        Ändra uppgifter
+      </span>
+      <span
+        className="MuiTouchRipple-root-48"
+      />
+    </button>
+  </div>
 </div>
 `;

@@ -229,7 +229,7 @@ exports[`Login renders without crashing 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "color": "#757575",
+                "color": "#616161",
                 "textDecoration": "none",
               }
             }
@@ -251,7 +251,7 @@ exports[`Login renders without crashing 1`] = `
             onClick={[Function]}
             style={
               Object {
-                "color": "#757575",
+                "color": "#616161",
                 "textDecoration": "none",
               }
             }

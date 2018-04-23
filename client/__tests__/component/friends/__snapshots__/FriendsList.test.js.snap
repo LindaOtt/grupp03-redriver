@@ -4,8 +4,53 @@ exports[`FriendsList renders without crashing 1`] = `
 <div
   className="FriendsList"
 >
-  <p>
-    Friends list
-  </p>
+  <div
+    className="FriendsList-Header"
+  >
+    <span
+      className="MuiBadge-root-1"
+    >
+      <a
+        className="MuiButtonBase-root-21 MuiButton-root-6 MuiButton-flatPrimary-8"
+        href="/friendrequests"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex="0"
+      >
+        <span
+          className="MuiButton-label-7"
+        >
+          <span
+            aria-hidden="true"
+            className="material-icons MuiIcon-root-24"
+          >
+            add
+          </span>
+          Lägg till vän
+        </span>
+        <span
+          className="MuiTouchRipple-root-30"
+        />
+      </a>
+      <span
+        className="MuiBadge-badge-2 MuiBadge-colorError-5"
+      >
+        2
+      </span>
+    </span>
+  </div>
+  <div
+    className="FriendsList-Inner"
+  />
 </div>
 `;
