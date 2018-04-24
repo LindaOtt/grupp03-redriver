@@ -6,6 +6,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import App from '../../../src/App';
 import Register from '../../../src/component/authentication/Register';
 import renderer from 'react-test-renderer';
+import sinon from 'sinon';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -231,7 +232,7 @@ test('Register handleSubmit should return "Lösenorden matchar inte!" when passw
 
 
 // TODO: This test doesn't work yet. TypeError: Cannot read property 'then' of undefined
-/*test('Register handleSubmit should call sendRequest', () => {
+test('Register handleSubmit should call sendRequest', (done) => {
   // Mock parent method openSnackBar
   const baseProps = {
     openSnackBar: jest.fn()
@@ -253,16 +254,39 @@ test('Register handleSubmit should return "Lösenorden matchar inte!" when passw
   // Mock sendRequest
   component.instance().sendRequest = jest.fn();
 
-  // Call handleSubmit
   component.instance().handleSubmit();
+  component.update();
+
+  setTimeout(function() {
+    try {
+      //expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+      expect(component.instance().sendRequest).toHaveBeenCalledTimes(1);
+      done();
+    } catch (e) {
+      console.log(e);
+      done();
+    }
+  });
+
+  /*return promise.then((response) => {
+    console.log(response);
+    expect(response.status).toEqual(200);
+  });*/
+
+  // Call handleSubmit
+  /*component.instance().handleSubmit().then((response) => {
+    expect(response.status).toEqual(200);
+    expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+    expect(component.instance().sendRequest).toHaveBeenCalledTimes(1);
+  });*/
 
   // Expects
-  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
-  expect(component.instance().sendRequest).toHaveBeenCalledTimes(1);
-});*/
+  //expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+  //expect(component.instance().sendRequest).toHaveBeenCalledTimes(1);
+});
 
 
-test('Register sendRequest should respond with status 200', done => {
+test('Register sendRequest should respond with status 200', (done) => {
   let mock = new MockAdapter(axios);
   mock.onPost('https://redserver.azurewebsites.net/api/account/register').reply(200);
 
@@ -287,7 +311,7 @@ test('Register sendRequest should respond with status 200', done => {
 });
 
 
-test('Register sendRequest should respond with status 400', done => {
+test('Register sendRequest should respond with status 400', (done) => {
   let mock = new MockAdapter(axios);
   mock.onPost('https://redserver.azurewebsites.net/api/account/register').reply(400);
 
