@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1524672554622" clover="3.2.0">
+  <project timestamp="1524672554622" name="All files">
+    <metrics statements="210" coveredstatements="153" conditionals="74" coveredconditionals="55" methods="100" coveredmethods="68" elements="384" coveredelements="276" complexity="0" loc="210" ncloc="210" packages="12" files="28" classes="28">
+      <package name="src">
+        <metrics statements="45" coveredstatements="12" conditionals="14" coveredconditionals="5" methods="29" coveredmethods="7"/>
+        <file name="App.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/App.js">
+          <metrics statements="39" coveredstatements="9" conditionals="12" coveredconditionals="3" methods="24" coveredmethods="5"/>
+          <line num="52" count="1" type="stmt"/>
+          <line num="54" count="1" type="stmt"/>
+          <line num="62" count="1" type="stmt"/>
+          <line num="63" count="1" type="stmt"/>
+          <line num="73" count="0" type="stmt"/>
+          <line num="76" count="0" type="stmt"/>
+          <line num="77" count="0" type="stmt"/>
+          <line num="82" count="0" type="stmt"/>
+          <line num="96" count="0" type="stmt"/>
+          <line num="101" count="0" type="stmt"/>
+          <line num="102" count="0" type="stmt"/>
+          <line num="113" count="0" type="stmt"/>
+          <line num="126" count="1" type="stmt"/>
+          <line num="193" count="3" type="stmt"/>
+          <line num="194" count="0" type="stmt"/>
+          <line num="207" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="209" count="0" type="stmt"/>
+          <line num="211" count="0" type="stmt"/>
+          <line num="213" count="0" type="stmt"/>
+          <line num="214" count="0" type="stmt"/>
+          <line num="221" count="0" type="stmt"/>
+          <line num="228" count="1" type="stmt"/>
+          <line num="244" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="246" count="0" type="stmt"/>
+          <line num="248" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="250" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="252" count="0" type="stmt"/>
+          <line num="254" count="0" type="stmt"/>
+          <line num="255" count="0" type="stmt"/>
+          <line num="262" count="0" type="stmt"/>
+          <line num="275" count="1" type="stmt"/>
+          <line num="302" count="0" type="stmt"/>
+          <line num="303" count="0" type="stmt"/>
+          <line num="304" count="0" type="stmt"/>
+          <line num="305" count="0" type="stmt"/>
+          <line num="306" count="0" type="stmt"/>
+          <line num="307" count="0" type="stmt"/>
+          <line num="308" count="0" type="stmt"/>
+          <line num="309" count="0" type="stmt"/>
+        </file>
+        <file name="LocalStorageMock.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/LocalStorageMock.js">
+          <metrics statements="6" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="2"/>
+          <line num="3" count="20" type="stmt"/>
+          <line num="7" count="0" type="stmt"/>
+          <line num="11" count="1" type="cond" truecount="2" falsecount="0"/>
+          <line num="15" count="0" type="stmt"/>
+          <line num="19" count="0" type="stmt"/>
+          <line num="23" count="20" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.account">
+        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <file name="UserAccount.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/account/UserAccount.js">
+          <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+          <line num="21" count="1" type="stmt"/>
+          <line num="23" count="1" type="stmt"/>
+          <line num="31" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="32" count="0" type="stmt"/>
+          <line num="35" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.authentication">
+        <metrics statements="43" coveredstatements="33" conditionals="19" coveredconditionals="19" methods="17" coveredmethods="13"/>
+        <file name="Login.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/authentication/Login.js">
+          <metrics statements="20" coveredstatements="15" conditionals="7" coveredconditionals="7" methods="8" coveredmethods="6"/>
+          <line num="28" count="9" type="stmt"/>
+          <line num="30" count="9" type="stmt"/>
+          <line num="36" count="9" type="stmt"/>
+          <line num="45" count="50" type="stmt"/>
+          <line num="46" count="2" type="stmt"/>
+          <line num="59" count="4" type="stmt"/>
+          <line num="61" count="4" type="cond" truecount="5" falsecount="0"/>
+          <line num="63" count="3" type="stmt"/>
+          <line num="67" count="1" type="stmt"/>
+          <line num="70" count="0" type="stmt"/>
+          <line num="71" count="0" type="stmt"/>
+          <line num="72" count="0" type="stmt"/>
+          <line num="75" count="0" type="stmt"/>
+          <line num="76" count="0" type="stmt"/>
+          <line num="88" count="3" type="stmt"/>
+          <line num="94" count="3" type="stmt"/>
+          <line num="96" count="3" type="stmt"/>
+          <line num="106" count="18" type="cond" truecount="2" falsecount="0"/>
+          <line num="107" count="2" type="stmt"/>
+          <line num="110" count="16" type="stmt"/>
+        </file>
+        <file name="NewPassword.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/authentication/NewPassword.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="15" count="1" type="stmt"/>
+        </file>
+        <file name="Register.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/authentication/Register.js">
+          <metrics statements="22" coveredstatements="17" conditionals="12" coveredconditionals="12" methods="8" coveredmethods="6"/>
+          <line num="26" count="14" type="stmt"/>
+          <line num="28" count="14" type="stmt"/>
+          <line num="45" count="14" type="stmt"/>
+          <line num="54" count="288" type="stmt"/>
+          <line num="55" count="2" type="stmt"/>
+          <line num="68" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="69" count="2" type="stmt"/>
+          <line num="72" count="6" type="cond" truecount="8" falsecount="0"/>
+          <line num="73" count="5" type="stmt"/>
+          <line num="76" count="1" type="stmt"/>
+          <line num="79" count="0" type="stmt"/>
+          <line num="80" count="0" type="stmt"/>
+          <line num="81" count="0" type="stmt"/>
+          <line num="84" count="0" type="stmt"/>
+          <line num="85" count="0" type="stmt"/>
+          <line num="97" count="3" type="stmt"/>
+          <line num="111" count="3" type="stmt"/>
+          <line num="113" count="3" type="stmt"/>
+          <line num="124" count="28" type="stmt"/>
+          <line num="126" count="28" type="cond" truecount="2" falsecount="0"/>
+          <line num="127" count="2" type="stmt"/>
+          <line num="130" count="26" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.chat">
+        <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <file name="ChatList.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/chat/ChatList.js">
+          <metrics statements="3" coveredstatements="2" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+          <line num="17" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="18" count="0" type="stmt"/>
+          <line num="21" count="1" type="stmt"/>
+        </file>
+        <file name="ChatView.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/chat/ChatView.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="15" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.friends">
+        <metrics statements="36" coveredstatements="29" conditionals="10" coveredconditionals="9" methods="18" coveredmethods="14"/>
+        <file name="FriendRequests.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/friends/FriendRequests.js">
+          <metrics statements="18" coveredstatements="14" conditionals="6" coveredconditionals="5" methods="8" coveredmethods="6"/>
+          <line num="26" count="2" type="stmt"/>
+          <line num="28" count="2" type="stmt"/>
+          <line num="33" count="2" type="stmt"/>
+          <line num="42" count="7" type="stmt"/>
+          <line num="43" count="1" type="stmt"/>
+          <line num="56" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="57" count="1" type="stmt"/>
+          <line num="60" count="1" type="stmt"/>
+          <line num="63" count="0" type="stmt"/>
+          <line num="64" count="0" type="stmt"/>
+          <line num="67" count="0" type="stmt"/>
+          <line num="68" count="0" type="stmt"/>
+          <line num="81" count="3" type="stmt"/>
+          <line num="85" count="3" type="stmt"/>
+          <line num="87" count="3" type="stmt"/>
+          <line num="98" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="99" count="2" type="stmt"/>
+          <line num="102" count="6" type="stmt"/>
+        </file>
+        <file name="FriendsList.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/friends/FriendsList.js">
+          <metrics statements="15" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="9" coveredmethods="7"/>
+          <line num="31" count="6" type="stmt"/>
+          <line num="33" count="6" type="stmt"/>
+          <line num="48" count="7" type="stmt"/>
+          <line num="50" count="7" type="stmt"/>
+          <line num="52" count="6" type="stmt"/>
+          <line num="67" count="7" type="stmt"/>
+          <line num="78" count="9" type="stmt"/>
+          <line num="87" count="6" type="stmt"/>
+          <line num="90" count="4" type="stmt"/>
+          <line num="91" count="0" type="stmt"/>
+          <line num="95" count="0" type="stmt"/>
+          <line num="96" count="0" type="stmt"/>
+          <line num="106" count="8" type="cond" truecount="2" falsecount="0"/>
+          <line num="107" count="2" type="stmt"/>
+          <line num="110" count="6" type="stmt"/>
+        </file>
+        <file name="FriendsView.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/friends/FriendsView.js">
+          <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+          <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="19" count="1" type="stmt"/>
+          <line num="22" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.settings">
+        <metrics statements="10" coveredstatements="7" conditionals="7" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <file name="Settings.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/settings/Settings.js">
+          <metrics statements="10" coveredstatements="7" conditionals="7" coveredconditionals="3" methods="3" coveredmethods="3"/>
+          <line num="25" count="1" type="stmt"/>
+          <line num="27" count="1" type="stmt"/>
+          <line num="31" count="1" type="stmt"/>
+          <line num="42" count="1" type="cond" truecount="1" falsecount="2"/>
+          <line num="44" count="0" type="stmt"/>
+          <line num="47" count="0" type="stmt"/>
+          <line num="50" count="1" type="stmt"/>
+          <line num="56" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="57" count="0" type="stmt"/>
+          <line num="60" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.settings.admin">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="SettingsAdmin.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/settings/admin/SettingsAdmin.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="15" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.settings.superUser">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="SettingsSuperUser.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/settings/superUser/SettingsSuperUser.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="15" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.component.settings.user">
+        <metrics statements="33" coveredstatements="31" conditionals="18" coveredconditionals="16" methods="21" coveredmethods="19"/>
+        <file name="ChangePassword.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/settings/user/ChangePassword.js">
+          <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
+          <line num="23" count="7" type="stmt"/>
+          <line num="25" count="7" type="stmt"/>
+          <line num="38" count="28" type="stmt"/>
+          <line num="39" count="2" type="stmt"/>
+          <line num="53" count="4" type="cond" truecount="4" falsecount="0"/>
+          <line num="54" count="2" type="stmt"/>
+          <line num="57" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="58" count="1" type="stmt"/>
+          <line num="77" count="13" type="stmt"/>
+        </file>
+        <file name="SettingsUser.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/settings/user/SettingsUser.js">
+          <metrics statements="8" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="4"/>
+          <line num="37" count="2" type="stmt"/>
+          <line num="39" count="2" type="stmt"/>
+          <line num="51" count="4" type="stmt"/>
+          <line num="52" count="0" type="stmt"/>
+          <line num="63" count="2" type="stmt"/>
+          <line num="64" count="0" type="stmt"/>
+          <line num="69" count="2" type="stmt"/>
+          <line num="71" count="2" type="stmt"/>
+        </file>
+        <file name="UserDetails.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/component/settings/user/UserDetails.js">
+          <metrics statements="16" coveredstatements="16" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="10"/>
+          <line num="22" count="16" type="stmt"/>
+          <line num="24" count="16" type="stmt"/>
+          <line num="46" count="322" type="stmt"/>
+          <line num="47" count="2" type="stmt"/>
+          <line num="59" count="2" type="stmt"/>
+          <line num="62" count="2" type="stmt"/>
+          <line num="73" count="6" type="cond" truecount="6" falsecount="0"/>
+          <line num="74" count="4" type="stmt"/>
+          <line num="77" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="78" count="1" type="stmt"/>
+          <line num="94" count="1" type="stmt"/>
+          <line num="106" count="32" type="stmt"/>
+          <line num="206" count="32" type="stmt"/>
+          <line num="211" count="1" type="stmt"/>
+          <line num="219" count="1" type="stmt"/>
+          <line num="222" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.examples-for-tests">
+        <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="1" methods="6" coveredmethods="6"/>
+        <file name="Link.react.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/examples-for-tests/Link.react.js">
+          <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
+          <line num="4" count="1" type="stmt"/>
+          <line num="11" count="1" type="stmt"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="14" count="1" type="stmt"/>
+          <line num="16" count="1" type="stmt"/>
+          <line num="22" count="1" type="stmt"/>
+          <line num="26" count="1" type="stmt"/>
+          <line num="30" count="3" type="stmt"/>
+        </file>
+        <file name="objectAssignment.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/examples-for-tests/objectAssignment.js">
+          <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="2" count="2" type="stmt"/>
+          <line num="3" count="2" type="stmt"/>
+          <line num="4" count="2" type="stmt"/>
+          <line num="6" count="1" type="stmt"/>
+        </file>
+        <file name="sum.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/examples-for-tests/sum.js">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="2" count="10" type="stmt"/>
+          <line num="4" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.styles">
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <file name="AccountStyles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/AccountStyles.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="10" count="2" type="stmt"/>
+        </file>
+        <file name="AppStyles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/AppStyles.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="11" count="1" type="stmt"/>
+        </file>
+        <file name="AuthStyles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/AuthStyles.js">
+          <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="10" count="7" type="stmt"/>
+          <line num="73" count="7" type="stmt"/>
+          <line num="129" count="7" type="stmt"/>
+        </file>
+        <file name="ChatStyles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/ChatStyles.js">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="10" count="3" type="stmt"/>
+          <line num="16" count="3" type="stmt"/>
+        </file>
+        <file name="FriendsStyles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/FriendsStyles.js">
+          <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="10" count="4" type="stmt"/>
+          <line num="28" count="4" type="stmt"/>
+          <line num="34" count="4" type="stmt"/>
+        </file>
+        <file name="SettingsStyles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/SettingsStyles.js">
+          <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="10" count="7" type="stmt"/>
+          <line num="16" count="7" type="stmt"/>
+          <line num="22" count="7" type="stmt"/>
+          <line num="61" count="7" type="stmt"/>
+        </file>
+        <file name="Styles.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/styles/Styles.js">
+          <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="7" count="16" type="stmt"/>
+          <line num="8" count="16" type="stmt"/>
+          <line num="16" count="16" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.utils">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <file name="Config.js" path="/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/client/src/utils/Config.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="1" count="5" type="stmt"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>
