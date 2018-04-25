@@ -97,7 +97,7 @@ class FriendsList extends Component {
                     isLoaded: true,
                 });
         }).catch((error) => {
-            console.log(error)
+            //console.log(error)
         });
     }
 

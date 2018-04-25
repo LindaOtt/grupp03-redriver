@@ -1,503 +1,1591 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserDetails renders without crashing 1`] = `
-<div
-  className="UserDetails"
->
-  <div>
-    <form
-      autoComplete="off"
-      noValidate={true}
-      style={
-        Object {
-          "display": "flex",
-          "flexWrap": "wrap",
-          "justifyContent": "space-evenly",
-        }
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SettingsUser
+    state={
+      Object {
+        "userInfo": Object {
+          "username": "username",
+        },
       }
-    >
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div>
+        <form
+          autoComplete="off"
+          noValidate={true}
+          style={
+            Object {
+              "display": "flex",
+              "flexWrap": "wrap",
+              "justifyContent": "space-evenly",
+            }
           }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9 MuiInputLabel-shrink-8"
-          data-shrink={true}
-          htmlFor="userName"
         >
-          Användarnamn
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="userName"
-            name={undefined}
-            onBlur={[Function]}
+            label="Användarnamn"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value="username"
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="email"
-        >
-          Email
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26 MuiInput-inputType-28"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="email"
-            name={undefined}
-            onBlur={[Function]}
+            label="Email"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             type="email"
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="firstName"
-        >
-          Förnamn
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="firstName"
-            name={undefined}
-            onBlur={[Function]}
+            label="Förnamn"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="surname"
-        >
-          Efternamn
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="surname"
-            name={undefined}
-            onBlur={[Function]}
+            label="Efternamn"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="streetAddress"
-        >
-          Adress
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="streetAddress"
-            name={undefined}
-            onBlur={[Function]}
+            label="Adress"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="zipCode"
-        >
-          Postnummer
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26 MuiInput-inputType-28"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="zipCode"
-            name={undefined}
-            onBlur={[Function]}
+            label="Postnummer"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             type="number"
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="city"
-        >
-          Postort
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="city"
-            name={undefined}
-            onBlur={[Function]}
+            label="Postort"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="socialSecurity"
-        >
-          Personnummer
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="socialSecurity"
-            name={undefined}
-            onBlur={[Function]}
+            label="Personnummer"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="telephoneNumber"
-        >
-          Telefonnummer
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26 MuiInput-inputType-28"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="telephoneNumber"
-            name={undefined}
-            onBlur={[Function]}
+            label="Telefonnummer"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             type="tel"
             value={undefined}
           />
-        </div>
-      </div>
-      <div
-        aria-describedby={undefined}
-        className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        style={
-          Object {
-            "margin": 10,
-          }
-        }
-      >
-        <label
-          className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-          data-shrink={false}
-          htmlFor="relativeUsername"
-        >
-          Anhörigs namn
-        </label>
-        <div
-          className="MuiInput-root-16 MuiInput-disabled-19 MuiInput-formControl-17 MuiInput-underline-20"
-        >
-          <input
-            aria-invalid={false}
-            aria-required={false}
-            autoComplete={undefined}
-            autoFocus={undefined}
-            className="MuiInput-input-24 MuiInput-inputDisabled-26"
-            defaultValue={undefined}
+          <TextField
             disabled={true}
             id="relativeUsername"
-            name={undefined}
-            onBlur={[Function]}
+            label="Anhörigs namn"
+            margin="normal"
             onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={undefined}
-            onKeyUp={undefined}
-            placeholder={undefined}
-            readOnly={undefined}
-            required={undefined}
-            rows={undefined}
-            type="text"
+            required={false}
+            select={false}
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
             value={undefined}
           />
-        </div>
-      </div>
-    </form>
-    <button
-      className="MuiButtonBase-root-45 MuiButton-root-30 MuiButton-raised-35"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      style={
+        </form>
+        <WithStyles(Button)
+          onClick={[Function]}
+          style={
+            Object {
+              "margin": 20,
+            }
+          }
+          variant="raised"
+        >
+          Ändra uppgifter
+        </WithStyles(Button)>
+      </div>,
+      "className": "UserDetails",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <form
+            autoComplete="off"
+            noValidate={true}
+            style={
+              Object {
+                "display": "flex",
+                "flexWrap": "wrap",
+                "justifyContent": "space-evenly",
+              }
+            }
+          >
+            <TextField
+              disabled={true}
+              id="userName"
+              label="Användarnamn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value="username"
+            />
+            <TextField
+              disabled={true}
+              id="email"
+              label="Email"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              type="email"
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="firstName"
+              label="Förnamn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="surname"
+              label="Efternamn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="streetAddress"
+              label="Adress"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="zipCode"
+              label="Postnummer"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              type="number"
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="city"
+              label="Postort"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="socialSecurity"
+              label="Personnummer"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="telephoneNumber"
+              label="Telefonnummer"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              type="tel"
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="relativeUsername"
+              label="Anhörigs namn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+          </form>,
+          <WithStyles(Button)
+            onClick={[Function]}
+            style={
+              Object {
+                "margin": 20,
+              }
+            }
+            variant="raised"
+          >
+            Ändra uppgifter
+          </WithStyles(Button)>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
         Object {
-          "margin": 20,
-        }
-      }
-      tabIndex="0"
-      type="button"
-    >
-      <span
-        className="MuiButton-label-31"
-      >
-        Ändra uppgifter
-      </span>
-      <span
-        className="MuiTouchRipple-root-48"
-      />
-    </button>
-  </div>
-</div>
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "autoComplete": "off",
+            "children": Array [
+              <TextField
+                disabled={true}
+                id="userName"
+                label="Användarnamn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value="username"
+              />,
+              <TextField
+                disabled={true}
+                id="email"
+                label="Email"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                type="email"
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="firstName"
+                label="Förnamn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="surname"
+                label="Efternamn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="streetAddress"
+                label="Adress"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="zipCode"
+                label="Postnummer"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                type="number"
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="city"
+                label="Postort"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="socialSecurity"
+                label="Personnummer"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="telephoneNumber"
+                label="Telefonnummer"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                type="tel"
+                value={undefined}
+              />,
+              <TextField
+                disabled={true}
+                id="relativeUsername"
+                label="Anhörigs namn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />,
+            ],
+            "noValidate": true,
+            "style": Object {
+              "display": "flex",
+              "flexWrap": "wrap",
+              "justifyContent": "space-evenly",
+            },
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "userName",
+                "label": "Användarnamn",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": "username",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "email",
+                "label": "Email",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "type": "email",
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "firstName",
+                "label": "Förnamn",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "surname",
+                "label": "Efternamn",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "streetAddress",
+                "label": "Adress",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "zipCode",
+                "label": "Postnummer",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "type": "number",
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "city",
+                "label": "Postort",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "socialSecurity",
+                "label": "Personnummer",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "telephoneNumber",
+                "label": "Telefonnummer",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "type": "tel",
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "disabled": true,
+                "id": "relativeUsername",
+                "label": "Anhörigs namn",
+                "margin": "normal",
+                "onChange": [Function],
+                "required": false,
+                "select": false,
+                "style": Object {
+                  "margin": 10,
+                },
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "form",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Ändra uppgifter",
+            "onClick": [Function],
+            "style": Object {
+              "margin": 20,
+            },
+            "variant": "raised",
+          },
+          "ref": null,
+          "rendered": "Ändra uppgifter",
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div>
+          <form
+            autoComplete="off"
+            noValidate={true}
+            style={
+              Object {
+                "display": "flex",
+                "flexWrap": "wrap",
+                "justifyContent": "space-evenly",
+              }
+            }
+          >
+            <TextField
+              disabled={true}
+              id="userName"
+              label="Användarnamn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value="username"
+            />
+            <TextField
+              disabled={true}
+              id="email"
+              label="Email"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              type="email"
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="firstName"
+              label="Förnamn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="surname"
+              label="Efternamn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="streetAddress"
+              label="Adress"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="zipCode"
+              label="Postnummer"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              type="number"
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="city"
+              label="Postort"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="socialSecurity"
+              label="Personnummer"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="telephoneNumber"
+              label="Telefonnummer"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              type="tel"
+              value={undefined}
+            />
+            <TextField
+              disabled={true}
+              id="relativeUsername"
+              label="Anhörigs namn"
+              margin="normal"
+              onChange={[Function]}
+              required={false}
+              select={false}
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+              value={undefined}
+            />
+          </form>
+          <WithStyles(Button)
+            onClick={[Function]}
+            style={
+              Object {
+                "margin": 20,
+              }
+            }
+            variant="raised"
+          >
+            Ändra uppgifter
+          </WithStyles(Button)>
+        </div>,
+        "className": "UserDetails",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <form
+              autoComplete="off"
+              noValidate={true}
+              style={
+                Object {
+                  "display": "flex",
+                  "flexWrap": "wrap",
+                  "justifyContent": "space-evenly",
+                }
+              }
+            >
+              <TextField
+                disabled={true}
+                id="userName"
+                label="Användarnamn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value="username"
+              />
+              <TextField
+                disabled={true}
+                id="email"
+                label="Email"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                type="email"
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="firstName"
+                label="Förnamn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="surname"
+                label="Efternamn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="streetAddress"
+                label="Adress"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="zipCode"
+                label="Postnummer"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                type="number"
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="city"
+                label="Postort"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="socialSecurity"
+                label="Personnummer"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="telephoneNumber"
+                label="Telefonnummer"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                type="tel"
+                value={undefined}
+              />
+              <TextField
+                disabled={true}
+                id="relativeUsername"
+                label="Anhörigs namn"
+                margin="normal"
+                onChange={[Function]}
+                required={false}
+                select={false}
+                style={
+                  Object {
+                    "margin": 10,
+                  }
+                }
+                value={undefined}
+              />
+            </form>,
+            <WithStyles(Button)
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 20,
+                }
+              }
+              variant="raised"
+            >
+              Ändra uppgifter
+            </WithStyles(Button)>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "autoComplete": "off",
+              "children": Array [
+                <TextField
+                  disabled={true}
+                  id="userName"
+                  label="Användarnamn"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value="username"
+                />,
+                <TextField
+                  disabled={true}
+                  id="email"
+                  label="Email"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  type="email"
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="firstName"
+                  label="Förnamn"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="surname"
+                  label="Efternamn"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="streetAddress"
+                  label="Adress"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="zipCode"
+                  label="Postnummer"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  type="number"
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="city"
+                  label="Postort"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="socialSecurity"
+                  label="Personnummer"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="telephoneNumber"
+                  label="Telefonnummer"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  type="tel"
+                  value={undefined}
+                />,
+                <TextField
+                  disabled={true}
+                  id="relativeUsername"
+                  label="Anhörigs namn"
+                  margin="normal"
+                  onChange={[Function]}
+                  required={false}
+                  select={false}
+                  style={
+                    Object {
+                      "margin": 10,
+                    }
+                  }
+                  value={undefined}
+                />,
+              ],
+              "noValidate": true,
+              "style": Object {
+                "display": "flex",
+                "flexWrap": "wrap",
+                "justifyContent": "space-evenly",
+              },
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "userName",
+                  "label": "Användarnamn",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": "username",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "email",
+                  "label": "Email",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "type": "email",
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "firstName",
+                  "label": "Förnamn",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "surname",
+                  "label": "Efternamn",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "streetAddress",
+                  "label": "Adress",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "zipCode",
+                  "label": "Postnummer",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "type": "number",
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "city",
+                  "label": "Postort",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "socialSecurity",
+                  "label": "Personnummer",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "telephoneNumber",
+                  "label": "Telefonnummer",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "type": "tel",
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "disabled": true,
+                  "id": "relativeUsername",
+                  "label": "Anhörigs namn",
+                  "margin": "normal",
+                  "onChange": [Function],
+                  "required": false,
+                  "select": false,
+                  "style": Object {
+                    "margin": 10,
+                  },
+                  "value": undefined,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
+            "type": "form",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Ändra uppgifter",
+              "onClick": [Function],
+              "style": Object {
+                "margin": 20,
+              },
+              "variant": "raised",
+            },
+            "ref": null,
+            "rendered": "Ändra uppgifter",
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
 `;

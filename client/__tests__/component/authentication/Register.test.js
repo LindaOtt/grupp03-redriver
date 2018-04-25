@@ -1,11 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router';
 import Enzyme from 'enzyme';
 import {mount, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import App from '../../../src/App';
 import Register from '../../../src/component/authentication/Register';
-import renderer from 'react-test-renderer';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -55,8 +54,12 @@ test('Register handleChange should set password to Password123', () => {
 
 
 test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when username is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
   const component = shallow(
-    <Register />
+    <Register {...baseProps} />
   );
 
   component.setState({
@@ -65,22 +68,22 @@ test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when 
     email: 'banan@example.com',
     passwordConfirm: 'Password123',
     surname: 'Banan',
-    firstname: 'Jan'
+    firstName: 'Jan'
   });
 
   component.instance().handleSubmit();
 
-  const userState = component.state('userName');
-  const passwordState = component.state('password');
-
-  expect(userState).toEqual('');
-  expect(passwordState).toEqual('Password123');
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
 });
 
 
 test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when password is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
   const component = shallow(
-    <Register />
+    <Register {...baseProps} />
   );
 
   component.setState({
@@ -89,26 +92,234 @@ test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when 
     email: 'banan@example.com',
     passwordConfirm: '',
     surname: 'Banan',
-    firstname: 'Jan'
+    firstName: 'Jan'
   });
 
   component.instance().handleSubmit();
 
-  const userState = component.state('userName');
-  const passwordState = component.state('password');
-
-  expect(userState).toEqual('Banan');
-  expect(passwordState).toEqual('');
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
 });
 
 
-/*test('Register should navigate to login when registered', () => {
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when email is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: '',
+    passwordConfirm: 'Password123',
+    surname: 'Banan',
+    firstName: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when passwordConfirm is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: '',
+    surname: 'Banan',
+    firstName: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when surname is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'Password123',
+    surname: '',
+    firstName: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Formuläret ej korrekt ifyllt!" when firstName is missing', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'Password123',
+    surname: 'Banan',
+    firstName: ''
+  });
+
+  component.instance().handleSubmit();
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+});
+
+
+test('Register handleSubmit should return "Lösenorden matchar inte!" when password and passwordConfirm is not matching', () => {
+  const baseProps = {
+    openSnackBar: jest.fn(),
+  };
+
+  const component = shallow(
+    <Register {...baseProps} />
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'password1',
+    surname: 'Banan',
+    firstName: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  const passwordState = component.state('password');
+  const passwordConfirmState = component.state('passwordConfirm');
+
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
+  expect(passwordState).toEqual('Password123');
+  expect(passwordConfirmState).toEqual('password1');
+  expect(passwordState).not.toEqual(passwordConfirmState);
+});
+
+
+test('Register handleSubmit should call sendRequest', (done) => {
+  // Mock parent method openSnackBar
+  const baseProps = {
+    openSnackBar: jest.fn()
+  };
+
+  const sendRequestSpy = jest.spyOn(Register.prototype, 'sendRequest');
+
+  const component = shallow(
+    <Register {...baseProps}/>
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com',
+    passwordConfirm: 'Password123',
+    surname: 'Banan',
+    firstName: 'Jan'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(sendRequestSpy).toHaveBeenCalledTimes(1);
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(0);
+  done();
+});
+
+
+test('Register sendRequest should respond with status 200', (done) => {
+  let mock = new MockAdapter(axios);
+  mock.onPost('https://redserver.azurewebsites.net/api/account/register').reply(200);
+
   const component = shallow(
     <Register />
   );
+
+  component.setState({
+    userName: 'Katt',
+    password: 'Password123',
+    email: 'katt@example.com',
+    passwordConfirm: 'Password123',
+    surname: 'Katt',
+    firstName: 'Katt'
+  });
+
+  // Call sendRequest
+  component.instance().sendRequest().then(response => {
+    expect(response.status).toEqual(200);
+    done();
+  });
+});
+
+
+test('Register sendRequest should respond with status 400', (done) => {
+  let mock = new MockAdapter(axios);
+  mock.onPost('https://redserver.azurewebsites.net/api/account/register').reply(400);
+
+  const component = shallow(
+    <Register />
+  );
+
+  component.setState({
+    userName: 'Katt',
+    password: 'Password123',
+    email: 'katt@example.com',
+    passwordConfirm: 'Password123',
+    surname: 'Katt',
+    firstName: 'Katt'
+  });
+
+  // Call sendRequest
+  component.instance().sendRequest().catch(error => {
+    expect(error.message).toEqual('Request failed with status code 400');
+    expect(error.response.status).toEqual(400);
+    done();
+  });
+});
+
+
+test('Register should navigate to login when registration is done', () => {
+  const component = shallow(
+    <Register />
+  );
+
+  component.setState({
+    navigate: true
+  });
 
   component.instance().render();
   const navigateState = component.state('navigate');
 
   expect(navigateState).toEqual(true);
-});*/
+  expect(navigateState).not.toEqual(false);
+  expect(component).toMatchObject(/Redirect to="\/login"/);
+});
