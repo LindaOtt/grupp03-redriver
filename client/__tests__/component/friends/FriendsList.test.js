@@ -9,114 +9,127 @@ import MockAdapter from 'axios-mock-adapter';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-test('FriendsList renders without crashing', () => {
-  const component = shallow(
-    <MemoryRouter>
-      <FriendsList state = {{ isSignedIn: true }}/>
-    </MemoryRouter>
-  );
-
-  expect(component).toMatchSnapshot();
-});
-
-
-test('FriendsList renderFriendsList should return array with friends', () => {
-  const component = shallow(
-    <FriendsList state = {{ isSignedIn: true }}/>
-  );
-
-  component.setState({
-    friends: ['Banan', 'test1', 'Kattis']
-  });
-
-  let friendsArray = component.instance().renderFriendsList();
-
-  expect(friendsArray).toHaveLength(3);
-});
-
-
-test('FriendsList sendRequest should respond with status 200', (done) => {
-  let mock = new MockAdapter(axios);
-  mock.onGet('https://redserver.azurewebsites.net/api/user/getfriends').reply(200);
-
-  const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCYW5hbiIsImVtYWlsIjoiYmFuYW5AZXhhbXBsZS5jb20iLCJqdGkiOiI3MWE1YzA3Yy1mNWNhLTQ3MTYtYjk0Ny05ZDlhZWIwNjZmNzciLCJyb2xlcyI6InVzZXIiLCJleHAiOjE1MjQ2NTE5MzIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MzkzOS8ifQ.C_xboFny2nszame4GHJNnlOzlWJ2tVGmflfnmJAyXAE';
-
-  const component = shallow(
-    <FriendsList state = {{ isSignedIn: true, token: mockToken }}/>
-  );
-
-  // Call sendRequest
-  component.instance().sendRequest().then(response => {
-    expect(response.status).toEqual(200);
-    done();
-  });
-});
-
-
-test('FriendsList sendRequest should respond with status 401', (done) => {
-  let mock = new MockAdapter(axios);
-  mock.onGet('https://redserver.azurewebsites.net/api/user/getfriends').reply(401);
-
-  const mockToken = '';
-
-  const component = shallow(
-    <FriendsList state = {{ isSignedIn: true, token: mockToken }}/>
-  );
-
-  // Call sendRequest
-  component.instance().sendRequest().catch(error => {
-    expect(error.message).toEqual('Request failed with status code 401');
-    expect(error.response.status).toEqual(401);
-    done();
-  });
-});
-
-
-test('FriendsList componentDidMount should call sendRequest', (done) => {
-  const baseProps = {
+describe('FriendsList', () => {
+  const props = {
     state: {
       isSignedIn: true
     }
   };
 
-  const sendRequestSpy = jest.spyOn(FriendsList.prototype, 'sendRequest');
+  it('should render without crashing', () => {
+    const component = shallow(
+      <MemoryRouter>
+        <FriendsList {...props}/>
+      </MemoryRouter>
+    );
 
-  const component = shallow(
-    <FriendsList {...baseProps}/>
-  );
-
-  expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-  done();
-});
-
-
-/*test('FriendsList componentDidMount should push friends to state', (done) => {
-  const mockToken = '';
-
-  const baseProps = {
-    state: {
-      isSignedIn: true,
-      token: mockToken
-    }
-  };
-
-  const sendRequestSpy = jest.spyOn(FriendsList.prototype, 'sendRequest');
-
-  const component = shallow(
-    <FriendsList {...baseProps}/>
-  );
-
-  expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-  done();
-});*/
+    expect(component).toMatchSnapshot();
+  });
 
 
-test('FriendsList should navigate to login when user is not signed in', () => {
-  const component = shallow(
-    <FriendsList state = {{ isSignedIn: false }}/>
-  );
+  describe('renderFriendsList', () => {
+    it('should return array with friends', () => {
+      const component = shallow(
+        <FriendsList {...props}/>
+      );
 
-  component.instance().render();
+      component.setState({
+        friends: ['Banan', 'test1', 'Kattis']
+      });
 
-  expect(component).toMatchObject(/Redirect to="\/login"/);
+      let friendsArray = component.instance().renderFriendsList();
+
+      expect(friendsArray).toHaveLength(3);
+    });
+  });
+
+
+  describe('sendRequest', () => {
+    const mock = new MockAdapter(axios);
+    const apiUrl = 'https://redserver.azurewebsites.net/api/user/getfriends';
+
+    const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCYW5hbiIsImVtYWlsIjoiYmFuYW5AZXhhbXBsZS5jb20iLCJqdGkiOiI3MWE1YzA3Yy1mNWNhLTQ3MTYtYjk0Ny05ZDlhZWIwNjZmNzciLCJyb2xlcyI6InVzZXIiLCJleHAiOjE1MjQ2NTE5MzIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MzkzOS8ifQ.C_xboFny2nszame4GHJNnlOzlWJ2tVGmflfnmJAyXAE';
+
+    const baseProps = {
+      state: {
+        isSignedIn: true,
+        token: mockToken
+      }
+    };
+
+    it('should respond with status 200', (done) => {
+      mock.onGet(apiUrl).reply(200);
+
+      const component = shallow(
+        <FriendsList {...baseProps}/>
+      );
+
+      component.instance().sendRequest().then(response => {
+        expect(response.status).toEqual(200);
+        done();
+      });
+    });
+
+
+    it('should respond with status 401', (done) => {
+      mock.onGet(apiUrl).reply(401);
+
+      const component = shallow(
+        <FriendsList {...baseProps}/>
+      );
+
+      component.instance().sendRequest().catch(error => {
+        expect(error.message).toEqual('Request failed with status code 401');
+        expect(error.response.status).toEqual(401);
+        done();
+      });
+    });
+
+
+    it('should get friends from the database', (done) => {
+      let mockData = {
+        friendsList: ['Banan', 'Kattis', 'test1']
+      }
+
+      mock.onGet(apiUrl).reply(200, mockData);
+
+      const component = shallow(
+        <FriendsList {...baseProps}/>
+      );
+
+      // Call sendRequest
+      component.instance().sendRequest().then(response => {
+        expect(response.status).toEqual(200);
+        expect(response.data).toEqual(mockData);
+        done();
+      });
+    });
+  });
+
+
+  describe('componentDidMount', () => {
+    it('should call sendRequest', (done) => {
+      const sendRequestSpy = jest.spyOn(FriendsList.prototype, 'sendRequest');
+
+      const component = shallow(
+        <FriendsList {...props}/>
+      );
+
+      expect(sendRequestSpy).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
+
+
+  describe('render', () => {
+    it('should navigate to login when user is not signed in', () => {
+      const component = shallow(
+        <FriendsList state = {{ isSignedIn: false }}/>
+      );
+
+      component.instance().render();
+
+      expect(component).toMatchObject(/Redirect to="\/login"/);
+    });
+  });
 });
