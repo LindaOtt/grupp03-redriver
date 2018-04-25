@@ -138,7 +138,7 @@ test('Login handleSubmit should return "Formuläret ej korrekt ifyllt!" when ema
 });
 
 
-test('Login sendRequest should respond with status 200', (done) => {
+test('Login sendRequest should respond with status 200 when user exist', (done) => {
   let mock = new MockAdapter(axios);
   mock.onPost('https://redserver.azurewebsites.net/api/account/login').reply(200);
 
@@ -160,7 +160,7 @@ test('Login sendRequest should respond with status 200', (done) => {
 });
 
 
-test('Login sendRequest should respond with status 401', (done) => {
+test('Login sendRequest should respond with status 401 when user does not exist', (done) => {
   let mock = new MockAdapter(axios);
   mock.onPost('https://redserver.azurewebsites.net/api/account/login').reply(401);
 
