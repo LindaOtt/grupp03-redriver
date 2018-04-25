@@ -138,6 +138,35 @@ test('Login handleSubmit should return "Formuläret ej korrekt ifyllt!" when ema
 });
 
 
+test('Login handleSubmit should call sendRequest', (done) => {
+  // Mock parent method openSnackBar
+  const baseProps = {
+    openSnackBar: jest.fn(),
+    state: {
+      isSignedIn: false,
+    }
+  };
+
+  const sendRequestSpy = jest.spyOn(Login.prototype, 'sendRequest');
+
+  const component = shallow(
+    <Login {...baseProps}/>
+  );
+
+  component.setState({
+    userName: 'Banan',
+    password: 'Password123',
+    email: 'banan@example.com'
+  });
+
+  component.instance().handleSubmit();
+
+  expect(sendRequestSpy).toHaveBeenCalledTimes(1);
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(0);
+  done();
+});
+
+
 test('Login sendRequest should respond with status 200 when user exist', (done) => {
   let mock = new MockAdapter(axios);
   mock.onPost('https://redserver.azurewebsites.net/api/account/login').reply(200);

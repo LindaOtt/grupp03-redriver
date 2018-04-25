@@ -227,47 +227,33 @@ test('Register handleSubmit should return "Lösenorden matchar inte!" when passw
 });
 
 
-// TODO: This test doesn't work yet. TypeError: Cannot read property 'then' of undefined
-/*test('Register handleSubmit should call sendRequest', async () => {
+test('Register handleSubmit should call sendRequest', (done) => {
   // Mock parent method openSnackBar
   const baseProps = {
     openSnackBar: jest.fn()
   };
 
-  const sendRequestMock = jest.fn();
-
-  window.sendRequest = jest.fn().mockImplementation(() => {
-    Promise.resolve({
-      json: 200
-    });
-  });
+  const sendRequestSpy = jest.spyOn(Register.prototype, 'sendRequest');
 
   const component = shallow(
-    <Register sendRequest={sendRequestMock} />
+    <Register {...baseProps}/>
   );
 
   component.setState({
-    userName: 'Katt',
+    userName: 'Banan',
     password: 'Password123',
-    email: 'katt@example.com',
+    email: 'banan@example.com',
     passwordConfirm: 'Password123',
-    surname: 'Katt',
-    firstName: 'Katt'
+    surname: 'Banan',
+    firstName: 'Jan'
   });
 
   component.instance().handleSubmit();
-  expect(window.sendRequest).toHaveBeenCalledTimes(1);
 
-  // Mock sendRequest
-  //component.instance().sendRequest = jest.fn();
-
-  // Call handleSubmit
-/*  await component.instance().handleSubmit().then((response) => {
-    expect(response.status).toEqual(200);
-    expect(baseProps.openSnackBar).toHaveBeenCalledTimes(1);
-    expect(component.instance().sendRequest).toHaveBeenCalledTimes(1);
-  });
-});*/
+  expect(sendRequestSpy).toHaveBeenCalledTimes(1);
+  expect(baseProps.openSnackBar).toHaveBeenCalledTimes(0);
+  done();
+});
 
 
 test('Register sendRequest should respond with status 200', (done) => {
@@ -335,5 +321,5 @@ test('Register should navigate to login when registration is done', () => {
 
   expect(navigateState).toEqual(true);
   expect(navigateState).not.toEqual(false);
-  expect(component).toMatchObject(/"\/login"/);
+  expect(component).toMatchObject(/Redirect to="\/login"/);
 });
