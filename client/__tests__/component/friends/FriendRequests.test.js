@@ -97,15 +97,15 @@ describe('FriendRequests', () => {
 
 
   describe('sendRequest', () => {
-    const mock = new MockAdapter(axios);
     const apiUrl = 'https://redserver.azurewebsites.net/api/user/addfriend';
 
     it('should respond with status 200 when user exist', (done) => {
+      let mock = new MockAdapter(axios);
+      mock.onPost(apiUrl).reply(200);
+
       component.setState({
         friendUserName: 'test1'
       });
-
-      mock.onPost(apiUrl).reply(200);
 
       component.instance().sendRequest().then(response => {
         expect(response.status).toEqual(200);
@@ -115,11 +115,12 @@ describe('FriendRequests', () => {
 
 
     it('should respond with status 404 when user does not exist', (done) => {
-      component.setState({
-        friendUserName: ''
-      });
-
+      let mock = new MockAdapter(axios);
       mock.onGet(apiUrl).reply(404);
+
+      component.setState({
+        friendUserName: 'BananApan'
+      });
 
       component.instance().sendRequest().catch(error => {
         expect(error.message).toEqual('Request failed with status code 404');
