@@ -8,41 +8,42 @@ import {theme} from "./Styles";
  */
 
 export const friendsListStyles =  {
-    friendsList: {
-    },
 
-    paper: {
-        width: 280,
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 6,
-        margin: 10,
-    },
-    friendsName: {
-        width: '70%',
-        textAlign: 'left',
-        marginTop: 6,
-    },
+  friendsList: {},
+
+  paper: {
+    width: 300,
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 6,
+    margin: 10,
+  },
+  friendsName: {
+    width: '70%',
+    textAlign: 'left',
+    marginTop: 6,
+    cursor: 'pointer',
+  },
 };
 
 export const friendsViewStyles =  {
-    friendsView: {
-
+  friendsView: {
     },
 };
 
 export const friendRequestStyles =  {
-    friendRequests: {
-    },
-    title: {
-        margin: 20,
+  friendRequests: {},
 
+  title: {
+    margin: 20,
     },
-    textField: {
-        margin: 10,
-    },
-    button: {
 
-        margin: 30,
+  textField: {
+    margin: 10,
     },
+
+  button: {
+
+    margin: 30,
+  },
 };

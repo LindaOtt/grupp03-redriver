@@ -40,7 +40,7 @@ ShallowWrapper {
         "entries": Array [
           Object {
             "hash": "",
-            "key": "maj952",
+            "key": "dk1pw2",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -54,7 +54,7 @@ ShallowWrapper {
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "maj952",
+          "key": "dk1pw2",
           "pathname": "/",
           "search": "",
           "state": undefined,
@@ -100,7 +100,7 @@ ShallowWrapper {
           "entries": Array [
             Object {
               "hash": "",
-              "key": "maj952",
+              "key": "dk1pw2",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -114,7 +114,7 @@ ShallowWrapper {
           "listen": [Function],
           "location": Object {
             "hash": "",
-            "key": "maj952",
+            "key": "dk1pw2",
             "pathname": "/",
             "search": "",
             "state": undefined,

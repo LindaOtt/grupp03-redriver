@@ -71,6 +71,8 @@ class Login extends Component {
                 localStorage.setItem('token', JSON.stringify(response.data.token));
                 return this.props.openSnackBar('Välkommen ' + this.state.userName + '!');
 
+            }).then(() => {
+                return <Redirect to="/" />;
             }).catch((err) => {
             console.log(err);
             return this.props.openSnackBar('Något gick fel. Försök igen!');

@@ -68,6 +68,21 @@
     justify-content: space-evenly;
 }
 
+.FriendsList-Inner-Large {
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.FriendsList-Inner-Large-Menu {
+    height: 100%;
+}
+
+.FriendsList-Inner-Large-Content {
+    height: 100%;
+}
+
 .FriendsView {
 
 }
@@ -127,4 +142,11 @@
     text-align: left;
     max-width: 300px;
     margin-left: 20px;
+}
+
+@media only screen and (min-width: 960px) {
+    .FriendsList {
+        min-width: 100%;
+        min-height: 100%;
+    }
 }

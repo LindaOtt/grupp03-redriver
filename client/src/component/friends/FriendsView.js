@@ -13,19 +13,22 @@ import '../../styles/Styles.css'
  */
 
 class FriendsView extends Component {
-    render() {
+  render() {
 
-        if (this.props.state.isSignedIn === false) {
-            return <Redirect to="/login" />
-        }
-
-        return (
-            <div className="FriendsView">
-                <p>Friends View</p>
-            </div>
-
-        );
+    if (this.props.state.isSignedIn === false) {
+      return <Redirect to="/login" />
     }
+
+    if (!this.props.friendsUsername) {
+      return <Redirect to="/friends" />
+    }
+
+    return (
+      <div className="FriendsView">
+        <p>{this.props.friendsUsername}</p>
+      </div>
+    );
+  }
 }
 
 export default FriendsView;
