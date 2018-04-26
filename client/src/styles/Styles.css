@@ -76,11 +76,14 @@
 }
 
 .FriendsList-Inner-Large-Menu {
-    height: 100%;
+    min-height: 100%;
 }
 
 .FriendsList-Inner-Large-Content {
-    height: 100%;
+    min-height: 100%;
+    width: calc(100% - 300px);
+    width: -moz-calc(100% - 300px);
+    width: -webkit-calc(100% - 300px);
 }
 
 .FriendsView {

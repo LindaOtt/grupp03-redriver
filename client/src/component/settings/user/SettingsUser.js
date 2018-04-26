@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 // Import NPM-modules
 import ExpansionPanel, {
-    ExpansionPanelDetails,
-    ExpansionPanelSummary,
-} from 'material-ui/ExpansionPanel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Typography from 'material-ui/Typography';
-import Switch from 'material-ui/Switch';
+  ExpansionPanelDetails,
+  ExpansionPanelSummary
+} from 'material-ui/ExpansionPanel'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import Typography from 'material-ui/Typography'
+import Switch from 'material-ui/Switch'
 import List, {
-    ListItem,
-    ListItemSecondaryAction,
-    ListItemText,
-} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText
+} from 'material-ui/List'
+import Divider from 'material-ui/Divider'
 
 // Import icons.
-import NotificationIcon from '@material-ui/icons/Notifications';
+import NotificationIcon from '@material-ui/icons/Notifications'
 
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {settingsUserStyles} from "../../../styles/SettingsStyles";
+import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
-import UserDetails from './UserDetails';
+import UserDetails from './UserDetails'
 import ChangePassword from './ChangePassword'
 
 /**
@@ -32,15 +32,14 @@ import ChangePassword from './ChangePassword'
  */
 
 class SettingsUser extends Component {
+  constructor (props) {
+    super(props)
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            expanded: null,
-            notificationToggle: false,
-        };
+    this.state = {
+      expanded: null,
+      notificationToggle: false
     }
+  }
 
     /**
      *  Expand and close panels
@@ -49,9 +48,9 @@ class SettingsUser extends Component {
      */
 
     handleChange = panel => (event, expanded) => {
-        this.setState({
-            expanded: expanded ? panel : false,
-        });
+      this.setState({
+        expanded: expanded ? panel : false
+      })
     };
 
     /**
@@ -61,68 +60,67 @@ class SettingsUser extends Component {
      */
 
     handleNotificationChange = name => event => {
-        this.setState({ [name]: event.target.checked });
+      this.setState({ [name]: event.target.checked })
     };
 
-    render() {
+    render () {
+      const { expanded } = this.state
 
-        const { expanded } = this.state;
-
-        return (
-            <div className="SettingsUser">
-                <Typography
-                    variant="headline"
-                    color="default"
-                    align="left"
-                    style={settingsUserStyles.title}
-                >
+      return (
+        <div className='SettingsUser'>
+          <Typography
+            variant='headline'
+            color='default'
+            align='left'
+            style={settingsUserStyles.title}
+          >
                     Inställningar
-                </Typography>
-                <div className="SettingsUser-Inner">
-                    <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')} style={settingsUserStyles.expansionPanel}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography >Användaruppgifter</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <UserDetails state={this.props.state}/>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography >Ändra lösenord</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <ChangePassword state={this.props.state}/>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    <List>
-                        <ListItem>
-                            <Typography >Notifikationer</Typography>
-                            <ListItemSecondaryAction>
-                                <Switch
-                                    checked={this.state.notificationToggle}
-                                    onChange={this.handleNotificationChange('notificationToggle')}
-                                    value="notificationToggle"
-                                    color="primary"
-                                />
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <Divider />
-                        <Divider />
-                        <ListItem>
-                            <Typography >Fylls på med mer inställningar...</Typography>
-                            <ListItemSecondaryAction>
-                                <Switch
-                                    value="todo"
-                                    color="primary"
-                                />
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                    </List>
-                </div>
-            </div>
-        );
+          </Typography>
+          <div className='SettingsUser-Inner'>
+            <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')} style={settingsUserStyles.expansionPanel}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography >Användaruppgifter</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <UserDetails state={this.props.state} />
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography >Ändra lösenord</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <ChangePassword state={this.props.state} />
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <List>
+              <ListItem>
+                <Typography >Notifikationer</Typography>
+                <ListItemSecondaryAction>
+                  <Switch
+                    checked={this.state.notificationToggle}
+                    onChange={this.handleNotificationChange('notificationToggle')}
+                    value='notificationToggle'
+                    color='primary'
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+              <Divider />
+              <Divider />
+              <ListItem>
+                <Typography >Fylls på med mer inställningar...</Typography>
+                <ListItemSecondaryAction>
+                  <Switch
+                    value='todo'
+                    color='primary'
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            </List>
+          </div>
+        </div>
+      )
     }
 }
 
-export default SettingsUser;
+export default SettingsUser

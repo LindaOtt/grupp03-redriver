@@ -1,6 +1,6 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
-import {theme} from "./Styles";
-import grey from "material-ui/colors/grey";
+import {theme} from './Styles'
+import grey from 'material-ui/colors/grey'
 
 /**
  *  Styles for imported components in App.js
@@ -9,30 +9,30 @@ import grey from "material-ui/colors/grey";
  */
 
 const AppStyles = {
-    root: {
-        flexGrow: 1,
-    },
-    flex: {
-        flex: 1,
-    },
-    menuButton: {
-        color: grey[100],
-    },
-    menu: {
-        width: 250,
-    },
-    app: {
-        textAlign: 'center',
-    },
-    appBar: {
-        flexFlow: 1,
-    },
-    body: {
+  root: {
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1
+  },
+  menuButton: {
+    color: grey[100]
+  },
+  menu: {
+    width: 250
+  },
+  app: {
+    textAlign: 'center'
+  },
+  appBar: {
+    flexFlow: 1
+  },
+  body: {
 
-    },
-    loading: {
-        margin: 'auto',
-    }
-};
+  },
+  loading: {
+    margin: 'auto'
+  }
+}
 
-export default AppStyles;
+export default AppStyles
