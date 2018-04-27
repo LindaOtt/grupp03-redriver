@@ -120,6 +120,10 @@ class Register extends Component {
       return <Redirect to='/login' push />
     }
 
+    if (this.props.state.isSignedIn === true) {
+      return <Redirect to='/' />
+    }
+
     return (
       <div className='Register'>
         <Typography
