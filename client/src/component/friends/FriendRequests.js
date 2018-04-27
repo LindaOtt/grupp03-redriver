@@ -55,13 +55,34 @@ class FriendRequests extends Component {
         return this.props.openSnackBar('Formuläret ej korrekt ifyllt!')
       }
 
-      this.sendRequest()
+      if (this.state.friendUserName === this.props.state.userInfo.username) {
+        return this.props.openSnackBar('Det går inte att lägga till sig själv som vän!')
+      }
+
+      this.requestFriends()
         .then((response) => {
-          console.log(response)
-          return this.props.openSnackBar(this.state.friendUserName + ' lades till som vän!')
-        }).catch((err) => {
-          console.log(err)
-          return this.props.openSnackBar('Något gick fel. Försök igen!')
+          let data = response.data.friendList
+
+          for (let i = 0; i < data.length; i++) {
+            if (this.state.friendUserName === data[i]) {
+              return this.props.openSnackBar(data[i] + ' finns redan i din vänlista!')
+            }
+          }
+
+            this.sendRequest()
+              .then((response) => {
+                console.log(response)
+                return this.props.openSnackBar(this.state.friendUserName + ' lades till som vän!')
+
+              }).catch((err) => {
+
+                if (err.response.status === 404) {
+                  return this.props.openSnackBar('Finns ingen med användarnamnet ' + this.state.friendUserName + '!')
+                }
+              return this.props.openSnackBar('Något gick fel. Försök igen!')
+            })
+          }).catch((err) => {
+            return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     }
 
@@ -76,8 +97,6 @@ class FriendRequests extends Component {
         username: this.state.friendUserName
       }
 
-      console.log(JSON.stringify(tempObj))
-
       return axios({
         method: 'post',
         url: AzureServerUrl + '/api/user/addfriend',
@@ -85,6 +104,20 @@ class FriendRequests extends Component {
         headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
       })
     }
+
+  /**
+   *  Get friends from server.
+   *
+   *  @author Jimmy
+   */
+
+  requestFriends () {
+    return axios({
+      method: 'get',
+      url: AzureServerUrl + '/api/user/getfriends',
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
+    })
+  }
 
     render () {
       if (this.props.state.isSignedIn === false) {
