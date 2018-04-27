@@ -188,6 +188,7 @@ class App extends Component {
      */
 
     toggleMenu = (open) => () => {
+      console.log(this.state)
       this.setState({
         menu: open
       })
@@ -277,8 +278,8 @@ class App extends Component {
                           style={AppStyles.flex}
                         />
                         {this.state.isSignedIn ? (
-                          <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton}>
-                            <MenuIcon onClick={this.toggleMenu(true)} />
+                          <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton} onClick={this.toggleMenu(true)}>
+                            <MenuIcon />
                           </IconButton>
                         ) : (
                           <p />

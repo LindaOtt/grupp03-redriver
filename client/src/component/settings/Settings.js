@@ -47,6 +47,9 @@ class Settings extends Component {
 
       case 'User':
         return <User state={this.props.state} />
+
+      default:
+        return <User state={this.props.state} />
     }
   }
   render () {
