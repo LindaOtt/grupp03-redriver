@@ -11,6 +11,12 @@ namespace RedRiverChatServer.Models
     {
       //Create the Friendship database table if not already in place
         public virtual DbSet<Friendship> Friendship { get; set; }
+      //  public DbSet<SignalRUser> SignalRUsers { get; set; }
+        public DbSet<Connection> Connections { get; set; }
+        public DbSet<ApplicationUserConversationRoom> ApplicationUserConversationRooms { get; set; }
+        public DbSet<ConversationRoom> Rooms { get; set; }
+        public DbSet<Log> Logs { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> contextOptions) : base(contextOptions)
         {
@@ -23,6 +29,8 @@ namespace RedRiverChatServer.Models
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ApplicationUserConversationRoom>()
+       .HasKey(t => new { t.ApplicationUserId, t.RoomName });
             base.OnModelCreating(builder);
         }
     }
