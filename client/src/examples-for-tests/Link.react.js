@@ -1,32 +1,32 @@
 // Link.react.js
-import React from 'react';
+import React from 'react'
 
 const STATUS = {
   HOVERED: 'hovered',
-  NORMAL: 'normal',
-};
+  NORMAL: 'normal'
+}
 
 export default class Link extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this._onMouseEnter = this._onMouseEnter.bind(this);
-    this._onMouseLeave = this._onMouseLeave.bind(this);
+    this._onMouseEnter = this._onMouseEnter.bind(this)
+    this._onMouseLeave = this._onMouseLeave.bind(this)
 
     this.state = {
-      class: STATUS.NORMAL,
-    };
+      class: STATUS.NORMAL
+    }
   }
 
   _onMouseEnter = () => {
-    this.setState({class: STATUS.HOVERED});
+    this.setState({class: STATUS.HOVERED})
   }
 
   _onMouseLeave = () => {
-    this.setState({class: STATUS.NORMAL});
+    this.setState({class: STATUS.NORMAL})
   }
 
-  render() {
+  render () {
     return (
       <a
         className={this.state.class}
@@ -36,6 +36,6 @@ export default class Link extends React.Component {
       >
         {this.props.children}
       </a>
-    );
+    )
   }
 }

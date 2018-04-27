@@ -1,5 +1,5 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
-import {theme} from "./Styles";
+// import {theme} from './Styles'
 
 /**
  *  Styles for imported components in the chat directory
@@ -7,14 +7,14 @@ import {theme} from "./Styles";
  *  @author Jimmy
  */
 
-export const ChatListStyles =  {
-    chatList: {
+export const ChatListStyles = {
+  chatList: {
 
-    },
-};
+  }
+}
 
-export const ChatViewStyles =  {
-    chatView: {
+export const ChatViewStyles = {
+  chatView: {
 
-    },
-};
+  }
+}
