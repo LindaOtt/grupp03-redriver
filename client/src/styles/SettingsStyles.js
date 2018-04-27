@@ -38,16 +38,33 @@ export const settingsUserStyles = {
 
   },
   button: {
-
-    margin: 20
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 20,
+    width: 240,
+    flexGrow: 1,
   },
+
+  passwordButton: {
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 20,
+    maxWidth: 300,
+    width: '100%',
+    flexGrow: 1,
+  },
+
   container: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly'
   },
   textField: {
-    margin: 10
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 20,
+    width: 240,
+    flexGrow: 1,
   },
   listItem: {
     border: {

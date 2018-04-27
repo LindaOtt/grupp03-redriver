@@ -77,6 +77,11 @@ class App extends Component {
     localStorage.removeItem('userInfo')
   }
 
+  /**
+   *  Login. Set state with user details
+   *
+   *  @author Jimmy
+   */
 
   userLogin (token) {
     this.verifyJWT(token)
@@ -92,6 +97,12 @@ class App extends Component {
       })
     })
   }
+
+  /**
+   *  Check if token is valid and get user info.
+   *
+   *  @author Jimmy
+   */
 
   verifyJWT (token) {
     return axios({

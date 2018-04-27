@@ -87,7 +87,7 @@ class ChangePassword extends Component {
               onChange={this.handleChange('passwordConfirm')}
               margin='normal'
             />
-            <Button variant='raised' style={settingsUserStyles.button} onClick={this.handleSubmit}>
+            <Button variant='raised' style={settingsUserStyles.passwordButton} onClick={this.handleSubmit}>
                             Ok
             </Button>
           </form>

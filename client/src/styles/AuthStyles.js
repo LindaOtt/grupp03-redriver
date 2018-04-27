@@ -20,7 +20,8 @@ export const registerStyles = {
     marginLeft: 30,
     marginRight: 30,
     marginBottom: 20,
-    width: 240
+    width: 240,
+    flexGrow: 1,
   },
   menu: {
     width: 240
@@ -39,9 +40,9 @@ export const registerStyles = {
     }
   },
   button: {
-    width: 240,
+    width: '100%',
     height: 60,
-    marginTop: 30
+    marginTop: 30,
   },
   register: {
     margin: 'auto',
@@ -53,20 +54,6 @@ export const registerStyles = {
     height: 240,
     marginRight: 30,
     marginLeft: 30
-  },
-  '@media (max-width: 600px)': {
-    loginButton: {
-      width: 300
-    },
-    textField: {
-      width: 300
-    },
-    menu: {
-      width: 300
-    },
-    button: {
-      width: 300
-    }
   }
 }
 
@@ -83,13 +70,13 @@ export const loginStyles = {
     marginLeft: 30,
     marginRight: 30,
     marginBottom: 20,
-    width: 300
+    width: '100%'
   },
   menu: {
-    width: 300
+    maxWidth: 500
   },
   button: {
-    width: 300,
+    width: '100%',
     height: 60,
     marginTop: 30
   },
@@ -99,28 +86,29 @@ export const loginStyles = {
     color: theme.palette.primary.dark
   },
   loginLinkContainer: {
-    width: 300,
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 20
+    marginTop: 20,
+    flexGrow: 1,
   },
   loginLinkDivLeft: {
-    width: 150,
+    width: '50%',
     height: 100,
     textAlign: 'left'
   },
   loginLinkDivRight: {
-    width: 150,
+    width: '50%',
     height: 100,
     textAlign: 'right'
   },
   login: {
     margin: 'auto',
-    maxWidth: 360,
+    maxWidth: 500,
     paddingTop: 20
   },
   loginButton: {
-    width: 300,
+    maxWidth: 500,
     marginRight: 30,
     marginLeft: 30
   }
