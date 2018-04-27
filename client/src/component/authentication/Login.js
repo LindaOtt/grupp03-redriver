@@ -27,7 +27,8 @@ class Login extends Component {
     this.state = {
       userName: '',
       password: '',
-      email: 'test1@example.com'
+      email: 'test1@example.com',
+      navigate: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -60,10 +61,11 @@ class Login extends Component {
         this.sendRequest()
           .then((response) => {
             localStorage.setItem('token', JSON.stringify(response.data.token))
+            this.props.userLogin(response.data.token)
+            this.setState({navigate: true})
             return this.props.openSnackBar('Välkommen ' + this.state.userName + '!')
-          }).then(() => {
-          return <Redirect to='/' />
-        }).catch((err) => {
+
+          }).catch((err) => {
 
           if (err.response.status === 401) {
             return this.props.openSnackBar('Fel användarnamn eller lösenord!')
@@ -86,8 +88,6 @@ class Login extends Component {
         email: this.state.email
       }
 
-      console.log(JSON.stringify(tempObj))
-
       return axios({
         method: 'post',
         url: AzureServerUrl + '/api/account/login',
@@ -97,6 +97,13 @@ class Login extends Component {
     }
 
     render () {
+
+      const { navigate } = this.state
+
+      if (navigate) {
+        return <Redirect to='/' push />
+      }
+
       if (this.props.state.isSignedIn === true) {
         return <Redirect to='/' />
       }

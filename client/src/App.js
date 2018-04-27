@@ -60,6 +60,7 @@ class App extends Component {
     }
     this.openSnackBar = this.openSnackBar.bind(this)
     this.userLogout = this.userLogout.bind(this)
+    this.userLogin = this.userLogin.bind(this)
   }
 
   /**
@@ -74,6 +75,22 @@ class App extends Component {
     })
     localStorage.removeItem('token')
     localStorage.removeItem('userInfo')
+  }
+
+
+  userLogin (token) {
+    this.verifyJWT(token)
+      .then((response) => {
+        this.setState({
+          token: token,
+          isSignedIn: true,
+          userInfo: response.data,
+        })
+      }).catch((error) => {
+      this.setState({
+        isSignedIn: false,
+      })
+    })
   }
 
   verifyJWT (token) {
@@ -188,7 +205,6 @@ class App extends Component {
      */
 
     toggleMenu = (open) => () => {
-      console.log(this.state)
       this.setState({
         menu: open
       })
@@ -206,7 +222,6 @@ class App extends Component {
 
         this.verifyJWT(token)
           .then((response) => {
-            console.log(response)
             this.setState({
               token: token,
               isSignedIn: true,
@@ -241,7 +256,6 @@ class App extends Component {
           if (token !== this.state.token) {
             this.verifyJWT(token)
               .then((response) => {
-                console.log(response)
                 this.setState({
                   token: token,
                   isSignedIn: true,
@@ -291,7 +305,7 @@ class App extends Component {
                       <Route path='/chats' component={() => <ChatList state={this.state} />} />
                       <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
                       <Route path='/settings' component={() => <Settings state={this.state} />} />
-                      <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} />} />
+                      <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin}/>} />
                       <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
                       <Route path='/password' component={() => <NewPassword state={this.state} />} />
                       <Route path='/friendrequests' component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar} />} />
