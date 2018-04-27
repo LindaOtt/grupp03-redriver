@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
 // Import styles. friendsViewStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {friendsViewStyles} from '../../styles/FriendsStyles'
+//import {friendsViewStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
 
 /**

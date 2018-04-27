@@ -4,9 +4,6 @@ import grey from 'material-ui/colors/grey'
 import green from 'material-ui/colors/green'
 import red from 'material-ui/colors/red'
 
-const primaryColor = grey[400]
-const secondaryColor = grey[600]
-
 /**
  *  Create Material-UI theme. Edit these colors to change throughout the application.
  *

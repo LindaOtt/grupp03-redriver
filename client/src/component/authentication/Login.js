@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 // Import NPM-modules
 import Typography from 'material-ui/Typography'
@@ -12,9 +12,6 @@ import {loginStyles} from '../../styles/AuthStyles'
 import '../../styles/Styles.css'
 
 import {AzureServerUrl} from '../../utils/Config'
-
-import Register from './Register'
-import NewPassword from './NewPassword'
 
 /**
  *  Login-component.

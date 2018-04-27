@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // Import styles. settingsAdminStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {settingsAdminStyles} from '../../../styles/SettingsStyles'
+//import {settingsAdminStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
 /**

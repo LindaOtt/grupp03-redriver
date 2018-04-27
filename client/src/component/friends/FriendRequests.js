@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 // Import NPM-modules
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import axios from 'axios'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
 // Import NPM-modules
 import { MuiThemeProvider } from 'material-ui/styles'
@@ -21,7 +21,6 @@ import ChatIcon from '@material-ui/icons/ChatBubble'
 import PersonIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 import LoginIcon from '@material-ui/icons/Person'
-import RegisterIcon from '@material-ui/icons/PersonAdd'
 import LogoutIcon from '@material-ui/icons/Cancel'
 
 // Import styles. appStyles for all imported components with a style attribute and CSS-file for classNames and id.

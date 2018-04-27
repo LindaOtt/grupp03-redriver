@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // Import styles. settingsSuperUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {settingsSuperUserStyles} from '../../../styles/SettingsStyles'
+//import {settingsSuperUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
 /**

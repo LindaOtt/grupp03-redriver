@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 
 // Import NPM-modules
-import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import axios from 'axios'
 
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
-import {registerStyles} from '../../../styles/AuthStyles'
 
 /**
  *  Change Password-component.

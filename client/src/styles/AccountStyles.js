@@ -1,5 +1,5 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
-import {theme} from './Styles'
+//import {theme} from './Styles'
 
 /**
  *  Styles for imported components in the authentication directory
