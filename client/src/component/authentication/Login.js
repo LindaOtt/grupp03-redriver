@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import axios from 'axios/index'
+import HttpsRedirect from 'react-https-redirect'
 
 // Import styles. loginStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {loginStyles} from '../../styles/AuthStyles'
@@ -27,7 +28,6 @@ class Login extends Component {
     this.state = {
       userName: '',
       password: '',
-      email: '',
       navigate: false
     }
 
@@ -82,7 +82,6 @@ class Login extends Component {
       let tempObj = {
         username: this.state.userName,
         password: this.state.password,
-        email: this.state.email
       }
 
       return axios({
@@ -105,59 +104,52 @@ class Login extends Component {
       }
 
       return (
-        <div className='Login'>
-          <Typography
-            variant='headline'
-            color='default'
-            align='left'
-            style={loginStyles.title}
-          >
-                    Logga in
-          </Typography>
-          <form style={loginStyles.container} noValidate autoComplete='off'>
-            <TextField
-              id='userName'
-              label='Användarnamn'
-              required
-              style={loginStyles.textField}
-              value={this.state.userName}
-              onChange={this.handleChange('userName')}
-              margin='normal'
-            />
-            <TextField
-              id='email'
-              label='Email'
-              required
-              style={loginStyles.textField}
-              value={this.state.email}
-              onChange={this.handleChange('email')}
-              margin='normal'
-            />
-            <TextField
-              id='password'
-              label='Lösenord'
-              required
-              style={loginStyles.textField}
-              type='password'
-              autoComplete='current-password'
-              onChange={this.handleChange('password')}
-              margin='normal'
-            />
-            <div className='LoginButton'>
-              <Button variant='raised' style={loginStyles.button} onClick={this.handleSubmit}>
-                            Logga in
-              </Button>
-              <div style={loginStyles.loginLinkContainer}>
-                <div style={loginStyles.loginLinkDivLeft}>
-                  <Link style={loginStyles.loginLink} to='/register'>Registrera ny användare</Link>
-                </div>
-                <div style={loginStyles.loginLinkDivRight}>
-                  <Link style={loginStyles.loginLink} to='/password'>Glömt lösenord?</Link>
+        <HttpsRedirect>
+          <div className='Login'>
+            <Typography
+              variant='headline'
+              color='default'
+              align='left'
+              style={loginStyles.title}
+            >
+                      Logga in
+            </Typography>
+            <form style={loginStyles.container} noValidate autoComplete='off'>
+              <TextField
+                id='userName'
+                label='Användarnamn'
+                required
+                style={loginStyles.textField}
+                value={this.state.userName}
+                onChange={this.handleChange('userName')}
+                margin='normal'
+              />
+              <TextField
+                id='password'
+                label='Lösenord'
+                required
+                style={loginStyles.textField}
+                type='password'
+                autoComplete='current-password'
+                onChange={this.handleChange('password')}
+                margin='normal'
+              />
+              <div className='LoginButton'>
+                <Button variant='raised' style={loginStyles.button} onClick={this.handleSubmit}>
+                              Logga in
+                </Button>
+                <div style={loginStyles.loginLinkContainer}>
+                  <div style={loginStyles.loginLinkDivLeft}>
+                    <Link style={loginStyles.loginLink} to='/register'>Registrera ny användare</Link>
+                  </div>
+                  <div style={loginStyles.loginLinkDivRight}>
+                    <Link style={loginStyles.loginLink} to='/password'>Glömt lösenord?</Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        </HttpsRedirect>
 
       )
     }

@@ -8,9 +8,6 @@ export const validateLogin = (data) => {
   if (checkIfEmpty(data.userName)) {
     return 'Användarnamnet måste vara ifyllt!'
   }
-  if (checkIfEmpty(data.email)) {
-    return 'Mailadressen måste vara ifylld!'
-  }
   if (checkIfEmpty(data.password)) {
     return 'Lösenordet måste vara ifyllt!'
   }

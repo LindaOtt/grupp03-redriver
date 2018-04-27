@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import axios from 'axios'
+import HttpsRedirect from 'react-https-redirect'
 
 // Import styles. newPasswordStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {registerStyles} from '../../styles/AuthStyles'
@@ -125,127 +126,129 @@ class Register extends Component {
     }
 
     return (
-      <div className='Register'>
-        <Typography
-          variant='headline'
-          color='default'
-          align='left'
-          style={registerStyles.title}
-        >
-          Registrera dig
-        </Typography>
-        <form style={registerStyles.container} noValidate autoComplete='off'>
-          <TextField
-            id='userName'
-            label='Användarnamn'
-            required
-            style={registerStyles.textField}
-            value={this.state.userName}
-            onChange={this.handleChange('userName')}
-            margin='normal'
-          />
-          <TextField
-            id='email'
-            label='Email'
-            required
-            placeholder='user@example.com'
-            style={registerStyles.textField}
-            value={this.state.email}
-            onChange={this.handleChange('email')}
-            margin='normal'
-            type='email'
-          />
-          <TextField
-            id='password'
-            label='Lösenord'
-            required
-            helperText='Måste vara minst 8 tecken, innehålla en versal och en siffra.'
-            style={registerStyles.textField}
-            type='password'
-            autoComplete='current-password'
-            onChange={this.handleChange('password')}
-            margin='normal'
-          />
-          <TextField
-            id='passwordRepeat'
-            label='Bekräfta lösenord'
-            required
-            style={registerStyles.textField}
-            type='password'
-            autoComplete='current-password'
-            onChange={this.handleChange('passwordConfirm')}
-            margin='normal'
-          />
-          <TextField
-            id='firstName'
-            label='Förnamn'
-            required
-            style={registerStyles.textField}
-            value={this.state.firstName}
-            onChange={this.handleChange('firstName')}
-            margin='normal'
-          />
-          <TextField
-            id='surname'
-            label='Efternamn'
-            required
-            style={registerStyles.textField}
-            value={this.state.surname}
-            onChange={this.handleChange('surname')}
-            margin='normal'
-          />
-          <TextField
-            id='streetAddress'
-            label='Adress'
-            style={registerStyles.textField}
-            value={this.state.streetAddress}
-            onChange={this.handleChange('streetAddress')}
-            margin='normal'
-          />
-          <TextField
-            id='zipCode'
-            label='Postnummer'
-            placeholder='12345'
-            style={registerStyles.textField}
-            value={this.state.zipCode}
-            onChange={this.handleChange('zipCode')}
-            margin='normal'
-            type='number'
-          />
-          <TextField
-            id='city'
-            label='Postort'
-            style={registerStyles.textField}
-            value={this.state.city}
-            onChange={this.handleChange('city')}
-            margin='normal'
-          />
-          <TextField
-            id='socialSecurity'
-            label='Personnummer'
-            placeholder='101010-1010'
-            style={registerStyles.textField}
-            value={this.state.socialSecurity}
-            onChange={this.handleChange('socialSecurity')}
-            margin='normal'
-          />
-          <TextField
-            id='telephoneNumber'
-            label='Telefonnummer'
-            placeholder='0700123456'
-            style={registerStyles.textField}
-            value={this.state.telephoneNumber}
-            onChange={this.handleChange('telephoneNumber')}
-            margin='normal'
-            type='tel'
-          />
-          <div className='RegisterButton'>
-            <Button variant='raised' style={registerStyles.button} onClick={this.handleSubmit}>
-                Registrera
-            </Button>
-          </div>
-        </form>
-      </div>
+      <HttpsRedirect>
+        <div className='Register'>
+          <Typography
+            variant='headline'
+            color='default'
+            align='left'
+            style={registerStyles.title}
+          >
+            Registrera dig
+          </Typography>
+          <form style={registerStyles.container} noValidate autoComplete='off'>
+            <TextField
+              id='userName'
+              label='Användarnamn'
+              required
+              style={registerStyles.textField}
+              value={this.state.userName}
+              onChange={this.handleChange('userName')}
+              margin='normal'
+            />
+            <TextField
+              id='email'
+              label='Email'
+              required
+              placeholder='user@example.com'
+              style={registerStyles.textField}
+              value={this.state.email}
+              onChange={this.handleChange('email')}
+              margin='normal'
+              type='email'
+            />
+            <TextField
+              id='password'
+              label='Lösenord'
+              required
+              helperText='Måste vara minst 8 tecken, innehålla en versal och en siffra.'
+              style={registerStyles.textField}
+              type='password'
+              autoComplete='current-password'
+              onChange={this.handleChange('password')}
+              margin='normal'
+            />
+            <TextField
+              id='passwordRepeat'
+              label='Bekräfta lösenord'
+              required
+              style={registerStyles.textField}
+              type='password'
+              autoComplete='current-password'
+              onChange={this.handleChange('passwordConfirm')}
+              margin='normal'
+            />
+            <TextField
+              id='firstName'
+              label='Förnamn'
+              required
+              style={registerStyles.textField}
+              value={this.state.firstName}
+              onChange={this.handleChange('firstName')}
+              margin='normal'
+            />
+            <TextField
+              id='surname'
+              label='Efternamn'
+              required
+              style={registerStyles.textField}
+              value={this.state.surname}
+              onChange={this.handleChange('surname')}
+              margin='normal'
+            />
+            <TextField
+              id='streetAddress'
+              label='Adress'
+              style={registerStyles.textField}
+              value={this.state.streetAddress}
+              onChange={this.handleChange('streetAddress')}
+              margin='normal'
+            />
+            <TextField
+              id='zipCode'
+              label='Postnummer'
+              placeholder='12345'
+              style={registerStyles.textField}
+              value={this.state.zipCode}
+              onChange={this.handleChange('zipCode')}
+              margin='normal'
+              type='number'
+            />
+            <TextField
+              id='city'
+              label='Postort'
+              style={registerStyles.textField}
+              value={this.state.city}
+              onChange={this.handleChange('city')}
+              margin='normal'
+            />
+            <TextField
+              id='socialSecurity'
+              label='Personnummer'
+              placeholder='101010-1010'
+              style={registerStyles.textField}
+              value={this.state.socialSecurity}
+              onChange={this.handleChange('socialSecurity')}
+              margin='normal'
+            />
+            <TextField
+              id='telephoneNumber'
+              label='Telefonnummer'
+              placeholder='0700123456'
+              style={registerStyles.textField}
+              value={this.state.telephoneNumber}
+              onChange={this.handleChange('telephoneNumber')}
+              margin='normal'
+              type='tel'
+            />
+            <div className='RegisterButton'>
+              <Button variant='raised' style={registerStyles.button} onClick={this.handleSubmit}>
+                  Registrera
+              </Button>
+            </div>
+          </form>
+        </div>
+      </HttpsRedirect>
 
     )
   }

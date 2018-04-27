@@ -10,9 +10,10 @@
 export const userAccountStyles = {
 
   button: {
-    width: 168,
+    width: 140,
     height: 140,
-    margin: 20
+    margin: 20,
+    flexGrow: 0,
 
   },
 
