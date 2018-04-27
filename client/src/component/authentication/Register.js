@@ -13,6 +13,7 @@ import '../../styles/Styles.css'
 
 // Import server url
 import {AzureServerUrl} from '../../utils/Config'
+import {validateRegister} from '../../utils/FormValidation'
 
 /**
 *  Register-component.
@@ -63,23 +64,23 @@ class Register extends Component {
    */
 
   handleSubmit () {
-    if (this.state.password !== this.state.passwordConfirm) {
-      return this.props.openSnackBar('Lösenorden matchar inte!')
-    }
 
-    if (this.state.userName === '' || this.state.password === '' || this.state.email === '' || this.state.passwordConfirm === '' || this.state.surname === '' || this.state.firstName === '') {
-      return this.props.openSnackBar('Formuläret ej korrekt ifyllt!')
-    }
-
-    this.sendRequest()
-      .then((response) => {
-        console.log(response)
-        this.setState({navigate: true})
-        return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!')
-      }).catch((err) => {
-        console.log(err)
+    let validation = validateRegister(this.state)
+    if (validation !== false) {
+      return this.props.openSnackBar(validation)
+    } else {
+      this.sendRequest()
+        .then((response) => {
+          console.log(response)
+          this.setState({navigate: true})
+          return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!')
+        }).catch((err) => {
+        if (err.response.status === 400) {
+          return this.props.openSnackBar('Användarnamnet ' + this.state.userName + ' är redan registrerat!')
+        }
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
+    }
   }
 
   /**

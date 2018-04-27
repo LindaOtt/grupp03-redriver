@@ -41,7 +41,7 @@ export const registerStyles = {
   button: {
     width: 240,
     height: 60,
-    marginTop: 90
+    marginTop: 30
   },
   register: {
     margin: 'auto',
