@@ -13,7 +13,7 @@ export const userAccountStyles = {
     width: 140,
     height: 140,
     margin: 20,
-    flexGrow: 0,
+    flexGrow: 0
 
   },
 
