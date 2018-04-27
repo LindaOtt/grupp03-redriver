@@ -64,7 +64,6 @@ class Register extends Component {
    */
 
   handleSubmit () {
-
     let validation = validateRegister(this.state)
     if (validation !== false) {
       return this.props.openSnackBar(validation)
@@ -75,11 +74,11 @@ class Register extends Component {
           this.setState({navigate: true})
           return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!')
         }).catch((err) => {
-        if (err.response.status === 400) {
-          return this.props.openSnackBar('Användarnamnet ' + this.state.userName + ' är redan registrerat!')
-        }
-        return this.props.openSnackBar('Något gick fel. Försök igen!')
-      })
+          if (err.response.status === 400) {
+            return this.props.openSnackBar('Användarnamnet ' + this.state.userName + ' är redan registrerat!')
+          }
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
+        })
     }
   }
 

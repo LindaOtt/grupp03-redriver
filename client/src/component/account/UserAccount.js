@@ -56,11 +56,11 @@ class UserAccount extends Component {
                         Mina vänner
           </Button>
           <Button variant='raised'
-                  style={userAccountStyles.button} /* onClick={} */>
+            style={userAccountStyles.button} /* onClick={} */>
                         Starta videosamtal
           </Button>
           <Button variant='raised'
-                  style={userAccountStyles.button} /* onClick={} */>
+            style={userAccountStyles.button} /* onClick={} */>
                         Starta livesändning
           </Button>
         </div>

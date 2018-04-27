@@ -69,20 +69,18 @@ class FriendRequests extends Component {
             }
           }
 
-            this.sendRequest()
-              .then((response) => {
-                console.log(response)
-                return this.props.openSnackBar(this.state.friendUserName + ' lades till som vän!')
-
-              }).catch((err) => {
-
-                if (err.response.status === 404) {
-                  return this.props.openSnackBar('Finns ingen med användarnamnet ' + this.state.friendUserName + '!')
-                }
+          this.sendRequest()
+            .then((response) => {
+              console.log(response)
+              return this.props.openSnackBar(this.state.friendUserName + ' lades till som vän!')
+            }).catch((err) => {
+              if (err.response.status === 404) {
+                return this.props.openSnackBar('Finns ingen med användarnamnet ' + this.state.friendUserName + '!')
+              }
               return this.props.openSnackBar('Något gick fel. Försök igen!')
             })
-          }).catch((err) => {
-            return this.props.openSnackBar('Något gick fel. Försök igen!')
+        }).catch((err) => {
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     }
 
@@ -111,13 +109,13 @@ class FriendRequests extends Component {
    *  @author Jimmy
    */
 
-  requestFriends () {
-    return axios({
-      method: 'get',
-      url: AzureServerUrl + '/api/user/getfriends',
-      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
-    })
-  }
+    requestFriends () {
+      return axios({
+        method: 'get',
+        url: AzureServerUrl + '/api/user/getfriends',
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
+      })
+    }
 
     render () {
       if (this.props.state.isSignedIn === false) {

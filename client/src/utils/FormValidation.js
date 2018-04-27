@@ -5,7 +5,6 @@
  */
 
 export const validateLogin = (data) => {
-
   if (checkIfEmpty(data.userName)) {
     return 'Användarnamnet måste vara ifyllt!'
   }
@@ -26,7 +25,6 @@ export const validateLogin = (data) => {
  */
 
 export const validateRegister = (data) => {
-
   console.log(data)
 
   if (checkIfEmpty(data.userName)) {
@@ -56,6 +54,6 @@ export const validateRegister = (data) => {
 
 const checkIfEmpty = (data) => {
   if (data === '') {
-    return true;
+    return true
   }
 }

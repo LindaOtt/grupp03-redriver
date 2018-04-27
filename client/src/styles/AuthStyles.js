@@ -21,7 +21,7 @@ export const registerStyles = {
     marginRight: 30,
     marginBottom: 20,
     width: 240,
-    flexGrow: 1,
+    flexGrow: 1
   },
   menu: {
     width: 240
@@ -42,7 +42,7 @@ export const registerStyles = {
   button: {
     width: '100%',
     height: 60,
-    marginTop: 30,
+    marginTop: 30
   },
   register: {
     margin: 'auto',
@@ -90,7 +90,7 @@ export const loginStyles = {
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
-    flexGrow: 1,
+    flexGrow: 1
   },
   loginLinkDivLeft: {
     width: '50%',

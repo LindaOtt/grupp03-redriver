@@ -53,7 +53,6 @@ class Login extends Component {
      */
 
     handleSubmit () {
-
       let validation = validateLogin(this.state)
       if (validation !== false) {
         return this.props.openSnackBar(validation)
@@ -64,14 +63,12 @@ class Login extends Component {
             this.props.userLogin(response.data.token)
             this.setState({navigate: true})
             return this.props.openSnackBar('Välkommen ' + this.state.userName + '!')
-
           }).catch((err) => {
-
-          if (err.response.status === 401) {
-            return this.props.openSnackBar('Fel användarnamn eller lösenord!')
-          }
-          return this.props.openSnackBar('Något gick fel. Försök igen!')
-        })
+            if (err.response.status === 401) {
+              return this.props.openSnackBar('Fel användarnamn eller lösenord!')
+            }
+            return this.props.openSnackBar('Något gick fel. Försök igen!')
+          })
       }
     }
 
@@ -97,7 +94,6 @@ class Login extends Component {
     }
 
     render () {
-
       const { navigate } = this.state
 
       if (navigate) {

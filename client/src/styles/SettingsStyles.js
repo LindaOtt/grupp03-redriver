@@ -1,5 +1,5 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
-//import {theme} from './Styles'
+// import {theme} from './Styles'
 
 /**
  *  Styles for imported components in the settings directory
@@ -42,7 +42,7 @@ export const settingsUserStyles = {
     marginRight: 30,
     marginBottom: 20,
     width: 240,
-    flexGrow: 1,
+    flexGrow: 1
   },
 
   passwordButton: {
@@ -51,7 +51,7 @@ export const settingsUserStyles = {
     marginBottom: 20,
     maxWidth: 300,
     width: '100%',
-    flexGrow: 1,
+    flexGrow: 1
   },
 
   container: {
@@ -64,7 +64,7 @@ export const settingsUserStyles = {
     marginRight: 30,
     marginBottom: 20,
     width: 240,
-    flexGrow: 1,
+    flexGrow: 1
   },
   listItem: {
     border: {

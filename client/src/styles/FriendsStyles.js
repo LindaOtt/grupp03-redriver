@@ -1,5 +1,5 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
-//import {theme} from './Styles'
+// import {theme} from './Styles'
 
 /**
  *  Styles for imported components in the friends directory
@@ -16,7 +16,7 @@ export const friendsListStyles = {
     display: 'flex',
     flexDirection: 'row',
     padding: 6,
-    marginTop: 16,
+    marginTop: 16
   },
   friendsName: {
     width: '70%',

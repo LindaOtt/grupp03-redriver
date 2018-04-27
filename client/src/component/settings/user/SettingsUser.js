@@ -10,7 +10,7 @@ import Typography from 'material-ui/Typography'
 import Switch from 'material-ui/Switch'
 import List, {
   ListItem,
-  ListItemSecondaryAction,
+  ListItemSecondaryAction
 } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 

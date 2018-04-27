@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
-//import {ChatListStyles} from '../../styles/ChatStyles'
+// import {ChatListStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 
 /**
