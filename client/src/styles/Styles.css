@@ -145,9 +145,9 @@
 
 .UserAccountButtonDiv {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-self: center;
 }
 
 .AccountSecondTitle {
@@ -167,14 +167,17 @@
     .FriendsList-Inner {
         justify-content: center;
     }
-    .UserAccountButtonDiv {
-        justify-content: space-around;
-    }
     .Login {
         max-width: 500px;
     }
 
     .LoginButton {
         max-width: 500px;
+    }
+}
+
+@media only screen and (max-width: 539px) {
+    .UserAccountButtonDiv {
+        justify-content: space-around;
     }
 }
