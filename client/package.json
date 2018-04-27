@@ -8,6 +8,7 @@
     "material-ui": "^1.0.0-beta.41",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-https-redirect": "^1.0.10",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1"
   },
@@ -16,8 +17,10 @@
     "build": "react-scripts build",
     "test": "jest --coverage -u",
     "eject": "react-scripts eject",
-    "lint": "standard \"src/*.js\" \"src/**/*.js\" \"src/**/**/*.js\" \"src/**/**/**/*.js\" | snazzy",
-    "lint-fix": "standard --fix \"src/*.js\" \"src/**/*.js\" \"src/**/**/*.js\" \"src/**/**/**/*.js\" | snazzy"
+    "lint": "standard \"src/*.js\" \"src/**/*.js\" \"src/**/**/*.js\" \"src/**/**/**/*.js\" \"src/**/**/**/**/*.js\" | snazzy",
+    "lint-fix": "standard --fix \"src/*.js\" \"src/**/*.js\" \"src/**/**/*.js\" \"src/**/**/**/*.js\" \"src/**/**/**/**/*.js\" | snazzy",
+    "test-lint": "standard \"__tests__/*.js\" \"__tests__/**/*.js\" \"__tests__/**/**/*.js\" \"__tests__/**/**/**/*.js\" \"__tests__/**/**/**/**/*.js\" | snazzy",
+    "test-lint-fix": "standard --fix \"__tests__/*.js\" \"__tests__/**/*.js\" \"__tests__/**/**/*.js\" \"__tests__/**/**/**/*.js\" \"__tests__/**/**/**/**/*.js\" | snazzy"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",

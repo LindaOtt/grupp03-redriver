@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider'
 import Snackbar from 'material-ui/Snackbar'
 import { CircularProgress } from 'material-ui/Progress'
 import axios from 'axios/index'
+import HttpsRedirect from 'react-https-redirect'
 
 // Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble'
@@ -260,67 +261,69 @@ class App extends Component {
 
     render () {
       return (
-        <Router>
-          <MuiThemeProvider theme={theme}>
-            {this.state.loaded ? (
-              <div>
-                <div className='App'>
-                  <AppBar
-                    position='sticky'
-                    style={AppStyles.root}
-                  >
-                    <Toolbar>
-                      <Typography
-                        variant='title'
-                        color='inherit'
-                        style={AppStyles.flex}
-                      />
-                      {this.state.isSignedIn ? (
-                        <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton}>
-                        <MenuIcon onClick={this.toggleMenu(true)} />
-                      </IconButton>
-                      ) : (
-                        <p />
-                      )}
-                    </Toolbar>
-                  </AppBar>
-                  <div className='Body'>
-                    <Route path='/' exact component={() => <UserAccount state={this.state} />} />
-                    <Route path='/chats' component={() => <ChatList state={this.state} />} />
-                    <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
-                    <Route path='/settings' component={() => <Settings state={this.state} />} />
-                    <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} />} />
-                    <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
-                    <Route path='/password' component={() => <NewPassword state={this.state} />} />
-                    <Route path='/friendrequests' component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar} />} />
-                  </div>
-                  <Snackbar
-                    open={this.state.snackBar}
-                    onClose={this.closeSnackBar}
-                    SnackbarContentProps={{
-                      'aria-describedby': 'message-id'
-                    }}
-                    message={<span id='message-id'>{this.state.snackBarMessage}</span>}
-                  />
-                  <Drawer anchor='right' open={this.state.menu} onClose={this.toggleMenu(false)}>
-                    <div
-                      tabIndex={0}
-                      role='button'
-                      onClick={this.toggleMenu(false)}
-                      onKeyDown={this.toggleMenu(false)}
+        <HttpsRedirect>
+          <Router>
+            <MuiThemeProvider theme={theme}>
+              {this.state.loaded ? (
+                <div>
+                  <div className='App'>
+                    <AppBar
+                      position='sticky'
+                      style={AppStyles.root}
                     >
-                      {this.renderMenu()}
+                      <Toolbar>
+                        <Typography
+                          variant='title'
+                          color='inherit'
+                          style={AppStyles.flex}
+                        />
+                        {this.state.isSignedIn ? (
+                          <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton}>
+                            <MenuIcon onClick={this.toggleMenu(true)} />
+                          </IconButton>
+                        ) : (
+                          <p />
+                        )}
+                      </Toolbar>
+                    </AppBar>
+                    <div className='Body'>
+                      <Route path='/' exact component={() => <UserAccount state={this.state} />} />
+                      <Route path='/chats' component={() => <ChatList state={this.state} />} />
+                      <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
+                      <Route path='/settings' component={() => <Settings state={this.state} />} />
+                      <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} />} />
+                      <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
+                      <Route path='/password' component={() => <NewPassword state={this.state} />} />
+                      <Route path='/friendrequests' component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar} />} />
                     </div>
-                  </Drawer>
+                    <Snackbar
+                      open={this.state.snackBar}
+                      onClose={this.closeSnackBar}
+                      SnackbarContentProps={{
+                        'aria-describedby': 'message-id'
+                      }}
+                      message={<span id='message-id'>{this.state.snackBarMessage}</span>}
+                    />
+                    <Drawer anchor='right' open={this.state.menu} onClose={this.toggleMenu(false)}>
+                      <div
+                        tabIndex={0}
+                        role='button'
+                        onClick={this.toggleMenu(false)}
+                        onKeyDown={this.toggleMenu(false)}
+                      >
+                        {this.renderMenu()}
+                      </div>
+                    </Drawer>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className='AppLoadingDiv'>
-                <CircularProgress style={AppStyles.loading} />
-              </div>
-            )}
-          </MuiThemeProvider>
-        </Router>
+              ) : (
+                <div className='AppLoadingDiv'>
+                  <CircularProgress style={AppStyles.loading} />
+                </div>
+              )}
+            </MuiThemeProvider>
+          </Router>
+        </HttpsRedirect>
       )
     }
 }

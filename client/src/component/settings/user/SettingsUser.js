@@ -11,17 +11,14 @@ import Switch from 'material-ui/Switch'
 import List, {
   ListItem,
   ListItemSecondaryAction,
-  ListItemText
 } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
-
-// Import icons.
-import NotificationIcon from '@material-ui/icons/Notifications'
 
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
+// Import components
 import UserDetails from './UserDetails'
 import ChangePassword from './ChangePassword'
 
