@@ -12,6 +12,7 @@ import {loginStyles} from '../../styles/AuthStyles'
 import '../../styles/Styles.css'
 
 import {AzureServerUrl} from '../../utils/Config'
+import {validateLogin} from '../../utils/FormValidation'
 
 /**
  *  Login-component.
@@ -51,21 +52,25 @@ class Login extends Component {
      */
 
     handleSubmit () {
-      console.log(this.state)
 
-      if (this.state.userName === '' || this.state.password === '' || this.state.email === '') {
-        return this.props.openSnackBar('Formuläret ej korrekt ifyllt!')
-      }
-
-      this.sendRequest()
-        .then((response) => {
-          localStorage.setItem('token', JSON.stringify(response.data.token))
-          return this.props.openSnackBar('Välkommen ' + this.state.userName + '!')
-        }).then(() => {
+      let validation = validateLogin(this.state)
+      if (validation !== false) {
+        return this.props.openSnackBar(validation)
+      } else {
+        this.sendRequest()
+          .then((response) => {
+            localStorage.setItem('token', JSON.stringify(response.data.token))
+            return this.props.openSnackBar('Välkommen ' + this.state.userName + '!')
+          }).then(() => {
           return <Redirect to='/' />
         }).catch((err) => {
+
+          if (err.response.status === 401) {
+            return this.props.openSnackBar('Fel användarnamn eller lösenord!')
+          }
           return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
+      }
     }
 
     /**
@@ -110,6 +115,7 @@ class Login extends Component {
             <TextField
               id='userName'
               label='Användarnamn'
+              required
               style={loginStyles.textField}
               value={this.state.userName}
               onChange={this.handleChange('userName')}
@@ -118,6 +124,7 @@ class Login extends Component {
             <TextField
               id='email'
               label='Email'
+              required
               style={loginStyles.textField}
               value={this.state.email}
               onChange={this.handleChange('email')}
@@ -126,6 +133,7 @@ class Login extends Component {
             <TextField
               id='password'
               label='Lösenord'
+              required
               style={loginStyles.textField}
               type='password'
               autoComplete='current-password'
