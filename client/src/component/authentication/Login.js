@@ -81,7 +81,7 @@ class Login extends Component {
     sendRequest () {
       let tempObj = {
         username: this.state.userName,
-        password: this.state.password,
+        password: this.state.password
       }
 
       return axios({
