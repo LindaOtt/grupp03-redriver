@@ -9,9 +9,7 @@ namespace RedRiverChatServer.Models
 {
     public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
     {
-      //Create the Friendship database table if not already in place
         public virtual DbSet<Friendship> Friendship { get; set; }
-      //  public DbSet<SignalRUser> SignalRUsers { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<ApplicationUserConversationRoom> ApplicationUserConversationRooms { get; set; }
         public DbSet<ConversationRoom> Rooms { get; set; }
@@ -24,13 +22,14 @@ namespace RedRiverChatServer.Models
         }
 
         /// <summary>
-        /// Guides to help construct tables, change keys etc can be placed here. Not needed at present.
+        /// Guides to help construct tables, change keys etc can be placed here.
         /// </summary>
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUserConversationRoom>()
-       .HasKey(t => new { t.ApplicationUserId, t.RoomName });
+                 .HasKey(t => new { t.ApplicationUserId, t.RoomName });
+
             base.OnModelCreating(builder);
         }
     }

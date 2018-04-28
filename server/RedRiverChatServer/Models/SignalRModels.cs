@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace RedRiverChatServer.Models
 {
-  /*  public class SignalRUser
-    {
-        [Key]
-        public string UserName { get; set; }
-        public ICollection<Connection> Connections { get; set; }
-        public virtual ICollection<SignalRUserConversationRoom> SignalRUserConversationRooms { get; set; } = new List<SignalRUserConversationRoom>();
-    }*/
-
+  
     public class Connection
     {
         public string ConnectionID { get; set; }
@@ -46,7 +39,7 @@ namespace RedRiverChatServer.Models
         public string Username { get; set; }
         public string Message { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.Now;
-
+   
         public Log(string GroupName, string Username, string Message)
         {
             this.GroupName = GroupName;
