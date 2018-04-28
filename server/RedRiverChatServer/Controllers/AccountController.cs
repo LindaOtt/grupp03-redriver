@@ -86,7 +86,6 @@ namespace RedRiverChatServer.Controllers
             if (login.Username != null)
             {
                 user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == login.Username);
-
             }
             else if (login.Email != null)
             {
