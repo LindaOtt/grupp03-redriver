@@ -10,10 +10,10 @@ namespace RedRiverChatServer.Models
     public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<Friendship> Friendship { get; set; }
-        public DbSet<Connection> Connections { get; set; }
-        public DbSet<ApplicationUserConversationRoom> ApplicationUserConversationRooms { get; set; }
-        public DbSet<ConversationRoom> Rooms { get; set; }
-        public DbSet<Log> Logs { get; set; }
+        public virtual DbSet<Connection> Connections { get; set; }
+        public virtual DbSet<ApplicationUserConversationRoom> ApplicationUserConversationRooms { get; set; }
+        public virtual DbSet<ConversationRoom> Rooms { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> contextOptions) : base(contextOptions)
