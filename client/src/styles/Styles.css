@@ -176,7 +176,7 @@
     }
 }
 
-@media only screen and (max-width: 539px) {
+@media only screen and (max-width: 449px) {
     .UserAccountButtonDiv {
         justify-content: space-around;
     }
