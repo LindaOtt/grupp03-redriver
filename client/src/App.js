@@ -298,7 +298,7 @@ class App extends Component {
                     </AppBar>
                     <div className='Body'>
                       <Route path='/' exact component={() => <UserAccount state={this.state} />} />
-                      <Route path='/chats' component={() => <ChatList state={this.state} />} />
+                      <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
                       <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
                       <Route path='/settings' component={() => <Settings state={this.state} />} />
                       <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />

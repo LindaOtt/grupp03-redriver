@@ -52,7 +52,6 @@ class FriendsList extends Component {
    */
 
   handleFriendClick (username) {
-    console.log(username)
     this.setState({
       friendsUsername: username
     })
