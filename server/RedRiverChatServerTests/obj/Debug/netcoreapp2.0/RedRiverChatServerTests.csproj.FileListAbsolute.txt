@@ -1,0 +1,16 @@
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServerTests.deps.json
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServerTests.runtimeconfig.json
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServerTests.runtimeconfig.dev.json
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServerTests.dll
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServer.dll
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServer.pdb
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\obj\Debug\netcoreapp2.0\RedRiverChatServerTests.csprojResolveAssemblyReference.cache
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\obj\Debug\netcoreapp2.0\RedRiverChatServerTests.csproj.CoreCompileInputs.cache
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\obj\Debug\netcoreapp2.0\RedRiverChatServerTests.AssemblyInfoInputs.cache
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\obj\Debug\netcoreapp2.0\RedRiverChatServerTests.AssemblyInfo.cs
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\bin\Debug\netcoreapp2.0\RedRiverChatServerTests.pdb
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\obj\Debug\netcoreapp2.0\RedRiverChatServerTests.dll
+C:\Users\galnd\Desktop\repos\grupp03-redriver\server\RedRiverChatServerTests\obj\Debug\netcoreapp2.0\RedRiverChatServerTests.pdb

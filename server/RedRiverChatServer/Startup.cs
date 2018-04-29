@@ -43,8 +43,7 @@ namespace RedRiverChatServer
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Setup the database, so its context can be injected.
-            services.AddDbContext<ApplicationDbContext>(options =>
-             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            ConfigureDatabase(services);
 
             //Set password options here
             IdentityBuilder builder = services.AddIdentityCore<ApplicationUser>(opt =>
@@ -168,6 +167,13 @@ namespace RedRiverChatServer
                 roleResult.Wait();
             } 
         }
+
+        public virtual void ConfigureDatabase(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        }
+
 
         /// <summary>
         /// Populate Database with example users
