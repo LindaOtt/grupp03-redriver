@@ -193,8 +193,8 @@ class FriendsList extends Component {
                 <div className='FriendsList-Inner-Large-Content'>
                   {this.state.friendsUsername ? (
                     <FriendsView state={this.props.state}
-                                 friendsUsername={this.state.friendsUsername}
-                                 openSnackBar={this.props.openSnackBar}
+                      friendsUsername={this.state.friendsUsername}
+                      openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
                     <Typography>
@@ -216,8 +216,8 @@ class FriendsList extends Component {
                 </IconButton>
               </Toolbar>
               <FriendsView state={this.props.state}
-                           friendsUsername={this.state.friendsUsername}
-                           openSnackBar={this.props.openSnackBar}
+                friendsUsername={this.state.friendsUsername}
+                openSnackBar={this.props.openSnackBar}
               />
             </Dialog>
           </div>

@@ -4,17 +4,17 @@ import {Link, Redirect} from 'react-router-dom'
 // Import NPM-modules
 import Button from 'material-ui/Button'
 import Icon from 'material-ui/Icon'
-import Input, { InputLabel } from 'material-ui/Input';
-import { MenuItem } from 'material-ui/Menu';
-import { FormControl } from 'material-ui/Form';
-import Select from 'material-ui/Select';
-import Chip from 'material-ui/Chip';
+import Input, { InputLabel } from 'material-ui/Input'
+import { MenuItem } from 'material-ui/Menu'
+import { FormControl } from 'material-ui/Form'
+import Select from 'material-ui/Select'
+import Chip from 'material-ui/Chip'
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
+  DialogTitle
+} from 'material-ui/Dialog'
 import { CircularProgress } from 'material-ui/Progress'
 
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
@@ -91,12 +91,12 @@ class ChatList extends Component {
           this.state.friends.push(i)
         })
       }).then(() => {
-      this.setState({
-        isLoaded: true
+        this.setState({
+          isLoaded: true
+        })
+      }).catch(() => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
-    }).catch(() => {
-      return this.props.openSnackBar('Något gick fel. Försök igen!')
-    })
   }
 
   render () {
@@ -109,29 +109,29 @@ class ChatList extends Component {
         {this.state.isLoaded ? (
           <div className='ChatList'>
             <div className='ChatList-Header'>
-                <Button color='primary' onClick={this.handleDialogOpen}>
-                  <Icon >add</Icon>
+              <Button color='primary' onClick={this.handleDialogOpen}>
+                <Icon >add</Icon>
                   Starta ny chatt
-                </Button>
+              </Button>
             </div>
             <Dialog
               open={this.state.dialog}
               onClose={this.handleDialogClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
+              aria-labelledby='alert-dialog-title'
+              aria-describedby='alert-dialog-description'
             >
-              <DialogTitle id="alert-dialog-title">{"Starta en ny chatt!"}</DialogTitle>
+              <DialogTitle id='alert-dialog-title'>{'Starta en ny chatt!'}</DialogTitle>
               <DialogContent>
-                <DialogContentText id="alert-dialog-description">
+                <DialogContentText id='alert-dialog-description'>
                   Lägg till vänner som ska delta i chatten:
                 </DialogContentText>
-                <FormControl className="ChatList-FormControl">
-                  <InputLabel htmlFor="select-multiple-chip">Namn</InputLabel>
+                <FormControl className='ChatList-FormControl'>
+                  <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
                   <Select
                     multiple
                     value={this.state.selectedFriends}
                     onChange={this.handleFriendsSelect}
-                    input={<Input id="select-multiple-chip"/>}
+                    input={<Input id='select-multiple-chip' />}
                     renderValue={selected => (
                       <div style={ChatListStyles.formControl.chips}>
                         {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
@@ -146,7 +146,7 @@ class ChatList extends Component {
                           fontWeight:
                             this.state.friends.indexOf(name) === -1
                               ? theme.typography.fontWeightRegular
-                              : theme.typography.fontWeightMedium,
+                              : theme.typography.fontWeightMedium
                         }}
                       >
                         {name}
@@ -156,10 +156,10 @@ class ChatList extends Component {
                 </FormControl>
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.cancelNewChat} color="primary">
+                <Button onClick={this.cancelNewChat} color='primary'>
                   Ångra
                 </Button>
-                <Button onClick={this.handleDialogClose} color="primary" autoFocus>
+                <Button onClick={this.handleDialogClose} color='primary' autoFocus>
                   Starta chatt
                 </Button>
               </DialogActions>
