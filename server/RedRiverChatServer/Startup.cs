@@ -141,6 +141,7 @@ namespace RedRiverChatServer
 
             //Make sure the database and admin,superuser roles exist - if they don't then they are created.
             dbContext.Database.EnsureCreated();
+            SeedDB(serviceProvider,10);
             CreateRole(serviceProvider,"admin");
             CreateRole(serviceProvider,"superuser");
         }
@@ -154,7 +155,7 @@ namespace RedRiverChatServer
         {
 
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+           // var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             Task<IdentityResult> roleResult;
            
             //Check if role exists and create if it does not
@@ -167,5 +168,36 @@ namespace RedRiverChatServer
                 roleResult.Wait();
             } 
         }
+
+        /// <summary>
+        /// Populate Database with example users
+        /// </summary>
+        /// <param name="noUsers"></param>
+        private void SeedDB(IServiceProvider serviceProvider,int noUsers)
+        {
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            using (userManager)
+            {
+                for (int i = 0; i < noUsers; i++)
+                {
+
+                    ApplicationUser newUser = new ApplicationUser
+                    {
+                        UserName = "sTestUser" + i,
+                        Email = "sTestUser" + i + "@sTestUsers",
+                        FirstName = "sTestUser" + i,
+                        Surname = "User"
+                    };
+
+                    var result = userManager.CreateAsync(newUser, "sTestUser" + i);
+                    result.Wait();
+                }
+
+            }
+           
+          
+        }
+          
     }
 }
