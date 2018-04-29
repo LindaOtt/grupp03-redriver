@@ -27,7 +27,12 @@ export const friendsListStyles = {
 }
 
 export const friendsViewStyles = {
-  friendsView: {
+  title: {
+    marginLeft: 30
+  },
+  deleteButton: {
+    alignSelf: 'center',
+    marginBottom: 20
   }
 }
 

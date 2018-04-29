@@ -66,3 +66,16 @@ export const addFriend = (data, token) => {
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })
 }
+
+export const deleteFriend = (data, token) => {
+  let tempObj = {
+    username: data
+  }
+
+  return axios({
+    method: 'post',
+    url: AzureServerUrl + '/api/user/deletefriend',
+    data: JSON.stringify(tempObj),
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}
