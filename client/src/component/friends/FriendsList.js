@@ -16,8 +16,6 @@ import { CircularProgress } from 'material-ui/Progress'
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {friendsListStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
-import axios from 'axios/index'
-import {AzureServerUrl} from '../../utils/Config'
 
 // Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble'
@@ -26,6 +24,9 @@ import CloseIcon from '@material-ui/icons/Close'
 
 // Import components
 import FriendsView from './FriendsView'
+
+// API requests
+import {getFriends} from '../../utils/ApiRequests'
 
 /**
  *  FriendsList-component. Starting page of friends.
@@ -142,22 +143,8 @@ class FriendsList extends Component {
     return listArray
   }
 
-  /**
-   *  Get friends from server.
-   *
-   *  @author Jimmy
-   */
-
-  sendRequest () {
-    return axios({
-      method: 'get',
-      url: AzureServerUrl + '/api/user/getfriends',
-      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
-    })
-  }
-
   componentDidMount () {
-    this.sendRequest()
+    getFriends(this.props.state.token)
       .then((response) => {
         response.data.friendList.forEach((i) => {
           this.state.friends.push(i)

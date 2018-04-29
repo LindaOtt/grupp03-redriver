@@ -5,15 +5,14 @@ import { Link, Redirect } from 'react-router-dom'
 import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import axios from 'axios/index'
 import HttpsRedirect from 'react-https-redirect'
 
 // Import styles. loginStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {loginStyles} from '../../styles/AuthStyles'
 import '../../styles/Styles.css'
 
-import {AzureServerUrl} from '../../utils/Config'
 import {validateLogin} from '../../utils/FormValidation'
+import {userLogin} from '../../utils/ApiRequests'
 
 /**
  *  Login-component.
@@ -57,7 +56,7 @@ class Login extends Component {
       if (validation !== false) {
         return this.props.openSnackBar(validation)
       } else {
-        this.sendRequest()
+        userLogin(this.state)
           .then((response) => {
             localStorage.setItem('token', JSON.stringify(response.data.token))
             this.props.userLogin(response.data.token)
@@ -70,26 +69,6 @@ class Login extends Component {
             return this.props.openSnackBar('Något gick fel. Försök igen!')
           })
       }
-    }
-
-    /**
-     *  Send login request to server
-     *
-     *  @author Jimmy
-     */
-
-    sendRequest () {
-      let tempObj = {
-        username: this.state.userName,
-        password: this.state.password
-      }
-
-      return axios({
-        method: 'post',
-        url: AzureServerUrl + '/api/account/login',
-        data: JSON.stringify(tempObj),
-        headers: {'Content-Type': 'application/json'}
-      })
     }
 
     render () {

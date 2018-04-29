@@ -55,7 +55,6 @@ class SettingsUser extends Component {
       this.setState({
         formDisabled: action
       })
-      console.log(this.state)
     }
 
     /**

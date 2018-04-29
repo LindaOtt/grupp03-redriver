@@ -22,8 +22,6 @@ export const validateLogin = (data) => {
  */
 
 export const validateRegister = (data) => {
-  console.log(data)
-
   if (checkIfEmpty(data.userName)) {
     return 'Användarnamnet måste vara ifyllt!'
   }

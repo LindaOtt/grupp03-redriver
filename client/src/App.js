@@ -13,7 +13,6 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import Snackbar from 'material-ui/Snackbar'
 import { CircularProgress } from 'material-ui/Progress'
-import axios from 'axios/index'
 import HttpsRedirect from 'react-https-redirect'
 
 // Import icons for the drawer-menu.
@@ -38,7 +37,7 @@ import NewPassword from './component/authentication/NewPassword'
 import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 
-import { AzureServerUrl} from './utils/Config'
+import {verifyJWT} from './utils/ApiRequests'
 
 /**
  *  Starting point of the application
@@ -84,7 +83,7 @@ class App extends Component {
    */
 
   userLogin (token) {
-    this.verifyJWT(token)
+    verifyJWT(token)
       .then((response) => {
         this.setState({
           token: token,
@@ -96,20 +95,6 @@ class App extends Component {
           isSignedIn: false
         })
       })
-  }
-
-  /**
-   *  Check if token is valid and get user info.
-   *
-   *  @author Jimmy
-   */
-
-  verifyJWT (token) {
-    return axios({
-      method: 'get',
-      url: AzureServerUrl + '/api/user/getuserinfo',
-      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
-    })
   }
 
     /**
@@ -231,7 +216,7 @@ class App extends Component {
       if (localStorage.getItem('token')) {
         let token = JSON.parse(localStorage.getItem('token'))
 
-        this.verifyJWT(token)
+        verifyJWT(token)
           .then((response) => {
             this.setState({
               token: token,
@@ -265,7 +250,7 @@ class App extends Component {
 
         if (this.state.token) {
           if (token !== this.state.token) {
-            this.verifyJWT(token)
+            verifyJWT(token)
               .then((response) => {
                 this.setState({
                   token: token,

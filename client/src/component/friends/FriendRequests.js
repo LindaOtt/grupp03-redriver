@@ -6,13 +6,12 @@ import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import axios from 'axios'
 
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {friendRequestStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
 
-import {AzureServerUrl} from '../../utils/Config'
+import {addFriend, getFriends} from '../../utils/ApiRequests'
 
 /**
  *  FriendRequest-component. See friend requests and add friends.
@@ -59,7 +58,7 @@ class FriendRequests extends Component {
         return this.props.openSnackBar('Det går inte att lägga till sig själv som vän!')
       }
 
-      this.requestFriends()
+      getFriends(this.props.state.token)
         .then((response) => {
           let data = response.data.friendList
 
@@ -69,9 +68,8 @@ class FriendRequests extends Component {
             }
           }
 
-          this.sendRequest()
+          addFriend(this.state.friendUserName, this.props.state.token)
             .then((response) => {
-              console.log(response)
               return this.props.openSnackBar(this.state.friendUserName + ' lades till som vän!')
             }).catch((err) => {
               if (err.response.status === 404) {
@@ -82,39 +80,6 @@ class FriendRequests extends Component {
         }).catch((err) => {
           return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
-    }
-
-    /**
-     *  Send add friend request to server.
-     *
-     *  @author Jimmy
-     */
-
-    sendRequest () {
-      let tempObj = {
-        username: this.state.friendUserName
-      }
-
-      return axios({
-        method: 'post',
-        url: AzureServerUrl + '/api/user/addfriend',
-        data: JSON.stringify(tempObj),
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
-      })
-    }
-
-  /**
-   *  Get friends from server.
-   *
-   *  @author Jimmy
-   */
-
-    requestFriends () {
-      return axios({
-        method: 'get',
-        url: AzureServerUrl + '/api/user/getfriends',
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.props.state.token}
-      })
     }
 
     render () {

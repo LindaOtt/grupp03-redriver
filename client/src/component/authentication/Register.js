@@ -5,16 +5,14 @@ import { Redirect } from 'react-router-dom'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import axios from 'axios'
 import HttpsRedirect from 'react-https-redirect'
 
 // Import styles. newPasswordStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {registerStyles} from '../../styles/AuthStyles'
 import '../../styles/Styles.css'
 
-// Import server url
-import {AzureServerUrl} from '../../utils/Config'
 import {validateRegister} from '../../utils/FormValidation'
+import {userRegister} from '../../utils/ApiRequests'
 
 /**
 *  Register-component.
@@ -69,49 +67,20 @@ class Register extends Component {
     if (validation !== false) {
       return this.props.openSnackBar(validation)
     } else {
-      this.sendRequest()
+      userRegister(this.state)
         .then((response) => {
-          console.log(response)
           this.setState({navigate: true})
           return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!')
         }).catch((err) => {
           if (err.response.status === 400) {
             return this.props.openSnackBar('Användarnamnet ' + this.state.userName + ' är redan registrerat!')
           }
+          if (err.response.status === 403) {
+            return this.props.openSnackBar('Lösenordet måste innehålla minst en versal och siffra, och vara minst 8 tecken långt!')
+          }
           return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     }
-  }
-
-  /**
-   *  Send register request to server.
-   *
-   *  @author Jimmy
-   */
-
-  sendRequest () {
-    let tempObj = {
-      username: this.state.userName,
-      firstName: this.state.firstName,
-      surname: this.state.surname,
-      email: this.state.email,
-      password: this.state.password,
-      streetAddress: this.state.streetAddress,
-      postcode: this.state.zipCode,
-      city: this.state.city,
-      socialSecurity: this.state.socialSecurity,
-      telephoneNumber: this.state.telephoneNumber
-      /* relativeUsername: this.state.relativeUsername, */
-    }
-
-    console.log(JSON.stringify(tempObj))
-
-    return axios({
-      method: 'post',
-      url: AzureServerUrl + '/api/account/register',
-      data: JSON.stringify(tempObj),
-      headers: {'Content-Type': 'application/json'}
-    })
   }
 
   render () {
