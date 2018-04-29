@@ -44,7 +44,15 @@
 }
 
 .ChatList {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 800px;
+}
 
+.ChatList-Header {
+    text-align: left;
+    margin: 16px;
 }
 
 .ChatView {
@@ -91,7 +99,11 @@
 }
 
 .FriendsView {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
 }
 
 .FriendRequests {

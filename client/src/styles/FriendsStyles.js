@@ -12,11 +12,11 @@ export const friendsListStyles = {
   friendsList: {},
 
   paper: {
-    width: 293,
+    width: 283,
     display: 'flex',
     flexDirection: 'row',
     padding: 6,
-    marginTop: 16
+    margin: 5
   },
   friendsName: {
     width: '70%',
@@ -27,7 +27,12 @@ export const friendsListStyles = {
 }
 
 export const friendsViewStyles = {
-  friendsView: {
+  title: {
+    marginLeft: 30
+  },
+  deleteButton: {
+    alignSelf: 'center',
+    marginBottom: 20
   }
 }
 
