@@ -36,14 +36,14 @@ class FriendsView extends Component {
    *  @author Jimmy
    */
 
-  handleDeleteButton() {
+  handleDeleteButton () {
     deleteFriend(this.props.friendsUsername, this.props.state.token)
       .then(() => {
         return this.props.openSnackBar(this.props.friendsUsername + ' togs bort från din vänlista!')
       })
       .catch(() => {
-      return this.props.openSnackBar('Något gick fel. Försök igen!')
-    })
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
+      })
   }
   render () {
     if (this.props.state.isSignedIn === false) {
@@ -61,8 +61,8 @@ class FriendsView extends Component {
           {this.props.friendsUsername}
         </Typography>
         <Button onClick={this.handleDeleteButton}
-                style={friendsViewStyles.deleteButton}
-                color='secondary'
+          style={friendsViewStyles.deleteButton}
+          color='secondary'
         >
           Ta bort {this.props.friendsUsername} från din vänlista
         </Button>
