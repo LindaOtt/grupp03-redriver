@@ -23,6 +23,7 @@ import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
 import {getFriends} from '../../utils/ApiRequests'
+import {createChatGroup} from '../../utils/SignalR'
 
 /**
  *  ChatList-component. Starting page of chat.
@@ -65,6 +66,28 @@ class ChatList extends Component {
 
   handleFriendsSelect = event => {
     this.setState({ selectedFriends: event.target.value })
+  };
+
+  /**
+   *  Create new chat. Array with included friends is converted to a string to name the chat.
+   *
+   *  @author Jimmy
+   */
+
+  createNewChat = () => {
+    let groupArray = this.state.selectedFriends
+    groupArray.push(this.props.state.userInfo.username)
+    groupArray = groupArray.sort()
+    let groupName = groupArray.toString()
+    console.log(groupName)
+    //console.log(groupName.split(','))
+
+    createChatGroup(groupName, this.props.state.token)
+      .then((response) => {
+        console.log(response)
+      }).catch((err) => {
+      console.log(err)
+    })
   };
 
   /**
@@ -159,7 +182,7 @@ class ChatList extends Component {
                 <Button onClick={this.cancelNewChat} color='primary'>
                   Ångra
                 </Button>
-                <Button onClick={this.handleDialogClose} color='primary' autoFocus>
+                <Button onClick={this.createNewChat} color='primary' autoFocus>
                   Starta chatt
                 </Button>
               </DialogActions>
