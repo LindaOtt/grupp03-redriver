@@ -119,7 +119,8 @@ class FriendsList extends Component {
     for (let i = 0; i < this.state.friends.length; i++) {
       listArray.push(
         <Paper style={friendsListStyles.paper}
-          elevation={1}
+               elevation={1}
+               key={this.state.friends[i]}
         >
           <Typography
             style={friendsListStyles.friendsName}

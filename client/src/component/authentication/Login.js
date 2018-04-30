@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import HttpsRedirect from 'react-https-redirect'
+import { CircularProgress } from 'material-ui/Progress'
 
 // Import styles. loginStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {loginStyles} from '../../styles/AuthStyles'
@@ -13,6 +14,7 @@ import '../../styles/Styles.css'
 
 import {validateLogin} from '../../utils/FormValidation'
 import {userLogin} from '../../utils/ApiRequests'
+import AppStyles from '../../styles/AppStyles'
 
 /**
  *  Login-component.
@@ -27,7 +29,8 @@ class Login extends Component {
     this.state = {
       userName: '',
       password: '',
-      navigate: false
+      navigate: false,
+      loading: false,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -52,6 +55,7 @@ class Login extends Component {
      */
 
     handleSubmit () {
+      this.setState({loading: true})
       let validation = validateLogin(this.state)
       if (validation !== false) {
         return this.props.openSnackBar(validation)
@@ -84,50 +88,56 @@ class Login extends Component {
 
       return (
         <HttpsRedirect>
-          <div className='Login'>
-            <Typography
-              variant='headline'
-              color='default'
-              align='left'
-              style={loginStyles.title}
-            >
-                      Logga in
-            </Typography>
-            <form style={loginStyles.container} noValidate autoComplete='off'>
-              <TextField
-                id='userName'
-                label='Användarnamn'
-                required
-                style={loginStyles.textField}
-                value={this.state.userName}
-                onChange={this.handleChange('userName')}
-                margin='normal'
-              />
-              <TextField
-                id='password'
-                label='Lösenord'
-                required
-                style={loginStyles.textField}
-                type='password'
-                autoComplete='current-password'
-                onChange={this.handleChange('password')}
-                margin='normal'
-              />
-              <div className='LoginButton'>
-                <Button variant='raised' style={loginStyles.button} onClick={this.handleSubmit}>
-                              Logga in
-                </Button>
-                <div style={loginStyles.loginLinkContainer}>
-                  <div style={loginStyles.loginLinkDivLeft}>
-                    <Link style={loginStyles.loginLink} to='/register'>Registrera ny användare</Link>
-                  </div>
-                  <div style={loginStyles.loginLinkDivRight}>
-                    <Link style={loginStyles.loginLink} to='/password'>Glömt lösenord?</Link>
+          {this.state.loading ? (
+            <div className='AppLoadingDiv'>
+              <CircularProgress style={AppStyles.loading} />
+            </div>
+          ) : (
+            <div className='Login'>
+              <Typography
+                variant='headline'
+                color='default'
+                align='left'
+                style={loginStyles.title}
+              >
+                Logga in
+              </Typography>
+              <form style={loginStyles.container} noValidate autoComplete='off'>
+                <TextField
+                  id='userName'
+                  label='Användarnamn'
+                  required
+                  style={loginStyles.textField}
+                  value={this.state.userName}
+                  onChange={this.handleChange('userName')}
+                  margin='normal'
+                />
+                <TextField
+                  id='password'
+                  label='Lösenord'
+                  required
+                  style={loginStyles.textField}
+                  type='password'
+                  autoComplete='current-password'
+                  onChange={this.handleChange('password')}
+                  margin='normal'
+                />
+                <div className='LoginButton'>
+                  <Button variant='raised' style={loginStyles.button} onClick={this.handleSubmit}>
+                    Logga in
+                  </Button>
+                  <div style={loginStyles.loginLinkContainer}>
+                    <div style={loginStyles.loginLinkDivLeft}>
+                      <Link style={loginStyles.loginLink} to='/register'>Registrera ny användare</Link>
+                    </div>
+                    <div style={loginStyles.loginLinkDivRight}>
+                      <Link style={loginStyles.loginLink} to='/password'>Glömt lösenord?</Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          )}
         </HttpsRedirect>
 
       )
