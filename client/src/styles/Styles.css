@@ -89,7 +89,6 @@ html, body {
     flex-direction: row;
     min-height: 100%;
     min-width: 100%;
-    padding: 6px;
 }
 
 .ChatList-Inner-Large-Menu {
@@ -104,7 +103,43 @@ html, body {
 }
 
 .ChatView {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 98%;
+    width: 98%;
+    margin: 1%;
+}
 
+.ChatView-Header {
+    width: 100%;
+    text-align: left;
+    flex-grow: 1;
+    max-height: 10%;
+}
+
+.ChatView-Message-Div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 20;
+    justify-content: flex-end;
+}
+
+.ChatView-Message-Input {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-grow: 1;
+    max-height: 15%;
+}
+
+.ChatMessage {
+    text-align: left;
+}
+
+.ChatMessage-Self {
+    text-align: right;
 }
 
 .FriendsList {

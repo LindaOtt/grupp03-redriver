@@ -47,5 +47,17 @@ export const ChatListStyles = {
 export const ChatViewStyles = {
   chatView: {
 
+  },
+  button: {
+    width: '20%',
+    height: '80%',
+    margin: 2
+  },
+  textInput: {
+    width: '80%',
+    margin: 2
   }
+}
+
+export const ChatMessageStyles = {
 }
