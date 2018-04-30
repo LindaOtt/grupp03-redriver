@@ -28,6 +28,19 @@ export const ChatListStyles = {
     chip: {
       margin: theme.spacing.unit / 4
     }
+  },
+  paper: {
+    width: 283,
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 6,
+    margin: 5
+  },
+  chatName: {
+    width: '70%',
+    textAlign: 'left',
+    marginTop: 6,
+    cursor: 'pointer'
   }
 }
 

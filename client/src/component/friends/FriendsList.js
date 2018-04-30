@@ -108,7 +108,7 @@ class FriendsList extends Component {
   }
 
   /**
-   *  Render list of friends. Large version
+   *  Render list of friends. Large version. Screen sizes over 960px.
    *
    *  @author Jimmy
    */

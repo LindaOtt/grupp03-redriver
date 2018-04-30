@@ -261,9 +261,9 @@ class App extends Component {
       return (
         <HttpsRedirect>
           <Router>
-            <MuiThemeProvider theme={theme}>
+            <MuiThemeProvider theme={theme} >
               {this.state.loaded ? (
-                <div>
+                <div className='App'>
                   <div className='App'>
                     <AppBar
                       position='sticky'
@@ -284,7 +284,7 @@ class App extends Component {
                         )}
                       </Toolbar>
                     </AppBar>
-                    <div className='Body'>
+                    <div className='App-Body'>
                       <Route path='/' exact component={() => <UserAccount state={this.state} />} />
                       <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
                       <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
