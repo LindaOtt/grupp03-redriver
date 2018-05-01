@@ -52,7 +52,11 @@ namespace RedRiverChatServer.Controllers
             });
 
             string name = GetNameFromClaim();
+
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
+            context.Entry(user)
+            .Collection(b => b.Friendships)
+            .Load();
 
             if (user !=null)
             {
@@ -165,6 +169,14 @@ namespace RedRiverChatServer.Controllers
             {
                 return NotFound(new { result = "Friendship could not be removed" });
             }
+        }
+
+        [Authorize]
+        public ActionResult GroupLogs([FromBody] GroupModel groupModel)
+        {
+            //ToDo Check if user in IN group!
+             var result = context.Logs.Where(c => c.GroupName == groupModel.GroupName); 
+             return Ok(result); 
         }
 
         /// <summary>

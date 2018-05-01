@@ -1,1 +1,1 @@
-export const AzureServerUrl = 'https://redserver.azurewebsites.net';
+export const AzureServerUrl = 'https://serverredriver.azurewebsites.net'

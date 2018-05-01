@@ -19,3 +19,9 @@ At last commit before merge to master, run this command to create a build versio
 ```
 npm run build
 ```
+
+To run the automated tests:
+
+```
+npm test
+```

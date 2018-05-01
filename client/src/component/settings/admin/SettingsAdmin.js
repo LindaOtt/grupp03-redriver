@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 // Import styles. settingsAdminStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {settingsAdminStyles} from "../../../styles/SettingsStyles";
+// import {settingsAdminStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
 /**
@@ -11,13 +11,13 @@ import '../../../styles/Styles.css'
  */
 
 class SettingsAdmin extends Component {
-    render() {
-        return (
-            <div className="SettingsAdmin">
-                <p>Admin settings</p>
-            </div>
-        );
-    }
+  render () {
+    return (
+      <div className='SettingsAdmin'>
+        <p>Admin settings</p>
+      </div>
+    )
+  }
 }
 
-export default SettingsAdmin;
+export default SettingsAdmin
