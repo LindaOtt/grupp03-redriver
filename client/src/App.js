@@ -203,22 +203,21 @@ class App extends Component {
    *  @author Jimmy
    */
 
-    verifyToken(token) {
+    verifyToken (token) {
       return verifyJWT(token)
-              .then((response) => {
-
-                this.setState({
-                  token: token,
-                  isSignedIn: true,
-                  userInfo: response.data,
-                  loaded: true
-                })
-              }).catch((error) => {
-                this.setState({
-                  isSignedIn: false,
-                  loaded: true
-                })
-              })
+        .then((response) => {
+          this.setState({
+            token: token,
+            isSignedIn: true,
+            userInfo: response.data,
+            loaded: true
+          })
+        }).catch(() => {
+          this.setState({
+            isSignedIn: false,
+            loaded: true
+          })
+        })
     }
 
     /**

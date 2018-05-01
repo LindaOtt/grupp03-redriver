@@ -114,16 +114,17 @@ html, body {
 .ChatView-Header {
     width: 100%;
     text-align: left;
-    flex-grow: 1;
-    max-height: 10%;
+    align-self: flex-start;
 }
 
 .ChatView-Message-Div {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     flex-grow: 20;
-    justify-content: flex-end;
+    align-content: flex-end;
+    margin-bottom: 10px;
+    overflow: auto;
 }
 
 .ChatView-Message-Input {
@@ -132,14 +133,50 @@ html, body {
     width: 100%;
     flex-grow: 1;
     max-height: 15%;
+    align-self: flex-end;
 }
 
 .ChatMessage {
-    text-align: left;
+
 }
 
 .ChatMessage-Self {
+
+}
+
+.ChatBubble {
+    display: flex;
+    text-align: left;
+    flex-direction: row;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    padding: 6px 10px;
+    position: relative;
+    vertical-align: top;
+    max-width: 45%;
+    margin: 5px;
+}
+
+.ChatBubble-Self {
+    display: flex;
     text-align: right;
+    flex-direction: row-reverse;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    padding: 6px 10px;
+    position: relative;
+    vertical-align: top;
+    max-width: 45%;
+    float: right;
+    margin: 5px;
+}
+
+.ChatBubble-Inside {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .FriendsList {
@@ -187,6 +224,10 @@ html, body {
     justify-content: space-between;
     height: 100%;
     width: 100%;
+}
+
+.FriendsView-Avatar {
+    align-self: center;
 }
 
 .FriendRequests {

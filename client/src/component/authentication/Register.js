@@ -41,7 +41,7 @@ class Register extends Component {
       relativeUsername: '',
       image: [],
       navigate: false,
-      loading: false,
+      loading: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -102,7 +102,7 @@ class Register extends Component {
       <HttpsRedirect>
         {this.state.loading ? (
           <div className='AppLoadingDiv'>
-            <CircularProgress style={AppStyles.loading}/>
+            <CircularProgress style={AppStyles.loading} />
           </div>
         ) : (
           <div className='Register'>

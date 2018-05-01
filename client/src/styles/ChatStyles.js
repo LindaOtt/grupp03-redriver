@@ -60,4 +60,7 @@ export const ChatViewStyles = {
 }
 
 export const ChatMessageStyles = {
+  avatar: {
+    margin: 6
+  }
 }

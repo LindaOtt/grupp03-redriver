@@ -12,7 +12,7 @@ import Hidden from 'material-ui/Hidden'
 import Dialog from 'material-ui/Dialog'
 import Toolbar from 'material-ui/Toolbar'
 import { CircularProgress } from 'material-ui/Progress'
-import Avatar from 'material-ui/Avatar';
+import Avatar from 'material-ui/Avatar'
 
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {friendsListStyles} from '../../styles/FriendsStyles'
@@ -87,7 +87,7 @@ class FriendsList extends Component {
     for (let i = 0; i < this.state.friends.length; i++) {
       listArray.push(
         <Paper style={friendsListStyles.paper} elevation={1} key={this.state.friends[i]}>
-          <Avatar alt="Profile picture" src={profilePhoto} style={friendsListStyles.avatar} />
+          <Avatar alt='Profile picture' src={profilePhoto} style={friendsListStyles.avatar} />
           <Typography
             style={friendsListStyles.friendsName}
             variant='headline'
@@ -124,10 +124,10 @@ class FriendsList extends Component {
     for (let i = 0; i < this.state.friends.length; i++) {
       listArray.push(
         <Paper style={friendsListStyles.paper}
-               elevation={1}
-               key={this.state.friends[i]}
+          elevation={1}
+          key={this.state.friends[i]}
         >
-          <Avatar alt="Profile picture" src={profilePhoto} style={friendsListStyles.avatar} />
+          <Avatar alt='Profile picture' src={profilePhoto} style={friendsListStyles.avatar} />
           <Typography
             style={friendsListStyles.friendsName}
             variant='headline'

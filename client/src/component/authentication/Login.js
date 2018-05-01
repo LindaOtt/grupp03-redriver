@@ -30,7 +30,7 @@ class Login extends Component {
       userName: '',
       password: '',
       navigate: false,
-      loading: false,
+      loading: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)

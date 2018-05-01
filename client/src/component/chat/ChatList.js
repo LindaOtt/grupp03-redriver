@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 // Import NPM-modules
 import Button from 'material-ui/Button'
@@ -22,6 +22,7 @@ import Hidden from 'material-ui/Hidden'
 import Toolbar from 'material-ui/Toolbar'
 import { CircularProgress } from 'material-ui/Progress'
 
+// Import Icons
 import CloseIcon from '@material-ui/icons/Close'
 
 // Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
@@ -80,7 +81,7 @@ class ChatList extends Component {
       selectedFriends: [],
       isLoaded: false,
       dialog: false,
-      chatDialog: false,
+      chatDialog: false
     }
   }
 
@@ -146,14 +147,14 @@ class ChatList extends Component {
     groupArray = groupArray.sort()
     let groupName = groupArray.toString()
     console.log(groupName)
-    //console.log(groupName.split(','))
+    // console.log(groupName.split(','))
 
     createChatGroup(groupName, this.props.state.token)
       .then((response) => {
         console.log(response)
       }).catch((err) => {
-      console.log(err)
-    })
+        console.log(err)
+      })
   }
 
   /**
@@ -209,8 +210,8 @@ class ChatList extends Component {
     for (let i = 0; i < chatMockups.length; i++) {
       listArray.push(
         <Paper style={ChatListStyles.paper}
-               elevation={1}
-               key={chatMockups[i].name}
+          elevation={1}
+          key={chatMockups[i].name}
         >
           <Typography
             style={ChatListStyles.chatName}
@@ -276,7 +277,7 @@ class ChatList extends Component {
                 <div className='ChatList-Inner-Large-Content'>
                   {this.state.chatName ? (
                     <ChatView state={this.props.state}
-                                 chatContent={this.state.chatName}
+                      chatContent={this.state.chatName}
                     />
                   ) : (
                     <Typography>
@@ -348,7 +349,7 @@ class ChatList extends Component {
                 </IconButton>
               </Toolbar>
               <ChatView state={this.props.state}
-                        chatContent={this.state.chatName}
+                chatContent={this.state.chatName}
               />
             </Dialog>
           </div>

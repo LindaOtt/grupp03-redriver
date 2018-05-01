@@ -13,6 +13,9 @@ import {friendsViewStyles} from '../../styles/FriendsStyles'
 // Import API requests
 import {deleteFriend} from '../../utils/ApiRequests'
 
+// Profile picture
+import profilePhoto from '../../temp/user.jpg'
+
 /**
  *  FriendsView-component. View for a friends page. See info about friend,
  *  start a new chat and make a video call.
@@ -60,6 +63,7 @@ class FriendsView extends Component {
         >
           {this.props.friendsUsername}
         </Typography>
+        <img className='FriendsView-Avatar' src={profilePhoto} height='200' width='200' />
         <Button onClick={this.handleDeleteButton}
           style={friendsViewStyles.deleteButton}
           color='secondary'

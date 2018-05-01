@@ -25,8 +25,8 @@ export const friendsListStyles = {
     cursor: 'pointer'
   },
   avatar: {
-    margin: 6,
-  },
+    margin: 6
+  }
 }
 
 export const friendsViewStyles = {
