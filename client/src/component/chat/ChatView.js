@@ -5,6 +5,7 @@ import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Divider from 'material-ui/Divider'
+import Typography from 'material-ui/Typography'
 
 // Import styles. ChatViewStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {ChatViewStyles} from '../../styles/ChatStyles'
@@ -50,7 +51,8 @@ class ChatView extends Component {
    *  @author Jimmy
    */
 
-  handleSubmit () {
+  handleSubmit (e) {
+
     let tempMessage = {
       name: 'You',
       message: this.state.newMessage
@@ -58,6 +60,8 @@ class ChatView extends Component {
 
     this.state.messages.push(tempMessage)
     this.setState({newMessage: ''})
+
+    e.preventDefault()
   }
 
   renderMessages () {
@@ -102,15 +106,13 @@ class ChatView extends Component {
       <div className='ChatView'>
         {this.state.loaded ? (
           <div className='ChatView'>
-            <div className='ChatView-Header'>
-              <p>Du chattar med {this.props.chatContent.name}</p>
-            </div>
+            <Typography variant='subheading'>Du chattar med {this.props.chatContent.name}</Typography>
             <Divider />
             <div className='ChatView-Message-Div'>
               {this.renderMessages()}
             </div>
             <Divider />
-            <div className='ChatView-Message-Input'>
+            <form className='ChatView-Message-Input' onSubmit={this.handleSubmit}>
               <TextField
                 id='full-width'
                 placeholder='Skriv ett meddelande...'
@@ -122,7 +124,7 @@ class ChatView extends Component {
               <Button variant='raised' style={ChatViewStyles.button} onClick={this.handleSubmit}>
                 Skicka
               </Button>
-            </div>
+            </form>
           </div>
         ) : (
           <div className='AppLoadingDiv'>

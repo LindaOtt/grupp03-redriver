@@ -43,7 +43,7 @@ class ChatMessage extends Component {
             <Avatar alt='Profile picture' src={profilePhoto} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-inside'>
               <Typography variant='caption'>{this.props.message.name}</Typography>
-              <Typography>{this.props.message.message}</Typography>
+              <Typography >{this.props.message.message}</Typography>
             </div>
           </div>
         </div>)

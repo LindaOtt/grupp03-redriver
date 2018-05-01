@@ -1,10 +1,12 @@
-import {AzureServerUrl} from './Config'
+import {AzureServerUrl, LocalServerUrl} from './Config'
 import axios from 'axios/index'
+
+const localOrAzureUrl = AzureServerUrl
 
 export const verifyJWT = (token) => {
   return axios({
     method: 'get',
-    url: AzureServerUrl + '/api/user/getuserinfo',
+    url: localOrAzureUrl + '/api/user/getuserinfo',
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })
 }
@@ -17,7 +19,7 @@ export const userLogin = (data) => {
 
   return axios({
     method: 'post',
-    url: AzureServerUrl + '/api/account/login',
+    url: localOrAzureUrl + '/api/account/login',
     data: JSON.stringify(tempObj),
     headers: {'Content-Type': 'application/json'}
   })
@@ -40,7 +42,7 @@ export const userRegister = (data) => {
 
   return axios({
     method: 'post',
-    url: AzureServerUrl + '/api/account/register',
+    url: localOrAzureUrl + '/api/account/register',
     data: JSON.stringify(tempObj),
     headers: {'Content-Type': 'application/json'}
   })
@@ -49,7 +51,7 @@ export const userRegister = (data) => {
 export const getFriends = (token) => {
   return axios({
     method: 'get',
-    url: AzureServerUrl + '/api/user/getfriends',
+    url: localOrAzureUrl + '/api/user/getfriends',
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })
 }
@@ -61,7 +63,7 @@ export const addFriend = (data, token) => {
 
   return axios({
     method: 'post',
-    url: AzureServerUrl + '/api/user/addfriend',
+    url: localOrAzureUrl + '/api/user/addfriend',
     data: JSON.stringify(tempObj),
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })
@@ -74,7 +76,7 @@ export const deleteFriend = (data, token) => {
 
   return axios({
     method: 'post',
-    url: AzureServerUrl + '/api/user/deletefriend',
+    url: localOrAzureUrl + '/api/user/deletefriend',
     data: JSON.stringify(tempObj),
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })

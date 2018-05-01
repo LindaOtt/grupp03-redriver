@@ -38,7 +38,7 @@ import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 
 import {verifyJWT} from './utils/ApiRequests'
-import {initChat} from './utils/SignalR'
+import {createSignalR, initChat} from './utils/SignalR'
 
 /**
  *  Starting point of the application
@@ -56,7 +56,8 @@ class App extends Component {
       snackBarMessage: '',
       isSignedIn: false,
       userRole: 'User',
-      loaded: false
+      loaded: false,
+      signalRConnection: ''
     }
     this.openSnackBar = this.openSnackBar.bind(this)
     this.userLogout = this.userLogout.bind(this)
@@ -198,7 +199,7 @@ class App extends Component {
 
   /**
    *  Verify token and set state according to response from server.
-   *  If token is valid, a chat-socket is initialized
+   *  If token is valid, a chat-socket is initialized.
    *
    *  @author Jimmy
    */
@@ -206,6 +207,14 @@ class App extends Component {
     verifyToken (token) {
       return verifyJWT(token)
         .then((response) => {
+
+          this.setState({ signalRConnection: createSignalR(token) }, () => {
+            this.state.signalRConnection
+              .start()
+              .then(() => console.log('Connection started!'))
+              .catch(err => console.log('Error while establishing connection'));
+          });
+
           this.setState({
             token: token,
             isSignedIn: true,

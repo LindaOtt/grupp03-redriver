@@ -149,12 +149,12 @@ class ChatList extends Component {
     console.log(groupName)
     // console.log(groupName.split(','))
 
-    createChatGroup(groupName, this.props.state.token)
+    /*createChatGroup(groupName, this.props.state.token)
       .then((response) => {
         console.log(response)
       }).catch((err) => {
         console.log(err)
-      })
+      })*/
   }
 
   /**
@@ -343,11 +343,10 @@ class ChatList extends Component {
               onClose={this.handleChatDialogClose}
               aria-labelledby='responsive-dialog-title'
             >
-              <Toolbar>
-                <IconButton color='inherit' onClick={this.handleChatDialogClose} aria-label='Close'>
-                  <CloseIcon />
-                </IconButton>
-              </Toolbar>
+
+              <IconButton color='inherit' onClick={this.handleChatDialogClose} aria-label='Close'>
+                <CloseIcon />
+              </IconButton>
               <ChatView state={this.props.state}
                 chatContent={this.state.chatName}
               />
