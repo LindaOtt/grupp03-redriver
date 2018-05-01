@@ -210,7 +210,7 @@ class App extends Component {
 
           this.setState({ signalRConnection: createSignalR(token) }, () => {
             this.state.signalRConnection
-              .start({ withCredentials: true })
+              .start()
               .then(() => console.log('Connection started!'))
               .catch(err => console.log('Error while establishing connection'));
           });

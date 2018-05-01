@@ -103,7 +103,7 @@ namespace RedRiverChatServer
            };
        });
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy", builderq => { builderq.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "http://localhost:3000", "https://redriverclient.azurewebsites.net","https://redclient.azurewebsites.net", "https://clientredriver.azurewebsites.net", "http://109.228.145.167:3000", "https://localhost:3000" }); }));
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builderq => { builderq.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "http://localhost:3000", "https://redriverclient.azurewebsites.net","https://redclient.azurewebsites.net", "https://clientredriver.azurewebsites.net", "http://109.228.145.167:3000", "https://localhost:3000" }).AllowCredentials(); }));
             services.AddSignalR();
             services.AddMvc();
             services.AddSingleton<IEmailSender, EmailSender>();
