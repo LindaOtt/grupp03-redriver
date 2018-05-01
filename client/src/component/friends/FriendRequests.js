@@ -77,7 +77,7 @@ class FriendRequests extends Component {
               }
               return this.props.openSnackBar('Något gick fel. Försök igen!')
             })
-        }).catch((err) => {
+        }).catch(() => {
           return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     }

@@ -38,6 +38,7 @@ import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 
 import {verifyJWT} from './utils/ApiRequests'
+import {initChat} from './utils/SignalR'
 
 /**
  *  Starting point of the application
@@ -83,18 +84,7 @@ class App extends Component {
    */
 
   userLogin (token) {
-    verifyJWT(token)
-      .then((response) => {
-        this.setState({
-          token: token,
-          isSignedIn: true,
-          userInfo: response.data
-        })
-      }).catch((error) => {
-        this.setState({
-          isSignedIn: false
-        })
-      })
+    this.verifyToken(token)
   }
 
     /**
@@ -206,6 +196,30 @@ class App extends Component {
       })
     };
 
+  /**
+   *  Verify token and set state according to response from server.
+   *  If token is valid, a chat-socket is initialized
+   *
+   *  @author Jimmy
+   */
+
+    verifyToken (token) {
+      return verifyJWT(token)
+        .then((response) => {
+          this.setState({
+            token: token,
+            isSignedIn: true,
+            userInfo: response.data,
+            loaded: true
+          })
+        }).catch(() => {
+          this.setState({
+            isSignedIn: false,
+            loaded: true
+          })
+        })
+    }
+
     /**
      *  Check if valid token in local storage before component mounts.
      *
@@ -215,21 +229,7 @@ class App extends Component {
     componentWillMount () {
       if (localStorage.getItem('token')) {
         let token = JSON.parse(localStorage.getItem('token'))
-
-        verifyJWT(token)
-          .then((response) => {
-            this.setState({
-              token: token,
-              isSignedIn: true,
-              userInfo: response.data,
-              loaded: true
-            })
-          }).catch((error) => {
-            this.setState({
-              isSignedIn: false,
-              loaded: true
-            })
-          })
+        this.verifyToken(token)
       } else {
         this.setState({
           isSignedIn: false,
@@ -250,20 +250,7 @@ class App extends Component {
 
         if (this.state.token) {
           if (token !== this.state.token) {
-            verifyJWT(token)
-              .then((response) => {
-                this.setState({
-                  token: token,
-                  isSignedIn: true,
-                  userInfo: response.data,
-                  loaded: true
-                })
-              }).catch((error) => {
-                this.setState({
-                  isSignedIn: false,
-                  loaded: true
-                })
-              })
+            this.verifyToken(token)
           }
         }
       }
@@ -273,9 +260,9 @@ class App extends Component {
       return (
         <HttpsRedirect>
           <Router>
-            <MuiThemeProvider theme={theme}>
+            <MuiThemeProvider theme={theme} >
               {this.state.loaded ? (
-                <div>
+                <div className='App'>
                   <div className='App'>
                     <AppBar
                       position='sticky'
@@ -296,7 +283,7 @@ class App extends Component {
                         )}
                       </Toolbar>
                     </AppBar>
-                    <div className='Body'>
+                    <div className='App-Body'>
                       <Route path='/' exact component={() => <UserAccount state={this.state} />} />
                       <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
                       <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />

@@ -1,7 +1,6 @@
 // Import of Material-UI components to create themes so handling different colors throughout the application gets easier.
 import { createMuiTheme } from 'material-ui/styles'
 import grey from 'material-ui/colors/grey'
-import green from 'material-ui/colors/green'
 import red from 'material-ui/colors/red'
 
 /**

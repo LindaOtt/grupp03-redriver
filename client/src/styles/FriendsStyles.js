@@ -19,10 +19,13 @@ export const friendsListStyles = {
     margin: 5
   },
   friendsName: {
-    width: '70%',
+    width: '60%',
     textAlign: 'left',
-    marginTop: 6,
+    margin: 8,
     cursor: 'pointer'
+  },
+  avatar: {
+    margin: 6
   }
 }
 

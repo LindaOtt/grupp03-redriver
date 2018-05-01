@@ -32,7 +32,12 @@ const AppStyles = {
   },
   loading: {
     margin: 'auto'
+  },
+  HttpsRedirect: {
+    width: '100%',
+    height: '100%'
   }
+
 }
 
 export default AppStyles
