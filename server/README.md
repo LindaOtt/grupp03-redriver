@@ -12,6 +12,16 @@ In a development environment, the Windows version of the server will attempt to 
 + Clone or download the repo and use the console to go to the server\RedRiverChatServer folder.
 + Type dotnet run
 
+## Installation(Linux/Mac OsX)
+
+Unlike on Windows, on Linux and Mac OsX there is no SQL Server Express database on which to run the sytem locally . This means that the sever can only be run against the live database. To do so, the server must be started in with ASPNETCORE_ENVIRONMENT set to Production.
+
++ Make sure that [ASP.NET Core 2.0](https://www.microsoft.com/net/download) is installed.
++ Clone or download the repo and use the console to go to the server\RedRiverChatServer folder.
++ Go to Properties/lauchSettings.json and change RedRiverChatServer.environmentVariables.ASPNETCORE_ENVIRONMENT to Production.
++ Save launchSettings.json.
++ Type dotnet run
+
 ## Running
 
 The server has only api routes which are utilized by the client. It has no routes at its root. Accessing this will return a 404. However, one route is available for testing purposes:
