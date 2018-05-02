@@ -2,7 +2,7 @@
 
 This is an ASP.Net Core 2 api implementation for the RedRiver chat app. 
 
-The system itself is designed from a client/server architectural perspective, and the client and server are designed to run separately. The client is *not* served from the ASP.NET server and must therefore be run separately. See the README.md in the client folder for instructions on how to run the client. 
+The system itself is designed from a client/server architectural perspective, and the client and server are designed to run separately. The client is *not* served from the ASP.NET server and must therefore be run separately. See the [README.md in the client folder](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/client/README.md) for instructions on how to run the client. 
 
 ## Installation(Windows)
 
