@@ -43,7 +43,7 @@ namespace RedRiverChatServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult UploadAvatar()
+        public IActionResult UploadImage()
         {
             return View();
         }
@@ -53,7 +53,7 @@ namespace RedRiverChatServer.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost, Authorize]
-        public async Task<ActionResult> UploadAvatar(string random)
+        public async Task<ActionResult> UploadImage(string random)
         {
             string name = GetNameFromClaim();
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
@@ -82,10 +82,10 @@ namespace RedRiverChatServer.Controllers
                     newFileName = uniqueFileName + FileExtension;
 
                     //Combines two strings into a path
-                    fileName = Path.Combine(_environment.WebRootPath, "Avatars") + $@"/{newFileName}";
+                    fileName = Path.Combine(_environment.WebRootPath, "images") + $@"/{newFileName}";
 
                     //If you want to store path to folder in database
-                    PathDB = "Avatars/" + newFileName;
+                    PathDB = "images/" + newFileName;
 
                     //Set users avatar to the uploaded file
                     user.AvatarUrl = fileName;
@@ -99,7 +99,7 @@ namespace RedRiverChatServer.Controllers
                     }
                 }
             }
-            return Ok(new { result = "Avatar successfully uploaded" });
+            return Ok(new { result = "Image successfully uploaded" });
 
         }
 
