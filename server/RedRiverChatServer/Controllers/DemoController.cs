@@ -53,7 +53,7 @@ namespace RedRiverChatServer.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost, Authorize]
-        public ActionResult UploadAvatar(string random)
+        public async Task<ActionResult> UploadAvatar(string random)
         {
             string name = GetNameFromClaim();
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
@@ -72,20 +72,25 @@ namespace RedRiverChatServer.Controllers
                     //Getting FileName
                     fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
-                    //Assigning FileName
-                    var myUniqueFileName = "test";
+                    //Assigning users name as FileName
+                    var uniqueFileName = name;
 
                     //Getting file Extension
                     var FileExtension = Path.GetExtension(fileName);
 
                     //Concating FileName + FileExtension
-                    newFileName = myUniqueFileName + FileExtension;
+                    newFileName = uniqueFileName + FileExtension;
 
                     //Combines two strings into a path
                     fileName = Path.Combine(_environment.WebRootPath, "Avatars") + $@"/{newFileName}";
 
                     //If you want to store path to folder in database
                     PathDB = "Avatars/" + newFileName;
+
+                    //Set users avatar to the uploaded file
+                    user.AvatarUrl = fileName;
+
+                    await _userManager.UpdateAsync(user);
 
                     using (FileStream fs = System.IO.File.Create(fileName))
                     {

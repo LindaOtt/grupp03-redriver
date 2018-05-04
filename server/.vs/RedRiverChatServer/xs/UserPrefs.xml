@@ -1,19 +1,21 @@
 ﻿<Properties StartupConfiguration="{6CA5922A-D792-4784-AAB7-21CE6985068E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RedRiverChatServer/Models/IdentityModels.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RedRiverChatServer/Controllers/AccountController.cs">
     <Files>
-      <File FileName="RedRiverChatServer/Models/IdentityModels.cs" Line="31" Column="10" />
+      <File FileName="RedRiverChatServer/Models/IdentityModels.cs" Line="64" Column="42" />
       <File FileName="RedRiverChatServer/Properties/launchSettings.json" Line="24" Column="46" />
-      <File FileName="RedRiverChatServer/Controllers/DemoController.cs" Line="44" Column="9" />
+      <File FileName="RedRiverChatServer/Controllers/DemoController.cs" Line="91" Column="60" />
+      <File FileName="RedRiverChatServer/Controllers/UserController.cs" Line="138" Column="19" />
+      <File FileName="RedRiverChatServer/Controllers/AccountController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="RedRiverChatServer" expanded="True">
             <Node name="RedRiverChatServer" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="IdentityModels.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AccountController.cs" selected="True" />
               </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Demo" expanded="True" />
