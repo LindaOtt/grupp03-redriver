@@ -42,7 +42,7 @@ namespace RedRiverChatServer.Controllers
             this.context = context;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public IActionResult UploadAvatar()
         {
             return View();
