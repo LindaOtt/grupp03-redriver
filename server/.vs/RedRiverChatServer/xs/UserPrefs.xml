@@ -1,0 +1,37 @@
+﻿<Properties StartupConfiguration="{6CA5922A-D792-4784-AAB7-21CE6985068E}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RedRiverChatServer/Models/IdentityModels.cs">
+    <Files>
+      <File FileName="RedRiverChatServer/Models/IdentityModels.cs" Line="31" Column="10" />
+      <File FileName="RedRiverChatServer/Properties/launchSettings.json" Line="24" Column="46" />
+      <File FileName="RedRiverChatServer/Controllers/DemoController.cs" Line="44" Column="9" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RedRiverChatServer" expanded="True">
+            <Node name="RedRiverChatServer" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="IdentityModels.cs" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Demo" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="Avatars" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.RedRiverChatServer PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -28,6 +28,7 @@ namespace RedRiverChatServer.Models
         public string Surname { get; set; }
         public string RelativeUserId { get; set; }
         public string TelephoneNumber { get; set; }
+       // public string AvatarUrl { get; set; }
         public virtual ICollection<Friendship> Friendships { get; set; }
         public virtual ICollection<ApplicationUserConversationRoom> ApplicationUserConversationRooms { get; set; } = new List<ApplicationUserConversationRoom>();
 
@@ -81,6 +82,11 @@ namespace RedRiverChatServer.Models
       public string Username { get; set; }
     }
 
+   /* public class AvatarModel
+    {
+        public string AvatarUrl { get; set; }
+    }*/
+
     public class GroupModel
     {
         public string GroupName { get; set; }
@@ -99,6 +105,7 @@ namespace RedRiverChatServer.Models
         public string Surname { get; set; }
         public string RelativeUserId { get; set; }
         public string TelephoneNumber { get; set; }
+       // public string AvatarUrl { get; set; }
         public ICollection<Friendship> Friendships { get; set; }
 
     }
