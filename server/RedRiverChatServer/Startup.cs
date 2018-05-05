@@ -132,7 +132,7 @@ namespace RedRiverChatServer
             //SignalR calls are routed here when the url is "chat"
             app.UseSignalR(routes =>
             {
-                routes.MapHub<Chat>("chat");
+                routes.MapHub<Chat>("/chat");
             });
         
             //All routes apart from SignalR follow this convention

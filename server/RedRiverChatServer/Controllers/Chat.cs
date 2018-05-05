@@ -42,7 +42,7 @@ namespace RedRiverChatServer.Controllers
             foreach (var group in user.ApplicationUserConversationRooms)
             {
                 Groups.AddAsync(Context.ConnectionId, group.RoomName);
-                Clients.Group(group.RoomName).InvokeAsync("alterFriendStatus", new[] {name, group.RoomName,"online"});
+                Clients.Group(group.RoomName).SendAsync("alterFriendStatus", new[] {name, group.RoomName,"online"});
             }
             
             return base.OnConnectedAsync();
@@ -65,7 +65,7 @@ namespace RedRiverChatServer.Controllers
             foreach (var group in user.ApplicationUserConversationRooms)
             {
                 Groups.RemoveAsync(Context.ConnectionId, group.RoomName); //Does this need to be done? Or does removing collections also remove from all groups?
-                Clients.Group(group.RoomName).InvokeAsync("alterFriendStatus", new[] { name, group.RoomName, "offline" });
+                Clients.Group(group.RoomName).SendAsync("alterFriendStatus", new[] { name, group.RoomName, "offline" });
             }
 
             return base.OnDisconnectedAsync(exception);
@@ -84,7 +84,7 @@ namespace RedRiverChatServer.Controllers
             //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
             foreach (var connectionId in _connections.GetConnections(who))
             {
-                Clients.Client(connectionId).InvokeAsync("messageSentToSpecificUser", new[] { senderName, message });
+                Clients.Client(connectionId).SendAsync("messageSentToSpecificUser", new[] { senderName, message });
             }
         }
 
@@ -96,7 +96,7 @@ namespace RedRiverChatServer.Controllers
         public void SendMessageToGroup(string groupName, string message)
         {
             string name = GetNameFromClaim();
-            Clients.Group(groupName).InvokeAsync("messageSentToGroup", new[] { groupName, name, message });
+            Clients.Group(groupName).SendAsync("messageSentToGroup", new[] { groupName, name, message });
 
             context.Logs.Add(new Log(groupName, name, message));
             context.SaveChanges();
@@ -109,7 +109,7 @@ namespace RedRiverChatServer.Controllers
         public void SendMessageToAllConnectedUsers(string message)
         {
             string senderName = GetNameFromClaim();
-            Clients.All.InvokeAsync("messageSentToAllConnectedUsers", new[] { senderName, message });
+            Clients.All.SendAsync("messageSentToAllConnectedUsers", new[] { senderName, message });
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace RedRiverChatServer.Controllers
             //Is the user already a member of the group? In that case, return info message to user stating this.
             if (user.ApplicationUserConversationRooms.FirstOrDefault(u=>u.RoomName==groupName) != null)
             {
-                return Clients.User(Context.ConnectionId).InvokeAsync("addInfoMessageFromGroup", new[] { groupName, name + " is already a participant in group " + groupName });
+                return Clients.User(Context.ConnectionId).SendAsync("addInfoMessageFromGroup", new[] { groupName, name + " is already a participant in group " + groupName });
             }
             //Create Room
             if (group == null)
@@ -150,7 +150,7 @@ namespace RedRiverChatServer.Controllers
             user.ApplicationUserConversationRooms.Add(sRCR);
 
             await context.SaveChangesAsync();
-            return Clients.Group(groupName).InvokeAsync("userAddedToGroup", new[] { name, groupName });
+            return Clients.Group(groupName).SendAsync("userAddedToGroup", new[] { name, groupName });
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace RedRiverChatServer.Controllers
             var group = context.Rooms.FirstOrDefault(e => e.RoomName == groupName);
             if (group == null)
             {
-                return Clients.Client(Context.ConnectionId).InvokeAsync("addInfoMessageFromGroup", new[] { groupName, groupName + "does not exist" });
+                return Clients.Client(Context.ConnectionId).SendAsync("addInfoMessageFromGroup", new[] { groupName, groupName + "does not exist" });
             }
 
             //Add user to in-memory group
@@ -180,7 +180,7 @@ namespace RedRiverChatServer.Controllers
             //Is the user already a member of the group? In that case, return info message stating this.
             if (user.ApplicationUserConversationRooms.FirstOrDefault(u => u.RoomName == groupName) != null)
             {
-                return Clients.Client(Context.ConnectionId).InvokeAsync("addInfoMessageFromGroup", new[] { groupName, usernameToAdd + " is already a participant in group " + groupName });
+                return Clients.Client(Context.ConnectionId).SendAsync("addInfoMessageFromGroup", new[] { groupName, usernameToAdd + " is already a participant in group " + groupName });
             }
 
             ApplicationUserConversationRoom sRCR = new ApplicationUserConversationRoom()
@@ -197,7 +197,7 @@ namespace RedRiverChatServer.Controllers
             
             await context.SaveChangesAsync();
 
-            return Clients.Group(groupName).InvokeAsync("userAddedToGroup", new[] { groupName, usernameToAdd });
+            return Clients.Group(groupName).SendAsync("userAddedToGroup", new[] { groupName, usernameToAdd });
         }
 
         /// <summary>
@@ -224,13 +224,13 @@ namespace RedRiverChatServer.Controllers
             var group = context.Rooms.FirstOrDefault(e => e.RoomName == groupName);
             if (group != null)
             {
-                return Clients.Client(Context.ConnectionId).InvokeAsync("addInfoMessageFromGroup", new[] { groupName, groupName + "already exists" });
+                return Clients.Client(Context.ConnectionId).SendAsync("addInfoMessageFromGroup", new[] { groupName, groupName + "already exists" });
             }
 
             //Notify group about each user
             foreach (string usernameToAdd in usernames)
             {
-                    await Clients.Group(groupName).InvokeAsync("userAddedToGroup", new[] { usernameToAdd, groupName });  
+                    await Clients.Group(groupName).SendAsync("userAddedToGroup", new[] { usernameToAdd, groupName });
             }
 
             // Retrieve users.
@@ -269,7 +269,7 @@ namespace RedRiverChatServer.Controllers
 
             await context.SaveChangesAsync();
 
-            return Clients.Group(groupName).InvokeAsync("addInfoMessageFromGroup", new[] { groupName, groupName + "created" });
+            return Clients.Group(groupName).SendAsync("addInfoMessageFromGroup", new[] { groupName, groupName + "created" });
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace RedRiverChatServer.Controllers
             var aUCRToRemove = user.ApplicationUserConversationRooms.FirstOrDefault(u => u.RoomName == groupName);
             if (aUCRToRemove == null)
             {
-                return Clients.Client(Context.ConnectionId).InvokeAsync("addInfoMessageFromGroup", new[] { groupName, name + " is not a member of " + groupName });
+                return Clients.Client(Context.ConnectionId).SendAsync("addInfoMessageFromGroup", new[] { groupName, name + " is not a member of " + groupName });
             }
 
             user.ApplicationUserConversationRooms.Remove(aUCRToRemove);
@@ -304,7 +304,7 @@ namespace RedRiverChatServer.Controllers
             
             await context.SaveChangesAsync();
             await Groups.RemoveAsync(Context.ConnectionId, groupName);
-            return Clients.All.InvokeAsync("userLeftGroup", new[] { name, groupName });
+            return Clients.All.SendAsync("userLeftGroup", new[] { name, groupName });
         }
 
         private string GetNameFromClaim()
