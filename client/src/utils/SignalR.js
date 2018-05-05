@@ -3,19 +3,17 @@ import { HubConnection } from '@aspnet/signalr'
 
 const chatServerUrl = AzureServerUrl + '/chat'
 
-let connection
-
 export const createSignalR = (token) => {
   console.log('Connect to signalr')
   let tokenUrl = (chatServerUrl + '?token=' + token)
-  connection = new HubConnection(tokenUrl)
+  let connection = new HubConnection(tokenUrl)
   return connection
 }
 
 export const initChat = (token) => {
 
   let tokenUrl = (chatServerUrl + '?token=' + token)
-  connection = new HubConnection(tokenUrl)
+  let connection = new HubConnection(tokenUrl)
 
   let messages = [];
   let key = 123;
@@ -28,57 +26,54 @@ export const initChat = (token) => {
 
   connection.on('messageSentToGroup', (group,senderName,message) => {
     messages.push("Group "+group+": "+"Sender: "+senderName+" Message: "+message);
-    key = Math.random();
+    console.log(message)
   });
 
   connection.on('addInfoMessageFromGroup', (group, message) => {
     messages.push("Group "+group+": "+"Message: "+message);
-    key = Math.random();
+    console.log(message)
   });
 
   connection.on('alterFriendStatus', (name, group, status) => {
     messages.push(name + " in group:"+group+": "+"is now "+status);
-    key = Math.random();
+    console.log(name)
   });
 
   connection.on('messageSentToSpecificUser', (name, message) => {
     messages.push(name + ":"+ message);
-    key = Math.random();
+    console.log(message)
   });
 
   connection.on('messageSentToAllConnectedUsers', (name, message) => {
     messages.push(name + ":"+ message);
-    key = Math.random();
+    console.log(message)
   });
 
 
   connection.on('userAddedToGroup', (name, group) => {
     messages.push(name + "added to:"+ group);
-    key = Math.random();
+    console.log(name)
   });
 
   connection.on('userLeftGroup', (name, group) => {
     messages.push(name + "left:"+ group);
-    key = Math.random();
+    console.log(name)
   });
 
 
 
   connection.start()
-    .then((response) => {
-      console.log(response)
-    })
     .catch((err) => {
       console.log(err)
     });
+
+  return connection
 }
 
-export const createChatGroup = (connection, groupName) => {
-  return connection.start({ withCredentials: true })
-    .then((response) => {
-      console.log(response)
-      connection.invoke('joinGroup', groupName)
-    })
+export const createChatGroup = (groupName, connection) => {
+  console.log(connection)
+  connection.invoke("sendMessageToAllConnectedUsers", 'test');
+  return connection.invoke('joinGroup', groupName)
 }
 
 export const addUserToChat = (connection, name, group) => {

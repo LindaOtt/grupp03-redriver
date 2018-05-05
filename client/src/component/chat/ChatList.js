@@ -147,14 +147,14 @@ class ChatList extends Component {
     groupArray = groupArray.sort()
     let groupName = groupArray.toString()
     console.log(groupName)
-    // console.log(groupName.split(','))
+    console.log(groupName.split(','))
 
-    /*createChatGroup(groupName, this.props.state.token)
+    createChatGroup(groupName, this.props.state.signalRConnection)
       .then((response) => {
         console.log(response)
       }).catch((err) => {
         console.log(err)
-      })*/
+      })
   }
 
   /**
@@ -176,6 +176,8 @@ class ChatList extends Component {
 
   renderChatList () {
     let listArray = []
+
+    console.log(this.props.state)
 
     for (let i = 0; i < chatMockups.length; i++) {
       listArray.push(

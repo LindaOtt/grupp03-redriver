@@ -10,6 +10,7 @@ import '../../../styles/Styles.css'
 
 import {AzureServerUrl, LocalServerUrl} from '../../../utils/Config'
 import {uploadProfilePicture} from '../../../utils/ApiRequests'
+import profilePhoto from '../../../temp/user.jpg'
 
 /**
  *  Change Profile Picture-component.
@@ -37,6 +38,22 @@ class ChangeProfilePicture extends Component {
         [name]: event.target.files[0]
       })
     };
+
+  /**
+   *  Handle form-input. Inputs are added to this.state.
+   *
+   *  @author Jimmy
+   */
+
+  renderAvatar() {
+
+    if (this.props.state.userInfo.avatarUrl) {
+
+      return <img align='center' src={this.props.state.userInfo.avatarUrl} alt='Current profile picture' width='200'/>
+    } else {
+      return <img align='center' src={profilePhoto} alt='Current profile picture' width='200'/>
+    }
+  }
 
     /**
      *  Handle submit-button for change profile picture
@@ -70,7 +87,7 @@ class ChangeProfilePicture extends Component {
         >
           Din nuvarande profilbild:
         </Typography>
-        <img align='center' src={AzureServerUrl + '/images/' + this.props.state.userInfo.username + '.JPG'} alt='Current profile picture' width='200'/>
+          {this.renderAvatar()}
         <br/>
         <br/>
         <Typography

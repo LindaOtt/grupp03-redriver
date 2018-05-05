@@ -208,13 +208,12 @@ class App extends Component {
       return verifyJWT(token)
         .then((response) => {
 
-          initChat(token)
-
           this.setState({
             token: token,
             isSignedIn: true,
             userInfo: response.data,
-            loaded: true
+            loaded: true,
+            signalRConnection: initChat(token)
           })
         }).catch(() => {
           this.setState({
