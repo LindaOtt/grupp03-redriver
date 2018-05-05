@@ -21,6 +21,7 @@ import '../../../styles/Styles.css'
 // Import components
 import UserDetails from './UserDetails'
 import ChangePassword from './ChangePassword'
+import ChangeProfilePicture from './ChangeProfilePicture'
 
 /**
  *  SettingsUser-component.
@@ -88,6 +89,14 @@ class SettingsUser extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <ChangePassword state={this.props.state} />
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography >Ändra profilbild</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <ChangeProfilePicture state={this.props.state} openSnackBar={this.props.openSnackBar} />
               </ExpansionPanelDetails>
             </ExpansionPanel>
             <List>
