@@ -13729,13 +13729,13 @@
       "projectName": "RedRiverChatServer",
       "projectPath": "/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/server/RedRiverChatServer/RedRiverChatServer.csproj",
       "packagesPath": "/Users/sofiakristiansen/.nuget/packages/",
-      "outputPath": "/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/server/RedRiverChatServer/obj/",
+      "outputPath": "/Users/sofiakristiansen/Desktop/Grupparbete-projekt/grupp03-redriver/server/RedRiverChatServer/obj",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/sofiakristiansen/.nuget/NuGet/NuGet.Config"
+        "/Users/sofiakristiansen/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -13757,34 +13757,35 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Microsoft.NETCore.App": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "2.0",
+            "autoReferenced": true
+          },
           "AutoMapper": {
             "target": "Package",
-            "version": "[6.2.2, )"
+            "version": "6.2.2"
           },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "[2.0.5, )"
+            "version": "2.0.5"
           },
           "Microsoft.AspNetCore.SignalR": {
             "target": "Package",
-            "version": "[1.0.0-alpha1-final, )"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
+            "version": "1.0.0-alpha1-final"
           },
           "Microsoft.Owin.Cors": {
             "target": "Package",
-            "version": "[4.0.0, )"
+            "version": "4.0.0"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "2.0.2"
           },
           "Sendgrid": {
             "target": "Package",
-            "version": "[9.9.0, )"
+            "version": "9.9.0"
           }
         },
         "imports": [
