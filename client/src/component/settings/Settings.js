@@ -46,10 +46,10 @@ class Settings extends Component {
         return <Admin state={this.props.state} />
 
       case 'User':
-        return <User state={this.props.state} />
+        return <User state={this.props.state} openSnackBar={this.props.openSnackBar} />
 
       default:
-        return <User state={this.props.state} />
+        return <User state={this.props.state} openSnackBar={this.props.openSnackBar} />
     }
   }
   render () {
