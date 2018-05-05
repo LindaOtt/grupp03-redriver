@@ -120,6 +120,9 @@ namespace RedRiverChatServer
                 app.UseDeveloperExceptionPage();
             }
 
+            //Used to make images in wwwroot available
+            app.UseStaticFiles();
+
             //Cors must be defined to allow browser interaction with the server
             app.UseCors("CorsPolicy");
 
