@@ -51,8 +51,6 @@ class ChangeProfilePicture extends Component {
 
     if (this.props.state.userInfo.avatarUrl) {
 
-      // Use this when server returns the correct avatar url.
-      //return <img align='center' src={this.props.state.userInfo.avatarUrl} alt='Current profile picture' width='200'/>
       return <img align='center' src={this.state.avatarUrl} alt='Current profile picture' width='200'/>
     } else {
       return <img align='center' src={profilePhoto} alt='Current profile picture' width='200'/>
@@ -112,7 +110,7 @@ class ChangeProfilePicture extends Component {
       return (
         <div className='PictureDetails'>
         <Typography
-          variant='menu'
+          variant='subheading'
           color='default'
           align='center'
         >
@@ -130,7 +128,7 @@ class ChangeProfilePicture extends Component {
         <br/>
         <br/>
         <Typography
-          variant='menu'
+          variant='subheading'
           color='default'
           align='center'
         >
