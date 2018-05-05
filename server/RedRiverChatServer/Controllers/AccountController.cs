@@ -90,7 +90,6 @@ namespace RedRiverChatServer.Controllers
             else if (login.Email != null)
             {
                 user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Email == login.Email);
-
             }
             else
             {
@@ -127,7 +126,6 @@ namespace RedRiverChatServer.Controllers
         }
 
 
-        //ToDo Change this - user should be deleted by username instead of email?
         //Only superusers and admins are allowed to access this route.
         [HttpPost, Authorize(Roles = "superuser,admin")]
         public async Task<IActionResult> DeleteUser([FromBody]DeleteModel model)
@@ -151,6 +149,8 @@ namespace RedRiverChatServer.Controllers
         public async Task<IActionResult> AddUserToRole([FromBody]RoleModel roleModel)
         {
             var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == roleModel.UserName);
+
+            if (user == null) { return BadRequest(new { response = "Username does not exist" }); }
 
             var result = await _userManager.AddToRoleAsync(user, roleModel.RoleName);
 

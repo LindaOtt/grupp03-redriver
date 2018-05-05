@@ -1,4 +1,4 @@
-import {AzureServerUrl} from './Config'
+import {AzureServerUrl, LocalServerUrl} from './Config'
 import { HubConnection } from '@aspnet/signalr'
 
 const chatServerUrl = AzureServerUrl + '/chat'

@@ -120,6 +120,9 @@ namespace RedRiverChatServer
                 app.UseDeveloperExceptionPage();
             }
 
+            //Used to make images in wwwroot available
+            app.UseStaticFiles();
+
             //Cors must be defined to allow browser interaction with the server
             app.UseCors("CorsPolicy");
 
@@ -182,12 +185,15 @@ namespace RedRiverChatServer
         private void SeedDB(IServiceProvider serviceProvider,int noUsers)
         {
             UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var result = userManager.FindByNameAsync("sTestUser0");
+            result.Wait();
+
+            if(result.Result!=null) { return; };
 
             using (userManager)
             {
                 for (int i = 0; i < noUsers; i++)
                 {
-
                     ApplicationUser newUser = new ApplicationUser
                     {
                         UserName = "sTestUser" + i,
@@ -195,9 +201,8 @@ namespace RedRiverChatServer
                         FirstName = "sTestUser" + i,
                         Surname = "User"
                     };
-
-                    var result = userManager.CreateAsync(newUser, "sTestUser" + i);
-                    result.Wait();
+                    var resultCreateUser = userManager.CreateAsync(newUser, "sTestUser" + i);
+                    resultCreateUser.Wait();
                 }
 
             }

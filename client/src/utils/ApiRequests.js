@@ -81,3 +81,12 @@ export const deleteFriend = (data, token) => {
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })
 }
+
+export const uploadProfilePicture = (data, token) => {
+  return axios({
+    method: 'post',
+    url: localOrAzureUrl + '/api/user/uploadimage',
+    data: data,
+    headers: {'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + token}
+  })
+}

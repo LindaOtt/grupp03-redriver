@@ -291,7 +291,7 @@ class App extends Component {
                       <Route path='/' exact component={() => <UserAccount state={this.state} />} />
                       <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
                       <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
-                      <Route path='/settings' component={() => <Settings state={this.state} />} />
+                      <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
                       <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />
                       <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
                       <Route path='/password' component={() => <NewPassword state={this.state} />} />
