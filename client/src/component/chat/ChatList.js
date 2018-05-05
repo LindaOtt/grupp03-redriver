@@ -177,8 +177,6 @@ class ChatList extends Component {
   renderChatList () {
     let listArray = []
 
-    console.log(this.props.state)
-
     for (let i = 0; i < chatMockups.length; i++) {
       listArray.push(
         <Paper style={ChatListStyles.paper} elevation={1} key={chatMockups[i].name}>
