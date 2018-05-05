@@ -208,12 +208,7 @@ class App extends Component {
       return verifyJWT(token)
         .then((response) => {
 
-          this.setState({ signalRConnection: createSignalR(token) }, () => {
-            this.state.signalRConnection
-              .start()
-              .then(() => console.log('Connection started!'))
-              .catch(err => console.log('Error while establishing connection'));
-          });
+          initChat(token)
 
           this.setState({
             token: token,
