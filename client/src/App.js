@@ -85,6 +85,7 @@ class App extends Component {
    */
 
   userLogin (token) {
+    sessionStorage.setItem('settingsPanel', JSON.stringify(false))
     this.verifyToken(token)
   }
 
@@ -95,10 +96,14 @@ class App extends Component {
      */
 
     openSnackBar = (message) => {
-      this.setState({
-        snackBar: true,
-        snackBarMessage: message
-      })
+      verifyJWT(this.state.token)
+        .then((response) => {
+          this.setState({
+            snackBar: true,
+            snackBarMessage: message,
+            userInfo: response.data
+          })
+        })
 
       setTimeout(() => {
         this.closeSnackBar()
@@ -192,6 +197,7 @@ class App extends Component {
      */
 
     toggleMenu = (open) => () => {
+      sessionStorage.setItem('settingsPanel', JSON.stringify(false))
       this.setState({
         menu: open
       })
@@ -207,14 +213,12 @@ class App extends Component {
     verifyToken (token) {
       return verifyJWT(token)
         .then((response) => {
-
-          initChat(token)
-
           this.setState({
             token: token,
             isSignedIn: true,
             userInfo: response.data,
-            loaded: true
+            loaded: true,
+            signalRConnection: initChat(token)
           })
         }).catch(() => {
           this.setState({
@@ -231,6 +235,7 @@ class App extends Component {
      */
 
     componentWillMount () {
+      sessionStorage.setItem('settingsPanel', JSON.stringify(false))
       if (localStorage.getItem('token')) {
         let token = JSON.parse(localStorage.getItem('token'))
         this.verifyToken(token)

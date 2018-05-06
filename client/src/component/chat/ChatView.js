@@ -52,7 +52,6 @@ class ChatView extends Component {
    */
 
   handleSubmit (e) {
-
     let tempMessage = {
       name: 'You',
       message: this.state.newMessage

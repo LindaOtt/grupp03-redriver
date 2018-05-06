@@ -34,7 +34,6 @@ class SettingsUser extends Component {
     super(props)
 
     this.state = {
-      expanded: null,
       notificationToggle: false
     }
   }
@@ -49,6 +48,7 @@ class SettingsUser extends Component {
       this.setState({
         expanded: expanded ? panel : false
       })
+      expanded ? sessionStorage.setItem('settingsPanel', JSON.stringify(panel)) : sessionStorage.setItem('settingsPanel', JSON.stringify(false))
     };
 
     /**
@@ -60,6 +60,20 @@ class SettingsUser extends Component {
     handleNotificationChange = name => event => {
       this.setState({ [name]: event.target.checked })
     };
+
+    componentWillUnmount () {
+      sessionStorage.setItem('settingsPanel', JSON.stringify(this.state.expanded))
+    }
+
+    componentWillUpdate () {
+      if (this.state.expanded === JSON.parse(sessionStorage.getItem('settingsPanel'))) {
+        return
+      }
+      this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
+    }
+    componentWillMount () {
+      this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
+    }
 
     render () {
       const { expanded } = this.state
@@ -91,7 +105,7 @@ class SettingsUser extends Component {
                 <ChangePassword state={this.props.state} />
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
+            <ExpansionPanel CollapseProps={{ unmountOnExit: true }} expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography >Ändra profilbild</Typography>
               </ExpansionPanelSummary>

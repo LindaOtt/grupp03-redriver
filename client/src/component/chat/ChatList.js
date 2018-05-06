@@ -19,7 +19,6 @@ import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
-import Toolbar from 'material-ui/Toolbar'
 import { CircularProgress } from 'material-ui/Progress'
 
 // Import Icons
@@ -147,14 +146,14 @@ class ChatList extends Component {
     groupArray = groupArray.sort()
     let groupName = groupArray.toString()
     console.log(groupName)
-    // console.log(groupName.split(','))
+    console.log(groupName.split(','))
 
-    /*createChatGroup(groupName, this.props.state.token)
+    createChatGroup(groupName, this.props.state.signalRConnection)
       .then((response) => {
         console.log(response)
       }).catch((err) => {
         console.log(err)
-      })*/
+      })
   }
 
   /**

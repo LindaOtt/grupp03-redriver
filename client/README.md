@@ -25,3 +25,15 @@ To run the automated tests:
 ```
 npm test
 ```
+
+Run Standard.js to check for lint errors:
+
+```
+npm run lint
+```
+
+Fix lint errors:
+
+```
+npm run lint-fix
+```
