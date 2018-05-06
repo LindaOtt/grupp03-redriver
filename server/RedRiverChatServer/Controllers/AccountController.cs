@@ -41,15 +41,14 @@ namespace RedRiverChatServer.Controllers
         public async Task<object> Register([FromBody] RegisterModel model)
         {
             //Check to see if model is missing required fields
-            if( model.UserName==null ||
-                model.Email==null ||
-                model.Password == null ||
-                model.FirstName == null ||
-                model.Surname == null
-                )
+
+            var initialResult = BuildIdentityResultForRegister(model);
+            if ( !initialResult.Succeeded)
             {
-                return BadRequest(new { response = "Required field missing. Username, email, password, firstname and surname must be present." });
+              //  var initialResult =IdentityResult.Failed(BuildIdentityErrorArray(model));
+                return BadRequest(new { initialResult.Errors });
             }
+
             var config = new MapperConfiguration(cfg => {
 
                 cfg.CreateMap<RegisterModel, ApplicationUser>();
@@ -198,6 +197,58 @@ namespace RedRiverChatServer.Controllers
               signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private IdentityResult BuildIdentityResultForRegister(RegisterModel model)
+        {
+            var result = new IdentityResult();
+
+            var errorsList = new List<IdentityError>();
+
+            //Check to see if model is missing required fields
+            if (model.UserName == null)
+            {
+                var error = new IdentityError();
+                error.Code = "MissingUsername";
+                error.Description = "Required field missing. Username must be present.";
+                errorsList.Add(error);
+            }
+
+            if (model.Email == null)
+            {
+                var error = new IdentityError();
+                error.Code = "MissingEmail";
+                error.Description = "Required field missing. Email must be present.";
+                errorsList.Add(error);
+            }
+
+            if (model.Password == null)
+            {
+                var error = new IdentityError();
+                error.Code = "MissingPassword";
+                error.Description = "Required field missing. Password must be present.";
+                errorsList.Add(error);
+            }
+
+            if (model.FirstName == null)
+            {
+                var error = new IdentityError();
+                error.Code = "MissingFirstName";
+                error.Description = "Required field missing. Firstname must be present.";
+                errorsList.Add(error);
+            }
+
+            if (model.Surname == null)
+            {
+                var error = new IdentityError();
+                error.Code = "MissingSurname";
+                error.Description = "Required field missing. Surname must be present.";
+                errorsList.Add(error);
+            }
+
+            if (errorsList.Count == 0) { result= IdentityResult.Success; }
+            else { result = IdentityResult.Failed(errorsList.ToArray()); }
+            return result;
         }
     }
 }
