@@ -209,6 +209,9 @@ namespace RedRiverChatServer.Controllers
                     //Concating FileName + FileExtension
                     newFileName = uniqueFileName + FileExtension;
 
+                    //Concating FileName + FileExtension for AvatarUrl
+                    tempFileName = uniqueFileName + FileExtension;
+
                     //Combines two strings into a path
                     fileName = Path.Combine(_environment.WebRootPath, "images") + $@"/{newFileName}";
 
@@ -216,7 +219,7 @@ namespace RedRiverChatServer.Controllers
                     PathDB = "images/" + newFileName;
 
                     //Set users avatar to the uploaded file
-                    user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + newFileName;
+                    user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + tempFileName;
 
                     await _userManager.UpdateAsync(user);
 
