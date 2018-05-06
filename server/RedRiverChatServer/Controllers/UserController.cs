@@ -187,6 +187,7 @@ namespace RedRiverChatServer.Controllers
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
 
             var newFileName = string.Empty;
+            var tempFileName = string.Empty;
 
             if (HttpContext.Request.Form.Files != null)
             {
