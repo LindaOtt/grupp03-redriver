@@ -104,6 +104,28 @@ namespace RedRiverChatServer.Controllers
             }
         }
 
+        public ActionResult Groups()
+        {
+
+            string name = GetNameFromClaim();
+            var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
+
+            if (user != null)
+            {
+                var result = context.ApplicationUserConversationRooms.Where(c => c.ApplicationUserId == user.Id);
+                List<string> resultList = new List<string>();
+                foreach (var r in result)
+                {
+                    resultList.Add(r.RoomName);
+                }
+                return Ok(new { groupList = resultList });
+            }
+            else
+            {
+                return NotFound(new { groupList = "User not found" });
+            }
+        }
+
         /// <summary>
         /// Adds two friendship entries to Friendship database table - one
         /// friendship in each direction.
