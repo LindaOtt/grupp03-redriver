@@ -49,8 +49,6 @@ class ChangeProfilePicture extends Component {
    */
 
   renderAvatar() {
-
-    console.log(this.state)
     if (this.props.state.userInfo.avatarUrl) {
 
       return <img align='center' src={this.state.avatarUrl} alt='Current profile picture' width='200'/>
@@ -59,8 +57,13 @@ class ChangeProfilePicture extends Component {
     }
   }
 
-  checkImageSize() {
+  /**
+   *  Check image size and return error if to large.
+   *
+   *  @author Jimmy
+   */
 
+  checkImageSize() {
     return new Promise((resolve, reject) => {
       let tempImg = new Image()
       tempImg.onload = () => {
@@ -101,12 +104,10 @@ class ChangeProfilePicture extends Component {
 
           uploadProfilePicture(formData, this.props.state.token)
             .then((response) => {
-              console.log(response)
               this.setState({
                 avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now(),
                 uploaded: true,
               })
-              console.log(this.state)
               return this.props.openSnackBar('Bilden laddades upp!')
             }).catch((err) => {
             return this.props.openSnackBar('Något gick fel. Försök igen!')
