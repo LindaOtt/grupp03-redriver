@@ -68,14 +68,7 @@ namespace RedRiverChatServer.Controllers
          
             string name = GetNameFromClaim();
 
-            /*  var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
-              context.Entry(user)
-              .Collection(b => b.Friendships)
-              .Load();*/
-
             var user = context.Users.Include(u => u.Friendships).SingleOrDefault(u => u.UserName == name);
-
-
 
             if (user !=null)
             {
@@ -112,7 +105,7 @@ namespace RedRiverChatServer.Controllers
                 {
                     var friendResult = context.Users.FirstOrDefault(c => c.Id == r.FriendId);
 
-                    var strippedUser = iMapper.Map<ApplicationUser, FriendInfoModel>(user);
+                    var strippedUser = iMapper.Map<ApplicationUser, FriendInfoModel>(friendResult);
                     resultList.Add(strippedUser);
                 }
                 return Ok(new { friendList = resultList });
@@ -261,8 +254,6 @@ namespace RedRiverChatServer.Controllers
                     PathDB = "images/" + newFileName;
 
                     //Set users avatar to the uploaded file
-                 //   string host = $"{Request.Scheme}://{Request.Host}";
-                 //   string randomFileName = Path.GetRandomFileName().Replace(".",string.Empty);
                     user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + tempFileName;
 
                     await _userManager.UpdateAsync(user);
