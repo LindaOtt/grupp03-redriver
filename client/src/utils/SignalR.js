@@ -1,7 +1,7 @@
 import {AzureServerUrl, LocalServerUrl} from './Config'
 import { HubConnection } from '@aspnet/signalr'
 
-const chatServerUrl = LocalServerUrl + '/chat'
+const chatServerUrl = AzureServerUrl + '/chat'
 
 export const createSignalR = (token) => {
   console.log('Connect to signalr')
