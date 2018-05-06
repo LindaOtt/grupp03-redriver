@@ -19,7 +19,6 @@ import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
-import Toolbar from 'material-ui/Toolbar'
 import { CircularProgress } from 'material-ui/Progress'
 
 // Import Icons

@@ -61,27 +61,23 @@ class SettingsUser extends Component {
       this.setState({ [name]: event.target.checked })
     };
 
-  componentWillUnmount() {
-    console.log('unmount')
-    sessionStorage.setItem('settingsPanel', JSON.stringify(this.state.expanded))
-  }
-
-  componentWillUpdate() {
-    console.log('update')
-    if (this.state.expanded === JSON.parse(sessionStorage.getItem('settingsPanel'))) {
-      return
+    componentWillUnmount () {
+      sessionStorage.setItem('settingsPanel', JSON.stringify(this.state.expanded))
     }
-    this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
-  }
-  componentWillMount() {
-    console.log('mount')
-    this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
-  }
+
+    componentWillUpdate () {
+      if (this.state.expanded === JSON.parse(sessionStorage.getItem('settingsPanel'))) {
+        return
+      }
+      this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
+    }
+    componentWillMount () {
+      this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
+    }
 
     render () {
       const { expanded } = this.state
 
-      console.log(expanded)
       return (
         <div className='SettingsUser'>
           <Typography

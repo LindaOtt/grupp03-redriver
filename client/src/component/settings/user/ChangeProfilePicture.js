@@ -9,8 +9,7 @@ import { CircularProgress } from 'material-ui/Progress'
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
-import {AzureServerUrl, LocalServerUrl} from '../../../utils/Config'
-import {uploadProfilePicture, verifyJWT} from '../../../utils/ApiRequests'
+import {uploadProfilePicture} from '../../../utils/ApiRequests'
 import profilePhoto from '../../../temp/user.jpg'
 
 /**
@@ -26,7 +25,7 @@ class ChangeProfilePicture extends Component {
     this.state = {
       file: null,
       uploaded: true,
-      avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now(),
+      avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now()
     }
   }
 
@@ -48,14 +47,13 @@ class ChangeProfilePicture extends Component {
    *  @author Jimmy
    */
 
-  renderAvatar() {
-    if (this.props.state.userInfo.avatarUrl) {
-
-      return <img align='center' src={this.state.avatarUrl} alt='Current profile picture' width='200'/>
-    } else {
-      return <img align='center' src={profilePhoto} alt='Current profile picture' width='200'/>
+    renderAvatar () {
+      if (this.props.state.userInfo.avatarUrl) {
+        return <img align='center' src={this.state.avatarUrl} alt='Current profile picture' width='200' />
+      } else {
+        return <img align='center' src={profilePhoto} alt='Current profile picture' width='200' />
+      }
     }
-  }
 
   /**
    *  Check image size and return error if to large.
@@ -63,23 +61,24 @@ class ChangeProfilePicture extends Component {
    *  @author Jimmy
    */
 
-  checkImageSize() {
-    return new Promise((resolve, reject) => {
-      let tempImg = new Image()
-      tempImg.onload = () => {
-        if (tempImg.height > 800 || tempImg.width > 800) {
-          reject()
+    checkImageSize () {
+      return new Promise((resolve, reject) => {
+        let tempImg = new Image()
+        tempImg.onload = () => {
+          if (tempImg.height > 800 || tempImg.width > 800) {
+            reject()
+          }
+          resolve()
         }
-        resolve()
-      }
-      tempImg.src = window.URL.createObjectURL( this.state.file );
-    })
-  }
+        tempImg.src = window.URL.createObjectURL(this.state.file)
+      })
+    }
 
     /**
      *  Handle submit-button for change profile picture
      *
      *  @author Sofia
+     *  @update Jimmy (Added validation for image size and type)
      */
 
     handleSubmit () {
@@ -99,36 +98,36 @@ class ChangeProfilePicture extends Component {
             avatarUrl: null
           })
 
-          const formData = new FormData();
-          formData.append('file', this.state.file);
+          const formData = new FormData()
+          formData.append('file', this.state.file)
 
           uploadProfilePicture(formData, this.props.state.token)
             .then((response) => {
               this.setState({
                 avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now(),
-                uploaded: true,
+                uploaded: true
               })
               return this.props.openSnackBar('Bilden laddades upp!')
             }).catch((err) => {
-            return this.props.openSnackBar('Något gick fel. Försök igen!')
-          })
+              return this.props.openSnackBar('Något gick fel. Försök igen!')
+            })
         })
         .catch(() => {
           this.setState({ file: null })
-          return this.props.openSnackBar('Den uppladdade bilden får inte vara högre eller bredare än 800 pixlar!')
+          return this.props.openSnackBar('Den uppladdade bildens höjd och bredd får inte överstiga 800 pixlar!')
         })
     }
 
     render () {
       return (
         <div className='PictureDetails'>
-        <Typography
-          variant='subheading'
-          color='default'
-          align='center'
-        >
+          <Typography
+            variant='subheading'
+            color='default'
+            align='center'
+          >
           Din nuvarande profilbild:
-        </Typography>
+          </Typography>
           {this.state.uploaded ? (
             <div>
               {this.renderAvatar()}
@@ -138,15 +137,15 @@ class ChangeProfilePicture extends Component {
               <CircularProgress />
             </div>
           )}
-        <br/>
-        <br/>
-        <Typography
-          variant='subheading'
-          color='default'
-          align='center'
-        >
+          <br />
+          <br />
+          <Typography
+            variant='subheading'
+            color='default'
+            align='center'
+          >
           Välj en bild att ladda upp som din profilbild:
-        </Typography>
+          </Typography>
           <input
             align='center'
             accept='image/*'
