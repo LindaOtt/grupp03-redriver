@@ -216,7 +216,7 @@ namespace RedRiverChatServer.Controllers
                     PathDB = "images/" + newFileName;
 
                     //Set users avatar to the uploaded file
-                    user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + fileName;
+                    user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + newFileName;
 
                     await _userManager.UpdateAsync(user);
 
