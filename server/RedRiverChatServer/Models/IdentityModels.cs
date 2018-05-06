@@ -36,8 +36,9 @@ namespace RedRiverChatServer.Models
 
     public class Friendship
     { 
-        public int FriendshipId { get; set; }
+
         public string FriendUsername { get; set; }
+        [ForeignKey("ApplicationUserId")]
         public string FriendId { get; set; }
        
         [ForeignKey("ApplicationUserId")]
@@ -102,6 +103,19 @@ namespace RedRiverChatServer.Models
         public string TelephoneNumber { get; set; }
         public string AvatarUrl { get; set; }
         public ICollection<Friendship> Friendships { get; set; }
+
+    }
+
+
+    public class FriendInfoModel
+    {
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string AvatarUrl { get; set; }
 
     }
 

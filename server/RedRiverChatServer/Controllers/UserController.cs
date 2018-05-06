@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RedRiverChatServer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace RedRiverChatServer.Controllers
 {
@@ -30,7 +31,9 @@ namespace RedRiverChatServer.Controllers
         private UserManager<ApplicationUser> _userManager;
         //DBContext used to access database.
         private ApplicationDbContext context;
-
+        //
+        private MapperConfiguration applicationUserUserInfoconfig;
+        private MapperConfiguration applicationUserFriendInfoconfig;
         /// <summary>
         ///  ASP.NET injects the UserManager and ApplicationDBContext if they are passed as parameters
         ///  in the constructor function
@@ -40,6 +43,18 @@ namespace RedRiverChatServer.Controllers
             _environment = IHostingEnvironment;
             _userManager = userManager;
             this.context = context;
+
+            applicationUserUserInfoconfig = new MapperConfiguration(cfg => {
+
+                cfg.CreateMap<ApplicationUser, UserInfoModel>();
+
+            });
+
+            applicationUserFriendInfoconfig = new MapperConfiguration(cfg => {
+
+                cfg.CreateMap<ApplicationUser, FriendInfoModel>();
+
+            });
         }
 
         /// <summary>
@@ -50,22 +65,21 @@ namespace RedRiverChatServer.Controllers
         [HttpGet, Authorize]
         public ActionResult GetUserInfo()
         {
-            var config = new MapperConfiguration(cfg => {
-
-                cfg.CreateMap<ApplicationUser, UserInfoModel>();
-
-            });
-
+         
             string name = GetNameFromClaim();
 
-            var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
-            context.Entry(user)
-            .Collection(b => b.Friendships)
-            .Load();
+            /*  var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
+              context.Entry(user)
+              .Collection(b => b.Friendships)
+              .Load();*/
+
+            var user = context.Users.Include(u => u.Friendships).SingleOrDefault(u => u.UserName == name);
+
+
 
             if (user !=null)
             {
-                IMapper iMapper = config.CreateMapper();
+                IMapper iMapper = applicationUserUserInfoconfig.CreateMapper();
 
                 var strippedUser = iMapper.Map<ApplicationUser, UserInfoModel>(user);
                 return Ok(strippedUser) ;
@@ -90,11 +104,16 @@ namespace RedRiverChatServer.Controllers
 
             if (user != null)
             {
+
+                IMapper iMapper = applicationUserFriendInfoconfig.CreateMapper();
                 var result = context.Friendship.Where(c => c.ApplicationUserId == user.Id);
-                List<string> resultList = new List<string>();
+                List<FriendInfoModel> resultList = new List<FriendInfoModel>();
                 foreach (var r in result)
                 {
-                    resultList.Add(r.FriendUsername);
+                    var friendResult = context.Users.FirstOrDefault(c => c.Id == r.FriendId);
+
+                    var strippedUser = iMapper.Map<ApplicationUser, FriendInfoModel>(user);
+                    resultList.Add(strippedUser);
                 }
                 return Ok(new { friendList = resultList });
             }
@@ -203,7 +222,7 @@ namespace RedRiverChatServer.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost, Authorize]
-        public async Task<ActionResult> UploadImage()
+        public async Task<ActionResult> UploadImage(IFormFile fileToUpload)
         {
             string name = GetNameFromClaim();
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
@@ -242,6 +261,8 @@ namespace RedRiverChatServer.Controllers
                     PathDB = "images/" + newFileName;
 
                     //Set users avatar to the uploaded file
+                 //   string host = $"{Request.Scheme}://{Request.Host}";
+                 //   string randomFileName = Path.GetRandomFileName().Replace(".",string.Empty);
                     user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + tempFileName;
 
                     await _userManager.UpdateAsync(user);
