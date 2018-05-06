@@ -95,10 +95,14 @@ class App extends Component {
      */
 
     openSnackBar = (message) => {
-      this.setState({
-        snackBar: true,
-        snackBarMessage: message
-      })
+      verifyJWT(this.state.token)
+        .then((response) => {
+          this.setState({
+            snackBar: true,
+            snackBarMessage: message,
+            userInfo: response.data
+          })
+        })
 
       setTimeout(() => {
         this.closeSnackBar()

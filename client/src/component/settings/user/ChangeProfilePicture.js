@@ -25,7 +25,8 @@ class ChangeProfilePicture extends Component {
 
     this.state = {
       file: null,
-      uploaded: true
+      uploaded: true,
+      avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now(),
     }
   }
 
@@ -49,6 +50,7 @@ class ChangeProfilePicture extends Component {
 
   renderAvatar() {
 
+    console.log(this.state)
     if (this.props.state.userInfo.avatarUrl) {
 
       return <img align='center' src={this.state.avatarUrl} alt='Current profile picture' width='200'/>
@@ -57,53 +59,63 @@ class ChangeProfilePicture extends Component {
     }
   }
 
+  checkImageSize() {
+
+    return new Promise((resolve, reject) => {
+      let tempImg = new Image()
+      tempImg.onload = () => {
+        if (tempImg.height > 800 || tempImg.width > 800) {
+          reject()
+        }
+        resolve()
+      }
+      tempImg.src = window.URL.createObjectURL( this.state.file );
+    })
+  }
+
     /**
      *  Handle submit-button for change profile picture
      *
      *  @author Sofia
      */
 
-    handleSubmit (e) {
+    handleSubmit () {
       if (this.state.file === null) {
         return this.props.openSnackBar('Formuläret ej korrekt ifyllt!')
       }
 
-      this.setState({
-        uploaded: false,
-        avatarUrl: null
-      })
+      if (this.state.file.type !== 'image/jpg' && this.state.file.type !== 'image/jpeg' && this.state.file.type !== 'image/png') {
+        this.setState({ file: null })
+        return this.props.openSnackBar('Den uppladdade bilden måste vara av typen JPG eller PNG!')
+      }
 
-      const formData = new FormData();
-      formData.append('file', this.state.file);
-
-      uploadProfilePicture(formData, this.props.state.token)
-        .then((response) => {
-          this.updateAvatarUrl()
-          return this.props.openSnackBar('Bilden laddades upp!')
-        }).catch((err) => {
-          return this.props.openSnackBar('Något gick fel. Försök igen!')
-        })
-    }
-
-  /**
-   * Update picture after a new is uploaded.
-   *
-   *  @author Jimmy
-   */
-
-    updateAvatarUrl() {
-      verifyJWT(this.props.state.token)
-        .then((response) => {
-          console.log(response)
+      this.checkImageSize()
+        .then(() => {
           this.setState({
-            avatarUrl: response.data.avatarUrl,
-            uploaded: true
+            uploaded: false,
+            avatarUrl: null
+          })
+
+          const formData = new FormData();
+          formData.append('file', this.state.file);
+
+          uploadProfilePicture(formData, this.props.state.token)
+            .then((response) => {
+              console.log(response)
+              this.setState({
+                avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now(),
+                uploaded: true,
+              })
+              console.log(this.state)
+              return this.props.openSnackBar('Bilden laddades upp!')
+            }).catch((err) => {
+            return this.props.openSnackBar('Något gick fel. Försök igen!')
           })
         })
-    }
-
-    componentWillMount() {
-      this.updateAvatarUrl()
+        .catch(() => {
+          this.setState({ file: null })
+          return this.props.openSnackBar('Den uppladdade bilden får inte vara högre eller bredare än 800 pixlar!')
+        })
     }
 
     render () {
@@ -143,7 +155,7 @@ class ChangeProfilePicture extends Component {
             onChange={this.handleChange('file')}
           />
           <label htmlFor='raised-button-file'>
-            <Button variant='raised' onClick={(e) => this.handleSubmit(e)}>
+            <Button variant='raised' onClick={() => this.handleSubmit()}>
               Upload
             </Button>
           </label>
