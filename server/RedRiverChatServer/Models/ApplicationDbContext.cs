@@ -30,6 +30,9 @@ namespace RedRiverChatServer.Models
             builder.Entity<ApplicationUserConversationRoom>()
                  .HasKey(t => new { t.ApplicationUserId, t.RoomName });
 
+            builder.Entity<Friendship>()
+                 .HasKey(t => new { t.ApplicationUserId, t.FriendId });
+
             base.OnModelCreating(builder);
         }
     }
