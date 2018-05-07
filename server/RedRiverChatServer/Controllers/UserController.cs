@@ -235,8 +235,8 @@ namespace RedRiverChatServer.Controllers
                     //Getting FileName
                     fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
-                    //Assigning users name as FileName
-                    var uniqueFileName = name;
+                    //Assigning GUID as FileName
+                    var uniqueFileName = Guid.NewGuid().ToString();
 
                     //Getting file Extension
                     var FileExtension = Path.GetExtension(fileName);
@@ -253,8 +253,11 @@ namespace RedRiverChatServer.Controllers
                     //If you want to store path to folder in database
                     PathDB = "images/" + newFileName;
 
+                    var request = Request;
+
+
                     //Set users avatar to the uploaded file
-                    user.AvatarUrl = "https://serverredriver.azurewebsites.net/images/" + tempFileName;
+                    user.AvatarUrl = $"{Request.Scheme}://{Request.Host}/images/{tempFileName}";
 
                     await _userManager.UpdateAsync(user);
 
