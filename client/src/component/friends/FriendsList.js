@@ -213,7 +213,7 @@ class FriendsList extends Component {
                   {this.renderLargeFriendsList()}
                 </div>
                 <div className='FriendsList-Inner-Large-Content'>
-                  {this.state.friendsUsername ? (
+                  {this.state.friendsData ? (
                     <FriendsView state={this.props.state}
                       friendsData={this.state.friendsData}
                       openSnackBar={this.props.openSnackBar}
