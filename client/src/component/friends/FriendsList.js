@@ -47,6 +47,7 @@ class FriendsList extends Component {
       isLoaded: false,
       dialog: false
     }
+    this.renderAvatar = this.renderAvatar.bind(this)
   }
 
   /**
@@ -57,7 +58,7 @@ class FriendsList extends Component {
 
   handleFriendClick (username) {
     this.setState({
-      friendsUsername: username
+      friendsData: username
     })
   }
 
@@ -76,6 +77,20 @@ class FriendsList extends Component {
   };
 
   /**
+   *  Render image tag for profile picture. A default picture renders if image url is null.
+   *
+   *  @author Jimmy
+   */
+
+  renderAvatar (data) {
+    if (data.avatarUrl) {
+      return <Avatar alt='Profile picture' src={data.avatarUrl} style={friendsListStyles.avatar} />
+    } else {
+      return <Avatar alt='Profile picture' src={profilePhoto} style={friendsListStyles.avatar} />
+    }
+  }
+
+  /**
    *  Render list of friends
    *
    *  @author Jimmy
@@ -86,8 +101,8 @@ class FriendsList extends Component {
 
     for (let i = 0; i < this.state.friends.length; i++) {
       listArray.push(
-        <Paper style={friendsListStyles.paper} elevation={1} key={this.state.friends[i]}>
-          <Avatar alt='Profile picture' src={profilePhoto} style={friendsListStyles.avatar} />
+        <Paper style={friendsListStyles.paper} elevation={1} key={this.state.friends[i].username}>
+          {this.renderAvatar(this.state.friends[i])}
           <Typography
             style={friendsListStyles.friendsName}
             variant='headline'
@@ -97,7 +112,7 @@ class FriendsList extends Component {
               return this.handleDialogOpen()
             })}
           >
-            {this.state.friends[i]}
+            {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat'>
             <ChatIcon />
@@ -125,16 +140,16 @@ class FriendsList extends Component {
       listArray.push(
         <Paper style={friendsListStyles.paper}
           elevation={1}
-          key={this.state.friends[i]}
+          key={this.state.friends[i].surname}
         >
-          <Avatar alt='Profile picture' src={profilePhoto} style={friendsListStyles.avatar} />
+          {this.renderAvatar(this.state.friends[i])}
           <Typography
             style={friendsListStyles.friendsName}
             variant='headline'
             component='h3'
             onClick={() => this.handleFriendClick(this.state.friends[i])}
           >
-            {this.state.friends[i]}
+            {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat'>
             <ChatIcon />
@@ -200,7 +215,7 @@ class FriendsList extends Component {
                 <div className='FriendsList-Inner-Large-Content'>
                   {this.state.friendsUsername ? (
                     <FriendsView state={this.props.state}
-                      friendsUsername={this.state.friendsUsername}
+                      friendsData={this.state.friendsData}
                       openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
@@ -223,7 +238,7 @@ class FriendsList extends Component {
                 </IconButton>
               </Toolbar>
               <FriendsView state={this.props.state}
-                friendsUsername={this.state.friendsUsername}
+                friendsData={this.state.friendsData}
                 openSnackBar={this.props.openSnackBar}
               />
             </Dialog>

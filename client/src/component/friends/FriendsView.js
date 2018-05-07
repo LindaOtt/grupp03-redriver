@@ -34,6 +34,24 @@ class FriendsView extends Component {
   }
 
   /**
+   *  Render image tag for profile picture. A default picture renders if image url is null.
+   *
+   *  @author Jimmy
+   */
+
+  renderAvatar () {
+    if (this.props.friendsData.avatarUrl) {
+      return <img onError={this.onImageError} className='FriendsView-Avatar' src={this.props.friendsData.avatarUrl} height='300' width='300' />
+    } else {
+      return <img onError={this.onImageError} className='FriendsView-Avatar' src={profilePhoto} height='300' width='300' />
+    }
+  }
+
+  onImageError(ev){
+    ev.target.src = profilePhoto
+  }
+
+  /**
    *  Delete friend when button is clicked.
    *
    *  @author Jimmy
@@ -61,14 +79,14 @@ class FriendsView extends Component {
           align='left'
           style={friendsViewStyles.title}
         >
-          {this.props.friendsUsername}
+          {this.props.friendsData.username}
         </Typography>
-        <img className='FriendsView-Avatar' src={profilePhoto} height='200' width='200' />
+        {this.renderAvatar()}
         <Button onClick={this.handleDeleteButton}
           style={friendsViewStyles.deleteButton}
           color='secondary'
         >
-          Ta bort {this.props.friendsUsername} från din vänlista
+          Ta bort {this.props.friendsData.username} från din vänlista
         </Button>
       </div>
     )
