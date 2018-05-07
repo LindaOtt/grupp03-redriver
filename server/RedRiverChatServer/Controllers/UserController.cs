@@ -215,7 +215,7 @@ namespace RedRiverChatServer.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost, Authorize]
-        public async Task<ActionResult> UploadImage(IFormFile fileToUpload)
+        public async Task<ActionResult> UploadImage()
         {
             string name = GetNameFromClaim();
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == name);
