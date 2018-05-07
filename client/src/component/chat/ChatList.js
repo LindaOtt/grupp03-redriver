@@ -297,7 +297,9 @@ class ChatList extends Component {
                 <DialogContentText id='alert-dialog-description'>
                   Lägg till vänner som ska delta i chatten:
                 </DialogContentText>
-                <FormControl className='ChatList-FormControl'>
+                <FormControl style={ChatListStyles.formControl}
+                             fullWidth={true}
+                >
                   <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
                   <Select
                     multiple
@@ -312,16 +314,16 @@ class ChatList extends Component {
                   >
                     {this.state.friends.map(name => (
                       <MenuItem
-                        key={name}
-                        value={name}
+                        key={name.username}
+                        value={name.username}
                         style={{
                           fontWeight:
-                            this.state.friends.indexOf(name) === -1
+                            this.state.friends.indexOf(name.username) === -1
                               ? theme.typography.fontWeightRegular
                               : theme.typography.fontWeightMedium
                         }}
                       >
-                        {name}
+                        {name.username}
                       </MenuItem>
                     ))}
                   </Select>
