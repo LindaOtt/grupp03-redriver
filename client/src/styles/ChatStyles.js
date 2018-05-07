@@ -18,7 +18,7 @@ export const ChatListStyles = {
     },
     formControl: {
       margin: theme.spacing.unit,
-      minWidth: 120,
+      minWidth: 200,
       maxWidth: 300
     },
     chips: {
