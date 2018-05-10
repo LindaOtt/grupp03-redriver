@@ -183,10 +183,27 @@ class ChatView extends Component {
     return listArray
   }
 
+  /**
+   *  Get avatar for chatmessages.
+   *
+   *  @author Jimmy
+   */
+
+  getAvatar = (username) => {
+    this.props.friends.forEach((i) => {
+      if (i.username === username) {
+        return i.avatarUrl
+      } else {
+        return null
+      }
+    })
+  }
+
   chatInit () {
     let tempArray = []
     this.setState({messages: []})
 
+    console.log(this.props)
     getChatMessages(this.props.state.token, this.props.chatContent)
       .then((response) => {
         console.log(response)
@@ -195,7 +212,8 @@ class ChatView extends Component {
             let tempObj = {
               name: response.data[i].username,
               message: response.data[i].message,
-              date: response.data[i].timeStamp
+              date: response.data[i].timeStamp,
+              avatar: this.getAvatar(response.data[i].username)
             }
 
             tempArray.push(tempObj)

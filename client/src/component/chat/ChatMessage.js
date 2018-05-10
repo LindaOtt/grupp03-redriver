@@ -25,12 +25,28 @@ class ChatMessage extends Component {
     }
   }
 
+  renderAvatar = () => {
+    if (this.props.state.userInfo.avatarUrl) {
+      return this.props.state.userInfo.avatarUrl
+    } else {
+      return profilePhoto
+    }
+  }
+
+  renderFriendAvatar = () => {
+    if (this.props.message.avatar) {
+      return this.props.message.avatar
+    } else {
+      return profilePhoto
+    }
+  }
+
   renderMessage () {
     if (this.props.message.name === this.props.state.userInfo.username) {
       return (
         <div className='ChatMessage-Self'>
           <div className='ChatBubble-Self'>
-            <Avatar alt='Profile picture' src={profilePhoto} style={ChatMessageStyles.avatar} />
+            <Avatar alt='Profile picture' src={this.renderAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-inside'>
               <Typography>{this.props.message.message}</Typography>
             </div>
@@ -40,7 +56,7 @@ class ChatMessage extends Component {
       return (
         <div className='ChatMessage'>
           <div className='ChatBubble'>
-            <Avatar alt='Profile picture' src={profilePhoto} style={ChatMessageStyles.avatar} />
+            <Avatar alt='Profile picture' src={this.renderFriendAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-inside'>
               <Typography variant='caption'>{this.props.message.name}</Typography>
               <Typography >{this.props.message.message}</Typography>
