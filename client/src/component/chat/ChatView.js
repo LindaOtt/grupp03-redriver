@@ -151,6 +151,7 @@ class ChatView extends Component {
     sendMessageToGroup(this.props.state.signalRConnection, this.props.chatContent, this.state.newMessage)
       .then((response) => {
         this.setState({newMessage: ''})
+        this.chatInit()
       })
       .catch((err) => {
         console.log(err)
@@ -167,15 +168,24 @@ class ChatView extends Component {
 
   renderMessages () {
     let listArray = []
+    let tempArray = this.state.messages
 
-    for (let i = 0; i < this.state.messages.length; i++) {
+    console.log(tempArray)
+
+    tempArray.sort((a,b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+
+    console.log(tempArray)
+
+    for (let i = 0; i < tempArray.length; i++) {
       listArray.push(
-        <ChatMessage key={i} message={this.state.messages[i]} state={this.props.state}/>
+        <ChatMessage key={i} message={tempArray[i]} state={this.props.state}/>
       )
     }
 
     return listArray
-  }cd
+  }
 
   chatInit () {
     let tempArray = []
@@ -194,6 +204,7 @@ class ChatView extends Component {
 
             tempArray.push(tempObj)
           }
+          console.log(tempArray)
           return this.setState({
             loaded: true,
             messages: tempArray
@@ -211,12 +222,10 @@ class ChatView extends Component {
   }
 
   componentDidMount () {
+    this.props.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
+      this.chatInit()
+    })
     this.chatInit()
-    console.log(this.props)
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.chatInit(nextProps.chatContent.messages)
   }
 
   render () {
