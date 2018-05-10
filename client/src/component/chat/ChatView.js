@@ -109,7 +109,7 @@ class ChatView extends Component {
     for (let i = 0; i < this.state.selectedFriends.length; i++) {
       addUserToChat(this.props.state.signalRConnection, this.props.chatContent, this.state.selectedFriends[i])
         .catch((err) => {
-          console.log(err)
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     }
 
@@ -139,6 +139,9 @@ class ChatView extends Component {
         this.deleteDialogClose()
         return this.props.updateComponent()
       })
+      .catch((err) => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
+      })
   };
 
   /**
@@ -154,7 +157,7 @@ class ChatView extends Component {
         this.chatInit()
       })
       .catch((err) => {
-        console.log(err)
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
 
     e.preventDefault()
@@ -199,14 +202,17 @@ class ChatView extends Component {
     })
   }
 
+  /**
+   *  Fetch messages from database
+   *
+   *  @author Jimmy
+   */
+
   chatInit () {
     let tempArray = []
     this.setState({messages: []})
-
-    console.log(this.props)
     getChatMessages(this.props.state.token, this.props.chatContent)
       .then((response) => {
-        console.log(response)
         if (response.data.length >= 0) {
           for (let i = 0; i < response.data.length; i++) {
             let tempObj = {
@@ -218,7 +224,6 @@ class ChatView extends Component {
 
             tempArray.push(tempObj)
           }
-          console.log(tempArray)
           return this.setState({
             loaded: true,
             messages: tempArray
@@ -231,7 +236,7 @@ class ChatView extends Component {
         }
       })
       .catch((err) => {
-        console.log(err)
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
   }
 

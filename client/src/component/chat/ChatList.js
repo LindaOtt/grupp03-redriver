@@ -60,10 +60,8 @@ class ChatList extends Component {
    */
 
   updateComponent = () => {
-    console.log('Update chatlist')
     getGroups(this.props.state.token)
       .then((response) => {
-        console.log(response)
         this.setState({
           isLoaded: true,
           chatDialog: false,
@@ -83,8 +81,6 @@ class ChatList extends Component {
   handleChatClick (name) {
     this.setState({
       chatName: name
-    }, () => {
-      console.log(this.state)
     })
   }
 
@@ -142,7 +138,7 @@ class ChatList extends Component {
       .then((response) => {
         return this.updateComponent()
       }).catch((err) => {
-        console.log(err)
+      return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
   }
 
@@ -207,7 +203,6 @@ class ChatList extends Component {
             variant='headline'
             component='h3'
             onClick={() => {
-              console.log(this.state.groups[i])
               this.handleChatClick(this.state.groups[i])}
             }
           >
@@ -238,7 +233,7 @@ class ChatList extends Component {
           })
         })
         .catch((err) => {
-          console.log(err)
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     })
 
@@ -250,7 +245,6 @@ class ChatList extends Component {
       }).then(() => {
         getGroups(this.props.state.token)
           .then((response) => {
-            console.log(response)
             this.setState({
               isLoaded: true,
               groups: response.data.groupList
@@ -292,6 +286,7 @@ class ChatList extends Component {
                               chatContent={this.state.chatName}
                               updateComponent={this.updateComponent}
                               friends={this.state.friends}
+                              openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
                     <Typography>
@@ -367,6 +362,7 @@ class ChatList extends Component {
                         chatContent={this.state.chatName}
                         updateComponent={this.updateComponent}
                         friends={this.state.friends}
+                        openSnackBar={this.props.openSnackBar}
               />
             </Dialog>
           </div>

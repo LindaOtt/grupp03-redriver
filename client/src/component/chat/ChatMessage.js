@@ -47,7 +47,7 @@ class ChatMessage extends Component {
         <div className='ChatMessage-Self'>
           <div className='ChatBubble-Self'>
             <Avatar alt='Profile picture' src={this.renderAvatar()} style={ChatMessageStyles.avatar} />
-            <div className='ChatBubble-inside'>
+            <div className='ChatBubble-Inside'>
               <Typography variant='caption'>   </Typography>
               <Typography>{this.props.message.message}</Typography>
             </div>
@@ -58,7 +58,7 @@ class ChatMessage extends Component {
         <div className='ChatMessage'>
           <div className='ChatBubble'>
             <Avatar alt='Profile picture' src={this.renderFriendAvatar()} style={ChatMessageStyles.avatar} />
-            <div className='ChatBubble-inside'>
+            <div className='ChatBubble-Inside'>
               <Typography variant='caption'>{this.props.message.name}</Typography>
               <Typography >{this.props.message.message}</Typography>
             </div>
