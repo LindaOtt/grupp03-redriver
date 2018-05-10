@@ -170,13 +170,9 @@ class ChatView extends Component {
     let listArray = []
     let tempArray = this.state.messages
 
-    console.log(tempArray)
-
     tempArray.sort((a,b) => {
       return new Date(b.date) - new Date(a.date);
     });
-
-    console.log(tempArray)
 
     for (let i = 0; i < tempArray.length; i++) {
       listArray.push(
@@ -225,6 +221,7 @@ class ChatView extends Component {
     this.props.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
       this.chatInit()
     })
+
     this.chatInit()
   }
 

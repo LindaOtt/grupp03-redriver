@@ -222,6 +222,21 @@ class ChatList extends Component {
    */
 
   componentDidMount () {
+
+    this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
+      getGroups(this.props.state.token)
+        .then((response) => {
+          console.log(response)
+          this.setState({
+            isLoaded: true,
+            groups: response.data.groupList
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    })
+
     getFriends(this.props.state.token)
       .then((response) => {
         response.data.friendList.forEach((i) => {
