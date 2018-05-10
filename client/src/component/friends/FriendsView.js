@@ -47,7 +47,7 @@ class FriendsView extends Component {
     }
   }
 
-  onImageError(ev){
+  onImageError (ev) {
     ev.target.src = profilePhoto
   }
 

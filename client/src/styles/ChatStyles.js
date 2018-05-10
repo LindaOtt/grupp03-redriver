@@ -41,7 +41,7 @@ export const ChatListStyles = {
     textAlign: 'left',
     marginTop: 6,
     cursor: 'pointer'
-  },
+  }
 }
 
 export const ChatViewStyles = {

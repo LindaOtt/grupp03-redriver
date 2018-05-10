@@ -30,7 +30,7 @@ import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
 import {getFriends, getGroups} from '../../utils/ApiRequests'
-import {createChatGroup, createChatGroupWithUsers} from '../../utils/SignalR'
+import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
 
 /**
@@ -49,7 +49,7 @@ class ChatList extends Component {
       selectedFriends: [],
       isLoaded: false,
       dialog: false,
-      chatDialog: false,
+      chatDialog: false
     }
   }
 
@@ -137,8 +137,8 @@ class ChatList extends Component {
     createChatGroupWithUsers(this.props.state.signalRConnection, groupName, groupArray)
       .then((response) => {
         return this.updateComponent()
-      }).catch((err) => {
-      return this.props.openSnackBar('Något gick fel. Försök igen!')
+      }).catch(() => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
   }
 
@@ -203,7 +203,8 @@ class ChatList extends Component {
             variant='headline'
             component='h3'
             onClick={() => {
-              this.handleChatClick(this.state.groups[i])}
+              this.handleChatClick(this.state.groups[i])
+            }
             }
           >
             {this.state.groups[i]}
@@ -222,7 +223,6 @@ class ChatList extends Component {
    */
 
   componentDidMount () {
-
     this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
       getGroups(this.props.state.token)
         .then((response) => {
@@ -232,7 +232,7 @@ class ChatList extends Component {
             groups: response.data.groupList
           })
         })
-        .catch((err) => {
+        .catch(() => {
           return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     })
@@ -283,10 +283,10 @@ class ChatList extends Component {
                 <div className='ChatList-Inner-Large-Content'>
                   {this.state.chatName ? (
                     <ChatView state={this.props.state}
-                              chatContent={this.state.chatName}
-                              updateComponent={this.updateComponent}
-                              friends={this.state.friends}
-                              openSnackBar={this.props.openSnackBar}
+                      chatContent={this.state.chatName}
+                      updateComponent={this.updateComponent}
+                      friends={this.state.friends}
+                      openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
                     <Typography>
@@ -308,7 +308,7 @@ class ChatList extends Component {
                   Lägg till vänner som ska delta i chatten:
                 </DialogContentText>
                 <FormControl style={ChatListStyles.formControl}
-                             fullWidth={true}
+                  fullWidth
                 >
                   <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
                   <Select
@@ -359,10 +359,10 @@ class ChatList extends Component {
                 <CloseIcon />
               </IconButton>
               <ChatView state={this.props.state}
-                        chatContent={this.state.chatName}
-                        updateComponent={this.updateComponent}
-                        friends={this.state.friends}
-                        openSnackBar={this.props.openSnackBar}
+                chatContent={this.state.chatName}
+                updateComponent={this.updateComponent}
+                friends={this.state.friends}
+                openSnackBar={this.props.openSnackBar}
               />
             </Dialog>
           </div>
