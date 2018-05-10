@@ -191,13 +191,13 @@ class ChatView extends Component {
    */
 
   getAvatar = (username) => {
-    this.props.friends.forEach((i) => {
-      if (i.username === username) {
-        return i.avatarUrl
-      } else {
-        return null
+    let avatar = null
+    for (let i = 0; i < this.props.friends.length; i++) {
+      if (this.props.friends[i].username === username) {
+        avatar = this.props.friends[i].avatarUrl
       }
-    })
+    }
+    return avatar
   }
 
   /**
