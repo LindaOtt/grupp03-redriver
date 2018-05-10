@@ -271,6 +271,7 @@ class ChatList extends Component {
                     <ChatView state={this.props.state}
                               chatContent={this.state.chatName}
                               updateComponent={this.updateComponent}
+                              friends={this.state.friends}
                     />
                   ) : (
                     <Typography>
@@ -345,6 +346,7 @@ class ChatList extends Component {
               <ChatView state={this.props.state}
                         chatContent={this.state.chatName}
                         updateComponent={this.updateComponent}
+                        friends={this.state.friends}
               />
             </Dialog>
           </div>

@@ -69,7 +69,7 @@ export const createChatGroup = (groupName, connection) => {
 }
 
 export const addUserToChat = (connection, group, name) => {
-  return connection.invoke('userAddedToGroup', group, name)
+  return connection.invoke('addClientToGroup', group, name)
 }
 
 export const deleteUserFromChat = (connection, group) => {

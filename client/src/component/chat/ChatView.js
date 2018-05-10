@@ -14,17 +14,23 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton'
+import Input, { InputLabel } from 'material-ui/Input'
+import { MenuItem } from 'material-ui/Menu'
+import { FormControl } from 'material-ui/Form'
+import Select from 'material-ui/Select'
+import Chip from 'material-ui/Chip'
 
 // Import Icons
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
 // Import styles. ChatViewStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {ChatViewStyles} from '../../styles/ChatStyles'
+import {ChatListStyles, ChatViewStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 
 import ChatMessage from './ChatMessage'
-import {deleteUserFromChat} from '../../utils/SignalR'
+import {addUserToChat, createChatGroupWithUsers, deleteUserFromChat} from '../../utils/SignalR'
+import {theme} from '../../styles/Styles'
 
 /**
  *  ChatView-component. View for a single chat.
@@ -41,7 +47,8 @@ class ChatView extends Component {
       loaded: false,
       newMessage: '',
       deleteDialog: false,
-      addDialog: false
+      addDialog: false,
+      selectedFriends: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -81,6 +88,53 @@ class ChatView extends Component {
   addDialogClose = () => {
     this.setState({ addDialog: false });
   };
+
+  /**
+   *  Handle add friends to chat.
+   *
+   *  @author Jimmy
+   */
+
+  handleFriendsSelect = event => {
+    this.setState({ selectedFriends: event.target.value })
+  }
+
+  /**
+   *  Add friend to chat
+   *
+   *  @author Jimmy
+   */
+
+  addUsersToChat = () => {
+    console.log(this.state)
+    console.log(this.props)
+
+
+    for (let i = 0; i < this.state.selectedFriends.length; i++) {
+      console.log(this.state.selectedFriends[i])
+      console.log(this.props.chatContent)
+      addUserToChat(this.props.state.signalRConnection, this.props.chatContent, this.state.selectedFriends[i])
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    return this.cancelAddUsersToChat()
+  }
+
+  /**
+   *  Cancel new chat. Delete selected friends and close dialog
+   *
+   *  @author Jimmy
+   */
+
+  cancelAddUsersToChat = () => {
+    this.setState({ selectedFriends: [] })
+    return this.addDialogClose()
+  }
 
   /**
    *  Delete user from chat group
@@ -166,7 +220,7 @@ class ChatView extends Component {
             <div className='ChatView-Header'>
               <Typography variant='subheading'>Du chattar med {this.props.chatContent.name}</Typography>
               <div className='ChatView-Icons'>
-                <IconButton color='inherit' aria-label='Lägg till en vän'>
+                <IconButton color='inherit' aria-label='Lägg till en vän' onClick={this.addDialogOpen}>
                   <AddIcon />
                 </IconButton>
                 <IconButton color='inherit' aria-label='Lämna chatten' onClick={this.deleteDialogOpen}>
@@ -198,6 +252,58 @@ class ChatView extends Component {
             <CircularProgress />
           </div>
         )}
+        <Dialog
+          open={this.state.addDialog}
+          onClose={this.addDialogClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>{'Lägg till vänner!'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              Lägg till vänner som ska delta i chatten:
+            </DialogContentText>
+            <FormControl style={ChatListStyles.formControl}
+                         fullWidth={true}
+            >
+              <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
+              <Select
+                multiple
+                value={this.state.selectedFriends}
+                onChange={this.handleFriendsSelect}
+                input={<Input id='select-multiple-chip' />}
+                renderValue={selected => (
+                  <div style={ChatListStyles.formControl.chips}>
+                    {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
+                  </div>
+                )}
+              >
+                {this.props.friends.map(name => (
+                  <MenuItem
+                    key={name.username}
+                    value={name.username}
+                    style={{
+                      fontWeight:
+                        this.props.friends.indexOf(name.username) === -1
+                          ? theme.typography.fontWeightRegular
+                          : theme.typography.fontWeightMedium
+                    }}
+                  >
+                    {name.username}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.cancelAddUsersToChat} color='primary'>
+              Ångra
+            </Button>
+            <Button onClick={this.addUsersToChat} color='primary' autoFocus>
+              Lägg till
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Dialog
           open={this.state.deleteDialog}
           onClose={this.deleteDialogClose}
