@@ -37,7 +37,7 @@ import NewPassword from './component/authentication/NewPassword'
 import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 
-import {verifyJWT} from './utils/ApiRequests'
+import {getGroups, verifyJWT} from './utils/ApiRequests'
 import {createSignalR, initChat} from './utils/SignalR'
 
 /**
@@ -219,6 +219,8 @@ class App extends Component {
             userInfo: response.data,
             loaded: true,
             signalRConnection: initChat(token)
+          }, () => {
+            this.handleEvents()
           })
         }).catch(() => {
           this.setState({
@@ -228,6 +230,23 @@ class App extends Component {
         })
     }
 
+  /**
+   *  Handle SignalR events
+   *
+   *  @author Jimmy
+   */
+
+  handleEvents = () => {
+    this.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
+      if (senderName !== this.state.userInfo.username && window.location.pathname !== '/chats') {
+        return this.openSnackBar(senderName + ' skickade ett meddelande i gruppen ' + group + ' !')
+      }
+    })
+
+    this.state.signalRConnection.on('userAddedToGroup', (name, group) => {
+      console.log('addeToGroup')
+    })
+  }
     /**
      *  Check if valid token in local storage before component mounts.
      *

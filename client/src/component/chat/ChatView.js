@@ -231,7 +231,7 @@ class ChatView extends Component {
         {this.state.loaded ? (
           <div className='ChatView'>
             <div className='ChatView-Header'>
-              <Typography variant='subheading'>Du chattar med {this.props.chatContent.name}</Typography>
+              <Typography variant='subheading'> </Typography>
               <div className='ChatView-Icons'>
                 <IconButton color='inherit' aria-label='Lägg till en vän' onClick={this.addDialogOpen}>
                   <AddIcon />
