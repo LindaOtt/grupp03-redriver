@@ -73,7 +73,7 @@ class FriendsList extends Component {
   };
 
   handleDialogClose = () => {
-    this.setState({ dialog: false })
+    this.setState({ dialog: false, friendsData: '' })
   };
 
   /**
