@@ -26,7 +26,7 @@ class ChatMessage extends Component {
   }
 
   renderMessage () {
-    if (this.props.message.name === 'You') {
+    if (this.props.message.name === this.props.state.userInfo.username) {
       return (
         <div className='ChatMessage-Self'>
           <div className='ChatBubble-Self'>

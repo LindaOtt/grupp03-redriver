@@ -79,3 +79,7 @@ export const deleteUserFromChat = (connection, group) => {
 export const createChatGroupWithUsers = (connection, group, names) => {
   return connection.invoke('startGroupChatWithMultipleClients', group, names)
 }
+
+export const sendMessageToGroup = (connection, group, message) => {
+  return connection.invoke('sendMessageToGroup', group, message)
+}

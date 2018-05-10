@@ -29,8 +29,9 @@ import {ChatListStyles, ChatViewStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 
 import ChatMessage from './ChatMessage'
-import {addUserToChat, createChatGroupWithUsers, deleteUserFromChat} from '../../utils/SignalR'
+import {addUserToChat, createChatGroupWithUsers, deleteUserFromChat, sendMessageToGroup} from '../../utils/SignalR'
 import {theme} from '../../styles/Styles'
+import {getChatMessages} from '../../utils/ApiRequests'
 
 /**
  *  ChatView-component. View for a single chat.
@@ -63,8 +64,6 @@ class ChatView extends Component {
     this.setState({
       [name]: event.target.value
     })
-
-    console.log(this.state.newMessage)
   };
 
   /**
@@ -106,17 +105,9 @@ class ChatView extends Component {
    */
 
   addUsersToChat = () => {
-    console.log(this.state)
-    console.log(this.props)
-
 
     for (let i = 0; i < this.state.selectedFriends.length; i++) {
-      console.log(this.state.selectedFriends[i])
-      console.log(this.props.chatContent)
       addUserToChat(this.props.state.signalRConnection, this.props.chatContent, this.state.selectedFriends[i])
-        .then((response) => {
-          console.log(response)
-        })
         .catch((err) => {
           console.log(err)
         })
@@ -157,13 +148,13 @@ class ChatView extends Component {
    */
 
   handleSubmit (e) {
-    let tempMessage = {
-      name: 'You',
-      message: this.state.newMessage
-    }
-
-    this.state.messages.push(tempMessage)
-    this.setState({newMessage: ''})
+    sendMessageToGroup(this.props.state.signalRConnection, this.props.chatContent, this.state.newMessage)
+      .then((response) => {
+        this.setState({newMessage: ''})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
     e.preventDefault()
   }
@@ -178,33 +169,49 @@ class ChatView extends Component {
     let listArray = []
 
     for (let i = 0; i < this.state.messages.length; i++) {
-      listArray.unshift(
-        <ChatMessage key={i} message={this.state.messages[i]} />
+      listArray.push(
+        <ChatMessage key={i} message={this.state.messages[i]} state={this.props.state}/>
       )
     }
 
     return listArray
-  }
+  }cd
 
-  chatInit (messages) {
+  chatInit () {
     let tempArray = []
     this.setState({messages: []})
-    for (let key in messages) {
-      let tempObj = {
-        name: key,
-        message: messages[key]
-      }
 
-      tempArray.push(tempObj)
-    }
-    return this.setState({
-      loaded: true,
-      messages: tempArray
-    })
+    getChatMessages(this.props.state.token, this.props.chatContent)
+      .then((response) => {
+        console.log(response)
+        if (response.data.length >= 0) {
+          for (let i = 0; i < response.data.length; i++) {
+            let tempObj = {
+              name: response.data[i].username,
+              message: response.data[i].message,
+              date: response.data[i].timeStamp
+            }
+
+            tempArray.push(tempObj)
+          }
+          return this.setState({
+            loaded: true,
+            messages: tempArray
+          })
+        } else {
+          return this.setState({
+            loaded: true,
+            messages: tempArray
+          })
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   componentDidMount () {
-    this.chatInit(this.props.chatContent.messages)
+    this.chatInit()
     console.log(this.props)
   }
 
