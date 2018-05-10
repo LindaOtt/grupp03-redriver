@@ -90,3 +90,23 @@ export const uploadProfilePicture = (data, token) => {
     headers: {'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + token}
   })
 }
+
+export const getGroups = (token) => {
+  return axios({
+    method: 'get',
+    url: localOrAzureUrl + '/api/user/groups',
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}
+
+export const getChatMessages = (token, group) => {
+  let tempObj = {
+    GroupName: group
+  }
+  return axios({
+    method: 'post',
+    url: localOrAzureUrl + '/api/user/grouplogs',
+    data: JSON.stringify(tempObj),
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}

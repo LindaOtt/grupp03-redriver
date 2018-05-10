@@ -65,13 +65,21 @@ export const initChat = (token) => {
 }
 
 export const createChatGroup = (groupName, connection) => {
-  console.log(connection)
-  connection.invoke('sendMessageToAllConnectedUsers', 'test')
   return connection.invoke('joinGroup', groupName)
 }
 
-export const addUserToChat = (connection, name, group) => {
-  return connection.on('userAddedToGroup', (name, group) => {
-    // Code here
-  })
+export const addUserToChat = (connection, group, name) => {
+  return connection.invoke('addClientToGroup', group, name)
+}
+
+export const deleteUserFromChat = (connection, group) => {
+  return connection.invoke('leaveGroup', group)
+}
+
+export const createChatGroupWithUsers = (connection, group, names) => {
+  return connection.invoke('startGroupChatWithMultipleClients', group, names)
+}
+
+export const sendMessageToGroup = (connection, group, message) => {
+  return connection.invoke('sendMessageToGroup', group, message)
 }

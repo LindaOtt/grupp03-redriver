@@ -6,12 +6,31 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from 'material-ui/Dialog'
+import IconButton from 'material-ui/IconButton'
+import Input, { InputLabel } from 'material-ui/Input'
+import { MenuItem } from 'material-ui/Menu'
+import { FormControl } from 'material-ui/Form'
+import Select from 'material-ui/Select'
+import Chip from 'material-ui/Chip'
+
+// Import Icons
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 // Import styles. ChatViewStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {ChatViewStyles} from '../../styles/ChatStyles'
+import {ChatListStyles, ChatViewStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 
 import ChatMessage from './ChatMessage'
+import {addUserToChat, deleteUserFromChat, sendMessageToGroup} from '../../utils/SignalR'
+import {theme} from '../../styles/Styles'
+import {getChatMessages} from '../../utils/ApiRequests'
 
 /**
  *  ChatView-component. View for a single chat.
@@ -26,7 +45,10 @@ class ChatView extends Component {
     this.state = {
       messages: [],
       loaded: false,
-      newMessage: ''
+      newMessage: '',
+      deleteDialog: false,
+      addDialog: false,
+      selectedFriends: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -41,8 +63,83 @@ class ChatView extends Component {
     this.setState({
       [name]: event.target.value
     })
+  };
 
-    console.log(this.state.newMessage)
+  /**
+   *  Open and close dialogs for add or delete user in chat.
+   *
+   *  @author Jimmy
+   */
+
+  deleteDialogOpen = () => {
+    this.setState({ deleteDialog: true })
+  };
+
+  deleteDialogClose = () => {
+    this.setState({ deleteDialog: false })
+  };
+
+  addDialogOpen = () => {
+    this.setState({ addDialog: true })
+  };
+
+  addDialogClose = () => {
+    this.setState({ addDialog: false })
+  };
+
+  /**
+   *  Handle add friends to chat.
+   *
+   *  @author Jimmy
+   */
+
+  handleFriendsSelect = event => {
+    this.setState({ selectedFriends: event.target.value })
+  }
+
+  /**
+   *  Add friend to chat
+   *
+   *  @author Jimmy
+   */
+
+  addUsersToChat = () => {
+    for (let i = 0; i < this.state.selectedFriends.length; i++) {
+      addUserToChat(this.props.state.signalRConnection, this.props.chatContent, this.state.selectedFriends[i])
+        .catch(() => {
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
+        })
+    }
+
+    return this.cancelAddUsersToChat()
+  }
+
+  /**
+   *  Cancel new chat. Delete selected friends and close dialog
+   *
+   *  @author Jimmy
+   */
+
+  cancelAddUsersToChat = () => {
+    this.setState({ selectedFriends: [] })
+    return this.addDialogClose()
+  }
+
+  /**
+   *  Delete user from chat group
+   *
+   *  @author Jimmy
+   */
+
+  deleteUser = () => {
+    deleteUserFromChat(this.props.state.signalRConnection, this.props.chatContent)
+      .then(() => {
+        this.deleteDialogClose()
+        return this.props.updateComponent()
+      })
+      .catch(() => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
+      })
   };
 
   /**
@@ -52,52 +149,101 @@ class ChatView extends Component {
    */
 
   handleSubmit (e) {
-    let tempMessage = {
-      name: 'You',
-      message: this.state.newMessage
-    }
-
-    this.state.messages.push(tempMessage)
-    this.setState({newMessage: ''})
+    sendMessageToGroup(this.props.state.signalRConnection, this.props.chatContent, this.state.newMessage)
+      .then(() => {
+        this.setState({newMessage: ''})
+        this.chatInit()
+      })
+      .catch(() => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
+      })
 
     e.preventDefault()
   }
 
+  /**
+   *  Render chat messages
+   *
+   *  @author Jimmy
+   */
+
   renderMessages () {
     let listArray = []
+    let tempArray = this.state.messages
 
-    for (let i = 0; i < this.state.messages.length; i++) {
-      listArray.unshift(
-        <ChatMessage key={i} message={this.state.messages[i]} />
+    tempArray.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+
+    for (let i = 0; i < tempArray.length; i++) {
+      listArray.push(
+        <ChatMessage key={i} message={tempArray[i]} state={this.props.state} />
       )
     }
 
     return listArray
   }
 
-  chatInit (messages) {
-    let tempArray = []
-    this.setState({messages: []})
-    for (let key in messages) {
-      let tempObj = {
-        name: key,
-        message: messages[key]
-      }
+  /**
+   *  Get avatar for chatmessages.
+   *
+   *  @author Jimmy
+   */
 
-      tempArray.push(tempObj)
-    }
-    return this.setState({
-      loaded: true,
-      messages: tempArray
+  getAvatar = (username) => {
+    this.props.friends.forEach((i) => {
+      if (i.username === username) {
+        return i.avatarUrl
+      } else {
+        return null
+      }
     })
   }
 
-  componentDidMount () {
-    this.chatInit(this.props.chatContent.messages)
+  /**
+   *  Fetch messages from database
+   *
+   *  @author Jimmy
+   */
+
+  chatInit () {
+    let tempArray = []
+    this.setState({messages: []})
+    getChatMessages(this.props.state.token, this.props.chatContent)
+      .then((response) => {
+        if (response.data.length >= 0) {
+          for (let i = 0; i < response.data.length; i++) {
+            let tempObj = {
+              name: response.data[i].username,
+              message: response.data[i].message,
+              date: response.data[i].timeStamp,
+              avatar: this.getAvatar(response.data[i].username)
+            }
+
+            tempArray.push(tempObj)
+          }
+          return this.setState({
+            loaded: true,
+            messages: tempArray
+          })
+        } else {
+          return this.setState({
+            loaded: true,
+            messages: tempArray
+          })
+        }
+      })
+      .catch(() => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
+      })
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.chatInit(nextProps.chatContent.messages)
+  componentDidMount () {
+    this.props.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
+      this.chatInit()
+    })
+
+    this.chatInit()
   }
 
   render () {
@@ -105,7 +251,17 @@ class ChatView extends Component {
       <div className='ChatView'>
         {this.state.loaded ? (
           <div className='ChatView'>
-            <Typography variant='subheading'>Du chattar med {this.props.chatContent.name}</Typography>
+            <div className='ChatView-Header'>
+              <Typography variant='subheading' />
+              <div className='ChatView-Icons'>
+                <IconButton color='inherit' aria-label='Lägg till en vän' onClick={this.addDialogOpen}>
+                  <AddIcon />
+                </IconButton>
+                <IconButton color='inherit' aria-label='Lämna chatten' onClick={this.deleteDialogOpen}>
+                  <RemoveIcon />
+                </IconButton>
+              </div>
+            </div>
             <Divider />
             <div className='ChatView-Message-Div'>
               {this.renderMessages()}
@@ -130,6 +286,79 @@ class ChatView extends Component {
             <CircularProgress />
           </div>
         )}
+        <Dialog
+          open={this.state.addDialog}
+          onClose={this.addDialogClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>{'Lägg till vänner!'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              Lägg till vänner som ska delta i chatten:
+            </DialogContentText>
+            <FormControl style={ChatListStyles.formControl}
+              fullWidth
+            >
+              <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
+              <Select
+                multiple
+                value={this.state.selectedFriends}
+                onChange={this.handleFriendsSelect}
+                input={<Input id='select-multiple-chip' />}
+                renderValue={selected => (
+                  <div style={ChatListStyles.formControl.chips}>
+                    {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
+                  </div>
+                )}
+              >
+                {this.props.friends.map(name => (
+                  <MenuItem
+                    key={name.username}
+                    value={name.username}
+                    style={{
+                      fontWeight:
+                        this.props.friends.indexOf(name.username) === -1
+                          ? theme.typography.fontWeightRegular
+                          : theme.typography.fontWeightMedium
+                    }}
+                  >
+                    {name.username}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.cancelAddUsersToChat} color='primary'>
+              Ångra
+            </Button>
+            <Button onClick={this.addUsersToChat} color='primary' autoFocus>
+              Lägg till
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.deleteDialog}
+          onClose={this.deleteDialogClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>{'Lämna chatten?'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              Klicka på OK ifall du vill lämna chatten.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.deleteDialogClose} color='primary'>
+              Ångra
+            </Button>
+            <Button onClick={this.deleteUser} color='primary' autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
 
     )

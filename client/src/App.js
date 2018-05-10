@@ -38,7 +38,7 @@ import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 
 import {verifyJWT} from './utils/ApiRequests'
-import {createSignalR, initChat} from './utils/SignalR'
+import {initChat} from './utils/SignalR'
 
 /**
  *  Starting point of the application
@@ -219,6 +219,8 @@ class App extends Component {
             userInfo: response.data,
             loaded: true,
             signalRConnection: initChat(token)
+          }, () => {
+            this.handleEvents()
           })
         }).catch(() => {
           this.setState({
@@ -228,110 +230,125 @@ class App extends Component {
         })
     }
 
-    /**
+  /**
+   *  Handle SignalR events
+   *
+   *  @author Jimmy
+   */
+
+  handleEvents = () => {
+    this.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
+      if (senderName !== this.state.userInfo.username && window.location.pathname !== '/chats') {
+        return this.openSnackBar(senderName + ' skickade ett meddelande i gruppen ' + group + ' !')
+      }
+    })
+
+    this.state.signalRConnection.on('userAddedToGroup', (name, group) => {
+      console.log('addeToGroup')
+    })
+  }
+  /**
      *  Check if valid token in local storage before component mounts.
      *
      *  @author Jimmy
      */
 
-    componentWillMount () {
-      sessionStorage.setItem('settingsPanel', JSON.stringify(false))
-      if (localStorage.getItem('token')) {
-        let token = JSON.parse(localStorage.getItem('token'))
-        this.verifyToken(token)
-      } else {
-        this.setState({
-          isSignedIn: false,
-          loaded: true
-        })
-      }
+  componentWillMount () {
+    sessionStorage.setItem('settingsPanel', JSON.stringify(false))
+    if (localStorage.getItem('token')) {
+      let token = JSON.parse(localStorage.getItem('token'))
+      this.verifyToken(token)
+    } else {
+      this.setState({
+        isSignedIn: false,
+        loaded: true
+      })
     }
+  }
 
-    /**
+  /**
      *  Check if valid token in local storage before component updates.
      *
      *  @author Jimmy
      */
 
-    componentWillUpdate () {
-      if (localStorage.getItem('token')) {
-        let token = JSON.parse(localStorage.getItem('token'))
+  componentWillUpdate () {
+    if (localStorage.getItem('token')) {
+      let token = JSON.parse(localStorage.getItem('token'))
 
-        if (this.state.token) {
-          if (token !== this.state.token) {
-            this.verifyToken(token)
-          }
+      if (this.state.token) {
+        if (token !== this.state.token) {
+          this.verifyToken(token)
         }
       }
     }
+  }
 
-    render () {
-      return (
-        <HttpsRedirect>
-          <Router>
-            <MuiThemeProvider theme={theme} >
-              {this.state.loaded ? (
-                <div className='App'>
-                  <div className='App'>
-                    <AppBar
-                      position='sticky'
-                      style={AppStyles.root}
-                    >
-                      <Toolbar>
-                        <Typography
-                          variant='title'
-                          color='inherit'
-                          style={AppStyles.flex}
-                        />
-                        {this.state.isSignedIn ? (
-                          <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton} onClick={this.toggleMenu(true)}>
-                            <MenuIcon />
-                          </IconButton>
-                        ) : (
-                          <p />
-                        )}
-                      </Toolbar>
-                    </AppBar>
-                    <div className='App-Body'>
-                      <Route path='/' exact component={() => <UserAccount state={this.state} />} />
-                      <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
-                      <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
-                      <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
-                      <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />
-                      <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
-                      <Route path='/password' component={() => <NewPassword state={this.state} />} />
-                      <Route path='/friendrequests' component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar} />} />
-                    </div>
-                    <Snackbar
-                      open={this.state.snackBar}
-                      onClose={this.closeSnackBar}
-                      SnackbarContentProps={{
-                        'aria-describedby': 'message-id'
-                      }}
-                      message={<span id='message-id'>{this.state.snackBarMessage}</span>}
+  render () {
+    return (
+      <HttpsRedirect>
+        <Router>
+          <MuiThemeProvider theme={theme} >
+            {this.state.loaded ? (
+              <div className='App'>
+                <AppBar
+                  position='sticky'
+                  style={AppStyles.root}
+                >
+                  <Toolbar>
+                    <Typography
+                      variant='title'
+                      color='inherit'
+                      style={AppStyles.flex}
                     />
-                    <Drawer anchor='right' open={this.state.menu} onClose={this.toggleMenu(false)}>
-                      <div
-                        tabIndex={0}
-                        role='button'
-                        onClick={this.toggleMenu(false)}
-                        onKeyDown={this.toggleMenu(false)}
-                      >
-                        {this.renderMenu()}
-                      </div>
-                    </Drawer>
+                    {this.state.isSignedIn ? (
+                      <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton} onClick={this.toggleMenu(true)}>
+                        <MenuIcon />
+                      </IconButton>
+                    ) : (
+                      <p />
+                    )}
+                  </Toolbar>
+                </AppBar>
+                <div className='App-Body'>
+                  <Route path='/' exact component={() => <UserAccount state={this.state} />} />
+                  <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
+                  <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
+                  <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
+                  <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />
+                  <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
+                  <Route path='/password' component={() => <NewPassword state={this.state} />} />
+                  <Route path='/friendrequests' component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar} />} />
+                </div>
+                <Snackbar
+                  open={this.state.snackBar}
+                  onClose={this.closeSnackBar}
+                  SnackbarContentProps={{
+                    'aria-describedby': 'message-id'
+                  }}
+                  message={<span id='message-id'>{this.state.snackBarMessage}</span>}
+                />
+                <Drawer anchor='right' open={this.state.menu} onClose={this.toggleMenu(false)}>
+                  <div
+                    tabIndex={0}
+                    role='button'
+                    onClick={this.toggleMenu(false)}
+                    onKeyDown={this.toggleMenu(false)}
+                  >
+                    {this.renderMenu()}
                   </div>
-                </div>
-              ) : (
-                <div className='AppLoadingDiv'>
-                  <CircularProgress style={AppStyles.loading} />
-                </div>
-              )}
-            </MuiThemeProvider>
-          </Router>
-        </HttpsRedirect>
-      )
-    }
+                </Drawer>
+              </div>
+            ) : (
+              <div className='AppLoadingDiv'>
+                <CircularProgress style={AppStyles.loading} />
+              </div>
+            )}
+          </MuiThemeProvider>
+        </Router>
+      </HttpsRedirect>
+    )
+  }
 }
 
 export default App

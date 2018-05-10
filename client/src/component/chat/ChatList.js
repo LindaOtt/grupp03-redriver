@@ -29,40 +29,9 @@ import {ChatListStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
-import {getFriends} from '../../utils/ApiRequests'
-import {createChatGroup} from '../../utils/SignalR'
+import {getFriends, getGroups} from '../../utils/ApiRequests'
+import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
-
-// Chat mockups until server connections are added.
-let chatOne = {
-  name: 'Linda',
-  messages: {
-    Linda: 'Hello!',
-    You: 'Hello'
-  }
-}
-let chatTwo = {
-  name: 'Sofia',
-  messages: {
-    Sofia: 'Hello!',
-    You: 'Hello'
-  }
-}
-let chatThree = {
-  name: 'Andrew',
-  messages: {
-    Andrew: 'Hello!',
-    You: 'Hello'
-  }
-}
-let chatFour = {
-  name: 'Jimmy',
-  messages: {
-    Jimmy: 'Hello!',
-    You: 'Hello'
-  }
-}
-let chatMockups = [chatOne, chatTwo, chatThree, chatFour]
 
 /**
  *  ChatList-component. Starting page of chat.
@@ -82,6 +51,25 @@ class ChatList extends Component {
       dialog: false,
       chatDialog: false
     }
+  }
+
+  /**
+   *  Set friends name to view info.
+   *
+   *  @author Jimmy
+   */
+
+  updateComponent = () => {
+    getGroups(this.props.state.token)
+      .then((response) => {
+        this.setState({
+          isLoaded: true,
+          chatDialog: false,
+          dialog: false,
+          groups: response.data.groupList,
+          chatName: ''
+        })
+      })
   }
 
   /**
@@ -145,14 +133,12 @@ class ChatList extends Component {
     groupArray.push(this.props.state.userInfo.username)
     groupArray = groupArray.sort()
     let groupName = groupArray.toString()
-    console.log(groupName)
-    console.log(groupName.split(','))
 
-    createChatGroup(groupName, this.props.state.signalRConnection)
+    createChatGroupWithUsers(this.props.state.signalRConnection, groupName, groupArray)
       .then((response) => {
-        console.log(response)
-      }).catch((err) => {
-        console.log(err)
+        return this.updateComponent()
+      }).catch(() => {
+        return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
   }
 
@@ -176,19 +162,19 @@ class ChatList extends Component {
   renderChatList () {
     let listArray = []
 
-    for (let i = 0; i < chatMockups.length; i++) {
+    for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper} elevation={1} key={chatMockups[i].name}>
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i]}>
           <Typography
             style={ChatListStyles.chatName}
             variant='headline'
             component='h3'
             onClick={(() => {
-              this.handleChatClick(chatMockups[i])
+              this.handleChatClick(this.state.groups[i])
               return this.handleChatDialogOpen()
             })}
           >
-            {chatMockups[i].name}
+            {this.state.groups[i]}
           </Typography>
         </Paper>
       )
@@ -206,19 +192,22 @@ class ChatList extends Component {
   renderLargeChatList () {
     let listArray = []
 
-    for (let i = 0; i < chatMockups.length; i++) {
+    for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
         <Paper style={ChatListStyles.paper}
           elevation={1}
-          key={chatMockups[i].name}
+          key={this.state.groups[i]}
         >
           <Typography
             style={ChatListStyles.chatName}
             variant='headline'
             component='h3'
-            onClick={() => this.handleChatClick(chatMockups[i])}
+            onClick={() => {
+              this.handleChatClick(this.state.groups[i])
+            }
+            }
           >
-            {chatMockups[i].name}
+            {this.state.groups[i]}
           </Typography>
         </Paper>
       )
@@ -228,21 +217,39 @@ class ChatList extends Component {
   }
 
   /**
-   *  Get users friends when component mounts.
+   *  Get users friends and groups when component mounts.
    *
    *  @author Jimmy
    */
 
   componentDidMount () {
+    this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
+      getGroups(this.props.state.token)
+        .then((response) => {
+          console.log(response)
+          this.setState({
+            isLoaded: true,
+            groups: response.data.groupList
+          })
+        })
+        .catch(() => {
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
+        })
+    })
+
     getFriends(this.props.state.token)
       .then((response) => {
         response.data.friendList.forEach((i) => {
           this.state.friends.push(i)
         })
       }).then(() => {
-        this.setState({
-          isLoaded: true
-        })
+        getGroups(this.props.state.token)
+          .then((response) => {
+            this.setState({
+              isLoaded: true,
+              groups: response.data.groupList
+            })
+          })
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
@@ -277,6 +284,9 @@ class ChatList extends Component {
                   {this.state.chatName ? (
                     <ChatView state={this.props.state}
                       chatContent={this.state.chatName}
+                      updateComponent={this.updateComponent}
+                      friends={this.state.friends}
+                      openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
                     <Typography>
@@ -298,7 +308,7 @@ class ChatList extends Component {
                   Lägg till vänner som ska delta i chatten:
                 </DialogContentText>
                 <FormControl style={ChatListStyles.formControl}
-                             fullWidth={true}
+                  fullWidth
                 >
                   <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
                   <Select
@@ -350,6 +360,9 @@ class ChatList extends Component {
               </IconButton>
               <ChatView state={this.props.state}
                 chatContent={this.state.chatName}
+                updateComponent={this.updateComponent}
+                friends={this.state.friends}
+                openSnackBar={this.props.openSnackBar}
               />
             </Dialog>
           </div>
