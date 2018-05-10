@@ -87,16 +87,14 @@ html, body {
 .ChatList-Inner-Large {
     display: flex;
     flex-direction: row;
-    min-height: 100%;
-    min-width: 100%;
 }
 
 .ChatList-Inner-Large-Menu {
-    min-height: 100%;
+    height: 100%;
 }
 
 .ChatList-Inner-Large-Content {
-    min-height: 100%;
+    display: flex;
     width: calc(100% - 300px);
     width: -moz-calc(100% - 300px);
     width: -webkit-calc(100% - 300px);
@@ -124,7 +122,7 @@ html, body {
     display: flex;
     align-self: flex-end;
     flex-direction: row;
-    margin-top: -10px;
+    margin-top: -50px;
 }
 
 .ChatView-Message-Div {
@@ -142,16 +140,18 @@ html, body {
     flex-direction: row;
     width: 100%;
     flex-grow: 1;
-    max-height: 15%;
+    max-height: 20%;
     align-self: flex-end;
 }
 
 .ChatMessage {
-
+    max-width: 60%;
+    align-self: flex-start;
 }
 
 .ChatMessage-Self {
-
+    max-width: 60%;
+    align-self: flex-end;
 }
 
 .ChatBubble {
@@ -164,7 +164,6 @@ html, body {
     padding: 2px 4px;
     position: relative;
     vertical-align: top;
-    max-width: 60%;
     margin: 5px;
     margin-bottom: 10px;
 }
@@ -179,8 +178,6 @@ html, body {
     padding: 2px 4px;
     position: relative;
     vertical-align: top;
-    max-width: 60%;
-    float: right;
     margin: 5px;
     margin-bottom: 10px;
 }
@@ -314,7 +311,7 @@ html, body {
     }
     .ChatList {
         min-width: 100%;
-        min-height: 100%;
+        height: 100%;
     }
 }
 

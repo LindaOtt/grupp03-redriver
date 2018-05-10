@@ -83,6 +83,8 @@ class ChatList extends Component {
   handleChatClick (name) {
     this.setState({
       chatName: name
+    }, () => {
+      console.log(this.state)
     })
   }
 
@@ -204,7 +206,10 @@ class ChatList extends Component {
             style={ChatListStyles.chatName}
             variant='headline'
             component='h3'
-            onClick={() => this.handleChatClick(this.state.groups[i])}
+            onClick={() => {
+              console.log(this.state.groups[i])
+              this.handleChatClick(this.state.groups[i])}
+            }
           >
             {this.state.groups[i]}
           </Typography>

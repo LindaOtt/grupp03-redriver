@@ -48,6 +48,7 @@ class ChatMessage extends Component {
           <div className='ChatBubble-Self'>
             <Avatar alt='Profile picture' src={this.renderAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-inside'>
+              <Typography variant='caption'>   </Typography>
               <Typography>{this.props.message.message}</Typography>
             </div>
           </div>

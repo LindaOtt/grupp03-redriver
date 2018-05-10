@@ -290,7 +290,6 @@ class App extends Component {
           <Router>
             <MuiThemeProvider theme={theme} >
               {this.state.loaded ? (
-                <div className='App'>
                   <div className='App'>
                     <AppBar
                       position='sticky'
@@ -340,7 +339,6 @@ class App extends Component {
                       </div>
                     </Drawer>
                   </div>
-                </div>
               ) : (
                 <div className='AppLoadingDiv'>
                   <CircularProgress style={AppStyles.loading} />
