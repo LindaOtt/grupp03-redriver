@@ -49,8 +49,29 @@ class ChatList extends Component {
       selectedFriends: [],
       isLoaded: false,
       dialog: false,
-      chatDialog: false
+      chatDialog: false,
     }
+  }
+
+  /**
+   *  Set friends name to view info.
+   *
+   *  @author Jimmy
+   */
+
+  updateComponent = () => {
+    console.log('Update chatlist')
+    getGroups(this.props.state.token)
+      .then((response) => {
+        console.log(response)
+        this.setState({
+          isLoaded: true,
+          chatDialog: false,
+          dialog: false,
+          groups: response.data.groupList,
+          chatName: ''
+        })
+      })
   }
 
   /**
@@ -117,7 +138,7 @@ class ChatList extends Component {
 
     createChatGroupWithUsers(this.props.state.signalRConnection, groupName, groupArray)
       .then((response) => {
-        console.log(response)
+        return this.updateComponent()
       }).catch((err) => {
         console.log(err)
       })
@@ -248,7 +269,8 @@ class ChatList extends Component {
                 <div className='ChatList-Inner-Large-Content'>
                   {this.state.chatName ? (
                     <ChatView state={this.props.state}
-                      chatContent={this.state.chatName}
+                              chatContent={this.state.chatName}
+                              updateComponent={this.updateComponent}
                     />
                   ) : (
                     <Typography>
@@ -321,7 +343,8 @@ class ChatList extends Component {
                 <CloseIcon />
               </IconButton>
               <ChatView state={this.props.state}
-                chatContent={this.state.chatName}
+                        chatContent={this.state.chatName}
+                        updateComponent={this.updateComponent}
               />
             </Dialog>
           </div>
