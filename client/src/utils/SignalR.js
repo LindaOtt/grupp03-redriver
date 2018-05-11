@@ -1,7 +1,7 @@
 import {AzureServerUrl, LocalServerUrl} from './Config'
 import { HubConnection } from '@aspnet/signalr'
 
-const chatServerUrl = AzureServerUrl + '/chat'
+const chatServerUrl = LocalServerUrl + '/chat'
 
 export const createSignalR = (token) => {
   console.log('Connect to signalr')
@@ -56,6 +56,10 @@ export const initChat = (token) => {
     console.log(name)
   })
 
+  connection.on('videoCallRequest', (name) => {
+    console.log(name)
+  })
+
   connection.start()
     .catch((err) => {
       console.log(err)
@@ -82,4 +86,8 @@ export const createChatGroupWithUsers = (connection, group, names) => {
 
 export const sendMessageToGroup = (connection, group, message) => {
   return connection.invoke('sendMessageToGroup', group, message)
+}
+
+export const requestVideoCall = (connection, name) => {
+  return connection.invoke('requestVideoCall', name)
 }

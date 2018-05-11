@@ -307,6 +307,52 @@ namespace RedRiverChatServer.Controllers
             return Clients.All.SendAsync("userLeftGroup", new[] { name, groupName });
         }
 
+        /// <summary>
+        /// Request to start a video call with another user
+        /// </summary>
+        /// <param name="who"></param>
+                public void RequestVideoCall(string who)
+        {
+            string senderName = GetNameFromClaim();
+
+            //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                Clients.Client(connectionId).SendAsync("videoCallRequest", senderName );
+            }
+        }
+
+        /// <summary>
+        /// Send connection-info between users for video call
+        /// </summary>
+        /// <param name="who"></param>
+        /// <param name="data"></param>
+                public void CreateVideoCall(string who, object data)
+        {
+            string senderName = GetNameFromClaim();
+
+            //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                Clients.Client(connectionId).SendAsync("createVideoCall", new[] { senderName, data });
+            }
+        }
+
+        /// <summary>
+        /// End video call
+        /// </summary>
+        /// <param name="who"></param>
+                public void EndVideoCall(string who)
+        {
+            string senderName = GetNameFromClaim();
+
+            //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                Clients.Client(connectionId).SendAsync("endVideoCall", senderName);
+            }
+        }
+
         private string GetNameFromClaim()
         {
             IEnumerable<Claim> claims = Context.User.Claims;
