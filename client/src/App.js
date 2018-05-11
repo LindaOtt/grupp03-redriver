@@ -46,7 +46,7 @@ import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 import VideoCall from './component/videocall/VideoCall'
 
-import {verifyJWT} from './utils/ApiRequests'
+import {getFriends, verifyJWT} from './utils/ApiRequests'
 import {initChat} from './utils/SignalR'
 
 /**
@@ -70,7 +70,8 @@ class App extends Component {
       receiveVideoCall: false,
       videoCall: false,
       callTo: '',
-      callFrom: ''
+      callFrom: '',
+      friends: []
     }
     this.openSnackBar = this.openSnackBar.bind(this)
     this.userLogout = this.userLogout.bind(this)
@@ -137,24 +138,17 @@ class App extends Component {
   };
 
   /**
-   *  Methods for open and close new chat dialog
+   *  Methods to handle videocall-modal when making or receiving a video calls.
    *
    *  @author Jimmy
    */
 
-  receiveVideoCallOpen = () => {
-    this.setState({ receiveVideoCall: true })
+  receiveVideoCallOpen = (name) => {
+    this.setState({
+      videoCall: true,
+      callFrom: name
+    })
   }
-
-  receiveVideoCallClose = () => {
-    this.setState({ receiveVideoCall: false })
-  }
-
-  /**
-   *  Methods for open and close chat dialog
-   *
-   *  @author Jimmy
-   */
 
   videoCallOpen = (name) => {
     this.setState({
@@ -166,7 +160,8 @@ class App extends Component {
   videoCallClose = () => {
     this.setState({
       videoCall: false,
-      callTo: ''
+      callTo: '',
+      callFrom: ''
     })
   }
 
@@ -270,7 +265,16 @@ class App extends Component {
           }, () => {
             this.handleEvents()
           })
-        }).catch(() => {
+        })
+        .then(() => {
+          getFriends(this.state.token)
+            .then((response) => {
+              response.data.friendList.forEach((i) => {
+                this.state.friends.push(i)
+              })
+            })
+        })
+        .catch(() => {
           this.setState({
             isSignedIn: false,
             loaded: true
@@ -293,6 +297,10 @@ class App extends Component {
 
     this.state.signalRConnection.on('userAddedToGroup', (name, group) => {
       console.log('addedToGroup')
+    })
+
+    this.state.signalRConnection.on('videoCallRequest', (name) => {
+      this.receiveVideoCallOpen(name)
     })
   }
   /**
@@ -396,7 +404,7 @@ class App extends Component {
                   <IconButton color='inherit' onClick={this.videoCallClose} aria-label='Close'>
                     <CloseIcon />
                   </IconButton>
-                  <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} closeDialog={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar}/>
+                  <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} videoCallClose={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar}/>
                 </Dialog>
               </div>
             ) : (
