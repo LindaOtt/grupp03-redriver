@@ -18,7 +18,7 @@ import Avatar from 'material-ui/Avatar'
 import {friendsListStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
 
-// Import icons for the drawer-menu.
+// Import icons
 import ChatIcon from '@material-ui/icons/ChatBubble'
 import VideoIcon from '@material-ui/icons/VoiceChat'
 import CloseIcon from '@material-ui/icons/Close'
@@ -31,6 +31,7 @@ import {getFriends} from '../../utils/ApiRequests'
 
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
+import {requestVideoCall} from '../../utils/SignalR'
 
 /**
  *  FriendsList-component. Starting page of friends.
@@ -45,7 +46,7 @@ class FriendsList extends Component {
     this.state = {
       friends: [],
       isLoaded: false,
-      dialog: false
+      dialog: false,
     }
     this.renderAvatar = this.renderAvatar.bind(this)
   }
@@ -117,7 +118,7 @@ class FriendsList extends Component {
           <IconButton aria-label='Chat'>
             <ChatIcon />
           </IconButton>
-          <IconButton aria-label='Video call'>
+          <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
             <VideoIcon />
           </IconButton>
         </Paper>
@@ -154,7 +155,7 @@ class FriendsList extends Component {
           <IconButton aria-label='Chat'>
             <ChatIcon />
           </IconButton>
-          <IconButton aria-label='Video call'>
+          <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
             <VideoIcon />
           </IconButton>
         </Paper>
