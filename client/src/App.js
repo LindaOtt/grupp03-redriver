@@ -244,7 +244,7 @@ class App extends Component {
     })
 
     this.state.signalRConnection.on('userAddedToGroup', (name, group) => {
-      console.log('addeToGroup')
+      console.log('addedToGroup')
     })
   }
   /**
