@@ -115,7 +115,7 @@ namespace RedRiverChatServer.Controllers
                 return NotFound(new { result = "User not found" });
             }
         }
-
+        [HttpGet, Authorize]
         public ActionResult Groups()
         {
 
