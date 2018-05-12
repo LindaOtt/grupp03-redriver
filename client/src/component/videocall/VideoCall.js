@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // Import npm-modules
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button';
+import _ from 'lodash';
 
 // Import Icons
 import EndCall from '@material-ui/icons/CallEnd';
@@ -28,8 +29,16 @@ class VideoCall extends Component {
 
     this.state = {
       loaded: false,
+      localSrc: null,
+      peerSrc: null,
 
     }
+
+    this.pc = {};
+    this.config = null;
+    this.startCall = this.startCall.bind(this);
+    this.endCall = this.endCall.bind(this);
+    this.rejectCall = this.rejectCall.bind(this);
   }
 
   /**
@@ -116,7 +125,43 @@ class VideoCall extends Component {
       })
   };
 
-   componentWillMount() {
+  callWithVideo(video, friendID) {
+    const config = {audio: true};
+    config.video = video;
+    return () => this.startCall(true, friendID, config);
+  }
+
+  startCall(isCaller, friendID, config) {
+    this.config = config;
+
+    console.log(friendID);
+    console.log(config);
+
+    this.pc = new PeerConnection(friendID, userConnection)
+      .on('localStream', (src) => {
+        const newState = { callWindow: true, localSrc: src };
+        if (!isCaller) newState.callModal = false;
+        this.setState(newState);
+      })
+      .on('peerStream', src => this.setState({ peerSrc: src }))
+      .start(isCaller, config);
+  }
+
+  endCall(isStarter) {
+
+    console.log(isStarter);
+
+    if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter);
+    this.pc = {};
+    this.config = null;
+    this.setState({
+      callWindow: false,
+      localSrc: null,
+      peerSrc: null
+    });
+  }
+
+  componentWillMount() {
 
      this.props.state.signalRConnection.on('endVideoCall', (name) => {
        this.props.videoCallClose()

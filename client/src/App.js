@@ -400,10 +400,6 @@ class App extends Component {
                   onClose={this.videoCallOpen}
                   aria-labelledby='responsive-dialog-title'
                 >
-
-                  <IconButton color='inherit' onClick={this.videoCallClose} aria-label='Close'>
-                    <CloseIcon />
-                  </IconButton>
                   <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} videoCallClose={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar}/>
                 </Dialog>
               </div>
