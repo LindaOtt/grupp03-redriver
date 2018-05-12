@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{8837F7DB-229B-4993-B367-DA9FA668994D}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
+    <Files>
+      <File FileName="Services/EmailSender.cs" Line="55" Column="2" />
+      <File FileName="Services/AuthMessageSenderOptions.cs" Line="21" Column="15" />
+      <File FileName="Controllers/AccountController.cs" Line="83" Column="14" />
+      <File FileName="Startup.cs" Line="56" Column="46" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.RedRiverChatServer PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>
