@@ -86,6 +86,8 @@ namespace RedRiverChatServer.Models
     public class GroupModel
     {
         public string GroupName { get; set; }
+        public string[] Members { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 
     public class UserInfoModel
