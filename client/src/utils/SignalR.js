@@ -91,3 +91,7 @@ export const sendMessageToGroup = (connection, group, message) => {
 export const requestVideoCall = (connection, name) => {
   return connection.invoke('requestVideoCall', name)
 }
+
+export const endVideoCall = (connection, name) => {
+  return connection.invoke('endVideoCall', name)
+}
