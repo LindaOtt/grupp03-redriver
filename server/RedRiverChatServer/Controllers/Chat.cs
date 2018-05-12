@@ -119,7 +119,11 @@ namespace RedRiverChatServer.Controllers
         /// <returns></returns>
         public async Task<Object> JoinGroup(string groupName)
         {
+            if (groupName == null) { groupName = Guid.NewGuid().ToString(); };
+  
             string name = GetNameFromClaim();
+
+          //  var group = context.Rooms.FirstOrDefault(e => e.RoomName == groupName);
             //Add to in-memory group
             await Groups.AddAsync(Context.ConnectionId, groupName);
             // Retrieve room if it exists. If it doesn't it will be created in the future.
@@ -203,11 +207,12 @@ namespace RedRiverChatServer.Controllers
         /// <summary>
         /// Creates a new chat with multiple clients. Calling client username should be included in list!
         /// </summary>
-        /// <param name="groupName"></param>
         /// <param name="usernames"></param>
         /// <returns></returns>
-        public async Task<Object> StartGroupChatWithMultipleClients(string groupName, string[] usernames)
+        public async Task<Object> StartGroupChatWithMultipleClients(string[] usernames)
         {
+            string groupName = Guid.NewGuid().ToString();
+
             List<ApplicationUser> users = new List<ApplicationUser>();
             List<ApplicationUserConversationRoom> aUCRs = new List<ApplicationUserConversationRoom>();
 
