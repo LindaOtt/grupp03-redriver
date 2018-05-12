@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import PeerConnection from './PeerConnection'
+import VideoStream from './VideoStream'
+
 // Import npm-modules
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button';
@@ -74,17 +77,15 @@ class VideoCall extends Component {
          userObj = this.props.state.friends[i]
        }
      }
-     requestVideoCall(this.props.state.signalRConnection, name)
-       .then((response) => {
-         return this.setState({
-           makeCall: true,
-           userInfo: userObj
-         })
-       })
-       .catch(() => {
-         this.props.videoCallClose()
-         return this.props.openSnackBar('Något gick fel. Försök igen!')
-       })
+
+     return this.setState({
+       makeCall: true,
+       userInfo: userObj,
+       isCaller: true
+     }, () => {
+       const config = {audio: true, video: true};
+       this.startCall(true, this.state.userInfo.username, config)
+     })
    };
 
   /**
@@ -101,46 +102,20 @@ class VideoCall extends Component {
         userObj = this.props.state.friends[i]
       }
     }
+
     return this.setState({
       makeCall: false,
-      userInfo: userObj
+      userInfo: userObj,
+      isCaller: false
     })
   };
-
-  /**
-   *  End a video call
-   *
-   *  @author Jimmy
-   */
-
-  closeVideoCall = () => {
-
-    endVideoCall(this.props.state.signalRConnection, this.state.userInfo.username)
-      .then(() => {
-        this.props.videoCallClose()
-      })
-      .catch(() => {
-        this.props.videoCallClose()
-        return this.props.openSnackBar('Något gick fel. Försök igen!')
-      })
-  };
-
-  callWithVideo(video, friendID) {
-    const config = {audio: true};
-    config.video = video;
-    return () => this.startCall(true, friendID, config);
-  }
 
   startCall(isCaller, friendID, config) {
     this.config = config;
 
-    console.log(friendID);
-    console.log(config);
-
-    this.pc = new PeerConnection(friendID, userConnection)
+    this.pc = new PeerConnection(friendID, this.props.state.signalRConnection)
       .on('localStream', (src) => {
-        const newState = { callWindow: true, localSrc: src };
-        if (!isCaller) newState.callModal = false;
+        const newState = {localSrc: src, isCaller: isCaller };
         this.setState(newState);
       })
       .on('peerStream', src => this.setState({ peerSrc: src }))
@@ -154,18 +129,30 @@ class VideoCall extends Component {
     if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter);
     this.pc = {};
     this.config = null;
-    this.setState({
-      callWindow: false,
-      localSrc: null,
-      peerSrc: null
-    });
+    this.props.videoCallClose()
   }
 
-  componentWillMount() {
+  rejectCall() {
+    this.props.state.signalRConnection.invoke('endVideoCall', this.props.callFrom);
+    this.props.videoCallClose()
+  }
 
-     this.props.state.signalRConnection.on('endVideoCall', (name) => {
-       this.props.videoCallClose()
-     })
+  acceptWithVideo(video) {
+    const config = { audio: true, video };
+    return () => this.startCall(false, this.props.callFrom, config);
+  }
+
+  componentDidMount() {
+
+    this.props.state.signalRConnection.on('createVideoCall', (sender, data) => {
+      console.log(data)
+      if (data.sdp) {
+        this.pc.setRemoteDescription(data);
+        if (data.type === 'offer') this.pc.createAnswer();
+      } else this.pc.addIceCandidate(data.sdp.candidate);
+    });
+
+    this.props.state.signalRConnection.on('endVideoCall', this.endCall.bind(this, false))
 
      if(this.props.callTo !== '') {
        this.startVideoCall(this.props.callTo)
@@ -176,13 +163,22 @@ class VideoCall extends Component {
      }
    }
   render () {
+
+    console.log(this.state)
     return (
       <div className='VideoCall'>
         {this.state.userInfo ? (
           <div className='VideoCall'>
-            {this.state.loaded ? (
+            {this.state.peerSrc ? (
               <div className='VideoCall'>
-                <p>Samtal</p>
+                <VideoStream localSrc={this.state.localSrc}
+                             peerSrc={this.state.peerSrc}
+                             config={this.config}
+                             mediaDevice={this.pc.mediaDevice}
+                />
+                <Button variant="fab" color="secondary" aria-label="end call" onClick={() => this.endCall(this.state.isCaller)}>
+                  <EndCall/>
+                </Button>
               </div>
             ) : (
               <div className='VideoCall'>
@@ -198,7 +194,7 @@ class VideoCall extends Component {
                     </Typography>
                     {this.renderAvatar()}
                     <div className='VideoCall-ButtonDiv'>
-                      <Button variant="fab" color="secondary" aria-label="end call" onClick={this.closeVideoCall}>
+                      <Button variant="fab" color="secondary" aria-label="end call" onClick={() => this.endCall(this.state.isCaller)}>
                         <EndCall/>
                       </Button>
                     </div>
@@ -215,7 +211,13 @@ class VideoCall extends Component {
                     </Typography>
                     {this.renderAvatar()}
                     <div className='VideoCall-ButtonDiv'>
-                      <Button variant="fab" color="secondary" aria-label="end call" onClick={this.closeVideoCall}>
+                      <Button variant="fab" color="secondary" aria-label="end call" onClick={this.acceptWithVideo(true)}>
+                        <EndCall/>
+                      </Button>
+                      <Button variant="fab" color="secondary" aria-label="end call" onClick={this.acceptWithVideo(false)}>
+                        <EndCall/>
+                      </Button>
+                      <Button variant="fab" color="secondary" aria-label="end call" onClick={this.rejectCall}>
                         <EndCall/>
                       </Button>
                     </div>

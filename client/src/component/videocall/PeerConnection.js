@@ -13,7 +13,7 @@ class PeerConnection extends Emitter {
   constructor(friendID, connection) {
     super();
     this.pc = new RTCPeerConnection(PC_CONFIG);
-    this.pc.onicecandidate = event => connection.invoke('call', {
+    this.pc.onicecandidate = event => connection.invoke('createVideoCall', {
       to: this.friendID,
       candidate: event.candidate
     });
@@ -36,7 +36,7 @@ class PeerConnection extends Emitter {
       .on('stream', (stream) => {
         this.pc.addStream(stream);
         this.emit('localStream', stream);
-        if (isCaller) this.connection.invoke('Request', this.friendID);
+        if (isCaller) this.connection.invoke('requestVideoCall', this.friendID);
         else this.createOffer();
       })
       .start(config);
@@ -49,7 +49,7 @@ class PeerConnection extends Emitter {
    * @author Jimmy
    */
   stop(isStarter) {
-    if (isStarter) this.connection.invoke('End', this.friendID);
+    if (isStarter) this.connection.invoke('endVideoCall', this.friendID);
     this.mediaDevice.stop();
     this.pc.close();
     this.pc = null;
@@ -74,8 +74,10 @@ class PeerConnection extends Emitter {
   getDescription(desc) {
 
     console.log(this.friendID);
+    console.log(desc);
     this.pc.setLocalDescription(desc);
-    this.connection.invoke('Call', { to: this.friendID, sdp: desc });
+    this.connection.invoke('createVideoCall', this.friendID, desc );
+    console.log(desc)
     return this;
   }
 
@@ -85,6 +87,7 @@ class PeerConnection extends Emitter {
     return this;
   }
   addIceCandidate(candidate) {
+    console.log(candidate)
     if (candidate) {
       const iceCandidate = new RTCIceCandidate(candidate);
       this.pc.addIceCandidate(iceCandidate);

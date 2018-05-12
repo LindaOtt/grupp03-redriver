@@ -300,6 +300,7 @@ class App extends Component {
     })
 
     this.state.signalRConnection.on('videoCallRequest', (name) => {
+      console.log(name)
       this.receiveVideoCallOpen(name)
     })
   }
@@ -396,6 +397,7 @@ class App extends Component {
                 </Drawer>
                 <Dialog
                   fullScreen
+                  PaperProps={{ unmountOnExit: true }}
                   open={this.state.videoCall}
                   onClose={this.videoCallOpen}
                   aria-labelledby='responsive-dialog-title'

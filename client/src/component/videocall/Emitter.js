@@ -6,6 +6,7 @@ class Emitter {
   }
 
   emit(event, ...args) {
+    console.log(event)
     if (this.events[event]) {
       this.events[event].forEach(fn => fn(...args));
     }
@@ -13,12 +14,14 @@ class Emitter {
   }
 
   on(event, fn) {
+    console.log(event)
     if (this.events[event]) this.events[event].push(fn);
     else this.events[event] = [fn];
     return this;
   }
 
   off(event, fn) {
+    console.log(event)
     if (event && _.isFunction(fn)) {
       const listeners = this.events[event];
       const index = listeners.findIndex(_fn => _fn === fn);
