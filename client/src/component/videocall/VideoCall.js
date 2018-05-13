@@ -186,27 +186,29 @@ class VideoCall extends Component {
                   config={this.config}
                   mediaDevice={this.pc.mediaDevice}
                 />
-                {this.state.Video ? (
-                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
-                    <CameraOn />
+                <div className='VideoCall-ButtonDiv'>
+                  {this.state.Video ? (
+                    <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
+                      <CameraOn />
+                    </Button>
+                  ) : (
+                    <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
+                      <CameraOff />
+                    </Button>
+                  )}
+                  {this.state.Audio ? (
+                    <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
+                      <MicOn />
+                    </Button>
+                  ) : (
+                    <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
+                      <MicOff />
+                    </Button>
+                  )}
+                  <Button variant='fab' color='secondary' aria-label='end call' onClick={() => this.endCall(this.state.isCaller)} style={videoCallStyles.button}>
+                    <EndCall />
                   </Button>
-                ) : (
-                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
-                    <CameraOff />
-                  </Button>
-                )}
-                {this.state.Audio ? (
-                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
-                    <MicOn />
-                  </Button>
-                ) : (
-                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
-                    <MicOff />
-                  </Button>
-                )}
-                <Button variant='fab' color='secondary' aria-label='end call' onClick={() => this.endCall(this.state.isCaller)} style={videoCallStyles.button}>
-                  <EndCall />
-                </Button>
+                </div>
               </div>
             ) : (
               <div className='VideoCall'>

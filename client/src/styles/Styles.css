@@ -305,6 +305,16 @@ html, body {
     margin-left: 20px;
 }
 
+.UserAccount-FriendsDialog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.UserAccount-FriendsAvatar {
+    margin: 20px;
+}
+
 .VideoCall {
     display: flex;
     flex-direction: column;

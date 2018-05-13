@@ -19,5 +19,10 @@ export const userAccountStyles = {
 
   title: {
     marginLeft: 20
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    cursor: 'pointer'
   }
 }
