@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider'
 import Snackbar from 'material-ui/Snackbar'
 import { CircularProgress } from 'material-ui/Progress'
 import HttpsRedirect from 'react-https-redirect'
+import Dialog from 'material-ui/Dialog'
 
 // Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble'
@@ -36,8 +37,9 @@ import Register from './component/authentication/Register'
 import NewPassword from './component/authentication/NewPassword'
 import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
+import VideoCall from './component/videocall/VideoCall'
 
-import {verifyJWT} from './utils/ApiRequests'
+import {getFriends, verifyJWT} from './utils/ApiRequests'
 import {initChat} from './utils/SignalR'
 
 /**
@@ -57,7 +59,12 @@ class App extends Component {
       isSignedIn: false,
       userRole: 'User',
       loaded: false,
-      signalRConnection: ''
+      signalRConnection: '',
+      receiveVideoCall: false,
+      videoCall: false,
+      callTo: '',
+      callFrom: '',
+      friends: []
     }
     this.openSnackBar = this.openSnackBar.bind(this)
     this.userLogout = this.userLogout.bind(this)
@@ -89,41 +96,69 @@ class App extends Component {
     this.verifyToken(token)
   }
 
-    /**
-     *  Open bottom-bar and display message. Closes after 3 seconds.
-     *
-     *  @author Jimmy
-     */
+  /**
+   *  Open bottom-bar and display message. Closes after 3 seconds.
+   *
+   *  @author Jimmy
+   */
 
-    openSnackBar = (message) => {
-      verifyJWT(this.state.token)
-        .then((response) => {
-          this.setState({
-            snackBar: true,
-            snackBarMessage: message,
-            userInfo: response.data
-          })
+  openSnackBar = (message) => {
+    verifyJWT(this.state.token)
+      .then((response) => {
+        this.setState({
+          snackBar: true,
+          snackBarMessage: message,
+          userInfo: response.data
         })
-
-      setTimeout(() => {
-        this.closeSnackBar()
-      }, 3000)
-    };
-
-    /**
-     *  Close bottom-bar and delete message.
-     *
-     *  @author Jimmy
-     */
-
-    closeSnackBar = () => {
-      this.setState({
-        snackBar: false,
-        snackBarMessage: ''
       })
-    };
 
-    /**
+    setTimeout(() => {
+      this.closeSnackBar()
+    }, 3000)
+  };
+
+  /**
+   *  Close bottom-bar and delete message.
+   *
+   *  @author Jimmy
+   */
+
+  closeSnackBar = () => {
+    this.setState({
+      snackBar: false,
+      snackBarMessage: ''
+    })
+  };
+
+  /**
+   *  Methods to handle videocall-modal when making or receiving a video calls.
+   *
+   *  @author Jimmy
+   */
+
+  receiveVideoCallOpen = (name) => {
+    this.setState({
+      videoCall: true,
+      callFrom: name
+    })
+  }
+
+  videoCallOpen = (name) => {
+    this.setState({
+      videoCall: true,
+      callTo: name
+    })
+  }
+
+  videoCallClose = () => {
+    this.setState({
+      videoCall: false,
+      callTo: '',
+      callFrom: ''
+    })
+  }
+
+  /**
      *  Render all links in drawer-menu.
      *
      *  @author Jimmy
@@ -222,7 +257,16 @@ class App extends Component {
           }, () => {
             this.handleEvents()
           })
-        }).catch(() => {
+        })
+        .then(() => {
+          getFriends(this.state.token)
+            .then((response) => {
+              response.data.friendList.forEach((i) => {
+                this.state.friends.push(i)
+              })
+            })
+        })
+        .catch(() => {
           this.setState({
             isSignedIn: false,
             loaded: true
@@ -244,7 +288,12 @@ class App extends Component {
     })
 
     this.state.signalRConnection.on('userAddedToGroup', (name, group) => {
-      console.log('addeToGroup')
+      console.log('addedToGroup')
+    })
+
+    this.state.signalRConnection.on('videoCallRequest', (name) => {
+      console.log(name)
+      this.receiveVideoCallOpen(name)
     })
   }
   /**
@@ -313,7 +362,7 @@ class App extends Component {
                 <div className='App-Body'>
                   <Route path='/' exact component={() => <UserAccount state={this.state} />} />
                   <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
-                  <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
+                  <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} startVideoCall={this.videoCallOpen} />} />
                   <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
                   <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />
                   <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
@@ -338,6 +387,15 @@ class App extends Component {
                     {this.renderMenu()}
                   </div>
                 </Drawer>
+                <Dialog
+                  fullScreen
+                  PaperProps={{ unmountOnExit: true }}
+                  open={this.state.videoCall}
+                  onClose={this.videoCallOpen}
+                  aria-labelledby='responsive-dialog-title'
+                >
+                  <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} videoCallClose={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar} />
+                </Dialog>
               </div>
             ) : (
               <div className='AppLoadingDiv'>

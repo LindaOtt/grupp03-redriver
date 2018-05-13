@@ -25,7 +25,7 @@ class ChangeProfilePicture extends Component {
     this.state = {
       file: null,
       uploaded: true,
-      avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now()
+      avatarUrl: this.props.state.userInfo.avatarUrl
     }
   }
 
@@ -104,8 +104,7 @@ class ChangeProfilePicture extends Component {
           uploadProfilePicture(formData, this.props.state.token)
             .then((response) => {
               this.setState({
-                avatarUrl: this.props.state.userInfo.avatarUrl + '?time=' + Date.now(),
-                uploaded: true
+                avatarUrl: this.props.state.userInfo.avatarUrl
               })
               return this.props.openSnackBar('Bilden laddades upp!')
             }).catch((err) => {

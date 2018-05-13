@@ -305,6 +305,41 @@ html, body {
     margin-left: 20px;
 }
 
+.VideoCall {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.VideoCall-Avatar {
+    margin: 20px;
+    box-shadow: 0 0 6px #B2B2B2;
+    width: 300px;
+    height: 300px;
+}
+
+.VideoContainer {
+    max-width: 800px;
+    display: inline-block;
+    position: relative;
+}
+
+#localVideo {
+    width: 25%;
+    float: inside;
+    position: absolute;
+    right: 0;
+    bottom: 0.5%;
+    border: 1px solid #cbced0;
+}
+
+#peerVideo {
+    width: 100%;
+}
+
 @media only screen and (min-width: 960px) {
     .FriendsList {
         min-width: 100%;
