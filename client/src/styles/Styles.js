@@ -14,7 +14,8 @@ export const theme = createMuiTheme({
     primary: {
       light: grey[400],
       main: grey[700],
-      dark: grey[900]
+      dark: grey[900],
+      button: grey[600],
     },
 
     error: {
