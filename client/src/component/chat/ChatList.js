@@ -20,6 +20,7 @@ import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
 import { CircularProgress } from 'material-ui/Progress'
+import Avatar from 'material-ui/Avatar'
 
 // Import Icons
 import CloseIcon from '@material-ui/icons/Close'
@@ -29,9 +30,14 @@ import {ChatListStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
+// Profile picture
+import profilePhoto from '../../temp/user.jpg'
+
 import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
+
+let gifshot = require('gifshot');
 
 /**
  *  ChatList-component. Starting page of chat.
@@ -152,6 +158,12 @@ class ChatList extends Component {
     return this.handleDialogClose()
   }
 
+  /**
+   *  Render name for a chat
+   *
+   *  @author Jimmy
+   */
+
   renderChatName = (users) => {
 
     let index = users.indexOf(this.props.state.userInfo.username)
@@ -159,6 +171,38 @@ class ChatList extends Component {
     let userString = users.join(', ')
     return userString.replace(/,(?=[^,]*$)/, ' &')
   }
+
+  /**
+   *  Render avatar for a chat
+   *
+   *  @author Jimmy
+   */
+
+  renderChatAvatar = (users) => {
+
+    let avatars = []
+    for (let i = 0; i < this.props.state.friends.length; i++) {
+      for (let j = 0; j < users.length; j++) {
+
+        if(users[j] !== this.props.state.userInfo.username) {
+          if(users[j] === this.props.state.friends[i].username && this.props.state.friends[i].avatarUrl !== null) {
+            avatars.push(this.props.state.friends[i].avatarUrl)
+          }
+        }
+
+      }
+    }
+    if(avatars.length === 0) {
+      return profilePhoto
+    } else if (avatars.length === 1) {
+      return avatars[0]
+    } else if (avatars.length === 2) {
+
+      console.log(avatars)
+      return avatars[0]
+    }
+  }
+
 
   /**
    *  Render list of chats
@@ -172,9 +216,10 @@ class ChatList extends Component {
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
         <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}>
+          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
           <Typography
             style={ChatListStyles.chatName}
-            variant='subheadline'
+            variant='subheading'
             onClick={(() => {
               this.handleChatClick(this.state.groups[i].groupName)
               return this.handleChatDialogOpen()
@@ -204,9 +249,10 @@ class ChatList extends Component {
           elevation={1}
           key={this.state.groups[i]}
         >
+          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
           <Typography
             style={ChatListStyles.chatName}
-            variant='subheadline'
+            variant='subheading'
             onClick={() => {
               this.handleChatClick(this.state.groups[i].groupName)
             }
@@ -258,8 +304,8 @@ class ChatList extends Component {
                   tempArray.push(responseTwo.data)
               }).then(() => {
                 if(i === response.data.groupList.length - 1) {
-                  console.log('isloaded')
                   setTimeout(() => {
+                    console.log('isloaded')
                     this.setState({
                       groups: tempArray,
                       isLoaded: true,

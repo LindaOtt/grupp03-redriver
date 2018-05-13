@@ -41,7 +41,7 @@ export const ChatListStyles = {
   chatName: {
     width: '90%',
     textAlign: 'left',
-    marginTop: 6,
+    marginLeft: 6,
     cursor: 'pointer'
   }
 }
