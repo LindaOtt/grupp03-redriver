@@ -1,5 +1,5 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
-// import {theme} from './Styles'
+import {theme} from './Styles'
 import grey from 'material-ui/colors/grey'
 
 /**
@@ -10,7 +10,7 @@ import grey from 'material-ui/colors/grey'
 
 const AppStyles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   flex: {
     flex: 1
@@ -36,6 +36,13 @@ const AppStyles = {
   HttpsRedirect: {
     width: '100%',
     height: '100%'
+  },
+  snackBar: {
+
+  },
+  listItem: {
+    color: theme.palette.primary.main,
+    fontColor: theme.palette.primary.main,
   }
 
 }
