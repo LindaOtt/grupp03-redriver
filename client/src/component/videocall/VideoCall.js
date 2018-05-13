@@ -18,7 +18,7 @@ import CameraOff from '@material-ui/icons/VideocamOff'
 // Import styles. videoCallStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import '../../styles/Styles.css'
 import {videoCallStyles} from '../../styles/VideoCallStyles'
-import {endVideoCall, requestVideoCall} from '../../utils/SignalR'
+import {endVideoCall} from '../../utils/SignalR'
 
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
@@ -43,11 +43,11 @@ class VideoCall extends Component {
 
     }
 
-    this.pc = {};
-    this.config = null;
-    this.startCall = this.startCall.bind(this);
-    this.endCall = this.endCall.bind(this);
-    this.rejectCall = this.rejectCall.bind(this);
+    this.pc = {}
+    this.config = null
+    this.startCall = this.startCall.bind(this)
+    this.endCall = this.endCall.bind(this)
+    this.rejectCall = this.rejectCall.bind(this)
   }
 
   /**
@@ -58,16 +58,15 @@ class VideoCall extends Component {
 
   renderAvatar () {
     if (this.state.userInfo.avatarUrl) {
-      return <img onError={this.onImageError} className='VideoCall-Avatar' src={this.state.userInfo.avatarUrl}/>
+      return <img onError={this.onImageError} className='VideoCall-Avatar' src={this.state.userInfo.avatarUrl} />
     } else {
-      return <img onError={this.onImageError} className='VideoCall-Avatar' src={profilePhoto}/>
+      return <img onError={this.onImageError} className='VideoCall-Avatar' src={profilePhoto} />
     }
   }
 
   onImageError (ev) {
     ev.target.src = profilePhoto
   }
-
 
   /**
    *  Start a video call
@@ -76,7 +75,7 @@ class VideoCall extends Component {
    */
 
    startVideoCall = (name) => {
-     let userObj;
+     let userObj
 
      for (let i = 0; i < this.props.state.friends.length; i++) {
        if (this.props.callTo === this.props.state.friends[i].username) {
@@ -102,7 +101,7 @@ class VideoCall extends Component {
    */
 
   answerVideoCall = (name) => {
-    let userObj;
+    let userObj
 
     for (let i = 0; i < this.props.state.friends.length; i++) {
       if (this.props.callFrom === this.props.state.friends[i].username) {
@@ -117,65 +116,63 @@ class VideoCall extends Component {
     })
   };
 
-  startCall(isCaller, friendID, config) {
-    this.config = config;
+  startCall (isCaller, friendID, config) {
+    this.config = config
 
     console.log(this.state)
     this.pc = new PeerConnection(friendID, this.props.state.signalRConnection)
       .on('localStream', (src) => {
-        const newState = {localSrc: src, isCaller: isCaller };
-        this.setState(newState);
+        const newState = {localSrc: src, isCaller: isCaller }
+        this.setState(newState)
       })
       .on('peerStream', src => this.setState({ peerSrc: src }))
-      .start(isCaller, config);
+      .start(isCaller, config)
   }
 
-  endCall(isStarter) {
-
-    if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter);
-    this.pc = {};
-    this.config = null;
+  endCall (isStarter) {
+    if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter)
+    this.pc = {}
+    this.config = null
     this.props.videoCallClose()
   }
 
-  rejectCall() {
-    this.props.state.signalRConnection.invoke('endVideoCall', this.props.callFrom);
+  rejectCall () {
+    this.props.state.signalRConnection.invoke('endVideoCall', this.props.callFrom)
     this.props.videoCallClose()
   }
 
-  acceptWithVideo(video) {
-    const config = { audio: true, video };
-    return () => this.startCall(false, this.props.callFrom, config);
+  acceptWithVideo (video) {
+    const config = { audio: true, video }
+    return () => this.startCall(false, this.props.callFrom, config)
   }
 
-  toggleMediaDevice(deviceType) {
+  toggleMediaDevice (deviceType) {
     this.setState({
       [deviceType]: !this.state[deviceType]
-    });
-    this.pc.mediaDevice.toggle(deviceType);
+    })
+    this.pc.mediaDevice.toggle(deviceType)
   }
 
-  componentWillMount() {
-
+  componentWillMount () {
     this.props.state.signalRConnection.on('createVideoCall', (sender, data) => {
       if (data !== null) {
         if (data.sdp) {
-          this.pc.setRemoteDescription(data);
-          if (data.type === 'offer') this.pc.createAnswer();
-        } else this.pc.addIceCandidate(data);
+          this.pc.setRemoteDescription(data)
+          if (data.type === 'offer') this.pc.createAnswer()
+        } else this.pc.addIceCandidate(data)
       }
-    });
+    })
 
     this.props.state.signalRConnection.on('endVideoCall', this.endCall.bind(this, false))
 
-     if(this.props.callTo !== '') {
-       this.startVideoCall(this.props.callTo)
-     } else if (this.props.callFrom !== '') {
-       this.answerVideoCall(this.props.callFrom)
-     } else {
-       this.props.videoCallClose()
-     }
-   }
+    if (this.props.callTo !== '') {
+      this.startVideoCall(this.props.callTo)
+    } else if (this.props.callFrom !== '') {
+      this.answerVideoCall(this.props.callFrom)
+    } else {
+      this.props.videoCallClose()
+    }
+  }
 
   render () {
     return (
@@ -185,30 +182,30 @@ class VideoCall extends Component {
             {this.state.peerSrc ? (
               <div className='VideoCall'>
                 <VideoStream localSrc={this.state.localSrc}
-                             peerSrc={this.state.peerSrc}
-                             config={this.config}
-                             mediaDevice={this.pc.mediaDevice}
+                  peerSrc={this.state.peerSrc}
+                  config={this.config}
+                  mediaDevice={this.pc.mediaDevice}
                 />
                 {this.state.Video ? (
-                  <Button variant="fab" color="primary" aria-label="end call" onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
-                    <CameraOn/>
+                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
+                    <CameraOn />
                   </Button>
                 ) : (
-                  <Button variant="fab" color="primary" aria-label="end call" onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
-                    <CameraOff/>
+                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Video')} style={videoCallStyles.button}>
+                    <CameraOff />
                   </Button>
                 )}
                 {this.state.Audio ? (
-                  <Button variant="fab" color="primary" aria-label="end call" onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
-                    <MicOn/>
+                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
+                    <MicOn />
                   </Button>
                 ) : (
-                  <Button variant="fab" color="primary" aria-label="end call" onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
-                    <MicOff/>
+                  <Button variant='fab' color='primary' aria-label='end call' onClick={() => this.toggleMediaDevice('Audio')} style={videoCallStyles.button}>
+                    <MicOff />
                   </Button>
                 )}
-                <Button variant="fab" color="secondary" aria-label="end call" onClick={() => this.endCall(this.state.isCaller)} style={videoCallStyles.button}>
-                  <EndCall/>
+                <Button variant='fab' color='secondary' aria-label='end call' onClick={() => this.endCall(this.state.isCaller)} style={videoCallStyles.button}>
+                  <EndCall />
                 </Button>
               </div>
             ) : (
@@ -225,8 +222,8 @@ class VideoCall extends Component {
                     </Typography>
                     {this.renderAvatar()}
                     <div className='VideoCall-ButtonDiv'>
-                      <Button variant="fab" color="secondary" aria-label="end call" onClick={() => this.endCall(this.state.isCaller)} style={videoCallStyles.button}>
-                        <EndCall/>
+                      <Button variant='fab' color='secondary' aria-label='end call' onClick={() => this.endCall(this.state.isCaller)} style={videoCallStyles.button}>
+                        <EndCall />
                       </Button>
                     </div>
                   </div>
@@ -242,14 +239,14 @@ class VideoCall extends Component {
                     </Typography>
                     {this.renderAvatar()}
                     <div className='VideoCall-ButtonDiv'>
-                      <Button variant="fab" color="primary" aria-label="end call" onClick={this.acceptWithVideo(true)} style={videoCallStyles.button}>
-                        <CameraOn/>
+                      <Button variant='fab' color='primary' aria-label='end call' onClick={this.acceptWithVideo(true)} style={videoCallStyles.button}>
+                        <CameraOn />
                       </Button>
-                      <Button variant="fab" color="primary" aria-label="end call" onClick={this.acceptWithVideo(false)} style={videoCallStyles.button}>
-                        <MicOn/>
+                      <Button variant='fab' color='primary' aria-label='end call' onClick={this.acceptWithVideo(false)} style={videoCallStyles.button}>
+                        <MicOn />
                       </Button>
-                      <Button variant="fab" color="secondary" aria-label="end call" onClick={this.rejectCall} style={videoCallStyles.button}>
-                        <EndCall/>
+                      <Button variant='fab' color='secondary' aria-label='end call' onClick={this.rejectCall} style={videoCallStyles.button}>
+                        <EndCall />
                       </Button>
                     </div>
                   </div>
@@ -258,7 +255,7 @@ class VideoCall extends Component {
             )}
           </div>
         ) : (
-          <p> </p>
+          <p />
         )}
 
       </div>

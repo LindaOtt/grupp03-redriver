@@ -1,7 +1,7 @@
-import MediaDevice from './MediaDevice';
-import Emitter from './Emitter';
+import MediaDevice from './MediaDevice'
+import Emitter from './Emitter'
 
-const PC_CONFIG = { iceServers: [{ urls: ['stun:stun.l.google.com:19302'] }] };
+const PC_CONFIG = { iceServers: [{ urls: ['stun:stun.l.google.com:19302'] }] }
 
 /**
  * Create a PeerConnection.
@@ -10,80 +10,79 @@ const PC_CONFIG = { iceServers: [{ urls: ['stun:stun.l.google.com:19302'] }] };
  */
 
 class PeerConnection extends Emitter {
-  constructor(friendID, connection) {
-    super();
-    this.pc = new RTCPeerConnection(PC_CONFIG);
-    this.pc.onicecandidate = event => connection.invoke('createVideoCall', this.friendID, event.candidate);
-    this.pc.onaddstream = event => this.emit('peerStream', event.stream);
+  constructor (friendID, connection) {
+    super()
+    this.pc = new RTCPeerConnection(PC_CONFIG)
+    this.pc.onicecandidate = event => connection.invoke('createVideoCall', this.friendID, event.candidate)
+    this.pc.onaddstream = event => this.emit('peerStream', event.stream)
 
-    this.mediaDevice = new MediaDevice();
-    this.friendID = friendID;
-    this.connection = connection;
+    this.mediaDevice = new MediaDevice()
+    this.friendID = friendID
+    this.connection = connection
   }
   /**
    * Starting the call
    *
    * @author Jimmy
    */
-  start(isCaller, config) {
-
+  start (isCaller, config) {
     this.mediaDevice
       .on('stream', (stream) => {
-        this.pc.addStream(stream);
-        this.emit('localStream', stream);
-        if (isCaller) this.connection.invoke('requestVideoCall', this.friendID);
-        else this.createOffer();
+        this.pc.addStream(stream)
+        this.emit('localStream', stream)
+        if (isCaller) this.connection.invoke('requestVideoCall', this.friendID)
+        else this.createOffer()
       })
-      .start(config);
+      .start(config)
 
-    return this;
+    return this
   }
   /**
    * Stop the call
    *
    * @author Jimmy
    */
-  stop(isStarter) {
-    this.connection.invoke('endVideoCall', this.friendID);
-    this.mediaDevice.stop();
-    this.pc.close();
-    this.pc = null;
-    this.off();
-    return this;
+  stop (isStarter) {
+    this.connection.invoke('endVideoCall', this.friendID)
+    this.mediaDevice.stop()
+    this.pc.close()
+    this.pc = null
+    this.off()
+    return this
   }
 
-  createOffer() {
+  createOffer () {
     this.pc.createOffer()
       .then(this.getDescription.bind(this))
-      .catch(err => console.log(err));
-    return this;
+      .catch(err => console.log(err))
+    return this
   }
 
-  createAnswer() {
+  createAnswer () {
     this.pc.createAnswer()
       .then(this.getDescription.bind(this))
-      .catch(err => console.log(err));
-    return this;
+      .catch(err => console.log(err))
+    return this
   }
 
-  getDescription(desc) {
-    this.pc.setLocalDescription(desc);
-    this.connection.invoke('createVideoCall', this.friendID, desc );
-    return this;
+  getDescription (desc) {
+    this.pc.setLocalDescription(desc)
+    this.connection.invoke('createVideoCall', this.friendID, desc)
+    return this
   }
 
-  setRemoteDescription(sdp) {
-    const rtcSdp = new RTCSessionDescription(sdp);
-    this.pc.setRemoteDescription(rtcSdp);
-    return this;
+  setRemoteDescription (sdp) {
+    const rtcSdp = new RTCSessionDescription(sdp)
+    this.pc.setRemoteDescription(rtcSdp)
+    return this
   }
-  addIceCandidate(candidate) {
+  addIceCandidate (candidate) {
     if (candidate) {
-      const iceCandidate = new RTCIceCandidate(candidate);
-      this.pc.addIceCandidate(iceCandidate);
+      const iceCandidate = new RTCIceCandidate(candidate)
+      this.pc.addIceCandidate(iceCandidate)
     }
-    return this;
+    return this
   }
 }
 
-export default PeerConnection;
+export default PeerConnection

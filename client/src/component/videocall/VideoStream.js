@@ -1,66 +1,54 @@
-import React, { Component } from 'react';
-//import classnames from 'classnames';
-import _ from 'lodash';
+import React, { Component } from 'react'
+// import classnames from 'classnames';
+import _ from 'lodash'
 
 import '../../styles/Styles.css'
 
 class VideoStream extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       Video: true,
       Audio: true
-    };
+    }
   }
 
-  componentDidMount() {
-    this.setMediaStream();
+  componentDidMount () {
+    this.setMediaStream()
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     // Initialize when the call started
     if (!this.props.config && nextProps.config) {
-      const { config, mediaDevice } = nextProps;
+      const { config, mediaDevice } = nextProps
       _.forEach(config, (conf, type) =>
-        mediaDevice.toggle(_.capitalize(type), conf));
+        mediaDevice.toggle(_.capitalize(type), conf))
 
       this.setState({
         Video: config.video,
         Audio: config.audio
-      });
+      })
     }
   }
 
-  componentDidUpdate() {
-    this.setMediaStream();
+  componentDidUpdate () {
+    this.setMediaStream()
   }
 
-  setMediaStream() {
-    const { peerSrc, localSrc } = this.props;
-    if (this.peerVideo && peerSrc) this.peerVideo.srcObject = peerSrc;
-    if (this.localVideo && localSrc) this.localVideo.srcObject = localSrc;
+  setMediaStream () {
+    const { peerSrc, localSrc } = this.props
+    if (this.peerVideo && peerSrc) this.peerVideo.srcObject = peerSrc
+    if (this.localVideo && localSrc) this.localVideo.srcObject = localSrc
   }
 
-  /**
-   * Turn on/off a media device
-   * @param {String} deviceType - Type of the device eg: Video, Audio
-   */
-  toggleMediaDevice(deviceType) {
-    this.setState({
-      [deviceType]: !this.state[deviceType]
-    });
-    this.props.mediaDevice.toggle(deviceType);
-  }
-
-  render() {
-    const { status } = this.props;
+  render () {
     return (
-      <div className="VideoContainer">
-        <video id="localVideo" ref={el => this.localVideo = el} autoPlay muted />
-        <video id="peerVideo" ref={el => this.peerVideo = el} autoPlay />
+      <div className='VideoContainer'>
+        <video id='localVideo' ref={el => this.localVideo = el} autoPlay muted />
+        <video id='peerVideo' ref={el => this.peerVideo = el} autoPlay />
       </div>
-    );
+    )
   }
 }
 
-export default VideoStream;
+export default VideoStream

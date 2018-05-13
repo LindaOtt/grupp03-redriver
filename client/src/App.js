@@ -14,12 +14,7 @@ import Divider from 'material-ui/Divider'
 import Snackbar from 'material-ui/Snackbar'
 import { CircularProgress } from 'material-ui/Progress'
 import HttpsRedirect from 'react-https-redirect'
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from 'material-ui/Dialog'
+import Dialog from 'material-ui/Dialog'
 
 // Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble'
@@ -27,8 +22,6 @@ import PersonIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 import LoginIcon from '@material-ui/icons/Person'
 import LogoutIcon from '@material-ui/icons/Cancel'
-
-import CloseIcon from '@material-ui/icons/Close'
 
 // Import styles. appStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import './styles/Styles.css'
@@ -164,7 +157,6 @@ class App extends Component {
       callFrom: ''
     })
   }
-
 
   /**
      *  Render all links in drawer-menu.
@@ -402,7 +394,7 @@ class App extends Component {
                   onClose={this.videoCallOpen}
                   aria-labelledby='responsive-dialog-title'
                 >
-                  <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} videoCallClose={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar}/>
+                  <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} videoCallClose={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar} />
                 </Dialog>
               </div>
             ) : (

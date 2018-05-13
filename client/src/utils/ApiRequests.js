@@ -1,7 +1,7 @@
 import {AzureServerUrl, LocalServerUrl} from './Config'
 import axios from 'axios/index'
 
-const localOrAzureUrl = LocalServerUrl
+const localOrAzureUrl = AzureServerUrl
 
 export const verifyJWT = (token) => {
   return axios({

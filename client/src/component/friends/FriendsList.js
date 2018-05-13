@@ -46,7 +46,7 @@ class FriendsList extends Component {
     this.state = {
       friends: [],
       isLoaded: false,
-      dialog: false,
+      dialog: false
     }
     this.renderAvatar = this.renderAvatar.bind(this)
   }
