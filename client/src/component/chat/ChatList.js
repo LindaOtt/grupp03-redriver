@@ -47,6 +47,7 @@ class ChatList extends Component {
       chats: [],
       friends: [],
       selectedFriends: [],
+      groups: [],
       isLoaded: false,
       dialog: false,
       chatDialog: false
@@ -151,6 +152,14 @@ class ChatList extends Component {
     return this.handleDialogClose()
   }
 
+  renderChatName = (users) => {
+
+    let index = users.indexOf(this.props.state.userInfo.username)
+    if (index !== -1) users.splice(index, 1);
+    let userString = users.join(', ')
+    return userString.replace(/,(?=[^,]*$)/, ' &')
+  }
+
   /**
    *  Render list of chats
    *
@@ -162,17 +171,16 @@ class ChatList extends Component {
 
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i]}>
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}>
           <Typography
             style={ChatListStyles.chatName}
-            variant='headline'
-            component='h3'
+            variant='subheadline'
             onClick={(() => {
-              this.handleChatClick(this.state.groups[i])
+              this.handleChatClick(this.state.groups[i].groupName)
               return this.handleChatDialogOpen()
             })}
           >
-            {this.state.groups[i]}
+            {this.renderChatName(this.state.groups[i].members)}
           </Typography>
         </Paper>
       )
@@ -198,14 +206,13 @@ class ChatList extends Component {
         >
           <Typography
             style={ChatListStyles.chatName}
-            variant='headline'
-            component='h3'
+            variant='subheadline'
             onClick={() => {
-              this.handleChatClick(this.state.groups[i])
+              this.handleChatClick(this.state.groups[i].groupName)
             }
             }
           >
-            {this.state.groups[i]}
+            {this.renderChatName(this.state.groups[i].members)}
           </Typography>
         </Paper>
       )
@@ -224,7 +231,6 @@ class ChatList extends Component {
     this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
       getGroups(this.props.state.token)
         .then((response) => {
-          console.log(response)
           this.setState({
             isLoaded: true,
             groups: response.data.groupList
@@ -238,25 +244,30 @@ class ChatList extends Component {
     getFriends(this.props.state.token)
       .then((response) => {
         response.data.friendList.forEach((i) => {
-          console.log(i)
           this.state.friends.push(i)
         })
       }).then(() => {
         getGroups(this.props.state.token)
           .then((response) => {
-            let tempArray = []
 
+            let tempArray = []
             for (let i = 0; i < response.data.groupList.length; i++) {
-              console.log(response.data.groupList[i])
               getGroupInfo(this.props.state.token, response.data.groupList[i])
-                .then((response) => {
-                console.log(response)
+                .then((responseTwo) => {
+                  console.log(responseTwo)
+                  tempArray.push(responseTwo.data)
+              }).then(() => {
+                if(i === response.data.groupList.length - 1) {
+                  console.log('isloaded')
+                  setTimeout(() => {
+                    this.setState({
+                      groups: tempArray,
+                      isLoaded: true,
+                    })
+                  }, 200)
+                }
               })
             }
-            this.setState({
-              isLoaded: true,
-              groups: response.data.groupList
-            })
           })
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
