@@ -130,11 +130,12 @@ class ChatList extends Component {
 
   createNewChat = () => {
     let groupArray = this.state.selectedFriends
+    console.log(groupArray)
     groupArray.push(this.props.state.userInfo.username)
     groupArray = groupArray.sort()
     let groupName = groupArray.toString()
 
-    createChatGroupWithUsers(this.props.state.signalRConnection, groupName, groupArray)
+    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
       .then((response) => {
         return this.updateComponent()
       }).catch(() => {

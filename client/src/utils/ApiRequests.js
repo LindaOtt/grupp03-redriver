@@ -99,6 +99,14 @@ export const getGroups = (token) => {
   })
 }
 
+export const getGroupInfo = (token, ) => {
+  return axios({
+    method: 'get',
+    url: localOrAzureUrl + '/api/user/groups',
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}
+
 export const getChatMessages = (token, group) => {
   let tempObj = {
     GroupName: group
