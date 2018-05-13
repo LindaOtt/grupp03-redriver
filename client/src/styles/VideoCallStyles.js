@@ -6,4 +6,7 @@
 
 export const videoCallStyles = {
 
+  button: {
+    margin: 10,
+  }
 }

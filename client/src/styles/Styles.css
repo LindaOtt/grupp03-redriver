@@ -321,6 +321,25 @@ html, body {
     height: 300px;
 }
 
+.VideoContainer {
+    max-width: 800px;
+    display: inline-block;
+    position: relative;
+}
+
+#localVideo {
+    width: 25%;
+    float: inside;
+    position: absolute;
+    right: 0;
+    bottom: 0.5%;
+    border: 1px solid #cbced0;
+}
+
+#peerVideo {
+    width: 100%;
+}
+
 @media only screen and (min-width: 960px) {
     .FriendsList {
         min-width: 100%;
