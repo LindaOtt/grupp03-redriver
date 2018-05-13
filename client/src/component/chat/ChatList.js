@@ -29,7 +29,7 @@ import {ChatListStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
-import {getFriends, getGroups} from '../../utils/ApiRequests'
+import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
 
@@ -130,10 +130,7 @@ class ChatList extends Component {
 
   createNewChat = () => {
     let groupArray = this.state.selectedFriends
-    console.log(groupArray)
     groupArray.push(this.props.state.userInfo.username)
-    groupArray = groupArray.sort()
-    let groupName = groupArray.toString()
 
     createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
       .then((response) => {
@@ -241,11 +238,21 @@ class ChatList extends Component {
     getFriends(this.props.state.token)
       .then((response) => {
         response.data.friendList.forEach((i) => {
+          console.log(i)
           this.state.friends.push(i)
         })
       }).then(() => {
         getGroups(this.props.state.token)
           .then((response) => {
+            let tempArray = []
+
+            for (let i = 0; i < response.data.groupList.length; i++) {
+              console.log(response.data.groupList[i])
+              getGroupInfo(this.props.state.token, response.data.groupList[i])
+                .then((response) => {
+                console.log(response)
+              })
+            }
             this.setState({
               isLoaded: true,
               groups: response.data.groupList

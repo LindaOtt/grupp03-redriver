@@ -99,10 +99,12 @@ export const getGroups = (token) => {
   })
 }
 
-export const getGroupInfo = (token, ) => {
+export const getGroupInfo = (token, group) => {
+  console.log(group)
   return axios({
     method: 'get',
-    url: localOrAzureUrl + '/api/user/groups',
+    url: localOrAzureUrl + '/api/group/getgroupdetails',
+    data: group,
     headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
   })
 }
