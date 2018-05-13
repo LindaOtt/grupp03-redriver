@@ -31,15 +31,17 @@ export const ChatListStyles = {
   },
   paper: {
     width: 283,
+    height: 60,
     display: 'flex',
     flexDirection: 'row',
     padding: 6,
-    margin: 5
+    margin: 5,
+    alignItems: 'center',
   },
   chatName: {
-    width: '70%',
+    width: '90%',
     textAlign: 'left',
-    marginTop: 6,
+    marginLeft: 6,
     cursor: 'pointer'
   }
 }
