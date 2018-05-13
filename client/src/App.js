@@ -360,7 +360,7 @@ class App extends Component {
                   </Toolbar>
                 </AppBar>
                 <div className='App-Body'>
-                  <Route path='/' exact component={() => <UserAccount state={this.state} />} />
+                  <Route path='/' exact component={() => <UserAccount state={this.state} startVideoCall={this.videoCallOpen} />}/>
                   <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
                   <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} startVideoCall={this.videoCallOpen} />} />
                   <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
