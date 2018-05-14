@@ -13600,11 +13600,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj",
+      "projectUniqueName": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj",
       "projectName": "RedRiverChatServer",
-      "projectPath": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj",
+      "projectPath": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj",
       "packagesPath": "C:\\Users\\galnd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServer\\obj\\",
+      "outputPath": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
