@@ -220,6 +220,7 @@ class ChatList extends Component {
           <Typography
             style={ChatListStyles.chatName}
             variant='subheading'
+            color='primary'
             onClick={(() => {
               this.handleChatClick(this.state.groups[i].groupName)
               return this.handleChatDialogOpen()
@@ -253,6 +254,7 @@ class ChatList extends Component {
           <Typography
             style={ChatListStyles.chatName}
             variant='subheading'
+            color='primary'
             onClick={() => {
               this.handleChatClick(this.state.groups[i].groupName)
             }
@@ -318,6 +320,12 @@ class ChatList extends Component {
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
+  }
+
+  componentWillReceiveProps () {
+    this.setState({
+      isLoaded: true
+    })
   }
 
   render () {
@@ -420,7 +428,7 @@ class ChatList extends Component {
               aria-labelledby='responsive-dialog-title'
             >
 
-              <IconButton color='inherit' onClick={this.handleChatDialogClose} aria-label='Close'>
+              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
                 <CloseIcon />
               </IconButton>
               <ChatView state={this.props.state}

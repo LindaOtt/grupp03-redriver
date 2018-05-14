@@ -75,7 +75,7 @@ class FriendsView extends Component {
       <div className='FriendsView'>
         <Typography
           variant='headline'
-          color='default'
+          color='primary'
           align='left'
           style={friendsViewStyles.title}
         >
@@ -84,7 +84,7 @@ class FriendsView extends Component {
         {this.renderAvatar()}
         <Button onClick={this.handleDeleteButton}
           style={friendsViewStyles.deleteButton}
-          color='secondary'
+          color='error'
         >
           Ta bort {this.props.friendsData.username} från din vänlista
         </Button>

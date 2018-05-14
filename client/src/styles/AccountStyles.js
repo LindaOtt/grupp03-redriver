@@ -10,8 +10,8 @@ import {theme} from './Styles'
 export const userAccountStyles = {
 
   button: {
-    width: 130,
-    height: 130,
+    width: 120,
+    height: 120,
     marginTop: 20,
     flexGrow: 0,
     backgroundColor: '#fcfcfc',

@@ -69,7 +69,7 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
 }
 
 .ChatList-Header {
@@ -193,7 +193,7 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
 }
 
 .FriendsList-Header {
@@ -244,12 +244,15 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
+    padding: 5px;
+    margin-top: 20px;
 }
 
 .FriendRequests-Inner {
 
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .Settings {
@@ -289,8 +292,9 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 340px;
-    padding-top: 60px;
+    max-width: 300px;
+    padding: 5px;
+    padding-top: 40px;
 }
 
 .UserAccountButtonDiv {

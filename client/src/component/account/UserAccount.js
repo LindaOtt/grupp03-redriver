@@ -80,7 +80,7 @@ class UserAccount extends Component {
     return (
       <div className='UserAccount'>
         <Typography
-          variant='display1'
+          variant='headline'
           color='primary'
           align='left'
           style={userAccountStyles.title}

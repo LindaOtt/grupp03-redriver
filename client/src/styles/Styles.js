@@ -23,6 +23,6 @@ export const theme = createMuiTheme({
       main: red[600],
       dark: red[800]
     },
-    textColor: grey[700]
+    textColor: grey[700],
   }
 })

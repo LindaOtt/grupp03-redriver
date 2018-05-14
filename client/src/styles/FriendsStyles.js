@@ -1,6 +1,8 @@
 // Import theme from Styles.js to be able to change colors etc. throughout the application.
 // import {theme} from './Styles'
 
+import {theme} from './Styles'
+
 /**
  *  Styles for imported components in the friends directory
  *
@@ -16,7 +18,8 @@ export const friendsListStyles = {
     display: 'flex',
     flexDirection: 'row',
     padding: 6,
-    margin: 5
+    margin: 5,
+    alignItems: 'center',
   },
   friendsName: {
     width: '60%',
@@ -26,6 +29,10 @@ export const friendsListStyles = {
   },
   avatar: {
     margin: 6
+  },
+  listItem: {
+    color: theme.palette.primary.main,
+    fontColor: theme.palette.primary.main,
   }
 }
 
@@ -43,7 +50,8 @@ export const friendRequestStyles = {
   friendRequests: {},
 
   title: {
-    margin: 20
+    margin: 20,
+    marginLeft: 0,
   },
 
   textField: {
@@ -51,7 +59,7 @@ export const friendRequestStyles = {
   },
 
   button: {
-
-    margin: 30
+    margin: 30,
+    background: theme.palette.primary.button,
   }
 }

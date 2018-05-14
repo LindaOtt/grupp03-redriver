@@ -343,7 +343,7 @@ class App extends Component {
                 >
                   <Toolbar>
                     <Typography
-                      variant='headline'
+                      variant='title'
                       align='left'
                       color='inherit'
                       style={AppStyles.flex}
