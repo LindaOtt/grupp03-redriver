@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
 // Import NPM-modules
-import { MuiThemeProvider } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
@@ -25,7 +24,6 @@ import LogoutIcon from '@material-ui/icons/Cancel'
 
 // Import styles. appStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import './styles/Styles.css'
-import {theme} from './styles/Styles'
 import AppStyles from './styles/AppStyles'
 
 // Import pages to use with React Router for navigation.
@@ -174,9 +172,9 @@ class App extends Component {
               to='/'
             >
               <ListItemIcon>
-                <LoginIcon />
+                <LoginIcon style={AppStyles.listItem}/>
               </ListItemIcon>
-              <ListItemText primary='Start' />
+              <ListItemText style={AppStyles.listItem} primary='Start' />
             </ListItem>
             <ListItem
               button
@@ -184,9 +182,9 @@ class App extends Component {
               to='/chats'
             >
               <ListItemIcon>
-                <ChatIcon />
+                <ChatIcon  style={AppStyles.listItem}/>
               </ListItemIcon>
-              <ListItemText primary='Chat' />
+              <ListItemText primary='Chat' style={AppStyles.listItem}/>
             </ListItem>
             <ListItem
               button
@@ -194,9 +192,9 @@ class App extends Component {
               to='/friends'
             >
               <ListItemIcon>
-                <PersonIcon />
+                <PersonIcon  style={AppStyles.listItem}/>
               </ListItemIcon>
-              <ListItemText primary='Vänner' />
+              <ListItemText primary='Vänner' style={AppStyles.listItem} />
             </ListItem>
             <ListItem
               button
@@ -204,9 +202,9 @@ class App extends Component {
               to='/settings'
             >
               <ListItemIcon>
-                <SettingsIcon />
+                <SettingsIcon style={AppStyles.listItem} />
               </ListItemIcon>
-              <ListItemText primary='Inställningar' />
+              <ListItemText style={AppStyles.listItem} primary='Inställningar' />
             </ListItem>
           </List>
           <Divider />
@@ -217,9 +215,9 @@ class App extends Component {
             onClick={this.userLogout}
           >
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon style={AppStyles.listItem} />
             </ListItemIcon>
-            <ListItemText primary='Logga ut' />
+            <ListItemText style={AppStyles.listItem} primary='Logga ut' />
           </ListItem>
         </div>
       )
@@ -253,7 +251,8 @@ class App extends Component {
             isSignedIn: true,
             userInfo: response.data,
             loaded: true,
-            signalRConnection: initChat(token)
+            signalRConnection: initChat(token),
+            friends: []
           }, () => {
             this.handleEvents()
           })
@@ -261,8 +260,8 @@ class App extends Component {
         .then(() => {
           getFriends(this.state.token)
             .then((response) => {
-              response.data.friendList.forEach((i) => {
-                this.state.friends.push(i)
+                this.setState({
+                  friends: response.data.friendList
               })
             })
         })
@@ -337,7 +336,6 @@ class App extends Component {
     return (
       <HttpsRedirect>
         <Router>
-          <MuiThemeProvider theme={theme} >
             {this.state.loaded ? (
               <div className='App'>
                 <AppBar
@@ -347,9 +345,12 @@ class App extends Component {
                   <Toolbar>
                     <Typography
                       variant='title'
+                      align='left'
                       color='inherit'
                       style={AppStyles.flex}
-                    />
+                    >
+                    RedRiver Chat
+                    </Typography>
                     {this.state.isSignedIn ? (
                       <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton} onClick={this.toggleMenu(true)}>
                         <MenuIcon />
@@ -372,6 +373,7 @@ class App extends Component {
                 <Snackbar
                   open={this.state.snackBar}
                   onClose={this.closeSnackBar}
+                  style={AppStyles.snackBar}
                   SnackbarContentProps={{
                     'aria-describedby': 'message-id'
                   }}
@@ -389,7 +391,6 @@ class App extends Component {
                 </Drawer>
                 <Dialog
                   fullScreen
-                  PaperProps={{ unmountOnExit: true }}
                   open={this.state.videoCall}
                   onClose={this.videoCallOpen}
                   aria-labelledby='responsive-dialog-title'
@@ -402,7 +403,6 @@ class App extends Component {
                 <CircularProgress style={AppStyles.loading} />
               </div>
             )}
-          </MuiThemeProvider>
         </Router>
       </HttpsRedirect>
     )

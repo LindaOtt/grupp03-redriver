@@ -81,44 +81,51 @@ class UserAccount extends Component {
       <div className='UserAccount'>
         <Typography
           variant='headline'
-          color='textSecondary'
+          color='primary'
           align='left'
           style={userAccountStyles.title}
         >
-                    Hej, {this.props.state.userInfo.username}!
+                    Hej, {this.props.state.userInfo.firstName}!
         </Typography>
-        <p className='AccountSecondTitle'>Kom igång genom att skicka ett meddelande nedan.</p>
+        <Typography
+          variant='subheading'
+          color='primary'
+          align='left'
+          style={userAccountStyles.title}
+        >
+          Kom igång genom att chatta eller starta ett videosamtal nedan.
+        </Typography>
         <div className='UserAccountButtonDiv'>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button}
             component={Link}
             to='/chats'
           >
-                        Mina chattrum
+                        Chatta
           </Button>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button}
             component={Link}
             to='/friends'
           >
-                        Mina vänner
+                        Vänner
           </Button>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button} onClick={this.handleClickOpen} >
-                        Starta videosamtal
+                        Starta Video
           </Button>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button} /* onClick={} */>
-                        Starta livesändning
+                        Starta live
           </Button>
         </div>
         <Dialog
-          PaperProps={{ unmountOnExit: true }}
           open={this.state.dialog}
           onClose={this.handleClose}
           aria-labelledby='responsive-dialog-title'
+          style={userAccountStyles.dialog}
         >
-          <DialogTitle id="alert-dialog-title">{"Välj vem du vill starta ett videosamtal med!"}</DialogTitle>
+          <DialogTitle style={userAccountStyles.dialogTitle} id="alert-dialog-title">{"Välj vem du vill starta ett videosamtal med!"}</DialogTitle>
           <div className='UserAccount-FriendsDialog'>
             {this.renderFriendsDialog()}
           </div>

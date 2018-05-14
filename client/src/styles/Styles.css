@@ -4,6 +4,7 @@ html, body {
     font-family: sans-serif;
     width: 100%;
     max-height: 100%;
+    background-color: #fcfcfc;
 }
 
 #root {
@@ -68,7 +69,7 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
 }
 
 .ChatList-Header {
@@ -192,7 +193,7 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
 }
 
 .FriendsList-Header {
@@ -243,12 +244,15 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 800px;
+    max-width: 720px;
+    padding: 5px;
+    margin-top: 20px;
 }
 
 .FriendRequests-Inner {
 
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .Settings {
@@ -288,8 +292,9 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 960px;
-    padding-top: 20px;
+    max-width: 300px;
+    padding: 5px;
+    padding-top: 40px;
 }
 
 .UserAccountButtonDiv {
@@ -297,12 +302,6 @@ html, body {
     flex-wrap: wrap;
     justify-content: space-between;
     align-self: center;
-}
-
-.AccountSecondTitle {
-    text-align: left;
-    max-width: 300px;
-    margin-left: 20px;
 }
 
 .UserAccount-FriendsDialog {
@@ -322,6 +321,7 @@ html, body {
     align-items: center;
     height: 100%;
     width: 100%;
+    background-color: #fcfcfc;
 }
 
 .VideoCall-Avatar {

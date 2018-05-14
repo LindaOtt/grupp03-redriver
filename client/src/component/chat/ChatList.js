@@ -37,8 +37,6 @@ import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
 
-let gifshot = require('gifshot');
-
 /**
  *  ChatList-component. Starting page of chat.
  *
@@ -198,8 +196,7 @@ class ChatList extends Component {
       return avatars[0]
     } else if (avatars.length === 2) {
 
-      console.log(avatars)
-      return avatars[0]
+      return avatars[Math.floor(Math.random() * avatars.length)]
     }
   }
 
@@ -220,6 +217,7 @@ class ChatList extends Component {
           <Typography
             style={ChatListStyles.chatName}
             variant='subheading'
+            color='primary'
             onClick={(() => {
               this.handleChatClick(this.state.groups[i].groupName)
               return this.handleChatDialogOpen()
@@ -253,6 +251,7 @@ class ChatList extends Component {
           <Typography
             style={ChatListStyles.chatName}
             variant='subheading'
+            color='primary'
             onClick={() => {
               this.handleChatClick(this.state.groups[i].groupName)
             }
@@ -300,12 +299,10 @@ class ChatList extends Component {
             for (let i = 0; i < response.data.groupList.length; i++) {
               getGroupInfo(this.props.state.token, response.data.groupList[i])
                 .then((responseTwo) => {
-                  console.log(responseTwo)
                   tempArray.push(responseTwo.data)
               }).then(() => {
                 if(i === response.data.groupList.length - 1) {
                   setTimeout(() => {
-                    console.log('isloaded')
                     this.setState({
                       groups: tempArray,
                       isLoaded: true,
@@ -318,6 +315,12 @@ class ChatList extends Component {
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
+  }
+
+  componentWillReceiveProps () {
+    this.setState({
+      isLoaded: true
+    })
   }
 
   render () {
@@ -420,7 +423,7 @@ class ChatList extends Component {
               aria-labelledby='responsive-dialog-title'
             >
 
-              <IconButton color='inherit' onClick={this.handleChatDialogClose} aria-label='Close'>
+              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
                 <CloseIcon />
               </IconButton>
               <ChatView state={this.props.state}

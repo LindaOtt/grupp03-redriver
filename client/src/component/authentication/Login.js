@@ -96,7 +96,7 @@ class Login extends Component {
             <div className='Login'>
               <Typography
                 variant='headline'
-                color='default'
+                color='primary'
                 align='left'
                 style={loginStyles.title}
               >
@@ -123,7 +123,7 @@ class Login extends Component {
                   margin='normal'
                 />
                 <div className='LoginButton'>
-                  <Button variant='raised' style={loginStyles.button} onClick={this.handleSubmit}>
+                  <Button variant='raised' style={loginStyles.button} color='primary' onClick={this.handleSubmit}>
                     Logga in
                   </Button>
                   <div style={loginStyles.loginLinkContainer}>

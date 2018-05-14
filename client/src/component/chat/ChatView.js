@@ -254,10 +254,10 @@ class ChatView extends Component {
             <div className='ChatView-Header'>
               <Typography variant='subheading' />
               <div className='ChatView-Icons'>
-                <IconButton color='inherit' aria-label='Lägg till en vän' onClick={this.addDialogOpen}>
+                <IconButton color='primary' aria-label='Lägg till en vän' onClick={this.addDialogOpen}>
                   <AddIcon />
                 </IconButton>
-                <IconButton color='inherit' aria-label='Lämna chatten' onClick={this.deleteDialogOpen}>
+                <IconButton color='primary' aria-label='Lämna chatten' onClick={this.deleteDialogOpen}>
                   <RemoveIcon />
                 </IconButton>
               </div>
@@ -276,7 +276,7 @@ class ChatView extends Component {
                 margin='normal'
                 style={ChatViewStyles.textInput}
               />
-              <Button variant='raised' style={ChatViewStyles.button} onClick={this.handleSubmit}>
+              <Button variant='raised' color='primary' style={ChatViewStyles.button} onClick={this.handleSubmit}>
                 Skicka
               </Button>
             </form>

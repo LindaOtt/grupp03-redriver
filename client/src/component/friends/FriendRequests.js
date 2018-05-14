@@ -91,7 +91,7 @@ class FriendRequests extends Component {
         <div className='FriendRequests'>
           <Typography
             variant='headline'
-            color='default'
+            color='primary'
             align='left'
             style={friendRequestStyles.title}
           >
@@ -99,7 +99,7 @@ class FriendRequests extends Component {
           </Typography>
           <div className='FriendRequests-Inner'>
             {this.state.friendRequests.length <= 0 ? (
-              <Typography >Inga nya vänförfrågningar</Typography>
+              <Typography color='primary'>Inga nya vänförfrågningar</Typography>
             ) : (
               <div>
                 <p>ToDo. Add cards for each request</p>
@@ -116,7 +116,7 @@ class FriendRequests extends Component {
               onChange={this.handleChange('friendUserName')}
               margin='normal'
             />
-            <Button variant='raised' style={friendRequestStyles.button} onClick={this.handleSubmit}>
+            <Button variant='raised' color='primary' style={friendRequestStyles.button} onClick={this.handleSubmit}>
                         Skicka vänförfrågan
             </Button>
           </div>

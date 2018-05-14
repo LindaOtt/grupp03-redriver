@@ -43,7 +43,8 @@ export const registerStyles = {
     width: '100%',
     height: 60,
     marginTop: 30,
-    marginBottom: 20
+    marginBottom: 20,
+    background: theme.palette.primary.button
   },
   register: {
     margin: 'auto',
@@ -79,12 +80,13 @@ export const loginStyles = {
   button: {
     width: '100%',
     height: 60,
-    marginTop: 30
+    marginTop: 30,
+    background: theme.palette.primary.button
   },
 
   loginLink: {
     textDecoration: 'none',
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.main
   },
   loginLinkContainer: {
     width: '100%',

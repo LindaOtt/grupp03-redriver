@@ -75,7 +75,7 @@ class FriendsView extends Component {
       <div className='FriendsView'>
         <Typography
           variant='headline'
-          color='default'
+          color='primary'
           align='left'
           style={friendsViewStyles.title}
         >

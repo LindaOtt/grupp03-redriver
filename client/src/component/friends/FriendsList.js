@@ -32,6 +32,7 @@ import {getFriends} from '../../utils/ApiRequests'
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
 import {requestVideoCall} from '../../utils/SignalR'
+import {ChatListStyles} from '../../styles/ChatStyles'
 
 /**
  *  FriendsList-component. Starting page of friends.
@@ -107,7 +108,7 @@ class FriendsList extends Component {
           <Typography
             style={friendsListStyles.friendsName}
             variant='headline'
-            component='h3'
+            color='primary'
             onClick={(() => {
               this.handleFriendClick(this.state.friends[i])
               return this.handleDialogOpen()
@@ -116,10 +117,10 @@ class FriendsList extends Component {
             {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat'>
-            <ChatIcon />
+            <ChatIcon style={friendsListStyles.listItem}/>
           </IconButton>
           <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
-            <VideoIcon />
+            <VideoIcon style={friendsListStyles.listItem}/>
           </IconButton>
         </Paper>
       )
@@ -141,22 +142,22 @@ class FriendsList extends Component {
       listArray.push(
         <Paper style={friendsListStyles.paper}
           elevation={1}
-          key={this.state.friends[i].surname}
+          key={this.state.friends[i].surname + 'large'}
         >
           {this.renderAvatar(this.state.friends[i])}
           <Typography
             style={friendsListStyles.friendsName}
             variant='headline'
-            component='h3'
+            color='primary'
             onClick={() => this.handleFriendClick(this.state.friends[i])}
           >
             {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat'>
-            <ChatIcon />
+            <ChatIcon style={friendsListStyles.listItem}/>
           </IconButton>
           <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
-            <VideoIcon />
+            <VideoIcon style={friendsListStyles.listItem}/>
           </IconButton>
         </Paper>
       )
@@ -235,7 +236,7 @@ class FriendsList extends Component {
             >
               <Toolbar>
                 <IconButton color='inherit' onClick={this.handleDialogClose} aria-label='Close'>
-                  <CloseIcon />
+                  <CloseIcon style={friendsListStyles.listItem}/>
                 </IconButton>
               </Toolbar>
               <FriendsView state={this.props.state}
