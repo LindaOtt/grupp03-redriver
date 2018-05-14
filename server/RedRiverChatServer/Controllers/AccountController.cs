@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
@@ -65,6 +66,60 @@ namespace RedRiverChatServer.Controllers
             if (result.Succeeded)
             {
                 return Ok(new { response = "Registration successful" });
+            }
+            else { return BadRequest(new { result.Errors }); }
+        }
+        /// <summary>
+        /// Cannot change username or password via this method!
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut, Authorize]
+        public async Task<object> UpdateAccount([FromBody] UserInfoModel model)
+        {
+            var username = GetNameFromClaim();
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == username);
+     
+            //If fields are not present they are not updated. Fields with empty strings nullify database fields. But
+            //username,email,firstname, lastname and password cannot be null or empty strings.
+            var config = new MapperConfiguration(cfg => {
+
+            //How to return a null instead of an empty string?
+            cfg.CreateMap<UserInfoModel, ApplicationUser>()
+            .ForMember(destination => destination.UserName, option => option.Ignore())
+            .ForMember(destination => destination.Email, option => { option.PreCondition(srs => srs.Email != null && srs.Email != string.Empty); })
+            .ForMember(destination => destination.FirstName, option => { option.PreCondition(srs => srs.FirstName != null && !string.IsNullOrEmpty(srs.FirstName)); })
+            .ForMember(destination => destination.Surname, option => { option.PreCondition(srs => srs.Surname != null && srs.Surname != string.Empty); })
+            .ForAllMembers(p => {
+                p.Condition((src, dest, srcMember) => srcMember != null);
+                //p.MapFrom(src => src.==string.Empty ? "N/A": src);
+            }
+                    )
+                ;
+            });
+
+            //This returns empty strings in the database but these should be nulls!!
+            IMapper iMapper = config.CreateMapper();
+            user = iMapper.Map<UserInfoModel, ApplicationUser>(model,user);
+
+            //Convert all empty strings to nulls
+            Type type = user.GetType();
+            PropertyInfo[] properties = type.GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.PropertyType== typeof(string) && (string)property.GetValue(user)=="")
+                {
+                    property.SetValue(user, null);
+                }
+            }
+
+            //CreateAsync updates user in database.
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok(new { response = "Update successful" });
             }
             else { return BadRequest(new { result.Errors }); }
         }
@@ -250,5 +305,15 @@ namespace RedRiverChatServer.Controllers
             else { result = IdentityResult.Failed(errorsList.ToArray()); }
             return result;
         }
+
+        private string GetNameFromClaim()
+        {
+            IEnumerable<Claim> claims = HttpContext.User.Claims;
+            Claim nameClaim = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            string name = nameClaim.Value;
+            return name;
+        }
+
+
     }
 }

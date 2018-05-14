@@ -14804,11 +14804,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServerTests\\RedRiverChatServerTests.csproj",
+      "projectUniqueName": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServerTests\\RedRiverChatServerTests.csproj",
       "projectName": "RedRiverChatServerTests",
-      "projectPath": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServerTests\\RedRiverChatServerTests.csproj",
+      "projectPath": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServerTests\\RedRiverChatServerTests.csproj",
       "packagesPath": "C:\\Users\\galnd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServerTests\\obj\\",
+      "outputPath": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServerTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -14827,8 +14827,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj": {
-              "projectPath": "C:\\Users\\galnd\\Desktop\\repo3\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj"
+            "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj": {
+              "projectPath": "C:\\Users\\galnd\\Desktop\\repos2\\grupp03-redriver\\server\\RedRiverChatServer\\RedRiverChatServer.csproj"
             }
           }
         }
