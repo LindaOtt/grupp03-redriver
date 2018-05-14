@@ -251,7 +251,8 @@ class App extends Component {
             isSignedIn: true,
             userInfo: response.data,
             loaded: true,
-            signalRConnection: initChat(token)
+            signalRConnection: initChat(token),
+            friends: []
           }, () => {
             this.handleEvents()
           })
@@ -259,8 +260,8 @@ class App extends Component {
         .then(() => {
           getFriends(this.state.token)
             .then((response) => {
-              response.data.friendList.forEach((i) => {
-                this.state.friends.push(i)
+                this.setState({
+                  friends: response.data.friendList
               })
             })
         })
