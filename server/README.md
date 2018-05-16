@@ -14,7 +14,7 @@ In a development environment, the Windows version of the server will attempt to 
 
 ## Installation(Linux/Mac OsX)
 
-Unlike on Windows, on Linux and Mac OsX there is no SQL Server Express database on which to run the system locally . This means that the server can only be run against the live database. To do so, the server must be started with ASPNETCORE_ENVIRONMENT set to Production.
+Unlike on Windows, on Linux and Mac OsX there is no SQL Server Express database on which to run the system locally. This means that the server can only be run against the live database. To do so, the server must be started with ASPNETCORE_ENVIRONMENT set to Production.
 
 + Make sure that [ASP.NET Core 2.0](https://www.microsoft.com/net/download) is installed.
 + Clone or download the repo and use the console to go to the server\RedRiverChatServer folder.
