@@ -124,6 +124,23 @@ namespace RedRiverChatServer.Controllers
             else { return BadRequest(new { result.Errors }); }
         }
 
+
+        [HttpPut, Authorize]
+        public async Task<object> UpdatePassword([FromBody] PasswordModel model)
+        {
+            var username = GetNameFromClaim();
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.UserName == username);
+
+
+            var result= await _userManager.ChangePasswordAsync(user, model.currentPassword, model.newPassword);
+        
+            if (result.Succeeded)
+            {
+                return Ok(new { response = "Password successfully updated" });
+            }
+            else { return BadRequest(new { result.Errors }); }
+        }
+
         /// <summary>
         /// 'Login' is really a matter of creating and distributing a JWT token.
         /// User can log in by either email or username.

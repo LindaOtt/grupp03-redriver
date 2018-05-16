@@ -108,7 +108,6 @@ namespace RedRiverChatServer.Models
 
     }
 
-
     public class FriendInfoModel
     {
         public string Username { get; set; }
@@ -119,6 +118,12 @@ namespace RedRiverChatServer.Models
         public string Surname { get; set; }
         public string AvatarUrl { get; set; }
 
+    }
+
+    public class PasswordModel
+    {
+        public string currentPassword { get; set; }
+        public string newPassword { get; set; }
     }
 
 }
