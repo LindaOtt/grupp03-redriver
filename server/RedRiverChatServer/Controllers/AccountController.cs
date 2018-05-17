@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -74,16 +75,43 @@ namespace RedRiverChatServer.Controllers
                 var callbackUrl = Url.Action(new Microsoft.AspNetCore.Mvc.Routing.UrlActionContext
                 {
                     Action = "ConfirmEmail",
-                    Controller = "api/account",
                     Values = new { userId = user.Id, code },
                     Protocol = HttpContext.Request.Scheme
                 });
+                Console.WriteLine(callbackUrl);
                 //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                 return Ok(new { response = "Registration successful" });
             }
             else { return BadRequest(new { result.Errors }); }
+        }
+
+        /// <summary>
+        /// 'ConfirmEmail' gives the newly registered user login privileges.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<object> ConfirmEmail([FromQuery(Name = "userId")] string userId, [FromQuery(Name = "code")] string token)
+        {
+            // Find the user by userId
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Id == userId);
+
+            // Update EmailConfirmed
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                string clientLogin = "https://clientredriver.azurewebsites.net/";
+                return Redirect(clientLogin);
+                //return Ok(new { Response = "Email successfully confirmed" });
+            }
+            else
+            {
+                return BadRequest(new { result.Errors });
+            }
         }
 
         /// <summary>
@@ -129,11 +157,11 @@ namespace RedRiverChatServer.Controllers
             {
                 response = BadRequest(new { response = "User account locked" });
             }
-            if(result.IsNotAllowed)
+            if (result.IsNotAllowed)
             {
-                response = BadRequest(new { response = "Not allowed" });
+                response = BadRequest(new { response = "User cannot sign in without a confirmed email" });
             }
-            if(result.RequiresTwoFactor)
+            if (result.RequiresTwoFactor)
             {
                 response = BadRequest(new { response = "Two factor required" });
             }

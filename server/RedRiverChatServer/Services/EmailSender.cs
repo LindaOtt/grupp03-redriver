@@ -26,11 +26,14 @@ namespace RedRiverChatServer.Services
 
         public Task SendEmailConfirmationAsync(string email, string link)
         {
-            return SendEmailAsync(email, "Bekräfta din mailadress",
-                $"Välkommen till RedRiver Chat!\n" +
-                                  "För att kunna logga in och börja använda applikationen måste du först verifiera din mailadress.\n" +
-                                  "Det gör du genom att klicka på nedanstående länk:\n" +
-                                  "<a href='{link}'>link</a>");
+            string subject = "Bekräfta din mailadress";
+            string message = $"Välkommen till RedRiver Chat!<br>" +
+                $"För att kunna logga in och börja använda applikationen måste du först verifiera din mailadress.<br>" +
+                $"Observera att du genom att verifiera din mailadress samtidigt bekräftar att du har läst igenom villkoren för att använda applikationen och att du godkänner dem villkoren.<br>" +
+                $"För att verifiera din mailadress och godkänna villkoren klickar du på nedanstående länk:<br>" +
+                $"<a href='{link}'>{link}</a>";
+
+            return SendEmailAsync(email, subject, message);
         }
 
         public Task SendEmailAsync(string email, string subject, string message)

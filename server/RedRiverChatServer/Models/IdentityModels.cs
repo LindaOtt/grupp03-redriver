@@ -118,5 +118,4 @@ namespace RedRiverChatServer.Models
         public string AvatarUrl { get; set; }
 
     }
-
 }

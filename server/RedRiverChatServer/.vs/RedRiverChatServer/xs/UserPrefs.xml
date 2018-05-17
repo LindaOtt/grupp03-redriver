@@ -1,10 +1,12 @@
 ﻿<Properties StartupConfiguration="{8837F7DB-229B-4993-B367-DA9FA668994D}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AccountController.cs">
     <Files>
-      <File FileName="Services/EmailSender.cs" Line="55" Column="2" />
+      <File FileName="Services/EmailSender.cs" Line="35" Column="13" />
       <File FileName="Services/AuthMessageSenderOptions.cs" Line="21" Column="15" />
-      <File FileName="Controllers/AccountController.cs" Line="83" Column="14" />
-      <File FileName="Startup.cs" Line="56" Column="46" />
+      <File FileName="Controllers/AccountController.cs" Line="78" Column="45" />
+      <File FileName="Startup.cs" Line="60" Column="19" />
+      <File FileName="Models/IdentityModels.cs" Line="120" Column="6" />
+      <File FileName="Properties/launchSettings.json" Line="24" Column="47" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
