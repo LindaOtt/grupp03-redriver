@@ -47,6 +47,20 @@ export const validateRegister = (data) => {
   return false
 }
 
+export const validateChangeDetails = (data) => {
+  if (checkIfEmpty(data.email)) {
+    return 'Mailadressen måste vara ifylld!'
+  }
+  if (checkIfEmpty(data.firstName)) {
+    return 'Förnamnet måste vara ifyllt!'
+  }
+  if (checkIfEmpty(data.surname)) {
+    return 'Efternamnet måste vara ifyllt!'
+  }
+
+  return false
+}
+
 const checkIfEmpty = (data) => {
   if (data === '') {
     return true

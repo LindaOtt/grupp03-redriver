@@ -94,7 +94,7 @@ class SettingsUser extends Component {
                 <Typography >Användaruppgifter</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <UserDetails state={this.props.state} />
+                <UserDetails state={this.props.state} openSnackBar={this.props.openSnackBar}/>
               </ExpansionPanelDetails>
             </ExpansionPanel>
             <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
@@ -102,7 +102,7 @@ class SettingsUser extends Component {
                 <Typography >Ändra lösenord</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <ChangePassword state={this.props.state} />
+                <ChangePassword state={this.props.state} openSnackBar={this.props.openSnackBar} />
               </ExpansionPanelDetails>
             </ExpansionPanel>
             <ExpansionPanel CollapseProps={{ unmountOnExit: true }} expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
