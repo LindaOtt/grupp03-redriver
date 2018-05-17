@@ -69,6 +69,20 @@ export const userChangeDetails = (data, token) => {
   })
 }
 
+export const userChangePassword = (data, token) => {
+  let tempObj = {
+    currentPassword: data.currentPassword,
+    newPassword: data.password
+  }
+
+  return axios({
+    method: 'put',
+    url: localOrAzureUrl + '/api/account/updatepassword',
+    data: JSON.stringify(tempObj),
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}
+
 export const getFriends = (token) => {
   return axios({
     method: 'get',

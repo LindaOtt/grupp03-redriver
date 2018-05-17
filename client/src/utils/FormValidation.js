@@ -61,6 +61,24 @@ export const validateChangeDetails = (data) => {
   return false
 }
 
+export const validateChangePassword = (data) => {
+  if (checkIfEmpty(data.password)) {
+    return 'Alla fält måste vara ifyllda!'
+  }
+  if (checkIfEmpty(data.passwordConfirm)) {
+    return 'Alla fält måste vara ifyllda!'
+  }
+  if (checkIfEmpty(data.currentPassword)) {
+    return 'Alla fält måste vara ifyllda!'
+  }
+  if (data.password !== data.passwordConfirm) {
+    return 'De nya lösenorden är inte lika!'
+  }
+
+  return false
+}
+
+
 const checkIfEmpty = (data) => {
   if (data === '') {
     return true
