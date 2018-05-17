@@ -67,14 +67,31 @@ class ChatList extends Component {
   updateComponent = () => {
     getGroups(this.props.state.token)
       .then((response) => {
-        this.setState({
-          isLoaded: true,
-          chatDialog: false,
-          dialog: false,
-          groups: response.data.groupList,
-          chatName: ''
-        })
-      })
+
+        console.log(response)
+        let tempArray = []
+        for (let i = 0; i < response.data.groupList.length; i++) {
+          getGroupInfo(this.props.state.token, response.data.groupList[i])
+            .then((responseTwo) => {
+              console.log(responseTwo)
+              tempArray.push(responseTwo.data)
+            }).then(() => {
+            if(i === response.data.groupList.length - 1) {
+              setTimeout(() => {
+                this.setState({
+                  groups: tempArray,
+                  isLoaded: true,
+                  chatDialog: false,
+                  dialog: false,
+                  chatName: ''
+                })
+              }, 200)
+            }
+          })
+        }
+      }).catch(() => {
+      return this.props.openSnackBar('Något gick fel. Försök igen!')
+    })
   }
 
   /**
@@ -134,13 +151,16 @@ class ChatList extends Component {
    */
 
   createNewChat = () => {
+    this.setState({
+      isLoaded: false,
+      chatDialog: false,
+      dialog: false
+    })
     let groupArray = this.state.selectedFriends
     groupArray.push(this.props.state.userInfo.username)
 
     createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
-      .then((response) => {
-        return this.updateComponent()
-      }).catch(() => {
+      .catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
   }
@@ -274,16 +294,32 @@ class ChatList extends Component {
 
   componentDidMount () {
     this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
-      getGroups(this.props.state.token)
-        .then((response) => {
-          this.setState({
-            isLoaded: true,
-            groups: response.data.groupList
+      if (name === this.props.state.userInfo.username) {
+        getGroups(this.props.state.token)
+          .then((response) => {
+
+            let tempArray = []
+            for (let i = 0; i < response.data.groupList.length; i++) {
+              getGroupInfo(this.props.state.token, response.data.groupList[i])
+                .then((responseTwo) => {
+                  tempArray.push(responseTwo.data)
+                }).then(() => {
+                if(i === response.data.groupList.length - 1) {
+                  setTimeout(() => {
+                    this.setState({
+                      groups: tempArray,
+                      isLoaded: true,
+                      selectedFriends: []
+                    })
+                  }, 200)
+                }
+              })
+            }
           })
-        })
-        .catch(() => {
-          return this.props.openSnackBar('Något gick fel. Försök igen!')
-        })
+          .catch(() => {
+            return this.props.openSnackBar('Något gick fel. Försök igen!')
+          })
+      }
     })
 
     getFriends(this.props.state.token)
@@ -306,6 +342,7 @@ class ChatList extends Component {
                     this.setState({
                       groups: tempArray,
                       isLoaded: true,
+                      selectedFriends: []
                     })
                   }, 200)
                 }
@@ -315,6 +352,10 @@ class ChatList extends Component {
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
+  }
+
+  componentWillUpdate() {
+
   }
 
   componentWillReceiveProps () {
