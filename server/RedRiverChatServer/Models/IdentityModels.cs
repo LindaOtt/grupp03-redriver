@@ -12,7 +12,7 @@ namespace RedRiverChatServer.Models
      * but also from/to JSON in the controllers.
      * ApplicationUser is the main model used to construct and interact with the database user system.
      */
-     
+
     public class ApplicationUser : IdentityUser
     {
         public ApplicationUser()
@@ -35,12 +35,12 @@ namespace RedRiverChatServer.Models
     }
 
     public class Friendship
-    { 
+    {
 
         public string FriendUsername { get; set; }
         [ForeignKey("ApplicationUserId")]
         public string FriendId { get; set; }
-       
+
         [ForeignKey("ApplicationUserId")]
         public string ApplicationUserId { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;
@@ -54,14 +54,14 @@ namespace RedRiverChatServer.Models
 
     }
 
-    public class RegisterModel:ApplicationUser
+    public class RegisterModel : ApplicationUser
     {
         public string Password { get; set; }
     }
 
     public class LoginModel
     {
-       public string Username { get; set; }
+        public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public bool RememberMe { get; set; }
@@ -80,7 +80,7 @@ namespace RedRiverChatServer.Models
 
     public class FriendModel
     {
-      public string Username { get; set; }
+        public string Username { get; set; }
     }
 
     public class GroupModel

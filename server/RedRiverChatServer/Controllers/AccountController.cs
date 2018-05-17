@@ -7,14 +7,17 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RedRiverChatServer.Models;
+using RedRiverChatServer.Services;
 
 namespace RedRiverChatServer.Controllers
 {   
@@ -30,15 +33,19 @@ namespace RedRiverChatServer.Controllers
         private UserManager<ApplicationUser> _userManager;
         //SignInManager to deal with password checking.
         private SignInManager<ApplicationUser> _signInManager;
+        //EmailSender sends out confirmation emails
+        private IEmailSender _emailSender;
 
-        public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(IConfiguration config, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             _config = config;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
         [HttpPost]
+        [EnableCors("CorsPolicy")]
         public async Task<object> Register([FromBody] RegisterModel model)
         {
             //Check to see if model is missing required fields
@@ -65,6 +72,17 @@ namespace RedRiverChatServer.Controllers
 
             if (result.Succeeded)
             {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = Url.Action(new Microsoft.AspNetCore.Mvc.Routing.UrlActionContext
+                {
+                    Action = "ConfirmEmail",
+                    Values = new { userId = user.Id, code },
+                    Protocol = HttpContext.Request.Scheme
+                });
+                Console.WriteLine(callbackUrl);
+                //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
                 return Ok(new { response = "Registration successful" });
             }
             else { return BadRequest(new { result.Errors }); }
@@ -142,6 +160,33 @@ namespace RedRiverChatServer.Controllers
         }
 
         /// <summary>
+        /// 'ConfirmEmail' gives the newly registered user login privileges.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<object> ConfirmEmail([FromQuery(Name = "userId")] string userId, [FromQuery(Name = "code")] string token)
+        {
+            // Find the user by userId
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Id == userId);
+
+            // Update EmailConfirmed
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                string clientLogin = "https://clientredriver.azurewebsites.net/";
+                return Redirect(clientLogin);
+                //return Ok(new { Response = "Email successfully confirmed" });
+            }
+            else
+            {
+                return BadRequest(new { result.Errors });
+            }
+        }
+
+        /// <summary>
         /// 'Login' is really a matter of creating and distributing a JWT token.
         /// User can log in by either email or username.
         /// </summary>
@@ -184,11 +229,11 @@ namespace RedRiverChatServer.Controllers
             {
                 response = BadRequest(new { response = "User account locked" });
             }
-            if(result.IsNotAllowed)
+            if (result.IsNotAllowed)
             {
-                response = BadRequest(new { response = "Not allowed" });
+                response = BadRequest(new { response = "User cannot sign in without a confirmed email" });
             }
-            if(result.RequiresTwoFactor)
+            if (result.RequiresTwoFactor)
             {
                 response = BadRequest(new { response = "Two factor required" });
             }
