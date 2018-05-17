@@ -30,4 +30,4 @@ The server has only api routes which are utilized by the client. It has no route
 
 This route should return 200 Ok.
 
-For other available api routes, see the [api documentation.](https://documenter.getpostman.com/view/1600195/redriverserver-api-documentation-v20/RW1Vshpa)
+For other available api routes, see the [api documentation.](https://documenter.getpostman.com/view/1600195/redriverserver-api-documentation-v21/RW86L9vn)
