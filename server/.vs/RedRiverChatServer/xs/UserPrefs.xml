@@ -1,14 +1,32 @@
 ﻿<Properties StartupConfiguration="{6CA5922A-D792-4784-AAB7-21CE6985068E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RedRiverChatServer/Services/EmailSender.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RedRiverChatServer/Properties/launchSettings.json">
     <Files>
-      <File FileName="RedRiverChatServer/Models/IdentityModels.cs" Line="1" Column="1" />
-      <File FileName="RedRiverChatServer/Controllers/UserController.cs" Line="1" Column="1" />
-      <File FileName="RedRiverChatServer/Properties/launchSettings.json" Line="24" Column="46" />
-      <File FileName="RedRiverChatServer/Controllers/AccountController.cs" Line="70" Column="14" />
-      <File FileName="RedRiverChatServer/Startup.cs" Line="56" Column="46" />
-      <File FileName="RedRiverChatServer/Services/EmailSender.cs" Line="44" Column="29" />
-      <File FileName="RedRiverChatServer/Services/AuthMessageSenderOptions.cs" Line="21" Column="15" />
+      <File FileName="RedRiverChatServer/Models/IdentityModels.cs" Line="103" Column="8" />
+      <File FileName="RedRiverChatServer/Controllers/UserController.cs" Line="236" Column="9" />
+      <File FileName="RedRiverChatServer/Properties/launchSettings.json" Line="16" Column="47" />
+      <File FileName="RedRiverChatServer/Controllers/AccountController.cs" Line="166" Column="10" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RedRiverChatServer" expanded="True">
+            <Node name="RedRiverChatServer" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True">
+                <Node name="launchSettings.json" selected="True" />
+              </Node>
+              <Node name="Views" expanded="True">
+                <Node name="Demo" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="images" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
