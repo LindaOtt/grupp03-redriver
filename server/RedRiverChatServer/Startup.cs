@@ -29,6 +29,7 @@ namespace RedRiverChatServer
     {
         StringValues token;
         IServiceProvider serviceProvider;
+
         public Startup(IConfiguration configuration, IServiceProvider serviceProvider)
         {
             Configuration = configuration;
@@ -45,14 +46,18 @@ namespace RedRiverChatServer
             //Setup the database, so its context can be injected.
             ConfigureDatabase(services);
 
-            //Set password options here
+            //Set password options here and confirmed email option
             IdentityBuilder builder = services.AddIdentityCore<ApplicationUser>(opt =>
             {
+                // Password settings
                 opt.Password.RequireDigit = true;
                 opt.Password.RequiredLength = 8;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = true;
                 opt.Password.RequireLowercase = true;
+
+                // User settings
+                //opt.SignIn.RequireConfirmedEmail = true;
             }
        );
 
@@ -103,10 +108,11 @@ namespace RedRiverChatServer
            };
        });
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy", builderq => { builderq.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "http://localhost:3000", "https://redriverclient.azurewebsites.net","https://redclient.azurewebsites.net", "https://clientredriver.azurewebsites.net", "http://109.228.145.167:3000", "https://localhost:3000" }).AllowCredentials(); }));
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builderq => { builderq.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "https://sendgrid.com", "https://api.sendgrid.com/v3/mail/send", "http://localhost:49873/", "http://localhost:3000", "https://redriverclient.azurewebsites.net", "https://redclient.azurewebsites.net", "https://clientredriver.azurewebsites.net", "http://109.228.145.167:3000", "https://localhost:3000" }).AllowCredentials(); }));
+            //services.AddCors(options => options.AddPolicy("AllowAllOrigins", builderq => { builderq.AllowAnyOrigin(); }));
             services.AddSignalR();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddMvc();
-            services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
@@ -125,6 +131,7 @@ namespace RedRiverChatServer
 
             //Cors must be defined to allow browser interaction with the server
             app.UseCors("CorsPolicy");
+            //app.UseCors("AllowAllOrigins");
 
             //We want to limit access to some route, plus be able to find out who the user is
             app.UseAuthentication();
