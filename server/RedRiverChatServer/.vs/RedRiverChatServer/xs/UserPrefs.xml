@@ -1,15 +1,17 @@
 ﻿<Properties StartupConfiguration="{8837F7DB-229B-4993-B367-DA9FA668994D}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AccountController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/IdentityModels.cs">
     <Files>
-      <File FileName="Controllers/AccountController.cs" Line="36" Column="21" />
+      <File FileName="Controllers/AccountController.cs" Line="36" Column="52" />
+      <File FileName="Models/IdentityModels.cs" Line="103" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="RedRiverChatServer" expanded="True">
             <Node name="RedRiverChatServer" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="AccountController.cs" selected="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="IdentityModels.cs" selected="True" />
               </Node>
             </Node>
           </Node>
