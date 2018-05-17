@@ -26,8 +26,11 @@ namespace RedRiverChatServer.Services
 
         public Task SendEmailConfirmationAsync(string email, string link)
         {
-            return SendEmailAsync(email, "Confirm your email",
-                $"Please confirm your account by clicking this link: <a href='{link}'>link</a>");
+            return SendEmailAsync(email, "Bekräfta din mailadress",
+                $"Välkommen till RedRiver Chat!\n" +
+                                  "För att kunna logga in och börja använda applikationen måste du först verifiera din mailadress.\n" +
+                                  "Det gör du genom att klicka på nedanstående länk:\n" +
+                                  "<a href='{link}'>link</a>");
         }
 
         public Task SendEmailAsync(string email, string subject, string message)
@@ -43,7 +46,7 @@ namespace RedRiverChatServer.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("Joe@contoso.com", "Joe Smith"),
+                From = new EmailAddress("sofiakristiansen@gmail.com", "Sofia Kristiansen"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
