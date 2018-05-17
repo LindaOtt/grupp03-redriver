@@ -3,10 +3,10 @@
     <Files>
       <File FileName="Services/EmailSender.cs" Line="35" Column="13" />
       <File FileName="Services/AuthMessageSenderOptions.cs" Line="21" Column="15" />
-      <File FileName="Controllers/AccountController.cs" Line="107" Column="44" />
+      <File FileName="Controllers/AccountController.cs" Line="1" Column="1" />
       <File FileName="Startup.cs" Line="60" Column="19" />
-      <File FileName="Models/IdentityModels.cs" Line="129" Column="2" />
       <File FileName="Properties/launchSettings.json" Line="24" Column="47" />
+      <File FileName="Models/IdentityModels.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
