@@ -20,6 +20,7 @@ import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
 import { CircularProgress } from 'material-ui/Progress'
+import Avatar from 'material-ui/Avatar'
 
 // Import Icons
 import CloseIcon from '@material-ui/icons/Close'
@@ -29,7 +30,10 @@ import {ChatListStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
-import {getFriends, getGroups} from '../../utils/ApiRequests'
+// Profile picture
+import profilePhoto from '../../temp/user.jpg'
+
+import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
 
@@ -47,6 +51,7 @@ class ChatList extends Component {
       chats: [],
       friends: [],
       selectedFriends: [],
+      groups: [],
       isLoaded: false,
       dialog: false,
       chatDialog: false
@@ -131,10 +136,8 @@ class ChatList extends Component {
   createNewChat = () => {
     let groupArray = this.state.selectedFriends
     groupArray.push(this.props.state.userInfo.username)
-    groupArray = groupArray.sort()
-    let groupName = groupArray.toString()
 
-    createChatGroupWithUsers(this.props.state.signalRConnection, groupName, groupArray)
+    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
       .then((response) => {
         return this.updateComponent()
       }).catch(() => {
@@ -154,6 +157,51 @@ class ChatList extends Component {
   }
 
   /**
+   *  Render name for a chat
+   *
+   *  @author Jimmy
+   */
+
+  renderChatName = (users) => {
+
+    let index = users.indexOf(this.props.state.userInfo.username)
+    if (index !== -1) users.splice(index, 1);
+    let userString = users.join(', ')
+    return userString.replace(/,(?=[^,]*$)/, ' &')
+  }
+
+  /**
+   *  Render avatar for a chat
+   *
+   *  @author Jimmy
+   */
+
+  renderChatAvatar = (users) => {
+
+    let avatars = []
+    for (let i = 0; i < this.props.state.friends.length; i++) {
+      for (let j = 0; j < users.length; j++) {
+
+        if(users[j] !== this.props.state.userInfo.username) {
+          if(users[j] === this.props.state.friends[i].username && this.props.state.friends[i].avatarUrl !== null) {
+            avatars.push(this.props.state.friends[i].avatarUrl)
+          }
+        }
+
+      }
+    }
+    if(avatars.length === 0) {
+      return profilePhoto
+    } else if (avatars.length === 1) {
+      return avatars[0]
+    } else if (avatars.length === 2) {
+
+      return avatars[Math.floor(Math.random() * avatars.length)]
+    }
+  }
+
+
+  /**
    *  Render list of chats
    *
    *  @author Jimmy
@@ -164,17 +212,18 @@ class ChatList extends Component {
 
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i]}>
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}>
+          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
           <Typography
             style={ChatListStyles.chatName}
-            variant='headline'
-            component='h3'
+            variant='subheading'
+            color='primary'
             onClick={(() => {
-              this.handleChatClick(this.state.groups[i])
+              this.handleChatClick(this.state.groups[i].groupName)
               return this.handleChatDialogOpen()
             })}
           >
-            {this.state.groups[i]}
+            {this.renderChatName(this.state.groups[i].members)}
           </Typography>
         </Paper>
       )
@@ -198,16 +247,17 @@ class ChatList extends Component {
           elevation={1}
           key={this.state.groups[i]}
         >
+          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
           <Typography
             style={ChatListStyles.chatName}
-            variant='headline'
-            component='h3'
+            variant='subheading'
+            color='primary'
             onClick={() => {
-              this.handleChatClick(this.state.groups[i])
+              this.handleChatClick(this.state.groups[i].groupName)
             }
             }
           >
-            {this.state.groups[i]}
+            {this.renderChatName(this.state.groups[i].members)}
           </Typography>
         </Paper>
       )
@@ -226,7 +276,6 @@ class ChatList extends Component {
     this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
       getGroups(this.props.state.token)
         .then((response) => {
-          console.log(response)
           this.setState({
             isLoaded: true,
             groups: response.data.groupList
@@ -245,14 +294,33 @@ class ChatList extends Component {
       }).then(() => {
         getGroups(this.props.state.token)
           .then((response) => {
-            this.setState({
-              isLoaded: true,
-              groups: response.data.groupList
-            })
+
+            let tempArray = []
+            for (let i = 0; i < response.data.groupList.length; i++) {
+              getGroupInfo(this.props.state.token, response.data.groupList[i])
+                .then((responseTwo) => {
+                  tempArray.push(responseTwo.data)
+              }).then(() => {
+                if(i === response.data.groupList.length - 1) {
+                  setTimeout(() => {
+                    this.setState({
+                      groups: tempArray,
+                      isLoaded: true,
+                    })
+                  }, 200)
+                }
+              })
+            }
           })
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
+  }
+
+  componentWillReceiveProps () {
+    this.setState({
+      isLoaded: true
+    })
   }
 
   render () {
@@ -355,7 +423,7 @@ class ChatList extends Component {
               aria-labelledby='responsive-dialog-title'
             >
 
-              <IconButton color='inherit' onClick={this.handleChatDialogClose} aria-label='Close'>
+              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
                 <CloseIcon />
               </IconButton>
               <ChatView state={this.props.state}

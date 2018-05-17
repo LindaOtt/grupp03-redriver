@@ -108,7 +108,7 @@ class Register extends Component {
           <div className='Register'>
             <Typography
               variant='headline'
-              color='default'
+              color='primary'
               align='left'
               style={registerStyles.title}
             >
@@ -220,7 +220,7 @@ class Register extends Component {
                 type='tel'
               />
               <div className='RegisterButton'>
-                <Button variant='raised' style={registerStyles.button} onClick={this.handleSubmit}>
+                <Button variant='raised' color='primary' style={registerStyles.button} onClick={this.handleSubmit}>
                   Registrera
                 </Button>
               </div>

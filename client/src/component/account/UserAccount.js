@@ -4,10 +4,21 @@ import { Link, Redirect } from 'react-router-dom'
 // Import NPM-modules
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog'
+import Avatar from 'material-ui/Avatar';
 
 // Import styles. userAccountStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {userAccountStyles} from '../../styles/AccountStyles'
 import '../../styles/Styles.css'
+import {friendsListStyles} from '../../styles/FriendsStyles'
+
+// Profile picture
+import profilePhoto from '../../temp/user.jpg'
 
 /**
  *  User account. Starting page with links to chat, friends etc.
@@ -20,8 +31,45 @@ class UserAccount extends Component {
     super(props)
 
     this.state = {
-      name: 'Red River' // Change when API-requests are done!
+      dialog: false,
+
     }
+  }
+
+  handleClickOpen = () => {
+    this.setState({ dialog: true });
+  };
+
+  handleClose = () => {
+    this.setState({ dialog: false });
+  };
+
+  renderAvatar = (friend) => {
+    if (friend.avatarUrl) {
+      return <Avatar alt={friend.username} src={friend.avatarUrl} style={userAccountStyles.avatar} onClick={() => {this.props.startVideoCall(friend.username)}}/>
+    } else {
+      return <Avatar alt={friend.username} src={profilePhoto} style={userAccountStyles.avatar} onClick={() => {this.props.startVideoCall(friend.username)}}/>
+    }
+  }
+
+  renderFriendsDialog = () => {
+    let tempArray = []
+
+    for (let i = 0; i < this.props.state.friends.length; i++) {
+      tempArray.push(
+        <div key={this.props.state.friends[i].username} className='UserAccount-FriendsAvatar'>
+          {this.renderAvatar(this.props.state.friends[i])}
+          <Typography
+            variant='subheading'
+            color='primary'
+            align='center'
+          >
+            {this.props.state.friends[i].username}
+          </Typography>
+        </div>
+      )
+    }
+    return tempArray
   }
 
   render () {
@@ -33,37 +81,55 @@ class UserAccount extends Component {
       <div className='UserAccount'>
         <Typography
           variant='headline'
-          color='textSecondary'
+          color='primary'
           align='left'
           style={userAccountStyles.title}
         >
-                    Hej, {this.props.state.userInfo.username}!
+                    Hej, {this.props.state.userInfo.firstName}!
         </Typography>
-        <p className='AccountSecondTitle'>Kom igång genom att skicka ett meddelande nedan.</p>
+        <Typography
+          variant='subheading'
+          color='primary'
+          align='left'
+          style={userAccountStyles.title}
+        >
+          Kom igång genom att chatta eller starta ett videosamtal nedan.
+        </Typography>
         <div className='UserAccountButtonDiv'>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button}
             component={Link}
             to='/chats'
           >
-                        Mina chattrum
+                        Chatta
           </Button>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button}
             component={Link}
             to='/friends'
           >
-                        Mina vänner
+                        Vänner
           </Button>
-          <Button variant='raised'
-            style={userAccountStyles.button} /* onClick={} */>
-                        Starta videosamtal
+          <Button variant='fab'
+            style={userAccountStyles.button} onClick={this.handleClickOpen} >
+                        Starta Video
           </Button>
-          <Button variant='raised'
+          <Button variant='fab'
             style={userAccountStyles.button} /* onClick={} */>
-                        Starta livesändning
+                        Starta live
           </Button>
         </div>
+        <Dialog
+          open={this.state.dialog}
+          onClose={this.handleClose}
+          aria-labelledby='responsive-dialog-title'
+          style={userAccountStyles.dialog}
+        >
+          <DialogTitle style={userAccountStyles.dialogTitle} id="alert-dialog-title">{"Välj vem du vill starta ett videosamtal med!"}</DialogTitle>
+          <div className='UserAccount-FriendsDialog'>
+            {this.renderFriendsDialog()}
+          </div>
+        </Dialog>
       </div>
 
     )

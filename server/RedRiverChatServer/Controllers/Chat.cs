@@ -119,7 +119,11 @@ namespace RedRiverChatServer.Controllers
         /// <returns></returns>
         public async Task<Object> JoinGroup(string groupName)
         {
+            if (groupName == null) { groupName = Guid.NewGuid().ToString(); };
+  
             string name = GetNameFromClaim();
+
+          //  var group = context.Rooms.FirstOrDefault(e => e.RoomName == groupName);
             //Add to in-memory group
             await Groups.AddAsync(Context.ConnectionId, groupName);
             // Retrieve room if it exists. If it doesn't it will be created in the future.
@@ -203,11 +207,12 @@ namespace RedRiverChatServer.Controllers
         /// <summary>
         /// Creates a new chat with multiple clients. Calling client username should be included in list!
         /// </summary>
-        /// <param name="groupName"></param>
         /// <param name="usernames"></param>
         /// <returns></returns>
-        public async Task<Object> StartGroupChatWithMultipleClients(string groupName, string[] usernames)
+        public async Task<Object> StartGroupChatWithMultipleClients(string[] usernames)
         {
+            string groupName = Guid.NewGuid().ToString();
+
             List<ApplicationUser> users = new List<ApplicationUser>();
             List<ApplicationUserConversationRoom> aUCRs = new List<ApplicationUserConversationRoom>();
 
@@ -305,6 +310,52 @@ namespace RedRiverChatServer.Controllers
             await context.SaveChangesAsync();
             await Groups.RemoveAsync(Context.ConnectionId, groupName);
             return Clients.All.SendAsync("userLeftGroup", new[] { name, groupName });
+        }
+
+        /// <summary>
+        /// Request to start a video call with another user
+        /// </summary>
+        /// <param name="who"></param>
+                public void RequestVideoCall(string who)
+        {
+            string senderName = GetNameFromClaim();
+
+            //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                Clients.Client(connectionId).SendAsync("videoCallRequest", senderName );
+            }
+        }
+
+        /// <summary>
+        /// Send connection-info between users for video call
+        /// </summary>
+        /// <param name="who"></param>
+        /// <param name="data"></param>
+                public void CreateVideoCall(string who, object data)
+        {
+            string senderName = GetNameFromClaim();
+
+            //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                Clients.Client(connectionId).SendAsync("createVideoCall", new[] { senderName, data });
+            }
+        }
+
+        /// <summary>
+        /// End video call
+        /// </summary>
+        /// <param name="who"></param>
+                public void EndVideoCall(string who)
+        {
+            string senderName = GetNameFromClaim();
+
+            //This is needed in case the user currently has multiple connections. ToDo Check if this is possible in the dictionary...
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                Clients.Client(connectionId).SendAsync("endVideoCall", senderName);
+            }
         }
 
         private string GetNameFromClaim()

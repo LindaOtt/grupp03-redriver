@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
 // Import NPM-modules
-import { MuiThemeProvider } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
@@ -14,6 +13,7 @@ import Divider from 'material-ui/Divider'
 import Snackbar from 'material-ui/Snackbar'
 import { CircularProgress } from 'material-ui/Progress'
 import HttpsRedirect from 'react-https-redirect'
+import Dialog from 'material-ui/Dialog'
 
 // Import icons for the drawer-menu.
 import ChatIcon from '@material-ui/icons/ChatBubble'
@@ -24,7 +24,6 @@ import LogoutIcon from '@material-ui/icons/Cancel'
 
 // Import styles. appStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import './styles/Styles.css'
-import {theme} from './styles/Styles'
 import AppStyles from './styles/AppStyles'
 
 // Import pages to use with React Router for navigation.
@@ -36,8 +35,9 @@ import Register from './component/authentication/Register'
 import NewPassword from './component/authentication/NewPassword'
 import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
+import VideoCall from './component/videocall/VideoCall'
 
-import {verifyJWT} from './utils/ApiRequests'
+import {getFriends, verifyJWT} from './utils/ApiRequests'
 import {initChat} from './utils/SignalR'
 
 /**
@@ -57,7 +57,12 @@ class App extends Component {
       isSignedIn: false,
       userRole: 'User',
       loaded: false,
-      signalRConnection: ''
+      signalRConnection: '',
+      receiveVideoCall: false,
+      videoCall: false,
+      callTo: '',
+      callFrom: '',
+      friends: []
     }
     this.openSnackBar = this.openSnackBar.bind(this)
     this.userLogout = this.userLogout.bind(this)
@@ -89,41 +94,69 @@ class App extends Component {
     this.verifyToken(token)
   }
 
-    /**
-     *  Open bottom-bar and display message. Closes after 3 seconds.
-     *
-     *  @author Jimmy
-     */
+  /**
+   *  Open bottom-bar and display message. Closes after 3 seconds.
+   *
+   *  @author Jimmy
+   */
 
-    openSnackBar = (message) => {
-      verifyJWT(this.state.token)
-        .then((response) => {
-          this.setState({
-            snackBar: true,
-            snackBarMessage: message,
-            userInfo: response.data
-          })
+  openSnackBar = (message) => {
+    verifyJWT(this.state.token)
+      .then((response) => {
+        this.setState({
+          snackBar: true,
+          snackBarMessage: message,
+          userInfo: response.data
         })
-
-      setTimeout(() => {
-        this.closeSnackBar()
-      }, 3000)
-    };
-
-    /**
-     *  Close bottom-bar and delete message.
-     *
-     *  @author Jimmy
-     */
-
-    closeSnackBar = () => {
-      this.setState({
-        snackBar: false,
-        snackBarMessage: ''
       })
-    };
 
-    /**
+    setTimeout(() => {
+      this.closeSnackBar()
+    }, 3000)
+  };
+
+  /**
+   *  Close bottom-bar and delete message.
+   *
+   *  @author Jimmy
+   */
+
+  closeSnackBar = () => {
+    this.setState({
+      snackBar: false,
+      snackBarMessage: ''
+    })
+  };
+
+  /**
+   *  Methods to handle videocall-modal when making or receiving a video calls.
+   *
+   *  @author Jimmy
+   */
+
+  receiveVideoCallOpen = (name) => {
+    this.setState({
+      videoCall: true,
+      callFrom: name
+    })
+  }
+
+  videoCallOpen = (name) => {
+    this.setState({
+      videoCall: true,
+      callTo: name
+    })
+  }
+
+  videoCallClose = () => {
+    this.setState({
+      videoCall: false,
+      callTo: '',
+      callFrom: ''
+    })
+  }
+
+  /**
      *  Render all links in drawer-menu.
      *
      *  @author Jimmy
@@ -139,9 +172,9 @@ class App extends Component {
               to='/'
             >
               <ListItemIcon>
-                <LoginIcon />
+                <LoginIcon style={AppStyles.listItem}/>
               </ListItemIcon>
-              <ListItemText primary='Start' />
+              <ListItemText style={AppStyles.listItem} primary='Start' />
             </ListItem>
             <ListItem
               button
@@ -149,9 +182,9 @@ class App extends Component {
               to='/chats'
             >
               <ListItemIcon>
-                <ChatIcon />
+                <ChatIcon  style={AppStyles.listItem}/>
               </ListItemIcon>
-              <ListItemText primary='Chat' />
+              <ListItemText primary='Chat' style={AppStyles.listItem}/>
             </ListItem>
             <ListItem
               button
@@ -159,9 +192,9 @@ class App extends Component {
               to='/friends'
             >
               <ListItemIcon>
-                <PersonIcon />
+                <PersonIcon  style={AppStyles.listItem}/>
               </ListItemIcon>
-              <ListItemText primary='Vänner' />
+              <ListItemText primary='Vänner' style={AppStyles.listItem} />
             </ListItem>
             <ListItem
               button
@@ -169,9 +202,9 @@ class App extends Component {
               to='/settings'
             >
               <ListItemIcon>
-                <SettingsIcon />
+                <SettingsIcon style={AppStyles.listItem} />
               </ListItemIcon>
-              <ListItemText primary='Inställningar' />
+              <ListItemText style={AppStyles.listItem} primary='Inställningar' />
             </ListItem>
           </List>
           <Divider />
@@ -182,9 +215,9 @@ class App extends Component {
             onClick={this.userLogout}
           >
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon style={AppStyles.listItem} />
             </ListItemIcon>
-            <ListItemText primary='Logga ut' />
+            <ListItemText style={AppStyles.listItem} primary='Logga ut' />
           </ListItem>
         </div>
       )
@@ -218,11 +251,21 @@ class App extends Component {
             isSignedIn: true,
             userInfo: response.data,
             loaded: true,
-            signalRConnection: initChat(token)
+            signalRConnection: initChat(token),
+            friends: []
           }, () => {
             this.handleEvents()
           })
-        }).catch(() => {
+        })
+        .then(() => {
+          getFriends(this.state.token)
+            .then((response) => {
+                this.setState({
+                  friends: response.data.friendList
+              })
+            })
+        })
+        .catch(() => {
           this.setState({
             isSignedIn: false,
             loaded: true
@@ -244,7 +287,12 @@ class App extends Component {
     })
 
     this.state.signalRConnection.on('userAddedToGroup', (name, group) => {
-      console.log('addeToGroup')
+      console.log('addedToGroup')
+    })
+
+    this.state.signalRConnection.on('videoCallRequest', (name) => {
+      console.log(name)
+      this.receiveVideoCallOpen(name)
     })
   }
   /**
@@ -288,7 +336,6 @@ class App extends Component {
     return (
       <HttpsRedirect>
         <Router>
-          <MuiThemeProvider theme={theme} >
             {this.state.loaded ? (
               <div className='App'>
                 <AppBar
@@ -298,9 +345,12 @@ class App extends Component {
                   <Toolbar>
                     <Typography
                       variant='title'
+                      align='left'
                       color='inherit'
                       style={AppStyles.flex}
-                    />
+                    >
+                    RedRiver Chat
+                    </Typography>
                     {this.state.isSignedIn ? (
                       <IconButton color='inherit' aria-label='Menu' style={AppStyles.menuButton} onClick={this.toggleMenu(true)}>
                         <MenuIcon />
@@ -311,9 +361,9 @@ class App extends Component {
                   </Toolbar>
                 </AppBar>
                 <div className='App-Body'>
-                  <Route path='/' exact component={() => <UserAccount state={this.state} />} />
+                  <Route path='/' exact component={() => <UserAccount state={this.state} startVideoCall={this.videoCallOpen} />}/>
                   <Route path='/chats' component={() => <ChatList state={this.state} />} openSnackBar={this.openSnackBar} />
-                  <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} />} />
+                  <Route path='/friends' component={() => <FriendsList state={this.state} openSnackBar={this.openSnackBar} startVideoCall={this.videoCallOpen} />} />
                   <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
                   <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />
                   <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
@@ -323,6 +373,7 @@ class App extends Component {
                 <Snackbar
                   open={this.state.snackBar}
                   onClose={this.closeSnackBar}
+                  style={AppStyles.snackBar}
                   SnackbarContentProps={{
                     'aria-describedby': 'message-id'
                   }}
@@ -338,13 +389,20 @@ class App extends Component {
                     {this.renderMenu()}
                   </div>
                 </Drawer>
+                <Dialog
+                  fullScreen
+                  open={this.state.videoCall}
+                  onClose={this.videoCallOpen}
+                  aria-labelledby='responsive-dialog-title'
+                >
+                  <VideoCall callTo={this.state.callTo} callFrom={this.state.callFrom} videoCallClose={this.videoCallClose} state={this.state} openSnackBar={this.openSnackBar} />
+                </Dialog>
               </div>
             ) : (
               <div className='AppLoadingDiv'>
                 <CircularProgress style={AppStyles.loading} />
               </div>
             )}
-          </MuiThemeProvider>
         </Router>
       </HttpsRedirect>
     )

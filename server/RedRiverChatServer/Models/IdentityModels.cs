@@ -126,4 +126,8 @@ namespace RedRiverChatServer.Models
         public string newPassword { get; set; }
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9f1a4a96e8d9d38a8f5f487e7838c1f8640d698a

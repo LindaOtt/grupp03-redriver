@@ -56,6 +56,10 @@ export const initChat = (token) => {
     console.log(name)
   })
 
+  connection.on('videoCallRequest', (name) => {
+    console.log(name)
+  })
+
   connection.start()
     .catch((err) => {
       console.log(err)
@@ -76,10 +80,19 @@ export const deleteUserFromChat = (connection, group) => {
   return connection.invoke('leaveGroup', group)
 }
 
-export const createChatGroupWithUsers = (connection, group, names) => {
-  return connection.invoke('startGroupChatWithMultipleClients', group, names)
+export const createChatGroupWithUsers = (connection, names) => {
+  console.log(names)
+  return connection.invoke('startGroupChatWithMultipleClients', names)
 }
 
 export const sendMessageToGroup = (connection, group, message) => {
   return connection.invoke('sendMessageToGroup', group, message)
+}
+
+export const requestVideoCall = (connection, name) => {
+  return connection.invoke('requestVideoCall', name)
+}
+
+export const endVideoCall = (connection, name) => {
+  return connection.invoke('endVideoCall', name)
 }
