@@ -10,7 +10,17 @@ namespace RedRiverChatServer.Services
     /// </summary>
     public class AuthMessageSenderOptions
     {
-        public string SendGridUser { get; set; }
-        public string SendGridKey { get; set; }
+        public string SendGridUser
+        {
+            get; set;
+            //get { return Environment.GetEnvironmentVariable("SendGridUser"); }
+
+        }
+        public string SendGridKey
+        {
+            //get; set;
+            get { return Environment.GetEnvironmentVariable("SendGridKey"); }
+
+        }
     }
 }
