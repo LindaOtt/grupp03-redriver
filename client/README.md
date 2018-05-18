@@ -67,6 +67,6 @@ Our code runs as a Azure web app (found under app services).
 
 Basic settings used for the client app on Azure are shown below.
 
-![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-client-1.PNG)
+![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-client-1.png)
 
-![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-client-2.PNG)
+![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-client-2.png)
