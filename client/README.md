@@ -9,23 +9,12 @@ The system itself is designed from a client/server architectural perspective, an
 
 Make sure you have Node.js and NPM installed.
 
-In this directory:
++ In this directory, run `npm install` to install all dependencies.
 
-```
-npm install
-```
++ Start a development server by typing `npm start` and then open [http://localhost:3000](http://localhost:3000) to see the app.
 
-Start a development server and then open [http://localhost:3000](http://localhost:3000) to see the app: 
++ At last commit before merge to master or deployment, run `npm run build` to create a React build version that will be used for deployment.
 
-```
-npm start
-```
-
-At last commit before merge to master or deployment, run this command to create a React build version that will be used for deployment.
-
-```
-npm run build
-```
 
 
 ## Testing
