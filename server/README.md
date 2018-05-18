@@ -33,5 +33,16 @@ This route should return 200 Ok.
 For other available api routes, see the [api documentation.](https://documenter.getpostman.com/view/1600195/redriverserver-api-documentation-v21/RW86L9vn)
 
 ## Hosting
-During this project we have used Microsoft Azure for hosting client, server and database. Continuous integration to Azure has worked well and we recommend its use also in a full production environment.
+During this project we have used Microsoft Azure for hosting client, server and database. Continuous integration to Azure has worked well and we recommend its use also in a full production environment.  
+
 ![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/AzureScreenShot.PNG)
+
+Our code runs as a Azure web app (found under app services).
+
+![Azure Server Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-server.PNG)
+
+## CORS
+
+The server code has its on CORS allowing requests from certain sources. It is important that these are prioritized over the CORS settings which Azure tries to add through its own settings. Make sure that NO CORS settings are added to the Azure CORS settings for the web app, as shown in the picture below. 
+
+![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-cors.PNG)
