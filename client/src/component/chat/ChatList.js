@@ -68,13 +68,13 @@ class ChatList extends Component {
     getGroups(this.props.state.token)
       .then((response) => {
 
-        console.log(response)
         let tempArray = []
         for (let i = 0; i < response.data.groupList.length; i++) {
           getGroupInfo(this.props.state.token, response.data.groupList[i])
             .then((responseTwo) => {
-              console.log(responseTwo)
-              tempArray.push(responseTwo.data)
+              if (responseTwo.data.members.length > 1) {
+                tempArray.push(responseTwo.data)
+              }
             }).then(() => {
             if(i === response.data.groupList.length - 1) {
               setTimeout(() => {
@@ -265,7 +265,7 @@ class ChatList extends Component {
       listArray.push(
         <Paper style={ChatListStyles.paper}
           elevation={1}
-          key={this.state.groups[i]}
+          key={this.state.groups[i].groupName}
         >
           <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
           <Typography
@@ -287,6 +287,40 @@ class ChatList extends Component {
   }
 
   /**
+   *  Method to catch users groups and info about them.
+   *
+   *  @author Jimmy
+   */
+
+  getGroupsAndMembers() {
+    getGroups(this.props.state.token)
+      .then((response) => {
+
+        let tempArray = []
+        for (let i = 0; i < response.data.groupList.length; i++) {
+          getGroupInfo(this.props.state.token, response.data.groupList[i])
+            .then((responseTwo) => {
+              if (responseTwo.data.members.length > 1) {
+                tempArray.push(responseTwo.data)
+              }
+            }).then(() => {
+            if(i === response.data.groupList.length - 1) {
+              setTimeout(() => {
+                this.setState({
+                  groups: tempArray,
+                  isLoaded: true,
+                  selectedFriends: [],
+                })
+              }, 200)
+            }
+          })
+        }
+      }).catch(() => {
+      return this.props.openSnackBar('Något gick fel. Försök igen!')
+    })
+  }
+
+  /**
    *  Get users friends and groups when component mounts.
    *
    *  @author Jimmy
@@ -295,30 +329,7 @@ class ChatList extends Component {
   componentDidMount () {
     this.props.state.signalRConnection.on('userAddedToGroup', (name, group) => {
       if (name === this.props.state.userInfo.username) {
-        getGroups(this.props.state.token)
-          .then((response) => {
-
-            let tempArray = []
-            for (let i = 0; i < response.data.groupList.length; i++) {
-              getGroupInfo(this.props.state.token, response.data.groupList[i])
-                .then((responseTwo) => {
-                  tempArray.push(responseTwo.data)
-                }).then(() => {
-                if(i === response.data.groupList.length - 1) {
-                  setTimeout(() => {
-                    this.setState({
-                      groups: tempArray,
-                      isLoaded: true,
-                      selectedFriends: []
-                    })
-                  }, 200)
-                }
-              })
-            }
-          })
-          .catch(() => {
-            return this.props.openSnackBar('Något gick fel. Försök igen!')
-          })
+        this.getGroupsAndMembers()
       }
     })
 
@@ -328,27 +339,7 @@ class ChatList extends Component {
           this.state.friends.push(i)
         })
       }).then(() => {
-        getGroups(this.props.state.token)
-          .then((response) => {
-
-            let tempArray = []
-            for (let i = 0; i < response.data.groupList.length; i++) {
-              getGroupInfo(this.props.state.token, response.data.groupList[i])
-                .then((responseTwo) => {
-                  tempArray.push(responseTwo.data)
-              }).then(() => {
-                if(i === response.data.groupList.length - 1) {
-                  setTimeout(() => {
-                    this.setState({
-                      groups: tempArray,
-                      isLoaded: true,
-                      selectedFriends: []
-                    })
-                  }, 200)
-                }
-              })
-            }
-          })
+        this.getGroupsAndMembers()
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
@@ -369,6 +360,7 @@ class ChatList extends Component {
       return <Redirect to='/login' />
     }
 
+    console.log(this.state.chatName)
     return (
       <div>
         {this.state.isLoaded ? (
