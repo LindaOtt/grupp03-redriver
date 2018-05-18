@@ -83,7 +83,7 @@ class ChatList extends Component {
                   isLoaded: true,
                   chatDialog: false,
                   dialog: false,
-                  chatName: ''
+                  chatName: null
                 })
               }, 200)
             }
@@ -102,7 +102,12 @@ class ChatList extends Component {
 
   handleChatClick (name) {
     this.setState({
-      chatName: name
+      chatName: name,
+      chatLoaded: false,
+    }, () => {
+      this.setState({
+        chatLoaded: true,
+      })
     })
   }
 
@@ -302,7 +307,7 @@ class ChatList extends Component {
             selectedFriends: [],
             chatDialog: false,
             dialog: false,
-            chatName: ''
+            chatName: null
           })
         } else {
           let tempArray = []
@@ -321,7 +326,7 @@ class ChatList extends Component {
                     selectedFriends: [],
                     chatDialog: false,
                     dialog: false,
-                    chatName: ''
+                    chatName: null
                   })
                 }, 200)
               }
@@ -397,12 +402,21 @@ class ChatList extends Component {
                     </div>
                     <div className='ChatList-Inner-Large-Content'>
                       {this.state.chatName ? (
-                        <ChatView state={this.props.state}
-                                  chatContent={this.state.chatName}
-                                  updateComponent={this.updateComponent}
-                                  friends={this.state.friends}
-                                  openSnackBar={this.props.openSnackBar}
-                        />
+                        <div className='ChatList-Inner-Large-Content-Chat'>
+                          {this.state.chatLoaded ? (
+                            <ChatView state={this.props.state}
+                                      chatContent={this.state.chatName}
+                                      updateComponent={this.updateComponent}
+                                      friends={this.state.friends}
+                                      openSnackBar={this.props.openSnackBar}
+                            />
+                          ) : (
+                            <div className='AppLoadingDiv'>
+                              <CircularProgress />
+                            </div>
+                          )}
+                        </div>
+
                       ) : (
                         <Typography
                           style={ChatListStyles.title}

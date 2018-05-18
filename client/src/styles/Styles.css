@@ -107,6 +107,10 @@ html, body {
     width: -webkit-calc(100% - 300px);
 }
 
+.ChatList-Inner-Large-Content-Chat {
+    width: 100%;
+}
+
 .ChatView {
     display: flex;
     flex-direction: column;
