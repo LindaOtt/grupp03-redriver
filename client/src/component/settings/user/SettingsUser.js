@@ -120,6 +120,7 @@ class SettingsUser extends Component {
                 <Typography >Ta bort användarkonto</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
+                <DeleteUser state={this.props.state} openSnackBar={this.props.openSnackBar}/>
               </ExpansionPanelDetails>
             </ExpansionPanel>
             <List>

@@ -20,8 +20,8 @@ export const userAccountStyles = {
     borderStyle: 'solid',
     color: theme.palette.primary.main,
     lineHeight: 1.2,
-    'font-size': '20px',
-    'font-weight': 'semi-bold'
+    fontSize: '20px',
+    fontWeight: 'semi-bold'
   },
 
   title: {

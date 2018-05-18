@@ -142,7 +142,7 @@ class FriendsList extends Component {
       listArray.push(
         <Paper style={FriendsListStyles.paper}
           elevation={1}
-          key={this.state.friends[i].surname + 'large'}
+          key={this.state.friends[i].username}
         >
           {this.renderAvatar(this.state.friends[i])}
           <Typography

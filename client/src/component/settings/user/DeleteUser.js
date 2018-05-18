@@ -33,6 +33,13 @@ class DeleteUser extends Component {
     }
   }
 
+  render () {
+    return (
+      <div className='DeleteUser'>
+        <p>Radera användare</p>
+      </div>
+    )
+  }
 }
 
 export default DeleteUser
