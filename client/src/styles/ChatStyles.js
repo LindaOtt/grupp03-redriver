@@ -5,16 +5,28 @@ import {theme} from './Styles'
  *  Styles for imported components in the chat directory
  *
  *  @author Jimmy
+ *  @update Linda (Added styles)
  */
 
 export const ChatListStyles = {
   chatList: {
 
   },
+  title: {
+    fontWeight: 'bold',
+    fontSize: '22px',
+    paddingLeft: '5%'
+  },
   formControl: {
     root: {
       display: 'flex',
       flexWrap: 'wrap'
+    },
+    darkText: {
+      'color': theme.palette.primary.dark
+    },
+    boldText: {
+      fontWeight: 'bold'
     },
     formControl: {
       margin: theme.spacing.unit,
@@ -39,6 +51,7 @@ export const ChatListStyles = {
     alignItems: 'center',
   },
   chatName: {
+    fontSize: '18px',
     width: '90%',
     textAlign: 'left',
     marginLeft: 6,

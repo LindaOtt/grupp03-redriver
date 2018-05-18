@@ -14,8 +14,8 @@ import Toolbar from 'material-ui/Toolbar'
 import { CircularProgress } from 'material-ui/Progress'
 import Avatar from 'material-ui/Avatar'
 
-// Import styles. ChatListStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {friendsListStyles} from '../../styles/FriendsStyles'
+// Import styles. FriendsListStyles for all imported components with a style attribute and CSS-file for classNames and id.
+import {FriendsListStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
 
 // Import icons
@@ -86,9 +86,9 @@ class FriendsList extends Component {
 
   renderAvatar (data) {
     if (data.avatarUrl) {
-      return <Avatar alt='Profile picture' src={data.avatarUrl} style={friendsListStyles.avatar} />
+      return <Avatar alt='Profile picture' src={data.avatarUrl} style={FriendsListStyles.avatar} />
     } else {
-      return <Avatar alt='Profile picture' src={profilePhoto} style={friendsListStyles.avatar} />
+      return <Avatar alt='Profile picture' src={profilePhoto} style={FriendsListStyles.avatar} />
     }
   }
 
@@ -103,10 +103,10 @@ class FriendsList extends Component {
 
     for (let i = 0; i < this.state.friends.length; i++) {
       listArray.push(
-        <Paper style={friendsListStyles.paper} elevation={1} key={this.state.friends[i].username}>
+        <Paper style={FriendsListStyles.paper} elevation={1} key={this.state.friends[i].username}>
           {this.renderAvatar(this.state.friends[i])}
           <Typography
-            style={friendsListStyles.friendsName}
+            style={FriendsListStyles.friendsName}
             variant='headline'
             color='primary'
             onClick={(() => {
@@ -117,10 +117,10 @@ class FriendsList extends Component {
             {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat'>
-            <ChatIcon style={friendsListStyles.listItem}/>
+            <ChatIcon style={FriendsListStyles.listItem}/>
           </IconButton>
           <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
-            <VideoIcon style={friendsListStyles.listItem}/>
+            <VideoIcon style={FriendsListStyles.listItem}/>
           </IconButton>
         </Paper>
       )
@@ -140,13 +140,13 @@ class FriendsList extends Component {
 
     for (let i = 0; i < this.state.friends.length; i++) {
       listArray.push(
-        <Paper style={friendsListStyles.paper}
+        <Paper style={FriendsListStyles.paper}
           elevation={1}
           key={this.state.friends[i].surname + 'large'}
         >
           {this.renderAvatar(this.state.friends[i])}
           <Typography
-            style={friendsListStyles.friendsName}
+            style={FriendsListStyles.friendsName}
             variant='headline'
             color='primary'
             onClick={() => this.handleFriendClick(this.state.friends[i])}
@@ -154,10 +154,10 @@ class FriendsList extends Component {
             {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat'>
-            <ChatIcon style={friendsListStyles.listItem}/>
+            <ChatIcon style={FriendsListStyles.listItem}/>
           </IconButton>
           <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
-            <VideoIcon style={friendsListStyles.listItem}/>
+            <VideoIcon style={FriendsListStyles.listItem}/>
           </IconButton>
         </Paper>
       )
@@ -221,7 +221,9 @@ class FriendsList extends Component {
                       openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
-                    <Typography>
+                    <Typography
+                      style={FriendsListStyles.title}
+                    >
                       Klicka på en vän för att se info!
                     </Typography>
                   )}
@@ -236,7 +238,7 @@ class FriendsList extends Component {
             >
               <Toolbar>
                 <IconButton color='inherit' onClick={this.handleDialogClose} aria-label='Close'>
-                  <CloseIcon style={friendsListStyles.listItem}/>
+                  <CloseIcon style={FriendsListStyles.listItem}/>
                 </IconButton>
               </Toolbar>
               <FriendsView state={this.props.state}

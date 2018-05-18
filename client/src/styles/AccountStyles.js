@@ -19,6 +19,9 @@ export const userAccountStyles = {
     borderWidth: 6,
     borderStyle: 'solid',
     color: theme.palette.primary.main,
+    lineHeight: 1.2,
+    'font-size': '20px',
+    'font-weight': 'semi-bold'
   },
 
   title: {

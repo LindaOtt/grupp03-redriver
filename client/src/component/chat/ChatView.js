@@ -294,13 +294,20 @@ class ChatView extends Component {
         >
           <DialogTitle id='alert-dialog-title'>{'Lägg till vänner!'}</DialogTitle>
           <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
+            <DialogContentText 
+              id='alert-dialog-description'
+              style={ChatListStyles.formControl.darkText}
+            >
               Lägg till vänner som ska delta i chatten:
             </DialogContentText>
             <FormControl style={ChatListStyles.formControl}
               fullWidth
             >
-              <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
+              <InputLabel
+                htmlFor='select-multiple-chip'
+                style={ChatListStyles.formControl.darkText}
+              >
+              Namn</InputLabel>
               <Select
                 multiple
                 value={this.state.selectedFriends}
@@ -330,10 +337,19 @@ class ChatView extends Component {
             </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.cancelAddUsersToChat} color='primary'>
+            <Button 
+              onClick={this.cancelAddUsersToChat} 
+              color='primary'
+              style={ChatListStyles.formControl.boldText}
+            >
               Ångra
             </Button>
-            <Button onClick={this.addUsersToChat} color='primary' autoFocus>
+            <Button 
+              onClick={this.addUsersToChat}
+              color='primary' 
+              style={ChatListStyles.formControl.boldText}
+              autoFocus
+            >
               Lägg till
             </Button>
           </DialogActions>

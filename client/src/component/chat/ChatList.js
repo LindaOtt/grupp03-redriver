@@ -398,7 +398,9 @@ class ChatList extends Component {
                       openSnackBar={this.props.openSnackBar}
                     />
                   ) : (
-                    <Typography>
+                    <Typography
+                    style={ChatListStyles.title}
+                    >
                       Välj chatt!
                     </Typography>
                   )}

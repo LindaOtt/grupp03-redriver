@@ -7,12 +7,18 @@ import {theme} from './Styles'
  *  Styles for imported components in the friends directory
  *
  *  @author Jimmy
+ *  @update Linda (Added styles)
  */
 
-export const friendsListStyles = {
+export const FriendsListStyles = {
 
   friendsList: {},
 
+  title: {
+    fontWeight: 'bold',
+    fontSize: '22px',
+    paddingLeft: '5%'
+  },
   paper: {
     width: 283,
     display: 'flex',
@@ -22,6 +28,7 @@ export const friendsListStyles = {
     alignItems: 'center',
   },
   friendsName: {
+    fontSize: '20px',
     width: '60%',
     textAlign: 'left',
     margin: 8,
