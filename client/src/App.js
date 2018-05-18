@@ -101,18 +101,30 @@ class App extends Component {
    */
 
   openSnackBar = (message) => {
-    verifyJWT(this.state.token)
-      .then((response) => {
-        this.setState({
-          snackBar: true,
-          snackBarMessage: message,
-          userInfo: response.data
+
+    if (message === 'Bilden laddades upp!') {
+      verifyJWT(this.state.token)
+        .then((response) => {
+          this.setState({
+            snackBar: true,
+            snackBarMessage: message,
+            userInfo: response.data
+          })
         })
+
+      setTimeout(() => {
+        this.closeSnackBar()
+      }, 3000)
+    } else {
+      this.setState({
+        snackBar: true,
+        snackBarMessage: message,
       })
 
-    setTimeout(() => {
-      this.closeSnackBar()
-    }, 3000)
+      setTimeout(() => {
+        this.closeSnackBar()
+      }, 3000)
+    }
   };
 
   /**
