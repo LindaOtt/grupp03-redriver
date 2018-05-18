@@ -119,7 +119,6 @@ class VideoCall extends Component {
   startCall (isCaller, friendID, config) {
     this.config = config
 
-    console.log(this.state)
     this.pc = new PeerConnection(friendID, this.props.state.signalRConnection)
       .on('localStream', (src) => {
         const newState = {localSrc: src, isCaller: isCaller }
@@ -133,6 +132,10 @@ class VideoCall extends Component {
     if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter)
     this.pc = {}
     this.config = null
+    this.setState({
+      localSrc: null,
+      peerSrc: null
+    });
     this.props.videoCallClose()
   }
 
@@ -155,15 +158,17 @@ class VideoCall extends Component {
 
   componentWillMount () {
     this.props.state.signalRConnection.on('createVideoCall', (sender, data) => {
-      if (data !== null) {
-        if (data.sdp) {
-          this.pc.setRemoteDescription(data)
-          if (data.type === 'offer') this.pc.createAnswer()
-        } else this.pc.addIceCandidate(data)
+      if (Object.keys(this.pc).length !== 0) {
+        if (data !== null) {
+          if (data.sdp) {
+            this.pc.setRemoteDescription(data)
+            if (data.type === 'offer') this.pc.createAnswer()
+          } else this.pc.addIceCandidate(data)
+        }
       }
     })
 
-    this.props.state.signalRConnection.on('endVideoCall', this.endCall.bind(this, false))
+    this.props.state.signalRConnection.on('endVideoCall', this.endCall.bind(this, this.state.isCaller))
 
     if (this.props.callTo !== '') {
       this.startVideoCall(this.props.callTo)

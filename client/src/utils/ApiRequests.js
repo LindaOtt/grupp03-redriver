@@ -48,6 +48,41 @@ export const userRegister = (data) => {
   })
 }
 
+export const userChangeDetails = (data, token) => {
+  let tempObj = {
+    firstName: data.firstName,
+    surname: data.surname,
+    email: data.email,
+    streetAddress: data.streetAddress,
+    postcode: data.zipCode,
+    city: data.city,
+    socialSecurity: data.socialSecurity,
+    telephoneNumber: data.telephoneNumber
+    /* relativeUsername: data.relativeUsername, */
+  }
+
+  return axios({
+    method: 'put',
+    url: localOrAzureUrl + '/api/account/updateaccount',
+    data: JSON.stringify(tempObj),
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}
+
+export const userChangePassword = (data, token) => {
+  let tempObj = {
+    currentPassword: data.currentPassword,
+    newPassword: data.password
+  }
+
+  return axios({
+    method: 'put',
+    url: localOrAzureUrl + '/api/account/updatepassword',
+    data: JSON.stringify(tempObj),
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
+  })
+}
+
 export const getFriends = (token) => {
   return axios({
     method: 'get',

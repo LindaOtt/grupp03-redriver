@@ -7,6 +7,8 @@ import Button from 'material-ui/Button'
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
+import {validateChangePassword, validateRegister} from '../../../utils/FormValidation'
+import {userChangePassword, userRegister} from '../../../utils/ApiRequests'
 
 /**
  *  Change Password-component.
@@ -19,8 +21,7 @@ class ChangePassword extends Component {
     super(props)
 
     this.state = {
-      password: '',
-      passwordConfirm: ''
+      loaded: true
     }
   }
 
@@ -43,26 +44,27 @@ class ChangePassword extends Component {
      */
 
     handleSubmit () {
-      if (this.state.password === '' || this.state.passwordConfirm === '') {
-        return this.props.openSnackBar('Formuläret ej korrekt ifyllt!')
+
+      let validation = validateChangePassword(this.state)
+      if (validation !== false) {
+        return this.props.openSnackBar(validation)
+      } else {
+        userChangePassword(this.state, this.props.state.token)
+          .then((response) => {
+            return this.props.openSnackBar('Ditt lösenord har ändrats!')
+          }).catch((err) => {
+          console.log(err)
+          return this.props.openSnackBar('Något gick fel. Försök igen!')
+        })
       }
+    }
 
-      if (this.state.password !== this.state.passwordConfirm) {
-        return this.props.openSnackBar('Lösenorden matchar inte!')
-      }
-
-      // ToDo.. Add this when function to change users password is implemented on server.
-      /* this.sendRequest()
-            .then((response) => {
-
-                console.log(response);
-                this.setState({navigate: true,});
-                return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!');
-
-            }).catch((err) => {
-            console.log(err);
-            return this.props.openSnackBar('Något gick fel. Försök igen!');
-        }); */
+    componentWillMount() {
+      this.setState({
+        password: '',
+        passwordConfirm: '',
+        currentPassword: ''
+      })
     }
 
     render () {
@@ -70,27 +72,36 @@ class ChangePassword extends Component {
         <div className='UserDetails'>
           <form style={settingsUserStyles.container} noValidate autoComplete='off'>
             <TextField
+              id='currentPassword'
+              label='Nuvarande lösenord'
+              style={settingsUserStyles.textField}
+              type='password'
+              onChange={this.handleChange('currentPassword')}
+              margin='normal'
+              value={this.state.currentPassword}
+            />
+            <TextField
               id='password'
               label='Nytt lösenord'
               style={settingsUserStyles.textField}
               type='password'
-              autoComplete='current-password'
               onChange={this.handleChange('password')}
               margin='normal'
+              value={this.state.password}
             />
             <TextField
               id='passwordRepeat'
-              label='Bekräfta lösenord'
+              label='Bekräfta det nya lösenordet'
               style={settingsUserStyles.textField}
               type='password'
-              autoComplete='current-password'
               onChange={this.handleChange('passwordConfirm')}
               margin='normal'
+              value={this.state.passwordConfirm}
             />
-            <Button variant='raised' style={settingsUserStyles.passwordButton} onClick={this.handleSubmit}>
-                            Ok
-            </Button>
           </form>
+          <Button variant='raised' style={settingsUserStyles.passwordButton} onClick={() => this.handleSubmit()}>
+            Ok
+          </Button>
         </div>
       )
     }

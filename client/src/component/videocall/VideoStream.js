@@ -45,7 +45,7 @@ class VideoStream extends Component {
     return (
       <div className='VideoContainer'>
         <video id='localVideo' ref={el => this.localVideo = el} autoPlay muted />
-        <video id='peerVideo' ref={el => this.peerVideo = el} autoPlay />
+        <video id='peerVideo' ref={el => this.peerVideo = el} autoPlay playsInline  />
       </div>
     )
   }
