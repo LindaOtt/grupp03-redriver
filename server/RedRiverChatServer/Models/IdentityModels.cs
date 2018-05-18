@@ -126,4 +126,9 @@ namespace RedRiverChatServer.Models
         public string newPassword { get; set; }
     }
 
+    public class ConfirmModel
+    {
+        public string UserId { get; set; }
+        public string Token { get; set; }
+    }
 }

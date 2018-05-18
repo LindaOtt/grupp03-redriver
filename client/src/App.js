@@ -32,6 +32,7 @@ import FriendsList from './component/friends/FriendsList'
 import Settings from './component/settings/Settings'
 import Login from './component/authentication/Login'
 import Register from './component/authentication/Register'
+import ConfirmEmail from './component/authentication/ConfirmEmail'
 import NewPassword from './component/authentication/NewPassword'
 import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
@@ -331,7 +332,7 @@ class App extends Component {
       }
     }
   }
-  
+
 
   render () {
     return (
@@ -368,6 +369,7 @@ class App extends Component {
                   <Route path='/settings' component={() => <Settings state={this.state} openSnackBar={this.openSnackBar} />} />
                   <Route path='/login' component={() => <Login state={this.state} openSnackBar={this.openSnackBar} userLogin={this.userLogin} />} />
                   <Route path='/register' component={() => <Register state={this.state} openSnackBar={this.openSnackBar} />} />
+                  <Route path='/api/account/confirmemail' component={() => <ConfirmEmail state={this.state} openSnackBar={this.openSnackBar} />} />
                   <Route path='/password' component={() => <NewPassword state={this.state} />} />
                   <Route path='/friendrequests' component={() => <FriendRequests state={this.state} openSnackBar={this.openSnackBar} />} />
                 </div>
