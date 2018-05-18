@@ -32,8 +32,7 @@ export const initChat = (token) => {
   })
 
   connection.on('alterFriendStatus', (name, group, status) => {
-    messages.push(name + ' in group:' + group + ': ' + 'is now ' + status)
-    console.log(name)
+
   })
 
   connection.on('messageSentToSpecificUser', (name, message) => {
