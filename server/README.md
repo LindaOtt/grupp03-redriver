@@ -33,5 +33,5 @@ This route should return 200 Ok.
 For other available api routes, see the [api documentation.](https://documenter.getpostman.com/view/1600195/redriverserver-api-documentation-v21/RW86L9vn)
 
 ## Hosting
-
+During this project we have used Microsoft Azure for hosting client, server and database. Continuous integration to Azure has worked well and we recommend its use also in a full production environment.
 ![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/AzureScreenShot.PNG)
