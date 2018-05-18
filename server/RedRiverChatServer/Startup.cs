@@ -57,7 +57,7 @@ namespace RedRiverChatServer
                 opt.Password.RequireLowercase = true;
 
                 // User settings
-                //opt.SignIn.RequireConfirmedEmail = true;
+                opt.SignIn.RequireConfirmedEmail = true;
             }
        );
 

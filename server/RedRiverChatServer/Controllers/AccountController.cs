@@ -72,15 +72,17 @@ namespace RedRiverChatServer.Controllers
 
             if (result.Succeeded)
             {
+                var host = _config["Client:WebAddress"];
+
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var callbackUrl = Url.Action(new Microsoft.AspNetCore.Mvc.Routing.UrlActionContext
                 {
                     Action = "ConfirmEmail",
                     Values = new { userId = user.Id, code },
-                    Protocol = HttpContext.Request.Scheme
+                    Protocol = HttpContext.Request.Scheme,
+                    Host = host
                 });
                 Console.WriteLine(callbackUrl);
-                //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                 return Ok(new { response = "Registration successful" });
@@ -162,27 +164,24 @@ namespace RedRiverChatServer.Controllers
         /// <summary>
         /// 'ConfirmEmail' gives the newly registered user login privileges.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="token"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<object> ConfirmEmail([FromQuery(Name = "userId")] string userId, [FromQuery(Name = "code")] string token)
+        [HttpPost]
+        public async Task<object> ConfirmEmail([FromBody] ConfirmModel data)
         {
             // Find the user by userId
-            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Id == userId);
+            var user = _userManager.Users.SingleOrDefault<ApplicationUser>(r => r.Id == data.UserId);
 
             // Update EmailConfirmed
-            var result = await _userManager.ConfirmEmailAsync(user, token);
+            var result = await _userManager.ConfirmEmailAsync(user, data.Token);
 
             if (result.Succeeded)
             {
-                string clientLogin = "https://clientredriver.azurewebsites.net/";
-                return Redirect(clientLogin);
-                //return Ok(new { Response = "Email successfully confirmed" });
+                return Ok(new { Response = "Email successfully confirmed" });
             }
             else
             {
-                return BadRequest(new { result.Errors });
+                return BadRequest(new { response = "Email already confirmed" });
             }
         }
 

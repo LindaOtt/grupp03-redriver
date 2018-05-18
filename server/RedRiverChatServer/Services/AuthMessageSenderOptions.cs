@@ -18,8 +18,8 @@ namespace RedRiverChatServer.Services
         }
         public string SendGridKey
         {
-            //get; set;
-            get { return Environment.GetEnvironmentVariable("SendGridKey"); }
+            get; set;
+            //get { return Environment.GetEnvironmentVariable("SendGridKey"); }
 
         }
     }
