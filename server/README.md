@@ -43,6 +43,6 @@ Our code runs as a Azure web app (found under app services).
 
 ## CORS
 
-The server code has its on CORS allowing requests from certain sources. It is important that these are prioritized over the CORS settings which Azure tries to add through its own settings. Make sure that NO CORS settings are added to the Azure CORS settings for the web app, as shown in the picture below. 
+The server code has its own CORS allowing requests from certain sources. It is important that these are prioritized over the CORS settings which Azure tries to add through its own settings. Make sure that NO CORS settings are added to the Azure CORS settings for the web app, as shown in the picture below. 
 
 ![Azure Screen Shot](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/wiki/azure-cors.PNG)
