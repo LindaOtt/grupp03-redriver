@@ -7,6 +7,7 @@ import red from 'material-ui/colors/red'
  *  Create Material-UI theme. Edit these colors to change throughout the application.
  *
  *  @author Jimmy
+ *  @update Linda (Added typography, edited palette)
  */
 
 export const theme = createMuiTheme({
@@ -24,5 +25,14 @@ export const theme = createMuiTheme({
       dark: red[800]
     },
     textColor: grey[700],
+  },
+
+  typography: {
+    fontFamily: [
+      'Nunito',
+      'sans-serif',
+    ].join(','),
+
+    htmlFontSize: 13,
   }
 })

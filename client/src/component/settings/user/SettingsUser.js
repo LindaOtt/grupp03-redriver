@@ -22,11 +22,13 @@ import '../../../styles/Styles.css'
 import UserDetails from './UserDetails'
 import ChangePassword from './ChangePassword'
 import ChangeProfilePicture from './ChangeProfilePicture'
+import DeleteUser from './DeleteUser'
 
 /**
  *  SettingsUser-component.
  *
  *  @author Jimmy
+ *  @update Linda (Added delete user collapsible)
  */
 
 class SettingsUser extends Component {
@@ -111,6 +113,13 @@ class SettingsUser extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <ChangeProfilePicture state={this.props.state} openSnackBar={this.props.openSnackBar} />
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel CollapseProps={{ unmountOnExit: true }} expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography >Ta bort användarkonto</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
               </ExpansionPanelDetails>
             </ExpansionPanel>
             <List>
