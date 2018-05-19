@@ -75,7 +75,7 @@ class ConfirmEmail extends Component {
     }
 
     return (
-      <HttpsRedirect>
+      <div>
         {this.state.loading ? (
           <div className='AppLoadingDiv'>
             <CircularProgress style={AppStyles.loading} />
@@ -99,7 +99,7 @@ class ConfirmEmail extends Component {
             </form>
           </div>
         )}
-      </HttpsRedirect>
+      </div>
 
     )
   }

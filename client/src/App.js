@@ -40,6 +40,7 @@ import VideoCall from './component/videocall/VideoCall'
 
 import {getFriends, verifyJWT} from './utils/ApiRequests'
 import {initChat} from './utils/SignalR'
+import {loginStyles} from './styles/AuthStyles'
 
 /**
  *  Starting point of the application
@@ -357,6 +358,7 @@ class App extends Component {
                   style={AppStyles.root}
                 >
                   <Toolbar>
+                    <Link style={AppStyles.titleLink} to='/'/>
                     <Typography
                       variant='title'
                       align='left'

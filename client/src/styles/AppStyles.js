@@ -15,6 +15,12 @@ const AppStyles = {
   flex: {
     flex: 1
   },
+  titleLink: {
+    float: 'right',
+    width: 220,
+    height: 40,
+    position: 'absolute'
+  },
   menuButton: {
     color: grey[100]
   },
