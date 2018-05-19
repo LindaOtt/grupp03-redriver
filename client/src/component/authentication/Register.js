@@ -99,7 +99,7 @@ class Register extends Component {
     }
 
     return (
-      <HttpsRedirect>
+      <div>
         {this.state.loading ? (
           <div className='AppLoadingDiv'>
             <CircularProgress style={AppStyles.loading} />
@@ -227,7 +227,7 @@ class Register extends Component {
             </form>
           </div>
         )}
-      </HttpsRedirect>
+      </div>
 
     )
   }

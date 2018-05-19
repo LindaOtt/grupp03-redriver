@@ -87,7 +87,7 @@ class Login extends Component {
       }
 
       return (
-        <HttpsRedirect>
+        <div>
           {this.state.loading ? (
             <div className='AppLoadingDiv'>
               <CircularProgress style={AppStyles.loading} />
@@ -138,7 +138,7 @@ class Login extends Component {
               </form>
             </div>
           )}
-        </HttpsRedirect>
+        </div>
 
       )
     }
