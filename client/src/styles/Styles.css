@@ -21,7 +21,7 @@ html, body {
 .App header h2 {
     background-image: url(../logo.svg);
     background-repeat: no-repeat;
-    padding-left: 55px 
+    padding-left: 55px
 }
 
 .App-Body {
