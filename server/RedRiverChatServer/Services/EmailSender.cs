@@ -43,6 +43,9 @@ namespace RedRiverChatServer.Services
             //This should be handled in a more secure way
             var apiKey = _config["Client:SendGridApiKey"];
 
+            //A more secure way (but must be configured following the SendGrid guides in wiki)
+            //var apiKey = Options.SendGridKey;
+
             return Execute(apiKey, subject, message, email);
         }
 
