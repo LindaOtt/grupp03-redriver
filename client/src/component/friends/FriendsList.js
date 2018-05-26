@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom'
 // Import NPM-modules
 import Button from 'material-ui/Button'
 import Icon from 'material-ui/Icon'
-import Badge from 'material-ui/Badge'
 import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
@@ -197,12 +196,10 @@ class FriendsList extends Component {
         {this.state.isLoaded ? (
           <div className='FriendsList'>
             <div className='FriendsList-Header'>
-              <Badge badgeContent={2} color='error'>
                 <Button color='primary' component={Link} to={'/friendrequests'}>
                   <Icon >add</Icon>
                   Lägg till vän
                 </Button>
-              </Badge>
             </div>
             <Hidden mdUp>
               <div className='FriendsList-Inner'>
