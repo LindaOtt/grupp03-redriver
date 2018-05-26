@@ -204,7 +204,8 @@ namespace RedRiverChatServer
                         UserName = "sTestUser" + i,
                         Email = "sTestUser" + i + "@sTestUsers",
                         FirstName = "sTestUser" + i,
-                        Surname = "User"
+                        Surname = "User",
+                        EmailConfirmed = true
                     };
                     var resultCreateUser = userManager.CreateAsync(newUser, "sTestUser" + i);
                     resultCreateUser.Wait();
