@@ -65,10 +65,24 @@ class ChatList extends Component {
    */
 
   updateComponent = () => {
+    this.setState({
+      isLoaded: false,
+    })
     getGroups(this.props.state.token)
       .then((response) => {
-
         let tempArray = []
+
+        if (response.data.groupList.length <= 0) {
+          return setTimeout(() => {
+            this.setState({
+              groups: tempArray,
+              isLoaded: true,
+              chatDialog: false,
+              dialog: false,
+              chatName: null
+            })
+          }, 200)
+        }
         for (let i = 0; i < response.data.groupList.length; i++) {
           getGroupInfo(this.props.state.token, response.data.groupList[i])
             .then((responseTwo) => {
@@ -118,6 +132,8 @@ class ChatList extends Component {
    */
 
   handleDialogOpen = () => {
+    console.log('Dialog open')
+    console.log(this.state)
     this.setState({ dialog: true })
   }
 
@@ -363,10 +379,6 @@ class ChatList extends Component {
       })
   }
 
-  componentWillUpdate() {
-
-  }
-
   componentWillReceiveProps () {
     this.setState({
       isLoaded: true
@@ -427,75 +439,6 @@ class ChatList extends Component {
                     </div>
                   </div>
                 </Hidden>
-                <Dialog
-                  open={this.state.dialog}
-                  onClose={this.handleDialogClose}
-                  aria-labelledby='alert-dialog-title'
-                  aria-describedby='alert-dialog-description'
-                >
-                  <DialogTitle id='alert-dialog-title'>{'Starta en ny chatt!'}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id='alert-dialog-description'>
-                      Lägg till vänner som ska delta i chatten:
-                    </DialogContentText>
-                    <FormControl style={ChatListStyles.formControl}
-                                 fullWidth
-                    >
-                      <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
-                      <Select
-                        multiple
-                        value={this.state.selectedFriends}
-                        onChange={this.handleFriendsSelect}
-                        input={<Input id='select-multiple-chip' />}
-                        renderValue={selected => (
-                          <div style={ChatListStyles.formControl.chips}>
-                            {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
-                          </div>
-                        )}
-                      >
-                        {this.state.friends.map(name => (
-                          <MenuItem
-                            key={name.username}
-                            value={name.username}
-                            style={{
-                              fontWeight:
-                                this.state.friends.indexOf(name.username) === -1
-                                  ? theme.typography.fontWeightRegular
-                                  : theme.typography.fontWeightMedium
-                            }}
-                          >
-                            {name.username}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.cancelNewChat} color='primary'>
-                      Ångra
-                    </Button>
-                    <Button onClick={this.createNewChat} color='primary' autoFocus>
-                      Starta chatt
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-                <Dialog
-                  fullScreen
-                  open={this.state.chatDialog}
-                  onClose={this.handleChatDialogClose}
-                  aria-labelledby='responsive-dialog-title'
-                >
-
-                  <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
-                    <CloseIcon />
-                  </IconButton>
-                  <ChatView state={this.props.state}
-                            chatContent={this.state.chatName}
-                            updateComponent={this.updateComponent}
-                            friends={this.state.friends}
-                            openSnackBar={this.props.openSnackBar}
-                  />
-                </Dialog>
               </div>
             ) : (
               <div>
@@ -506,6 +449,75 @@ class ChatList extends Component {
                 </Typography>
               </div>
             )}
+            <Dialog
+              open={this.state.dialog}
+              onClose={this.handleDialogClose}
+              aria-labelledby='alert-dialog-title'
+              aria-describedby='alert-dialog-description'
+            >
+              <DialogTitle id='alert-dialog-title'>{'Starta en ny chatt!'}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id='alert-dialog-description'>
+                  Lägg till vänner som ska delta i chatten:
+                </DialogContentText>
+                <FormControl style={ChatListStyles.formControl}
+                             fullWidth
+                >
+                  <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
+                  <Select
+                    multiple
+                    value={this.state.selectedFriends}
+                    onChange={this.handleFriendsSelect}
+                    input={<Input id='select-multiple-chip' />}
+                    renderValue={selected => (
+                      <div style={ChatListStyles.formControl.chips}>
+                        {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
+                      </div>
+                    )}
+                  >
+                    {this.state.friends.map(name => (
+                      <MenuItem
+                        key={name.username}
+                        value={name.username}
+                        style={{
+                          fontWeight:
+                            this.state.friends.indexOf(name.username) === -1
+                              ? theme.typography.fontWeightRegular
+                              : theme.typography.fontWeightMedium
+                        }}
+                      >
+                        {name.username}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.cancelNewChat} color='primary'>
+                  Ångra
+                </Button>
+                <Button onClick={this.createNewChat} color='primary' autoFocus>
+                  Starta chatt
+                </Button>
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              fullScreen
+              open={this.state.chatDialog}
+              onClose={this.handleChatDialogClose}
+              aria-labelledby='responsive-dialog-title'
+            >
+
+              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
+                <CloseIcon />
+              </IconButton>
+              <ChatView state={this.props.state}
+                        chatContent={this.state.chatName}
+                        updateComponent={this.updateComponent}
+                        friends={this.state.friends}
+                        openSnackBar={this.props.openSnackBar}
+              />
+            </Dialog>
           </div>
         ) : (
           <div className='AppLoadingDiv'>

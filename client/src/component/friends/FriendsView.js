@@ -58,9 +58,9 @@ class FriendsView extends Component {
    */
 
   handleDeleteButton () {
-    deleteFriend(this.props.friendsUsername, this.props.state.token)
+    deleteFriend(this.props.friendsData.username, this.props.state.token)
       .then(() => {
-        return this.props.openSnackBar(this.props.friendsUsername + ' togs bort från din vänlista!')
+        return this.props.openSnackBar(this.props.friendsData.username + ' togs bort från din vänlista!')
       })
       .catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
