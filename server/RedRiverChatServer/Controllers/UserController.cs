@@ -70,11 +70,16 @@ namespace RedRiverChatServer.Controllers
 
             var user = context.Users.Include(u => u.Friendships).SingleOrDefault(u => u.UserName == name);
 
+            IEnumerable<Claim> claims = HttpContext.User.Claims;
+            Claim nameClaim = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+            string roleName = nameClaim.Value;
+
             if (user !=null)
             {
                 IMapper iMapper = applicationUserUserInfoconfig.CreateMapper();
 
                 var strippedUser = iMapper.Map<ApplicationUser, UserInfoModel>(user);
+                strippedUser.Role = roleName;
                 return Ok(strippedUser) ;
             }
             else

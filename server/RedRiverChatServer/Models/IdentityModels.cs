@@ -102,6 +102,7 @@ namespace RedRiverChatServer.Models
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string RelativeUserId { get; set; }
+        public string Role { get; set; }
         public string TelephoneNumber { get; set; }
         public string AvatarUrl { get; set; }
         public ICollection<Friendship> Friendships { get; set; }
