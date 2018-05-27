@@ -338,9 +338,6 @@ html, body {
 }
 
 .SettingsUser-Inner {
-    border-left: 1px solid #cbced0;
-    border-right: 1px solid #cbced0;
-    border-bottom: 1px solid #cbced0;
 }
 
 .UserDetails {
@@ -349,6 +346,15 @@ html, body {
 
 .PictureDetails {
     margin: auto;
+}
+
+.PictureDetails-Input {
+    background-color: #ebebeb;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    border-radius: 10px;
 }
 
 .SettingsSuperUser {

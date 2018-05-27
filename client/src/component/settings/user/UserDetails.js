@@ -191,7 +191,7 @@ class SettingsUser extends Component {
           {this.state.formDisabled ? (
             <div>
               {this.renderForm()}
-              <Button variant='raised' style={settingsUserStyles.button} onClick={() => this.handleEditButton(false)}>
+              <Button variant='raised' color={'primary'} style={settingsUserStyles.button} onClick={() => this.handleEditButton(false)}>
                             Ändra uppgifter
               </Button>
             </div>
@@ -199,10 +199,10 @@ class SettingsUser extends Component {
             <div>
               {this.renderForm()}
               <div>
-                <Button variant='raised' style={settingsUserStyles.button} onClick={() => this.handleEditButton(true)}>
+                <Button variant='raised' color={'primary'} style={settingsUserStyles.button} onClick={() => this.handleEditButton(true)}>
                                 Ångra
                 </Button>
-                <Button variant='raised' style={settingsUserStyles.button} onClick={() => this.handleSubmit()}>
+                <Button variant='raised' color={'primary'} style={settingsUserStyles.button} onClick={() => this.handleSubmit()}>
                                 Ok
                 </Button>
               </div>

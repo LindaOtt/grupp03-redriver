@@ -49,7 +49,7 @@ export const settingsUserStyles = {
     marginLeft: 30,
     marginRight: 30,
     marginBottom: 20,
-    maxWidth: 300,
+    maxWidth: 240,
     width: '100%',
     flexGrow: 1
   },
@@ -66,13 +66,6 @@ export const settingsUserStyles = {
     width: 240,
     flexGrow: 1
   },
-  listItem: {
-    border: {
-      color: 'black',
-      width: 1,
-      style: 'solid'
-    }
-  }
 }
 
 export const settingsSuperUserStyles = {
