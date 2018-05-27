@@ -47,7 +47,6 @@ class ChatMessage extends Component {
   }
 
   renderMessage () {
-    console.log(moment(this.props.message.date).fromNow())
     if (this.props.message.name === this.props.state.userInfo.username) {
       return (
         <div className='ChatMessage-Self'>

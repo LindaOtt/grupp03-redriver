@@ -21,6 +21,9 @@ import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
 import { CircularProgress } from 'material-ui/Progress'
 import Avatar from 'material-ui/Avatar'
+import Divider from 'material-ui/Divider'
+import moment from 'moment'
+import 'moment/locale/sv'
 
 // Import Icons
 import CloseIcon from '@material-ui/icons/Close'
@@ -33,9 +36,11 @@ import {theme} from '../../styles/Styles'
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
 
-import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
+import {getChatMessages, getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
+
+moment.locale('sv')
 
 /**
  *  ChatList-component. Starting page of chat.
@@ -68,44 +73,7 @@ class ChatList extends Component {
     this.setState({
       isLoaded: false,
     })
-    getGroups(this.props.state.token)
-      .then((response) => {
-        let tempArray = []
-
-        if (response.data.groupList.length <= 0) {
-          return setTimeout(() => {
-            this.setState({
-              groups: tempArray,
-              isLoaded: true,
-              chatDialog: false,
-              dialog: false,
-              chatName: null
-            })
-          }, 200)
-        }
-        for (let i = 0; i < response.data.groupList.length; i++) {
-          getGroupInfo(this.props.state.token, response.data.groupList[i])
-            .then((responseTwo) => {
-              if (responseTwo.data.members.length > 1) {
-                tempArray.push(responseTwo.data)
-              }
-            }).then(() => {
-            if(i === response.data.groupList.length - 1) {
-              setTimeout(() => {
-                this.setState({
-                  groups: tempArray,
-                  isLoaded: true,
-                  chatDialog: false,
-                  dialog: false,
-                  chatName: null
-                })
-              }, 200)
-            }
-          })
-        }
-      }).catch(() => {
-      return this.props.openSnackBar('Något gick fel. Försök igen!')
-    })
+    this.getGroupsAndMembers()
   }
 
   /**
@@ -132,8 +100,6 @@ class ChatList extends Component {
    */
 
   handleDialogOpen = () => {
-    console.log('Dialog open')
-    console.log(this.state)
     this.setState({ dialog: true })
   }
 
@@ -241,6 +207,19 @@ class ChatList extends Component {
     }
   }
 
+  renderTime = (data) => {
+    if (data.timeStamp !== 0) {
+      return moment(data.timeStamp).calendar()
+    }
+    return ''
+}
+
+renderLastMessage = (data) => {
+  if (data.timeStamp !== 0) {
+    return data.username + ': ' + data.message
+  }
+  return 'Inga meddelanden...'
+}
 
   /**
    *  Render list of chats
@@ -253,19 +232,39 @@ class ChatList extends Component {
 
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}>
-          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
-          <Typography
-            style={ChatListStyles.chatName}
-            variant='subheading'
-            color='primary'
-            onClick={(() => {
-              this.handleChatClick(this.state.groups[i].groupName)
-              return this.handleChatDialogOpen()
-            })}
-          >
-            {this.renderChatName(this.state.groups[i].members)}
-          </Typography>
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}
+               onClick={(() => {
+                 this.handleChatClick(this.state.groups[i].groupName)
+                 return this.handleChatDialogOpen()
+               })}
+        >
+          <div className='ChatList-Paper'>
+            <div className='ChatList-Paper-Avatar'>
+              <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
+              <Typography
+                style={ChatListStyles.chatDate}
+                variant='caption'
+                color='primary'
+              >
+                {this.renderTime(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+            <div className='ChatList-Paper-Inner'>
+              <Typography
+                style={ChatListStyles.chatName}
+                color='primary'
+              >
+                {this.renderChatName(this.state.groups[i].members)}
+              </Typography>
+              <Typography
+                style={ChatListStyles.chatMessage}
+                variant='caption'
+              >
+                {this.renderLastMessage(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+          </div>
+
         </Paper>
       )
     }
@@ -284,22 +283,38 @@ class ChatList extends Component {
 
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper}
-          elevation={1}
-          key={this.state.groups[i].groupName}
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}
+               onClick={(() => {
+                 this.handleChatClick(this.state.groups[i].groupName)
+               })}
         >
-          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
-          <Typography
-            style={ChatListStyles.chatName}
-            variant='subheading'
-            color='primary'
-            onClick={() => {
-              this.handleChatClick(this.state.groups[i].groupName)
-            }
-            }
-          >
-            {this.renderChatName(this.state.groups[i].members)}
-          </Typography>
+          <div className='ChatList-Paper'>
+            <div className='ChatList-Paper-Avatar'>
+              <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
+              <Typography
+                style={ChatListStyles.chatDate}
+                variant='caption'
+                color='primary'
+              >
+                {this.renderTime(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+            <div className='ChatList-Paper-Inner'>
+              <Typography
+                style={ChatListStyles.chatName}
+                color='primary'
+              >
+                {this.renderChatName(this.state.groups[i].members)}
+              </Typography>
+              <Typography
+                style={ChatListStyles.chatMessage}
+                variant='caption'
+              >
+                {this.renderLastMessage(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+          </div>
+
         </Paper>
       )
     }
@@ -331,22 +346,41 @@ class ChatList extends Component {
             getGroupInfo(this.props.state.token, response.data.groupList[i])
               .then((responseTwo) => {
                 if (responseTwo.data.members.length > 1) {
-                  tempArray.push(responseTwo.data)
-                }
-              }).then(() => {
-              if(i === response.data.groupList.length - 1) {
-                setTimeout(() => {
-                  this.setState({
-                    groups: tempArray,
-                    isLoaded: true,
-                    selectedFriends: [],
-                    chatDialog: false,
-                    dialog: false,
-                    chatName: null
+                  getChatMessages(this.props.state.token, response.data.groupList[i])
+                    .then((responseThree) => {
+                      let tempGroup = responseTwo.data
+                      tempGroup.messages = responseThree.data
+                      tempGroup.lastMessage = responseThree.data.sort(function(a,b) {
+                        return new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
+                      })[0];
+
+                      if (!tempGroup.lastMessage) {
+                        tempGroup.lastMessage = {
+                          timeStamp: 0
+                        }
+                      }
+
+                      tempArray.push(tempGroup)
+                    })
+                    .then(() => {
+                      if(i === response.data.groupList.length - 1) {
+                        setTimeout(() => {
+                          tempArray.sort(function(a,b){
+                            return new Date(b.lastMessage.timeStamp) - new Date(a.lastMessage.timeStamp);
+                          });
+                          this.setState({
+                            groups: tempArray,
+                            isLoaded: true,
+                            selectedFriends: [],
+                            chatDialog: false,
+                            dialog: false,
+                            chatName: null
+                          })
+                        }, 200)
+                      }
                   })
-                }, 200)
-              }
-            })
+                }
+              })
           }
         }
       }).catch(() => {
