@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 // Import NPM
 import Typography from 'material-ui/Typography'
 import Avatar from 'material-ui/Avatar'
+import moment from 'moment'
+import 'moment/locale/sv'
+import Divider from 'material-ui/Divider'
 
 // Import styles. ChatMessageStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {ChatMessageStyles} from '../../styles/ChatStyles'
@@ -10,6 +13,8 @@ import '../../styles/Styles.css'
 
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
+
+moment.locale('sv')
 
 /**
  *  Message-component.
@@ -42,6 +47,7 @@ class ChatMessage extends Component {
   }
 
   renderMessage () {
+    console.log(moment(this.props.message.date).fromNow())
     if (this.props.message.name === this.props.state.userInfo.username) {
       return (
         <div className='ChatMessage-Self'>
@@ -49,7 +55,9 @@ class ChatMessage extends Component {
             <Avatar alt='Profile picture' src={this.renderAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-Inside'>
               <Typography variant='caption' />
-              <Typography>{this.props.message.message}</Typography>
+              <Typography variant='caption' style={{fontSize: '70%'}} >{moment(this.props.message.date).fromNow()}</Typography>
+              <Divider/>
+              <Typography style={{marginTop: 5,}} >{this.props.message.message}</Typography>
             </div>
           </div>
         </div>)
@@ -59,8 +67,10 @@ class ChatMessage extends Component {
           <div className='ChatBubble'>
             <Avatar alt='Profile picture' src={this.renderFriendAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-Inside'>
-              <Typography variant='caption'>{this.props.message.name}</Typography>
-              <Typography >{this.props.message.message}</Typography>
+              <Typography variant='caption' color='primary'>{this.props.message.name}</Typography>
+              <Typography variant='caption' style={{fontSize: '70%'}} >{moment(this.props.message.date).fromNow()}</Typography>
+              <Divider/>
+              <Typography style={{marginTop: 5,}}>{this.props.message.message}</Typography>
             </div>
           </div>
         </div>)

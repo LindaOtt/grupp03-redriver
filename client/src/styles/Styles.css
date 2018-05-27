@@ -199,6 +199,12 @@ html, body {
     padding: 5px;
 }
 
+.ChatBubble-Inside-Title {
+    display: flex;
+    text-align: left;
+    flex-direction: row;
+}
+
 #alert-dialog-title {
     font-weight: bold;
 }
