@@ -53,16 +53,18 @@ export const ChatListStyles = {
   },
   chatName: {
     fontSize: '95%',
+    width: '96%',
     textAlign: 'left',
     marginLeft: 6,
   },
   chatMessage: {
     fontSize: '70%',
+    width: '96%',
     textAlign: 'left',
     marginLeft: 6,
   },
   chatDate: {
-    fontSize: '60%',
+    fontSize: '56%',
   },
   listItem: {
     color: theme.palette.primary.main,

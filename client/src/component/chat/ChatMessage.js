@@ -54,7 +54,7 @@ class ChatMessage extends Component {
             <Avatar alt='Profile picture' src={this.renderAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-Inside'>
               <Typography variant='caption' />
-              <Typography variant='caption' style={{fontSize: '70%'}} >{moment(this.props.message.date).fromNow()}</Typography>
+              <Typography variant='caption' style={{fontSize: '65%'}} >{moment(this.props.message.date).add(2, 'h').fromNow()}</Typography>
               <Divider/>
               <Typography style={{marginTop: 5,}} >{this.props.message.message}</Typography>
             </div>
@@ -66,8 +66,8 @@ class ChatMessage extends Component {
           <div className='ChatBubble'>
             <Avatar alt='Profile picture' src={this.renderFriendAvatar()} style={ChatMessageStyles.avatar} />
             <div className='ChatBubble-Inside'>
-              <Typography variant='caption' color='primary'>{this.props.message.name}</Typography>
-              <Typography variant='caption' style={{fontSize: '70%'}} >{moment(this.props.message.date).fromNow()}</Typography>
+              <Typography variant='caption' color='primary' style={{fontSize: '90%'}}>{this.props.message.name}</Typography>
+              <Typography variant='caption' style={{fontSize: '65%'}} >{moment(this.props.message.date).add(2, 'h').fromNow()}</Typography>
               <Divider/>
               <Typography style={{marginTop: 5,}}>{this.props.message.message}</Typography>
             </div>

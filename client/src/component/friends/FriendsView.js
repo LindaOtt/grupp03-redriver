@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 // Import NPM-modules
 import Typography from 'material-ui/Typography'
@@ -9,6 +9,10 @@ import Button from 'material-ui/Button'
 // import {friendsViewStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
 import {friendsViewStyles} from '../../styles/FriendsStyles'
+
+// Import icons
+import ChatIcon from '@material-ui/icons/ChatBubble'
+import VideoIcon from '@material-ui/icons/VoiceChat'
 
 // Import API requests
 import {deleteFriend} from '../../utils/ApiRequests'
@@ -41,9 +45,9 @@ class FriendsView extends Component {
 
   renderAvatar () {
     if (this.props.friendsData.avatarUrl) {
-      return <img onError={this.onImageError} className='FriendsView-Avatar' src={this.props.friendsData.avatarUrl} height='300' width='300' />
+      return <img onError={this.onImageError} className='FriendsView-Avatar' src={this.props.friendsData.avatarUrl} />
     } else {
-      return <img onError={this.onImageError} className='FriendsView-Avatar' src={profilePhoto} height='300' width='300' />
+      return <img onError={this.onImageError} className='FriendsView-Avatar' src={profilePhoto} />
     }
   }
 
@@ -74,20 +78,35 @@ class FriendsView extends Component {
     return (
       <div className='FriendsView'>
         <Typography
-          variant='headline'
+          variant='subheading'
           color='primary'
           align='left'
           style={friendsViewStyles.title}
         >
-          {this.props.friendsData.username}
+          {this.props.friendsData.firstName + ' ' + this.props.friendsData.surname}
         </Typography>
         {this.renderAvatar()}
-        <Button onClick={this.handleDeleteButton}
-          style={friendsViewStyles.deleteButton}
-          color='secondary'
-        >
-          Ta bort {this.props.friendsData.username} från din vänlista
-        </Button>
+        <div className='FriendsView-Inner'>
+          <div className='FriendsView-Inner-Buttons'>
+              <Button variant='fab'
+                      style={friendsViewStyles.button}
+              >
+                <ChatIcon style={friendsViewStyles.icon}/>
+              </Button>
+              <Button variant='fab'
+                      style={friendsViewStyles.button}
+                      onClick={() => this.props.startVideoCall(this.props.friendsData.username)}
+              >
+                <VideoIcon style={friendsViewStyles.icon}/>
+              </Button>
+          </div>
+          <Button onClick={this.handleDeleteButton}
+            style={friendsViewStyles.deleteButton}
+            color='secondary'
+          >
+            Ta bort {this.props.friendsData.username}
+          </Button>
+        </div>
       </div>
     )
   }

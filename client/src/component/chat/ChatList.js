@@ -209,17 +209,17 @@ class ChatList extends Component {
 
   renderTime = (data) => {
     if (data.timeStamp !== 0) {
-      return moment(data.timeStamp).calendar()
+      return moment(data.timeStamp).add(2, 'h').calendar()
     }
     return ''
 }
 
-renderLastMessage = (data) => {
-  if (data.timeStamp !== 0) {
-    return data.username + ': ' + data.message
+  renderLastMessage = (data) => {
+    if (data.timeStamp !== 0) {
+      return data.username + ': ' + data.message
+    }
+    return 'Inga meddelanden...'
   }
-  return 'Inga meddelanden...'
-}
 
   /**
    *  Render list of chats
