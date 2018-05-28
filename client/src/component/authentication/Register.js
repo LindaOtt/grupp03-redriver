@@ -74,7 +74,7 @@ class Register extends Component {
       userRegister(this.state)
         .then((response) => {
           this.setState({navigate: true})
-          return this.props.openSnackBar('Registreringen lyckades. Vänligen logga in!')
+          return this.props.openSnackBar('Registreringen lyckades! För att kunna logga in måste du först verifiera din mailadress i det mail som har skickats till dig.')
         }).catch((err) => {
           if (err.response.status === 400) {
             return this.props.openSnackBar('Användarnamnet ' + this.state.userName + ' är redan registrerat!')

@@ -84,7 +84,7 @@ class SettingsUser extends Component {
         <div className='SettingsUser'>
           <Typography
             variant='headline'
-            color='default'
+            color='primary'
             align='left'
             style={settingsUserStyles.title}
           >
@@ -123,30 +123,6 @@ class SettingsUser extends Component {
                 <DeleteUser state={this.props.state} openSnackBar={this.props.openSnackBar}/>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-            <List>
-              <ListItem>
-                <Typography >Notifikationer</Typography>
-                <ListItemSecondaryAction>
-                  <Switch
-                    checked={this.state.notificationToggle}
-                    onChange={this.handleNotificationChange('notificationToggle')}
-                    value='notificationToggle'
-                    color='primary'
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <Divider />
-              <Divider />
-              <ListItem>
-                <Typography >Fylls på med mer inställningar...</Typography>
-                <ListItemSecondaryAction>
-                  <Switch
-                    value='todo'
-                    color='primary'
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
           </div>
         </div>
       )

@@ -49,13 +49,22 @@ export const ChatListStyles = {
     padding: 6,
     margin: 5,
     alignItems: 'center',
+    cursor: 'pointer'
   },
   chatName: {
-    fontSize: '18px',
-    width: '90%',
+    fontSize: '95%',
+    width: '96%',
     textAlign: 'left',
     marginLeft: 6,
-    cursor: 'pointer'
+  },
+  chatMessage: {
+    fontSize: '70%',
+    width: '96%',
+    textAlign: 'left',
+    marginLeft: 6,
+  },
+  chatDate: {
+    fontSize: '56%',
   },
   listItem: {
     color: theme.palette.primary.main,

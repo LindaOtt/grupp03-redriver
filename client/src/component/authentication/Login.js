@@ -67,6 +67,9 @@ class Login extends Component {
             this.setState({navigate: true})
             return this.props.openSnackBar('Välkommen ' + this.state.userName + '!')
           }).catch((err) => {
+            if (err.response.status === 400) {
+              return this.props.openSnackBar('För att logga in måste du först verifiera din mailadress.')
+            }
             if (err.response.status === 401) {
               return this.props.openSnackBar('Fel användarnamn eller lösenord!')
             }

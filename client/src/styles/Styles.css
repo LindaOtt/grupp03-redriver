@@ -111,6 +111,32 @@ html, body {
     width: 100%;
 }
 
+.ChatList-Paper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+.ChatList-Paper-Avatar {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    align-items: center;
+    justify-content: space-around;
+    border-right: 1px solid #caced1;
+    padding: 2px;
+
+}
+
+.ChatList-Paper-Inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    padding: 5px;
+}
+
 .ChatView {
     display: flex;
     flex-direction: column;
@@ -199,6 +225,12 @@ html, body {
     padding: 5px;
 }
 
+.ChatBubble-Inside-Title {
+    display: flex;
+    text-align: left;
+    flex-direction: row;
+}
+
 #alert-dialog-title {
     font-weight: bold;
 }
@@ -256,6 +288,23 @@ html, body {
 
 .FriendsView-Avatar {
     align-self: center;
+    height: 54%;
+}
+
+.FriendsView-Inner {
+    align-self: center;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.FriendsView-Inner-Buttons {
+    align-self: center;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .FriendRequests {
@@ -289,9 +338,6 @@ html, body {
 }
 
 .SettingsUser-Inner {
-    border-left: 1px solid #cbced0;
-    border-right: 1px solid #cbced0;
-    border-bottom: 1px solid #cbced0;
 }
 
 .UserDetails {
@@ -300,6 +346,15 @@ html, body {
 
 .PictureDetails {
     margin: auto;
+}
+
+.PictureDetails-Input {
+    background-color: #ebebeb;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    border-radius: 10px;
 }
 
 .SettingsSuperUser {

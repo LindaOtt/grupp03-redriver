@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom'
 // Import NPM-modules
 import Button from 'material-ui/Button'
 import Icon from 'material-ui/Icon'
-import Badge from 'material-ui/Badge'
 import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
@@ -25,13 +24,14 @@ import CloseIcon from '@material-ui/icons/Close'
 
 // Import components
 import FriendsView from './FriendsView'
+import ChatView from '../chat/ChatView'
 
 // API requests
-import {getFriends} from '../../utils/ApiRequests'
+import {getChatMessages, getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
-import {requestVideoCall} from '../../utils/SignalR'
+import {createChatGroupWithUsers, requestVideoCall} from '../../utils/SignalR'
 import {ChatListStyles} from '../../styles/ChatStyles'
 
 /**
@@ -47,7 +47,9 @@ class FriendsList extends Component {
     this.state = {
       friends: [],
       isLoaded: false,
-      dialog: false
+      dialog: false,
+      chatDialog: false,
+      chatName: ''
     }
     this.renderAvatar = this.renderAvatar.bind(this)
   }
@@ -79,6 +81,20 @@ class FriendsList extends Component {
   };
 
   /**
+   *  Methods for open and close chat dialog
+   *
+   *  @author Jimmy
+   */
+
+  handleChatDialogOpen = () => {
+    this.setState({ chatDialog: true })
+  }
+
+  handleChatDialogClose = () => {
+    this.setState({ chatDialog: false })
+  }
+
+  /**
    *  Render image tag for profile picture. A default picture renders if image url is null.
    *
    *  @author Jimmy
@@ -90,6 +106,66 @@ class FriendsList extends Component {
     } else {
       return <Avatar alt='Profile picture' src={profilePhoto} style={FriendsListStyles.avatar} />
     }
+  }
+
+  /**
+   *  Open chat dialog. A new chat is created if not already exists.
+   *
+   *  @author Jimmy
+   */
+
+  openChat = (user) => {
+
+    this.setState({isLoaded: false})
+    let completedRequests = 0;
+    let groupArray = [user]
+    groupArray.push(this.props.state.userInfo.username)
+
+    getGroups(this.props.state.token)
+      .then((response) => {
+        if(response.data.groupList.length < 1) {
+          createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+            .then((response) => {
+              console.log('New group')
+              this.openChat(user)
+            })
+
+        } else {
+          let tempName = ''
+          for (let i = 0; i < response.data.groupList.length; i++) {
+            getGroupInfo(this.props.state.token, response.data.groupList[i])
+              .then((responseTwo) => {
+                completedRequests++
+                if (responseTwo.data.members.sort().join(',') === groupArray.sort().join(',')) {
+                  tempName = responseTwo.data.groupName
+                }
+                if (completedRequests === response.data.groupList.length) {
+                  if (tempName === '') {
+                    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+                      .then((response) => {
+                        console.log('New group')
+                        this.openChat(user)
+                      })
+                  } else {
+                    this.setState({
+                      chatName: tempName,
+                      chatDialog: true,
+                      dialog: false,
+                      isLoaded: true
+                    })
+                  }
+                }
+              })
+          }
+        }
+      }).catch(() => {
+      this.setState({
+        chatName: '',
+        chatDialog: false,
+        isLoaded: true
+      })
+      return this.props.openSnackBar('Något gick fel. Försök igen!')
+    })
   }
 
   /**
@@ -116,8 +192,8 @@ class FriendsList extends Component {
           >
             {this.state.friends[i].username}
           </Typography>
-          <IconButton aria-label='Chat'>
-            <ChatIcon style={FriendsListStyles.listItem}/>
+          <IconButton aria-label='Chat' >
+            <ChatIcon style={FriendsListStyles.listItem} onClick={() => this.openChat(this.state.friends[i].username)}/>
           </IconButton>
           <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
             <VideoIcon style={FriendsListStyles.listItem}/>
@@ -197,12 +273,10 @@ class FriendsList extends Component {
         {this.state.isLoaded ? (
           <div className='FriendsList'>
             <div className='FriendsList-Header'>
-              <Badge badgeContent={2} color='error'>
                 <Button color='primary' component={Link} to={'/friendrequests'}>
                   <Icon >add</Icon>
                   Lägg till vän
                 </Button>
-              </Badge>
             </div>
             <Hidden mdUp>
               <div className='FriendsList-Inner'>
@@ -217,8 +291,9 @@ class FriendsList extends Component {
                 <div className='FriendsList-Inner-Large-Content'>
                   {this.state.friendsData ? (
                     <FriendsView state={this.props.state}
-                      friendsData={this.state.friendsData}
-                      openSnackBar={this.props.openSnackBar}
+                                friendsData={this.state.friendsData}
+                                openSnackBar={this.props.openSnackBar}
+                                 startVideoCall={this.props.startVideoCall}
                     />
                   ) : (
                     <Typography
@@ -244,6 +319,25 @@ class FriendsList extends Component {
               <FriendsView state={this.props.state}
                 friendsData={this.state.friendsData}
                 openSnackBar={this.props.openSnackBar}
+                           startVideoCall={this.props.startVideoCall}
+                           openChat={this.openChat}
+              />
+            </Dialog>
+            <Dialog
+              fullScreen
+              open={this.state.chatDialog}
+              onClose={this.handleChatDialogClose}
+              aria-labelledby='responsive-dialog-title'
+            >
+
+              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
+                <CloseIcon />
+              </IconButton>
+              <ChatView state={this.props.state}
+                        chatContent={this.state.chatName}
+                        updateComponent={this.handleChatDialogClose}
+                        friends={this.state.friends}
+                        openSnackBar={this.props.openSnackBar}
               />
             </Dialog>
           </div>

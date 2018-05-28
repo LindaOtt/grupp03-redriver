@@ -45,11 +45,26 @@ export const FriendsListStyles = {
 
 export const friendsViewStyles = {
   title: {
-    marginLeft: 30
+    marginLeft: 30,
+    height: '6%'
   },
   deleteButton: {
     alignSelf: 'center',
     marginBottom: 20
+  },
+  button: {
+    width: 80,
+    height: 80,
+    margin: 20,
+    flexGrow: 0,
+    backgroundColor: '#fcfcfc',
+    borderColor: theme.palette.primary.main,
+    borderWidth: 3,
+    borderStyle: 'solid',
+    color: theme.palette.primary.main,
+  },
+  icon: {
+    fontSize: 40
   }
 }
 

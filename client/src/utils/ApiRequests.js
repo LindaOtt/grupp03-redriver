@@ -119,6 +119,7 @@ export const addFriend = (data, token) => {
 }
 
 export const deleteFriend = (data, token) => {
+  console.log(data)
   let tempObj = {
     username: data
   }

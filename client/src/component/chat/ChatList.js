@@ -21,6 +21,10 @@ import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
 import { CircularProgress } from 'material-ui/Progress'
 import Avatar from 'material-ui/Avatar'
+import Divider from 'material-ui/Divider'
+import moment from 'moment'
+import 'moment/locale/sv'
+import _ from 'lodash'
 
 // Import Icons
 import CloseIcon from '@material-ui/icons/Close'
@@ -33,9 +37,11 @@ import {theme} from '../../styles/Styles'
 // Profile picture
 import profilePhoto from '../../temp/user.jpg'
 
-import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
+import {getChatMessages, getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'
+
+moment.locale('sv')
 
 /**
  *  ChatList-component. Starting page of chat.
@@ -65,33 +71,10 @@ class ChatList extends Component {
    */
 
   updateComponent = () => {
-    getGroups(this.props.state.token)
-      .then((response) => {
-
-        let tempArray = []
-        for (let i = 0; i < response.data.groupList.length; i++) {
-          getGroupInfo(this.props.state.token, response.data.groupList[i])
-            .then((responseTwo) => {
-              if (responseTwo.data.members.length > 1) {
-                tempArray.push(responseTwo.data)
-              }
-            }).then(() => {
-            if(i === response.data.groupList.length - 1) {
-              setTimeout(() => {
-                this.setState({
-                  groups: tempArray,
-                  isLoaded: true,
-                  chatDialog: false,
-                  dialog: false,
-                  chatName: null
-                })
-              }, 200)
-            }
-          })
-        }
-      }).catch(() => {
-      return this.props.openSnackBar('Något gick fel. Försök igen!')
+    this.setState({
+      isLoaded: false,
     })
+    this.getGroupsAndMembers()
   }
 
   /**
@@ -156,18 +139,68 @@ class ChatList extends Component {
    */
 
   createNewChat = () => {
+    console.log('Create chat init')
     this.setState({
       isLoaded: false,
       chatDialog: false,
-      dialog: false
+      dialog: false,
     })
+    let completedRequests = 0;
     let groupArray = this.state.selectedFriends
-    groupArray.push(this.props.state.userInfo.username)
 
-    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
-      .catch(() => {
-        return this.props.openSnackBar('Något gick fel. Försök igen!')
+    if (!_.includes(groupArray, this.props.state.userInfo.username)) {
+      console.log('Add user')
+      groupArray.push(this.props.state.userInfo.username)
+    }
+
+    getGroups(this.props.state.token)
+      .then((response) => {
+        if(response.data.groupList.length < 1) {
+          createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+            .then((response) => {
+              this.createNewChat()
+            })
+
+        } else {
+          let tempName = ''
+          for (let i = 0; i < response.data.groupList.length; i++) {
+            getGroupInfo(this.props.state.token, response.data.groupList[i])
+              .then((responseTwo) => {
+                completedRequests++
+                if (responseTwo.data.members.sort().join(',') === groupArray.sort().join(',')) {
+                  tempName = responseTwo.data.groupName
+                }
+                if (completedRequests === response.data.groupList.length) {
+                  if (tempName === '') {
+                    console.log('Create new group')
+                    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+                      .then((response) => {
+                        this.createNewChat()
+                      })
+                  } else {
+                    console.log('Group exists')
+                    console.log(this.state)
+                    this.setState({
+                      chatName: tempName,
+                      chatDialog: true,
+                      dialog: false,
+                      isLoaded: true,
+                      selectedFriends: []
+                    })
+                  }
+                }
+              })
+          }
+        }
+      }).catch(() => {
+      console.log('Create chat error')
+      this.setState({
+        chatName: '',
+        chatDialog: false,
+        isLoaded: true
       })
+      return this.props.openSnackBar('Något gick fel. Försök igen!')
+    })
   }
 
   /**
@@ -225,6 +258,19 @@ class ChatList extends Component {
     }
   }
 
+  renderTime = (data) => {
+    if (data.timeStamp !== 0) {
+      return moment(data.timeStamp).add(2, 'h').calendar()
+    }
+    return ''
+}
+
+  renderLastMessage = (data) => {
+    if (data.timeStamp !== 0) {
+      return data.username + ': ' + data.message
+    }
+    return 'Inga meddelanden...'
+  }
 
   /**
    *  Render list of chats
@@ -237,19 +283,39 @@ class ChatList extends Component {
 
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}>
-          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
-          <Typography
-            style={ChatListStyles.chatName}
-            variant='subheading'
-            color='primary'
-            onClick={(() => {
-              this.handleChatClick(this.state.groups[i].groupName)
-              return this.handleChatDialogOpen()
-            })}
-          >
-            {this.renderChatName(this.state.groups[i].members)}
-          </Typography>
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}
+               onClick={(() => {
+                 this.handleChatClick(this.state.groups[i].groupName)
+                 return this.handleChatDialogOpen()
+               })}
+        >
+          <div className='ChatList-Paper'>
+            <div className='ChatList-Paper-Avatar'>
+              <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
+              <Typography
+                style={ChatListStyles.chatDate}
+                variant='caption'
+                color='primary'
+              >
+                {this.renderTime(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+            <div className='ChatList-Paper-Inner'>
+              <Typography
+                style={ChatListStyles.chatName}
+                color='primary'
+              >
+                {this.renderChatName(this.state.groups[i].members)}
+              </Typography>
+              <Typography
+                style={ChatListStyles.chatMessage}
+                variant='caption'
+              >
+                {this.renderLastMessage(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+          </div>
+
         </Paper>
       )
     }
@@ -268,22 +334,38 @@ class ChatList extends Component {
 
     for (let i = 0; i < this.state.groups.length; i++) {
       listArray.push(
-        <Paper style={ChatListStyles.paper}
-          elevation={1}
-          key={this.state.groups[i].groupName}
+        <Paper style={ChatListStyles.paper} elevation={1} key={this.state.groups[i].groupName}
+               onClick={(() => {
+                 this.handleChatClick(this.state.groups[i].groupName)
+               })}
         >
-          <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
-          <Typography
-            style={ChatListStyles.chatName}
-            variant='subheading'
-            color='primary'
-            onClick={() => {
-              this.handleChatClick(this.state.groups[i].groupName)
-            }
-            }
-          >
-            {this.renderChatName(this.state.groups[i].members)}
-          </Typography>
+          <div className='ChatList-Paper'>
+            <div className='ChatList-Paper-Avatar'>
+              <Avatar alt='Profile picture' src={this.renderChatAvatar(this.state.groups[i].members)}/>
+              <Typography
+                style={ChatListStyles.chatDate}
+                variant='caption'
+                color='primary'
+              >
+                {this.renderTime(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+            <div className='ChatList-Paper-Inner'>
+              <Typography
+                style={ChatListStyles.chatName}
+                color='primary'
+              >
+                {this.renderChatName(this.state.groups[i].members)}
+              </Typography>
+              <Typography
+                style={ChatListStyles.chatMessage}
+                variant='caption'
+              >
+                {this.renderLastMessage(this.state.groups[i].lastMessage)}
+              </Typography>
+            </div>
+          </div>
+
         </Paper>
       )
     }
@@ -315,22 +397,41 @@ class ChatList extends Component {
             getGroupInfo(this.props.state.token, response.data.groupList[i])
               .then((responseTwo) => {
                 if (responseTwo.data.members.length > 1) {
-                  tempArray.push(responseTwo.data)
-                }
-              }).then(() => {
-              if(i === response.data.groupList.length - 1) {
-                setTimeout(() => {
-                  this.setState({
-                    groups: tempArray,
-                    isLoaded: true,
-                    selectedFriends: [],
-                    chatDialog: false,
-                    dialog: false,
-                    chatName: null
+                  getChatMessages(this.props.state.token, response.data.groupList[i])
+                    .then((responseThree) => {
+                      let tempGroup = responseTwo.data
+                      tempGroup.messages = responseThree.data
+                      tempGroup.lastMessage = responseThree.data.sort(function(a,b) {
+                        return new Date(b.timeStamp).getTime() - new Date(a.timeStamp).getTime()
+                      })[0];
+
+                      if (!tempGroup.lastMessage) {
+                        tempGroup.lastMessage = {
+                          timeStamp: 0
+                        }
+                      }
+
+                      tempArray.push(tempGroup)
+                    })
+                    .then(() => {
+                      if(i === response.data.groupList.length - 1) {
+                        setTimeout(() => {
+                          tempArray.sort(function(a,b){
+                            return new Date(b.lastMessage.timeStamp) - new Date(a.lastMessage.timeStamp);
+                          });
+                          this.setState({
+                            groups: tempArray,
+                            isLoaded: true,
+                            selectedFriends: [],
+                            chatDialog: false,
+                            dialog: false,
+                            chatName: null
+                          })
+                        }, 200)
+                      }
                   })
-                }, 200)
-              }
-            })
+                }
+              })
           }
         }
       }).catch(() => {
@@ -361,10 +462,6 @@ class ChatList extends Component {
       }).catch(() => {
         return this.props.openSnackBar('Något gick fel. Försök igen!')
       })
-  }
-
-  componentWillUpdate() {
-
   }
 
   componentWillReceiveProps () {
@@ -427,75 +524,6 @@ class ChatList extends Component {
                     </div>
                   </div>
                 </Hidden>
-                <Dialog
-                  open={this.state.dialog}
-                  onClose={this.handleDialogClose}
-                  aria-labelledby='alert-dialog-title'
-                  aria-describedby='alert-dialog-description'
-                >
-                  <DialogTitle id='alert-dialog-title'>{'Starta en ny chatt!'}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id='alert-dialog-description'>
-                      Lägg till vänner som ska delta i chatten:
-                    </DialogContentText>
-                    <FormControl style={ChatListStyles.formControl}
-                                 fullWidth
-                    >
-                      <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
-                      <Select
-                        multiple
-                        value={this.state.selectedFriends}
-                        onChange={this.handleFriendsSelect}
-                        input={<Input id='select-multiple-chip' />}
-                        renderValue={selected => (
-                          <div style={ChatListStyles.formControl.chips}>
-                            {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
-                          </div>
-                        )}
-                      >
-                        {this.state.friends.map(name => (
-                          <MenuItem
-                            key={name.username}
-                            value={name.username}
-                            style={{
-                              fontWeight:
-                                this.state.friends.indexOf(name.username) === -1
-                                  ? theme.typography.fontWeightRegular
-                                  : theme.typography.fontWeightMedium
-                            }}
-                          >
-                            {name.username}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.cancelNewChat} color='primary'>
-                      Ångra
-                    </Button>
-                    <Button onClick={this.createNewChat} color='primary' autoFocus>
-                      Starta chatt
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-                <Dialog
-                  fullScreen
-                  open={this.state.chatDialog}
-                  onClose={this.handleChatDialogClose}
-                  aria-labelledby='responsive-dialog-title'
-                >
-
-                  <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
-                    <CloseIcon />
-                  </IconButton>
-                  <ChatView state={this.props.state}
-                            chatContent={this.state.chatName}
-                            updateComponent={this.updateComponent}
-                            friends={this.state.friends}
-                            openSnackBar={this.props.openSnackBar}
-                  />
-                </Dialog>
               </div>
             ) : (
               <div>
@@ -506,6 +534,75 @@ class ChatList extends Component {
                 </Typography>
               </div>
             )}
+            <Dialog
+              open={this.state.dialog}
+              onClose={this.handleDialogClose}
+              aria-labelledby='alert-dialog-title'
+              aria-describedby='alert-dialog-description'
+            >
+              <DialogTitle id='alert-dialog-title'>{'Starta en ny chatt!'}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id='alert-dialog-description'>
+                  Lägg till vänner som ska delta i chatten:
+                </DialogContentText>
+                <FormControl style={ChatListStyles.formControl}
+                             fullWidth
+                >
+                  <InputLabel htmlFor='select-multiple-chip'>Namn</InputLabel>
+                  <Select
+                    multiple
+                    value={this.state.selectedFriends}
+                    onChange={this.handleFriendsSelect}
+                    input={<Input id='select-multiple-chip' />}
+                    renderValue={selected => (
+                      <div style={ChatListStyles.formControl.chips}>
+                        {selected.map(value => <Chip key={value} label={value} style={ChatListStyles.formControl.chip} />)}
+                      </div>
+                    )}
+                  >
+                    {this.state.friends.map(name => (
+                      <MenuItem
+                        key={name.username}
+                        value={name.username}
+                        style={{
+                          fontWeight:
+                            this.state.friends.indexOf(name.username) === -1
+                              ? theme.typography.fontWeightRegular
+                              : theme.typography.fontWeightMedium
+                        }}
+                      >
+                        {name.username}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.cancelNewChat} color='primary'>
+                  Ångra
+                </Button>
+                <Button onClick={this.createNewChat} color='primary' autoFocus>
+                  Starta chatt
+                </Button>
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              fullScreen
+              open={this.state.chatDialog}
+              onClose={this.handleChatDialogClose}
+              aria-labelledby='responsive-dialog-title'
+            >
+
+              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
+                <CloseIcon />
+              </IconButton>
+              <ChatView state={this.props.state}
+                        chatContent={this.state.chatName}
+                        updateComponent={this.updateComponent}
+                        friends={this.state.friends}
+                        openSnackBar={this.props.openSnackBar}
+              />
+            </Dialog>
           </div>
         ) : (
           <div className='AppLoadingDiv'>

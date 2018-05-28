@@ -99,7 +99,7 @@ class ChangePassword extends Component {
               value={this.state.passwordConfirm}
             />
           </form>
-          <Button variant='raised' style={settingsUserStyles.passwordButton} onClick={() => this.handleSubmit()}>
+          <Button variant='raised' color={'primary'} style={settingsUserStyles.passwordButton} onClick={() => this.handleSubmit()}>
             Ok
           </Button>
         </div>
