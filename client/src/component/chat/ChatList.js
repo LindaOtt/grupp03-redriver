@@ -24,6 +24,7 @@ import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 import moment from 'moment'
 import 'moment/locale/sv'
+import _ from 'lodash'
 
 // Import Icons
 import CloseIcon from '@material-ui/icons/Close'
@@ -138,18 +139,68 @@ class ChatList extends Component {
    */
 
   createNewChat = () => {
+    console.log('Create chat init')
     this.setState({
       isLoaded: false,
       chatDialog: false,
-      dialog: false
+      dialog: false,
     })
+    let completedRequests = 0;
     let groupArray = this.state.selectedFriends
-    groupArray.push(this.props.state.userInfo.username)
 
-    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
-      .catch(() => {
-        return this.props.openSnackBar('Något gick fel. Försök igen!')
+    if (!_.includes(groupArray, this.props.state.userInfo.username)) {
+      console.log('Add user')
+      groupArray.push(this.props.state.userInfo.username)
+    }
+
+    getGroups(this.props.state.token)
+      .then((response) => {
+        if(response.data.groupList.length < 1) {
+          createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+            .then((response) => {
+              this.createNewChat()
+            })
+
+        } else {
+          let tempName = ''
+          for (let i = 0; i < response.data.groupList.length; i++) {
+            getGroupInfo(this.props.state.token, response.data.groupList[i])
+              .then((responseTwo) => {
+                completedRequests++
+                if (responseTwo.data.members.sort().join(',') === groupArray.sort().join(',')) {
+                  tempName = responseTwo.data.groupName
+                }
+                if (completedRequests === response.data.groupList.length) {
+                  if (tempName === '') {
+                    console.log('Create new group')
+                    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+                      .then((response) => {
+                        this.createNewChat()
+                      })
+                  } else {
+                    console.log('Group exists')
+                    console.log(this.state)
+                    this.setState({
+                      chatName: tempName,
+                      chatDialog: true,
+                      dialog: false,
+                      isLoaded: true,
+                      selectedFriends: []
+                    })
+                  }
+                }
+              })
+          }
+        }
+      }).catch(() => {
+      console.log('Create chat error')
+      this.setState({
+        chatName: '',
+        chatDialog: false,
+        isLoaded: true
       })
+      return this.props.openSnackBar('Något gick fel. Försök igen!')
+    })
   }
 
   /**
