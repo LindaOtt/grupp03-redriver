@@ -154,11 +154,9 @@ class ChangeProfilePicture extends Component {
             onChange={this.handleChange('file')}
             className='PictureDetails-Input'
           />
-          <label htmlFor='raised-button-file'>
             <Button variant='raised' onClick={() => this.handleSubmit()} color={'primary'} style={settingsUserStyles.button}>
               Ladda upp
             </Button>
-          </label>
         </div>
       )
     }

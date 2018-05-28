@@ -90,6 +90,7 @@ class FriendsView extends Component {
           <div className='FriendsView-Inner-Buttons'>
               <Button variant='fab'
                       style={friendsViewStyles.button}
+                      onClick={() => this.props.openChat(this.props.friendsData.username)}
               >
                 <ChatIcon style={friendsViewStyles.icon}/>
               </Button>

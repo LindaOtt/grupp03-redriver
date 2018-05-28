@@ -109,13 +109,15 @@ class FriendsList extends Component {
   }
 
   /**
-   *  Open chat dialog. A new chat is created if not already exist.
+   *  Open chat dialog. A new chat is created if not already exists.
    *
    *  @author Jimmy
    */
 
-  /*openChat = (user) => {
+  openChat = (user) => {
 
+    this.setState({isLoaded: false})
+    let completedRequests = 0;
     let groupArray = [user]
     groupArray.push(this.props.state.userInfo.username)
 
@@ -124,7 +126,8 @@ class FriendsList extends Component {
         if(response.data.groupList.length < 1) {
           createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
             .then((response) => {
-              console.log(response)
+              console.log('New group')
+              this.openChat(user)
             })
 
         } else {
@@ -132,28 +135,38 @@ class FriendsList extends Component {
           for (let i = 0; i < response.data.groupList.length; i++) {
             getGroupInfo(this.props.state.token, response.data.groupList[i])
               .then((responseTwo) => {
+                completedRequests++
                 if (responseTwo.data.members.sort().join(',') === groupArray.sort().join(',')) {
                   tempName = responseTwo.data.groupName
                 }
+                if (completedRequests === response.data.groupList.length) {
+                  if (tempName === '') {
+                    createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
+                      .then((response) => {
+                        console.log('New group')
+                        this.openChat(user)
+                      })
+                  } else {
+                    this.setState({
+                      chatName: tempName,
+                      chatDialog: true,
+                      dialog: false,
+                      isLoaded: true
+                    })
+                  }
+                }
               })
-          }
-          console.log(tempName)
-          if (tempName === '') {
-            createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
-              .then((response) => {
-                this.openChat(user)
-              })
-          } else {
-            this.setState({
-              chatName: tempName,
-              chatDialog: true,
-            })
           }
         }
       }).catch(() => {
+      this.setState({
+        chatName: '',
+        chatDialog: false,
+        isLoaded: true
+      })
       return this.props.openSnackBar('Något gick fel. Försök igen!')
     })
-  }*/
+  }
 
   /**
    *  Render list of friends
@@ -180,7 +193,7 @@ class FriendsList extends Component {
             {this.state.friends[i].username}
           </Typography>
           <IconButton aria-label='Chat' >
-            <ChatIcon style={FriendsListStyles.listItem}/>
+            <ChatIcon style={FriendsListStyles.listItem} onClick={() => this.openChat(this.state.friends[i].username)}/>
           </IconButton>
           <IconButton aria-label='Video call' onClick={() => this.props.startVideoCall(this.state.friends[i].username)} >
             <VideoIcon style={FriendsListStyles.listItem}/>
@@ -307,6 +320,7 @@ class FriendsList extends Component {
                 friendsData={this.state.friendsData}
                 openSnackBar={this.props.openSnackBar}
                            startVideoCall={this.props.startVideoCall}
+                           openChat={this.openChat}
               />
             </Dialog>
             <Dialog
