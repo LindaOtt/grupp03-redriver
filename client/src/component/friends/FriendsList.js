@@ -30,6 +30,7 @@ import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 
 // Profile picture
 import profilePhoto from '../../img/user.jpg'
+import {ChatListStyles} from '../../styles/ChatStyles'
 
 /**
  *  FriendsList-component. Starting page of friends.
@@ -275,68 +276,80 @@ class FriendsList extends Component {
                   Lägg till vän
                 </Button>
             </div>
-            <Hidden mdUp>
-              <div className='FriendsList-Inner'>
-                {this.renderFriendsList()}
-              </div>
-            </Hidden>
-            <Hidden smDown>
-              <div className='FriendsList-Inner-Large'>
-                <div className='FriendsList-Inner-Large-Menu'>
-                  {this.renderLargeFriendsList()}
-                </div>
-                <div className='FriendsList-Inner-Large-Content'>
-                  {this.state.friendsData ? (
-                    <FriendsView state={this.props.state}
-                                friendsData={this.state.friendsData}
-                                openSnackBar={this.props.openSnackBar}
-                                 startVideoCall={this.props.startVideoCall}
-                    />
-                  ) : (
-                    <Typography
-                      style={FriendsListStyles.title}
-                    >
-                      Klicka på en vän för att se info!
-                    </Typography>
-                  )}
-                </div>
-              </div>
-            </Hidden>
-            <Dialog
-              fullScreen
-              open={this.state.dialog}
-              onClose={this.handleDialogClose}
-              aria-labelledby='responsive-dialog-title'
-            >
-              <Toolbar>
-                <IconButton color='inherit' onClick={this.handleDialogClose} aria-label='Close'>
-                  <CloseIcon style={FriendsListStyles.listItem}/>
-                </IconButton>
-              </Toolbar>
-              <FriendsView state={this.props.state}
-                friendsData={this.state.friendsData}
-                openSnackBar={this.props.openSnackBar}
-                           startVideoCall={this.props.startVideoCall}
-                           openChat={this.openChat}
-              />
-            </Dialog>
-            <Dialog
-              fullScreen
-              open={this.state.chatDialog}
-              onClose={this.handleChatDialogClose}
-              aria-labelledby='responsive-dialog-title'
-            >
+            {this.state.friends.length > 0 ? (
+              <div>
+                <Hidden mdUp>
+                  <div className='FriendsList-Inner'>
+                    {this.renderFriendsList()}
+                  </div>
+                </Hidden>
+                <Hidden smDown>
+                  <div className='FriendsList-Inner-Large'>
+                    <div className='FriendsList-Inner-Large-Menu'>
+                      {this.renderLargeFriendsList()}
+                    </div>
+                    <div className='FriendsList-Inner-Large-Content'>
+                      {this.state.friendsData ? (
+                        <FriendsView state={this.props.state}
+                                     friendsData={this.state.friendsData}
+                                     openSnackBar={this.props.openSnackBar}
+                                     startVideoCall={this.props.startVideoCall}
+                        />
+                      ) : (
+                        <Typography
+                          style={FriendsListStyles.title}
+                        >
+                          Klicka på en vän för att se info!
+                        </Typography>
+                      )}
+                    </div>
+                  </div>
+                </Hidden>
+                <Dialog
+                  fullScreen
+                  open={this.state.dialog}
+                  onClose={this.handleDialogClose}
+                  aria-labelledby='responsive-dialog-title'
+                >
+                  <Toolbar>
+                    <IconButton color='inherit' onClick={this.handleDialogClose} aria-label='Close'>
+                      <CloseIcon style={FriendsListStyles.listItem}/>
+                    </IconButton>
+                  </Toolbar>
+                  <FriendsView state={this.props.state}
+                               friendsData={this.state.friendsData}
+                               openSnackBar={this.props.openSnackBar}
+                               startVideoCall={this.props.startVideoCall}
+                               openChat={this.openChat}
+                  />
+                </Dialog>
+                <Dialog
+                  fullScreen
+                  open={this.state.chatDialog}
+                  onClose={this.handleChatDialogClose}
+                  aria-labelledby='responsive-dialog-title'
+                >
 
-              <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
-                <CloseIcon />
-              </IconButton>
-              <ChatView state={this.props.state}
-                        chatContent={this.state.chatName}
-                        updateComponent={this.handleChatDialogClose}
-                        friends={this.state.friends}
-                        openSnackBar={this.props.openSnackBar}
-              />
-            </Dialog>
+                  <IconButton color='primary' onClick={this.handleChatDialogClose} aria-label='Close'>
+                    <CloseIcon />
+                  </IconButton>
+                  <ChatView state={this.props.state}
+                            chatContent={this.state.chatName}
+                            updateComponent={this.handleChatDialogClose}
+                            friends={this.state.friends}
+                            openSnackBar={this.props.openSnackBar}
+                  />
+                </Dialog>
+              </div>
+            ) : (
+              <div>
+                <Typography
+                  style={FriendsListStyles.title}
+                >
+                  Inga vänner att visa. Lägg till en vän först!
+                </Typography>
+              </div>
+            )}
           </div>
         ) : (
           <div className='AppLoadingDiv'>
