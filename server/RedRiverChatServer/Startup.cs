@@ -148,7 +148,7 @@ namespace RedRiverChatServer
 
             //Make sure the database and admin,superuser roles exist - if they don't then they are created.
             dbContext.Database.EnsureCreated();
-            SeedDB(serviceProvider,10);
+            SeedDB(serviceProvider,100);
             CreateRole(serviceProvider,"admin");
             CreateRole(serviceProvider,"superuser");
         }
