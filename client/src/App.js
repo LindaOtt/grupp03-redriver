@@ -296,7 +296,7 @@ class App extends Component {
   handleEvents = () => {
     this.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
       if (senderName !== this.state.userInfo.username && window.location.pathname !== '/chats') {
-        return this.openSnackBar(senderName + ' skickade ett meddelande i gruppen ' + group + ' !')
+        return this.openSnackBar(senderName + ' skickade ett meddelande!')
       }
     })
 
