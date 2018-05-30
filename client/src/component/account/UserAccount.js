@@ -5,9 +5,6 @@ import { Link, Redirect } from 'react-router-dom'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog'
 import Avatar from 'material-ui/Avatar';
@@ -15,10 +12,9 @@ import Avatar from 'material-ui/Avatar';
 // Import styles. userAccountStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {userAccountStyles} from '../../styles/AccountStyles'
 import '../../styles/Styles.css'
-import {friendsListStyles} from '../../styles/FriendsStyles'
 
 // Profile picture
-import profilePhoto from '../../temp/user.jpg'
+import profilePhoto from '../../img/user.jpg'
 
 /**
  *  User account. Starting page with links to chat, friends etc.
@@ -36,6 +32,12 @@ class UserAccount extends Component {
     }
   }
 
+  /**
+   *  Handle open and close for the create video call dialog
+   *
+   *  @author Jimmy
+   */
+
   handleClickOpen = () => {
     this.setState({ dialog: true });
   };
@@ -44,6 +46,12 @@ class UserAccount extends Component {
     this.setState({ dialog: false });
   };
 
+  /**
+   *  Render friend avatars in the create video call dialog
+   *
+   *  @author Jimmy
+   */
+
   renderAvatar = (friend) => {
     if (friend.avatarUrl) {
       return <Avatar alt={friend.username} src={friend.avatarUrl} style={userAccountStyles.avatar} onClick={() => {this.props.startVideoCall(friend.username)}}/>
@@ -51,6 +59,12 @@ class UserAccount extends Component {
       return <Avatar alt={friend.username} src={profilePhoto} style={userAccountStyles.avatar} onClick={() => {this.props.startVideoCall(friend.username)}}/>
     }
   }
+
+  /**
+   *  Render dialog used to start a video call
+   *
+   *  @author Jimmy
+   */
 
   renderFriendsDialog = () => {
     let tempArray = []

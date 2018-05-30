@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
-// import classnames from 'classnames';
 import _ from 'lodash'
 
+// Import styles
 import '../../styles/Styles.css'
+
+/**
+ *  Component used to show the connected peers video streams
+ *
+ *  @author Jimmy
+ */
 
 class VideoStream extends Component {
   constructor (props) {

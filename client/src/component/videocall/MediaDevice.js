@@ -2,12 +2,19 @@ import _ from 'lodash'
 import Emitter from './Emitter'
 
 /**
- * Manage all media devices
+ *  Handles media events for video calls
+ *
+ *  @author Jimmy
  */
+
 class MediaDevice extends Emitter {
+
   /**
-   * Start media devices and send stream
+   *  Start media devices and send stream
+   *
+   *  @author Jimmy
    */
+
   start () {
     const constraints = {
       video: {
@@ -27,11 +34,13 @@ class MediaDevice extends Emitter {
 
     return this
   }
+
   /**
-   * Turn on/off a device
-   * @param {String} type - Type of the device
-   * @param {Boolean} [on] - State of the device
+   *  Turn on/off a device
+   *
+   *  @author Jimmy
    */
+
   toggle (type, on) {
     const len = arguments.length
     if (this.stream) {
@@ -44,8 +53,11 @@ class MediaDevice extends Emitter {
   }
 
   /**
-   * Stop all media track of devices
+   *  Stop all media track of devices
+   *
+   *  @author Jimmy
    */
+
   stop () {
     if (this.stream) {
       this.stream.getTracks().forEach(track => track.stop())

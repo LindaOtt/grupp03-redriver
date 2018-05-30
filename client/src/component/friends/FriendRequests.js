@@ -11,6 +11,7 @@ import Button from 'material-ui/Button'
 import {friendRequestStyles} from '../../styles/FriendsStyles'
 import '../../styles/Styles.css'
 
+// Import components & utils
 import {addFriend, getFriends} from '../../utils/ApiRequests'
 
 /**

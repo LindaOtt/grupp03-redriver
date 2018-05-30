@@ -7,8 +7,10 @@ import Button from 'material-ui/Button'
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
-import {validateChangePassword, validateRegister} from '../../../utils/FormValidation'
-import {userChangePassword, userRegister} from '../../../utils/ApiRequests'
+
+// Import components & utils
+import {validateChangePassword} from '../../../utils/FormValidation'
+import {userChangePassword} from '../../../utils/ApiRequests'
 
 /**
  *  Change Password-component.

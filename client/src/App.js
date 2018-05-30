@@ -38,9 +38,9 @@ import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 import VideoCall from './component/videocall/VideoCall'
 
+// Import utils
 import {getFriends, verifyJWT} from './utils/ApiRequests'
 import {initChat} from './utils/SignalR'
-import {loginStyles} from './styles/AuthStyles'
 
 /**
  *  Starting point of the application
@@ -310,7 +310,7 @@ class App extends Component {
     })
   }
   /**
-     *  Check if valid token in local storage before component mounts.
+     *  Check if local storage has a valid token before component mounts.
      *
      *  @author Jimmy
      */

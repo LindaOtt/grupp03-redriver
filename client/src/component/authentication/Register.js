@@ -5,13 +5,13 @@ import { Redirect } from 'react-router-dom'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import HttpsRedirect from 'react-https-redirect'
 import { CircularProgress } from 'material-ui/Progress'
 
 // Import styles. newPasswordStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {registerStyles} from '../../styles/AuthStyles'
 import '../../styles/Styles.css'
 
+// Import components & utils
 import {validateRegister} from '../../utils/FormValidation'
 import {userRegister} from '../../utils/ApiRequests'
 import AppStyles from '../../styles/AppStyles'

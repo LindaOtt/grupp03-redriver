@@ -12,7 +12,7 @@ import {ChatMessageStyles} from '../../styles/ChatStyles'
 import '../../styles/Styles.css'
 
 // Profile picture
-import profilePhoto from '../../temp/user.jpg'
+import profilePhoto from '../../img/user.jpg'
 
 moment.locale('sv')
 
@@ -30,6 +30,12 @@ class ChatMessage extends Component {
     }
   }
 
+  /**
+   *  Render users avatar
+   *
+   *  @author Jimmy
+   */
+
   renderAvatar = () => {
     if (this.props.state.userInfo.avatarUrl) {
       return this.props.state.userInfo.avatarUrl
@@ -38,6 +44,12 @@ class ChatMessage extends Component {
     }
   }
 
+  /**
+   *  Render friend avatars
+   *
+   *  @author Jimmy
+   */
+
   renderFriendAvatar = () => {
     if (this.props.message.avatar) {
       return this.props.message.avatar
@@ -45,6 +57,13 @@ class ChatMessage extends Component {
       return profilePhoto
     }
   }
+
+  /**
+   *  Render chat messages. Render one type when the signed in user sends
+   *  and one when receiving messages.
+   *
+   *  @author Jimmy
+   */
 
   renderMessage () {
     if (this.props.message.name === this.props.state.userInfo.username) {

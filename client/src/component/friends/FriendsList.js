@@ -22,17 +22,14 @@ import ChatIcon from '@material-ui/icons/ChatBubble'
 import VideoIcon from '@material-ui/icons/VoiceChat'
 import CloseIcon from '@material-ui/icons/Close'
 
-// Import components
+// Import components & utils
 import FriendsView from './FriendsView'
 import ChatView from '../chat/ChatView'
-
-// API requests
-import {getChatMessages, getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
+import {createChatGroupWithUsers} from '../../utils/SignalR'
+import {getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 
 // Profile picture
-import profilePhoto from '../../temp/user.jpg'
-import {createChatGroupWithUsers, requestVideoCall} from '../../utils/SignalR'
-import {ChatListStyles} from '../../styles/ChatStyles'
+import profilePhoto from '../../img/user.jpg'
 
 /**
  *  FriendsList-component. Starting page of friends.

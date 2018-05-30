@@ -21,7 +21,6 @@ import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
 import { CircularProgress } from 'material-ui/Progress'
 import Avatar from 'material-ui/Avatar'
-import Divider from 'material-ui/Divider'
 import moment from 'moment'
 import 'moment/locale/sv'
 import _ from 'lodash'
@@ -35,8 +34,9 @@ import '../../styles/Styles.css'
 import {theme} from '../../styles/Styles'
 
 // Profile picture
-import profilePhoto from '../../temp/user.jpg'
+import profilePhoto from '../../img/user.jpg'
 
+// Import components & utils
 import {getChatMessages, getFriends, getGroupInfo, getGroups} from '../../utils/ApiRequests'
 import {createChatGroupWithUsers} from '../../utils/SignalR'
 import ChatView from './ChatView'

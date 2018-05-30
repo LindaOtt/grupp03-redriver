@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 
 // Import NPM-modules
-import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import HttpsRedirect from 'react-https-redirect'
 import { CircularProgress } from 'material-ui/Progress'
 import queryString from 'query-string'
 
@@ -32,8 +30,17 @@ class ConfirmEmail extends Component {
       navigate: false,
       loading: true
     }
+  }
 
-    //this.handleSubmit = this.handleSubmit.bind(this)
+  /**
+   *  Handle submit-button.
+   *
+   *  @author Sofia
+   */
+
+  handleSubmit () {
+    this.setState({loading: true})
+    this.setState({navigate: true})
   }
 
   componentDidMount() {
@@ -47,20 +54,9 @@ class ConfirmEmail extends Component {
         this.setState({navigate: true})
         return this.props.openSnackBar('Emailadressen har verifierats!')
       }).catch((err) => {
-        this.setState({navigate: true})
-        return this.props.openSnackBar('Emailadressen är redan verifierad.')
-      })
-  }
-
-  /**
-   *  Handle submit-button.
-   *
-   *  @author Sofia
-   */
-
-  handleSubmit () {
-    this.setState({loading: true})
-    this.setState({navigate: true})
+      this.setState({navigate: true})
+      return this.props.openSnackBar('Emailadressen är redan verifierad.')
+    })
   }
 
   render () {

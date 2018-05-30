@@ -8,7 +8,7 @@ import Button from 'material-ui/Button'
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 import {validateChangeDetails} from '../../../utils/FormValidation'
-import {userChangeDetails, userRegister} from '../../../utils/ApiRequests'
+import {userChangeDetails} from '../../../utils/ApiRequests'
 
 /**
  *  UserDetails-component.
