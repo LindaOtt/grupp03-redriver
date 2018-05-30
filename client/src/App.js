@@ -40,7 +40,7 @@ import VideoCall from './component/videocall/VideoCall'
 
 // Import utils
 import {getFriends, verifyJWT} from './utils/ApiRequests'
-import {initChat} from './utils/SignalR'
+import {closeSignalR, initChat} from './utils/SignalR'
 
 /**
  *  Starting point of the application
@@ -81,6 +81,7 @@ class App extends Component {
     this.setState({
       isSignedIn: false
     })
+    closeSignalR(this.state.signalRConnection)
     localStorage.removeItem('token')
     localStorage.removeItem('userInfo')
   }
