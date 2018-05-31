@@ -1,9 +1,16 @@
+// Import npm-modules
 import _ from 'lodash'
 
 class Emitter {
   constructor () {
     this.events = {}
   }
+
+  /**
+   *  Emit events for video call
+   *
+   *  @author Jimmy
+   */
 
   emit (event, ...args) {
     if (this.events[event]) {
@@ -12,11 +19,23 @@ class Emitter {
     return this
   }
 
+  /**
+   *  Activate event listener for video calls
+   *
+   *  @author Jimmy
+   */
+
   on (event, fn) {
     if (this.events[event]) this.events[event].push(fn)
     else this.events[event] = [fn]
     return this
   }
+
+  /**
+   *  Deactivate event listener for video calls
+   *
+   *  @author Jimmy
+   */
 
   off (event, fn) {
     if (event && _.isFunction(fn)) {

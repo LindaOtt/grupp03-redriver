@@ -38,9 +38,9 @@ import UserAccount from './component/account/UserAccount'
 import FriendRequests from './component/friends/FriendRequests'
 import VideoCall from './component/videocall/VideoCall'
 
+// Import utils
 import {getFriends, verifyJWT} from './utils/ApiRequests'
-import {initChat} from './utils/SignalR'
-import {loginStyles} from './styles/AuthStyles'
+import {closeSignalR, initChat} from './utils/SignalR'
 
 /**
  *  Starting point of the application
@@ -81,6 +81,7 @@ class App extends Component {
     this.setState({
       isSignedIn: false
     })
+    closeSignalR(this.state.signalRConnection)
     localStorage.removeItem('token')
     localStorage.removeItem('userInfo')
   }
@@ -296,7 +297,7 @@ class App extends Component {
   handleEvents = () => {
     this.state.signalRConnection.on('messageSentToGroup', (group, senderName, message) => {
       if (senderName !== this.state.userInfo.username && window.location.pathname !== '/chats') {
-        return this.openSnackBar(senderName + ' skickade ett meddelande i gruppen ' + group + ' !')
+        return this.openSnackBar(senderName + ' skickade ett meddelande!')
       }
     })
 
@@ -310,7 +311,7 @@ class App extends Component {
     })
   }
   /**
-     *  Check if valid token in local storage before component mounts.
+     *  Check if local storage has a valid token before component mounts.
      *
      *  @author Jimmy
      */

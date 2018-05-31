@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 // Import NPM-modules
 import Typography from 'material-ui/Typography'
@@ -18,7 +18,7 @@ import VideoIcon from '@material-ui/icons/VoiceChat'
 import {deleteFriend} from '../../utils/ApiRequests'
 
 // Profile picture
-import profilePhoto from '../../temp/user.jpg'
+import profilePhoto from '../../img/user.jpg'
 
 /**
  *  FriendsView-component. View for a friends page. See info about friend,

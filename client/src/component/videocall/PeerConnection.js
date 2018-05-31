@@ -51,12 +51,24 @@ class PeerConnection extends Emitter {
     return this
   }
 
+  /**
+   *  Create a webrtc offer to be sent to another user
+   *
+   *  @author Jimmy
+   */
+
   createOffer () {
     this.pc.createOffer()
       .then(this.getDescription.bind(this))
       .catch(err => console.log(err))
     return this
   }
+
+  /**
+   *  Create a webrtc answer to reply when a offer is received.
+   *
+   *  @author Jimmy
+   */
 
   createAnswer () {
     this.pc.createAnswer()
@@ -65,17 +77,37 @@ class PeerConnection extends Emitter {
     return this
   }
 
+  /**
+   *  Sets information (IP, Media format etc.) about the local user to
+   *  be sent to the other peer.
+   *
+   *  @author Jimmy
+   */
+
   getDescription (desc) {
     this.pc.setLocalDescription(desc)
     this.connection.invoke('createVideoCall', this.friendID, desc)
     return this
   }
 
+  /**
+   *  Sets information (IP, Media format etc.) about the connected peer.
+   *
+   *  @author Jimmy
+   */
+
   setRemoteDescription (sdp) {
     const rtcSdp = new RTCSessionDescription(sdp)
     this.pc.setRemoteDescription(rtcSdp)
     return this
   }
+
+  /**
+   *  Add the to the P2P connection
+   *
+   *  @author Jimmy
+   */
+
   addIceCandidate (candidate) {
     if (candidate) {
       const iceCandidate = new RTCIceCandidate(candidate)

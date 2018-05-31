@@ -18,11 +18,13 @@ import CameraOff from '@material-ui/icons/VideocamOff'
 // Import styles. videoCallStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import '../../styles/Styles.css'
 import {videoCallStyles} from '../../styles/VideoCallStyles'
-import {endVideoCall} from '../../utils/SignalR'
+import {userAccountStyles} from '../../styles/AccountStyles'
 
 // Profile picture
-import profilePhoto from '../../temp/user.jpg'
-import {userAccountStyles} from '../../styles/AccountStyles'
+import profilePhoto from '../../img/user.jpg'
+
+// Import components & utils
+import {endVideoCall} from '../../utils/SignalR'
 
 /**
  *  Video call-component.
@@ -116,6 +118,12 @@ class VideoCall extends Component {
     })
   };
 
+  /**
+   *  Event emitters for starting a video call.
+   *
+   *  @author Jimmy
+   */
+
   startCall (isCaller, friendID, config) {
     this.config = config
 
@@ -128,6 +136,12 @@ class VideoCall extends Component {
       .start(isCaller, config)
   }
 
+  /**
+   *  Event emitters for ending a video call.
+   *
+   *  @author Jimmy
+   */
+
   endCall (isStarter) {
     if (_.isFunction(this.pc.stop)) this.pc.stop(isStarter)
     this.pc = {}
@@ -139,15 +153,33 @@ class VideoCall extends Component {
     this.props.videoCallClose()
   }
 
+  /**
+   *  Event emitters for rejecting a video call.
+   *
+   *  @author Jimmy
+   */
+
   rejectCall () {
     this.props.state.signalRConnection.invoke('endVideoCall', this.props.callFrom)
     this.props.videoCallClose()
   }
 
+  /**
+   *  Accept to use camera during the call
+   *
+   *  @author Jimmy
+   */
+
   acceptWithVideo (video) {
     const config = { audio: true, video }
     return () => this.startCall(false, this.props.callFrom, config)
   }
+
+  /**
+   *  Toggle on/off for camera and microphone
+   *
+   *  @author Jimmy
+   */
 
   toggleMediaDevice (deviceType) {
     this.setState({

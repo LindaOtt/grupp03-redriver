@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 
 // Import NPM-modules
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
 
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
-import {settingsUserStyles} from '../../../styles/SettingsStyles'
+//import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
 /**

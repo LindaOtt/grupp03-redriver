@@ -9,8 +9,9 @@ import { CircularProgress } from 'material-ui/Progress'
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
 import '../../../styles/Styles.css'
 
+// Import components & utils
 import {uploadProfilePicture} from '../../../utils/ApiRequests'
-import profilePhoto from '../../../temp/user.jpg'
+import profilePhoto from '../../../img/user.jpg'
 
 /**
  *  Change Profile Picture-component.

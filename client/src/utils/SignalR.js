@@ -95,3 +95,10 @@ export const requestVideoCall = (connection, name) => {
 export const endVideoCall = (connection, name) => {
   return connection.invoke('endVideoCall', name)
 }
+
+export const closeSignalR = (connection) => {
+  return connection.stop()
+    .catch((err) => {
+      console.log(err)
+    })
+}

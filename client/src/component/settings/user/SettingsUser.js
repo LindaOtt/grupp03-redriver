@@ -7,12 +7,6 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Typography from 'material-ui/Typography'
-import Switch from 'material-ui/Switch'
-import List, {
-  ListItem,
-  ListItemSecondaryAction
-} from 'material-ui/List'
-import Divider from 'material-ui/Divider'
 
 // Import styles. settingsUserStyles for all imported components with a style attribute and CSS-file for classNames and id.
 import {settingsUserStyles} from '../../../styles/SettingsStyles'
@@ -63,10 +57,6 @@ class SettingsUser extends Component {
       this.setState({ [name]: event.target.checked })
     };
 
-    componentWillUnmount () {
-      sessionStorage.setItem('settingsPanel', JSON.stringify(this.state.expanded))
-    }
-
     componentWillUpdate () {
       if (this.state.expanded === JSON.parse(sessionStorage.getItem('settingsPanel'))) {
         return
@@ -76,6 +66,10 @@ class SettingsUser extends Component {
     componentWillMount () {
       this.setState({expanded: JSON.parse(sessionStorage.getItem('settingsPanel')) })
     }
+
+  componentWillUnmount () {
+    sessionStorage.setItem('settingsPanel', JSON.stringify(this.state.expanded))
+  }
 
     render () {
       const { expanded } = this.state
