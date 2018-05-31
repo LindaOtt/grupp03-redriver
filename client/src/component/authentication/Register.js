@@ -76,12 +76,19 @@ class Register extends Component {
           this.setState({navigate: true})
           return this.props.openSnackBar('Registreringen lyckades! För att kunna logga in måste du först verifiera din mailadress i det mail som har skickats till dig.')
         }).catch((err) => {
-          if (err.response.status === 400) {
+        console.log(err.response)
+          if (err.response.data.errors[0].code === 'DuplicateUserName') {
             return this.props.openSnackBar('Användarnamnet ' + this.state.userName + ' är redan registrerat!')
           }
-          if (err.response.status === 403) {
-            return this.props.openSnackBar('Lösenordet måste innehålla minst en versal och siffra, och vara minst 8 tecken långt!')
+          if (err.response.data.errors[0].code === 'PasswordTooShort') {
+            return this.props.openSnackBar('Det angivna lösenordet måste vara minst 8 tecken långt!')
           }
+        if (err.response.data.errors[0].code === 'PasswordRequiresDigit') {
+          return this.props.openSnackBar('Det angivna lösenordet måste innehålla minst en siffra!')
+        }
+        if (err.response.data.errors[0].code === 'PasswordRequiresUpper') {
+          return this.props.openSnackBar('Det angivna lösenordet måste innehålla minst en versal!')
+        }
           return this.props.openSnackBar('Något gick fel. Försök igen!')
         })
     }
