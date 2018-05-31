@@ -139,7 +139,6 @@ class ChatList extends Component {
    */
 
   createNewChat = () => {
-    console.log('Create chat init')
     this.setState({
       isLoaded: false,
       chatDialog: false,
@@ -148,8 +147,16 @@ class ChatList extends Component {
     let completedRequests = 0;
     let groupArray = this.state.selectedFriends
 
+    if (this.state.selectedFriends.length <= 0) {
+      this.setState({
+        chatName: '',
+        chatDialog: false,
+        isLoaded: true,
+      })
+      return
+    }
+
     if (!_.includes(groupArray, this.props.state.userInfo.username)) {
-      console.log('Add user')
       groupArray.push(this.props.state.userInfo.username)
     }
 
