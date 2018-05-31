@@ -179,14 +179,11 @@ class ChatList extends Component {
                 }
                 if (completedRequests === response.data.groupList.length) {
                   if (tempName === '') {
-                    console.log('Create new group')
                     createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
                       .then((response) => {
                         this.createNewChat()
                       })
                   } else {
-                    console.log('Group exists')
-                    console.log(this.state)
                     this.setState({
                       chatName: tempName,
                       chatDialog: true,
@@ -200,7 +197,6 @@ class ChatList extends Component {
           }
         }
       }).catch(() => {
-      console.log('Create chat error')
       this.setState({
         chatName: '',
         chatDialog: false,
@@ -437,6 +433,17 @@ class ChatList extends Component {
                         }, 200)
                       }
                   })
+                } else {
+                  setTimeout(() => {
+                    this.setState({
+                      groups: tempArray,
+                      isLoaded: true,
+                      selectedFriends: [],
+                      chatDialog: false,
+                      dialog: false,
+                      chatName: null
+                    })
+                  }, 200)
                 }
               })
           }
