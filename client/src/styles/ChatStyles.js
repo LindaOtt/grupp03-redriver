@@ -15,7 +15,8 @@ export const ChatListStyles = {
   title: {
     fontWeight: 'bold',
     fontSize: '22px',
-    paddingLeft: '5%'
+    margin: 'auto',
+    width: 100,
   },
   formControl: {
     root: {

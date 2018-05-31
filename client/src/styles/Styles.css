@@ -4,18 +4,23 @@ html, body {
     font-family: 'Nunito', sans-serif;
     width: 100%;
     max-height: 100%;
+    min-height: 100%;
+    height: 100%;
     background-color: #fcfcfc;
 }
 
 #root {
     width: 100%;
     max-height: 100%;
+    height: 100%;
+    min-height: 100%;
 }
 
 .App {
     text-align: center;
     width: 100%;
     height: 100%;
+    min-height: 100%;
 }
 
 .App header h2 {
@@ -37,8 +42,8 @@ html, body {
 .AppLoadingDiv {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    margin: auto;
+    margin-top: 100px;
 }
 
 .Register {
@@ -105,6 +110,7 @@ html, body {
     width: calc(100% - 300px);
     width: -moz-calc(100% - 300px);
     width: -webkit-calc(100% - 300px);
+    min-height: 300px;
 }
 
 .ChatList-Inner-Large-Content-Chat {
@@ -179,6 +185,7 @@ html, body {
     width: 100%;
     flex-grow: 1;
     max-height: 10%;
+    min-height: 40px;
     align-self: flex-end;
 }
 
