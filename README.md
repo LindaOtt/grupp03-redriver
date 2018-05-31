@@ -1,92 +1,32 @@
-# Red River
+# Red River Chat
 
-[Wiki](https://github.com/jimmybengtsson/grupp03-redriver/wiki) 
+This is a repo for RedRiver Chat, a chat app developed for RedRiver in a joint project with LNU.  
 
+![RRCScreenShot](https://github.com/jimmybengtsson/grupp03-redriver/blob/andrew/update/mddocs/documentation/img/wiki/RRCScreenshot.png)
 
-## Version control
+Documentation concerning the project and its resulting architecture can be found in this repo's [wiki.](https://github.com/jimmybengtsson/grupp03-redriver/wiki) 
 
-If you don't have the repository on your local machine:
-```
-$ git clone https://github.com/jimmybengtsson/grupp03-redriver.git
-```
+There are also installation instructions both for client and server; these are to be found in the respective readme.md files in the client and server folders.
 
-#### 1. Create issue. 
+## Developers
 
-Create an issue based on the requirement to implement. You can also add assignees, labels, projects and milestones. 
+**Andrew Galbraith**  
+Role: Customer contact and requirements manager, project manager during construction.  
+Email: ag222hu@student.lnu.se.  
+Github: andygalb.
 
-![Create issue](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/1-create-issue.png)
+**Jimmy Bengtsson**  
+Role: Technical manager, project manager during transition.  
+Email: jb223pu@student.lnu.se.  
+Github: jimmybengtsson.
 
-You can add the created issue to Project-page.
+**Linda Ott Olander**  
+Role: Customer contact and requirements manager, project manager during elaboration.  
+Email: lo222hd@student.lnu.se.  
+Github: LindaOtt.
 
-![Add issue to project page](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/2-add-issue-to-project-page.gif)
+**Sofia Kristiansen**  
+Role: Test manager, project manager during inception.  
+Email: sk222uf@student.lnu.se.  
+Github: ProfessorPotatis.
 
-#### 2. Create new branch
-
-Before creating a new branch, pull the changes from upstream to your local master-branch. Your local master needs to be up to date.
-```
-$ git pull origin master
-```
-
-Create a branch on your local machine,  named after the new issue, and switch to this branch :
-```
-$ git checkout -b [name_of_your_new_branch]
-```
-
-Push the branch to github :
-```
-$ git push origin [name_of_your_new_branch]
-```
-
-You can change working branch by:
-```
-$ git checkout [name_of_branch]
-```
-
-#### 3. Commit and Push
-
-Once your branch has been created, it's time to start making changes. Whenever you add, edit, or delete a file, you're making a commit, and adding them to your branch. This process of adding commits keeps track of your progress as you work on a feature branch.
-
-When you want to commit something, make sure to be in the correct branch. Not in master-branch! You can see all branches by using :
-```
-$ git branch
-```
-Add to Git and Commit as normal but use this command when pushing to Github:
-```
-$ git push origin [name_of_your_branch]
-```
-
-#### 4. Pull request
-
-When you’re finished implementing your branch, create a pull request in repository on Github.
-
-![Pull request gif](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/3-pull-request.gif)
-
-You can add the keyword `Fixes` and number of the issue to automatically close the issue after merge.
-
-![Pull request](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/4-pull-request.png)
-
-After the branch has been reviewed and everything seems ok, you can merge your created branch with the master branch.
-
-![Merge](https://github.com/jimmybengtsson/grupp03-redriver/blob/master/documentation/img/version-control/5-merge-branches.gif)
-
-#### 5. Delete branch
-
-If you want to delete the branch after merge, make sure to do it both on your local machine and on Github.
-
-Local machine:
-```
-$ git branch -d [name_of_branch]
-```
-
-Github:
-```
-$ git push origin :[name_of_branch]
-```
-
-
-#### 6. Read more about:
-
-[Github flow](https://guides.github.com/introduction/flow/)  
-[Create and delete branches](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches)  
-[Pull request](https://help.github.com/articles/about-pull-requests/)  
-[Merge](https://help.github.com/articles/merging-a-pull-request/)  
