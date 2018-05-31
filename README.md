@@ -1,6 +1,8 @@
-# Red River
+# Red River Chat
 
-This is a repo for RedRiver Chat, a chat app developed for RedRiver in a joint project with LNU.    
+This is a repo for RedRiver Chat, a chat app developed for RedRiver in a joint project with LNU.  
+
+[!RRCScreenShot](https://github.com/jimmybengtsson/grupp03-redriver/blob/andrew/update/mddocs/documentation/img/wiki/RRCScreenshot.png)
 
 Documentation concerning the project and its resulting architecture can be found in this repo's [wiki.](https://github.com/jimmybengtsson/grupp03-redriver/wiki) 
 
