@@ -139,7 +139,6 @@ class ChatList extends Component {
    */
 
   createNewChat = () => {
-    console.log('Create chat init')
     this.setState({
       isLoaded: false,
       chatDialog: false,
@@ -148,8 +147,16 @@ class ChatList extends Component {
     let completedRequests = 0;
     let groupArray = this.state.selectedFriends
 
+    if (this.state.selectedFriends.length <= 0) {
+      this.setState({
+        chatName: '',
+        chatDialog: false,
+        isLoaded: true,
+      })
+      return
+    }
+
     if (!_.includes(groupArray, this.props.state.userInfo.username)) {
-      console.log('Add user')
       groupArray.push(this.props.state.userInfo.username)
     }
 
@@ -172,14 +179,11 @@ class ChatList extends Component {
                 }
                 if (completedRequests === response.data.groupList.length) {
                   if (tempName === '') {
-                    console.log('Create new group')
                     createChatGroupWithUsers(this.props.state.signalRConnection, groupArray)
                       .then((response) => {
                         this.createNewChat()
                       })
                   } else {
-                    console.log('Group exists')
-                    console.log(this.state)
                     this.setState({
                       chatName: tempName,
                       chatDialog: true,
@@ -193,7 +197,6 @@ class ChatList extends Component {
           }
         }
       }).catch(() => {
-      console.log('Create chat error')
       this.setState({
         chatName: '',
         chatDialog: false,
@@ -430,6 +433,17 @@ class ChatList extends Component {
                         }, 200)
                       }
                   })
+                } else {
+                  setTimeout(() => {
+                    this.setState({
+                      groups: tempArray,
+                      isLoaded: true,
+                      selectedFriends: [],
+                      chatDialog: false,
+                      dialog: false,
+                      chatName: null
+                    })
+                  }, 200)
                 }
               })
           }
